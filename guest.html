@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+/* Base responsive setup */
+body {
+    background-color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Form container - fully responsive */
+#guestForm {
+    border: none;
+    background: transparent;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 2px black;
+    text-align: center;
+    animation: slideInLeft 3s ease-in forwards;
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.fade-Out {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+/* Responsive typography */
+.label {
+    color: white;
+    font-size: 20px;
+    font-weight: bolder;
+    padding: 3%;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+/* Responsive input */
+#username {
+    margin-top: 20%;
+    padding: 12px;
+    background: transparent;
+    width: 100%;
+    max-width: 250px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    box-sizing: border-box;
+    display: block;
+    margin: 0 auto 2rem auto;
+}
+
+/* Responsive button */
+.button {
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10rem;
+    width: 100%;
+    max-width: 200px;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 2rem auto 0 auto;
+}
+
+.button:hover {
+    background-color: white;
+    color: black;
+}
+
+/* Responsive image */
+.guest-image {
+    position: relative;
+    opacity: 0.8;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Responsive text */
+#logging-in {
+    color: white;
+    font-size: 16px;
+    margin-top: 1rem;
+    display: block;
+}
+
+/* Animation */
+@keyframes slideInleft {
+    0% {
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Mobile devices (portrait) */
+@media screen and (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    
+    #guestForm {
+        padding: 1.5rem;
+        max-width: 320px;
+    }
+    
+    .label {
+        font-size: 18px;
+        padding: 2%;
+    }
+    
+    #username {
+        margin-top: 15%;
+        padding: 10px;
+        font-size: 15px;
+        max-width: 220px;
+    }
+    
+    .button {
+        margin-top: 1.5rem;
+        padding: 10px 20px;
+        font-size: 15px;
+        max-width: 180px;
+    }
+}
+
+/* Tablet devices */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    #guestForm {
+        padding: 1.8rem;
+        max-width: 360px;
+    }
+    
+    #username {
+        margin-top: 18%;
+        max-width: 230px;
+    }
+    
+    .button {
+        margin-top: 1.8rem;
+        max-width: 190px;
+    }
+}
+
+/* Desktop */
+@media screen and (min-width: 769px) and (max-width: 1200px) {
+    #guestForm {
+        padding: 2rem;
+        max-width: 380px;
+    }
+    
+    #username {
+        max-width: 240px;
+    }
+    
+    .button {
+        max-width: 200px;
+    }
+}
+
+/* Large desktop */
+@media screen and (min-width: 1201px) {
+    #guestForm {
+        max-width: 420px;
+        padding: 2.5rem;
+    }
+    
+    #username {
+        max-width: 260px;
+    }
+    
+    .button {
+        max-width: 220px;
+    }
+}
+
+/* Small mobile devices */
+@media screen and (max-width: 360px) {
+    #guestForm {
+        padding: 1rem;
+        max-width: 280px;
+    }
+    
+    .label {
+        font-size: 16px;
+    }
+    
+    #username {
+        margin-top: 12%;
+        padding: 8px;
+        font-size: 14px;
+        max-width: 200px;
+    }
+    
+    .button {
+        padding: 8px 16px;
+        font-size: 14px;
+        max-width: 160px;
+    }
+}
+
+/* Landscape mode */
+@media screen and (max-height: 600px) and (orientation: landscape) {
+    body {
+        padding: 10px;
+        align-items: flex-start;
+    }
+    
+    #guestForm {
+        margin-top: 20px;
+        padding: 1rem;
+    }
+    
+    #username {
+        margin-top: 10%;
+    }
+    
+    .button {
+        margin-top: 1rem;
+    }
+}
+
+/* Prevent overflow */
+* {
+    box-sizing: border-box;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Ensure form elements don't overflow */
+input, button {
+    max-width: 100%;
+}
+
+    </style>
+    
+</head>
+<body data-aos="fade-up">
+    <div class="guestForm">
+      <div class="form-content">
+      <img class="guest-image" src="./images/voux_main_logo_5-removebg-preview.png" alt="">
+      <form id="guestForm">
+        <label class="label" for="username">Welcome User! Please enter your username  :</label><br>
+        <input type="text" id="username" required><br>
+        <button class="button">Continue</button>
+        <p id="logging-in"></p>
+      </form>
+      <div></div>
+    </div>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+ document.addEventListener("DOMContentLoaded",function(){
+AOS.init({
+    once:false,
+    duration:1000,
+    delay:0,
+  });
+}
+
+) 
+</script>
+    <script src="script.js"></script>
+</body>
+</html>

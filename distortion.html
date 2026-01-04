@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DISTORTION | Reality-Bending Fashion</title>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <script src="https://unpkg.com/phosphor-icons"></script>
+  <link rel="stylesheet" href="./index.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
+    /* === DISTORTION COLOR SYSTEM === */
+    :root {
+      --neon-pink: #ff00c8;
+      --void-black: #000000;
+      --static-white: #ffffff;
+      --pink-energy: #ff40d4;
+      --pink-glow: #ff00c880;
+      --pink-pulse: #ff00c840;
+      --reality-stable: rgba(255, 0, 200, 0.1);
+      --reality-corrupted: rgba(255, 0, 200, 0.3);
+      --reality-broken: rgba(255, 0, 200, 0.6);
+      --neon-glow: 0 0 20px var(--neon-pink);
+      --energy-shadow: 0 0 40px var(--pink-glow);
+    }
+
+    @keyframes glitch {
+      0% {
+        text-shadow: 2px 0 #ff00c8, -2px 0 #ff00c8;
+      }
+
+      20% {
+        text-shadow: -2px 0 #ff00c8, 2px 0 #ff00c8;
+      }
+
+      40% {
+        text-shadow: 2px 2px #ff00c8, -2px -2px #ff00c8;
+      }
+
+      60% {
+        text-shadow: -2px 2px #ff00c8, 2px -2px #ff00c8;
+      }
+
+      80% {
+        text-shadow: 2px -2px #ff00c8, -2px 2px #ff00c8;
+      }
+
+      100% {
+        text-shadow: 2px 0 #ff00c8, -2px 0 #ff00c8;
+      }
+    }
+
+    @keyframes glitchTop {
+      0% {
+        clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+        transform: translate(0);
+      }
+
+      20% {
+        clip-path: polygon(0 0, 100% 0, 100% 20%, 0 20%);
+        transform: translate(-2px, -2px);
+      }
+
+      40% {
+        clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+        transform: translate(2px, 2px);
+      }
+
+      60% {
+        clip-path: polygon(0 0, 100% 0, 100% 25%, 0 25%);
+        transform: translate(-2px, 2px);
+      }
+
+      80% {
+        clip-path: polygon(0 0, 100% 0, 100% 20%, 0 20%);
+        transform: translate(2px, -2px);
+      }
+
+      100% {
+        clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+        transform: translate(0);
+      }
+    }
+
+    @keyframes glitchBottom {
+      0% {
+        clip-path: polygon(0 66%, 100% 66%, 100% 100%, 0 100%);
+        transform: translate(0);
+      }
+
+      20% {
+        clip-path: polygon(0 75%, 100% 75%, 100% 100%, 0 100%);
+        transform: translate(2px, 2px);
+      }
+
+      40% {
+        clip-path: polygon(0 66%, 100% 66%, 100% 100%, 0 100%);
+        transform: translate(-2px, -2px);
+      }
+
+      60% {
+        clip-path: polygon(0 70%, 100% 70%, 100% 100%, 0 100%);
+        transform: translate(2px, -2px);
+      }
+
+      80% {
+        clip-path: polygon(0 75%, 100% 75%, 100% 100%, 0 100%);
+        transform: translate(-2px, 2px);
+      }
+
+      100% {
+        clip-path: polygon(0 66%, 100% 66%, 100% 100%, 0 100%);
+        transform: translate(0);
+      }
+    }
+
+    @keyframes glitch-border {
+      0% {
+        clip-path: polygon(0 2%, 100% 2%, 100% 4%, 0 4%);
+        transform: translate(0);
+      }
+
+      25% {
+        clip-path: polygon(0 2%, 100% 2%, 100% 10%, 0 10%);
+        transform: translate(2px, -2px);
+      }
+
+      50% {
+        clip-path: polygon(0 0, 100% 0, 100% 2%, 0 2%);
+        transform: translate(-2px, 2px);
+      }
+
+      75% {
+        clip-path: polygon(0 2%, 100% 2%, 100% 8%, 0 8%);
+        transform: translate(2px, 2px);
+      }
+
+      100% {
+        clip-path: polygon(0 2%, 100% 2%, 100% 4%, 0 4%);
+        transform: translate(0);
+      }
+    }
+
+    @keyframes glitchImg {
+      0% {
+        clip-path: inset(0 0 0 0);
+        transform: translate(0);
+      }
+
+      20% {
+        clip-path: inset(10% 0 5% 0);
+        transform: translate(-5px, 3px);
+      }
+
+      40% {
+        clip-path: inset(5% 0 10% 0);
+        transform: translate(5px, -3px);
+      }
+
+      60% {
+        clip-path: inset(15% 0 5% 0);
+        transform: translate(-5px, 3px);
+      }
+
+      80% {
+        clip-path: inset(5% 0 15% 0);
+        transform: translate(5px, -3px);
+      }
+
+      100% {
+        clip-path: inset(0 0 0 0);
+        transform: translate(0);
+      }
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--void-black);
+      font-family: 'Orbitron', sans-serif;
+      color: #ff00c8;
+      overflow-x: hidden;
+    }
+
+    /* === EXTRACTED HAMBURGER MENU FROM distortionshopping.html === */
+    /* === NAVIGATION === */
+    .distortion-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 2px solid var(--neon-pink);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      z-index: 1000;
+      box-shadow: var(--neon-glow);
+    }
+
+    .dst-logo {
+      margin-left: 0;
+    }
+
+    .nav-logo {
+      font-size: 1.5rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: var(--neon-pink);
+      text-shadow: var(--neon-glow);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-link {
+      color: var(--static-white);
+      text-decoration: none;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      border: 1px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link a {
+      color: var(--static-white);
+      text-decoration: none;
+      display: block;
+    }
+
+    .nav-link:hover {
+      border: 1px solid var(--neon-pink);
+      box-shadow: var(--neon-glow);
+    }
+
+    /* === HAMBURGER MENU - EXTRACTED FROM distortionshopping.html === */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 28px;
+      height: 22px;
+      cursor: pointer;
+      z-index: 1100;
+      background: transparent;
+      border: none;
+      padding: 0;
+    }
+
+    .hamburger span {
+      height: 3px;
+      width: 100%;
+      background: var(--neon-pink);
+      border-radius: 3px;
+      transition: all 0.4s ease;
+      display: block;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* === RESPONSIVE DESIGN - PERFECT ACROSS ALL SCREENS === */
+    /* Tablet: 768px - 1024px */
+    @media screen and (max-width: 1024px) {
+      .distortion-nav {
+        padding: 1rem;
+      }
+
+      .nav-links {
+        gap: 1.5rem;
+      }
+
+      .nav-link {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+      }
+    }
+
+    /* Mobile: Up to 900px - HAMBURGER MENU ACTIVATES */
+    @media screen and (max-width: 900px) {
+      .hamburger {
+        display: flex;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        right: 1rem;
+        background: rgba(0, 0, 0, 0.98);
+        backdrop-filter: blur(25px);
+        display: flex !important;
+        flex-direction: column;
+        width: 280px;
+        padding: 2rem;
+        gap: 1.8rem;
+        border-radius: 12px;
+        border: 2px solid var(--neon-pink);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(-10px);
+        transition: all 0.4s ease;
+        z-index: 1000;
+        box-shadow: 0 0 30px rgba(255, 0, 200, 0.3);
+      }
+
+      .nav-links.open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+
+      .nav-link {
+        width: 100%;
+        text-align: center;
+        padding: 1rem;
+        font-size: 1rem;
+      }
+
+      .distortion-nav {
+        justify-content: space-between;
+        padding: 1rem;
+      }
+
+      .dst-logo img {
+        width: 80px;
+      }
+    }
+
+    /* Small Mobile: Up to 480px */
+    @media screen and (max-width: 480px) {
+      .nav-links {
+        width: 90%;
+        right: 5%;
+        padding: 1.5rem;
+      }
+
+      .dst-logo img {
+        width: 70px;
+      }
+
+      .hamburger {
+        width: 24px;
+        height: 18px;
+      }
+    }
+
+    /* === EXISTING STYLES ENHANCED FOR RESPONSIVENESS === */
+    .distortion-hero {
+      position: relative;
+      height: 100vh;
+      background: #000;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 2rem;
+      margin-top: 70px;
+    }
+
+    /* Hero glitch text scaling */
+    .glitch-text {
+      position: relative;
+      font-size: clamp(3rem, 8vw, 8rem);
+      font-weight: 700;
+      color: #ff00c8;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      animation: glitch 2s infinite;
+    }
+
+    .glitch-text::before,
+    .glitch-text::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      color: #ff00c8;
+      clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+    }
+
+    .glitch-text::before {
+      animation: glitchTop 2s infinite;
+      top: -2px;
+      left: 2px;
+      color: #ff00c8;
+      opacity: 0.8;
+    }
+
+    .glitch-text::after {
+      animation: glitchBottom 2s infinite;
+      top: 2px;
+      left: -2px;
+      color: #ff00c8;
+      opacity: 0.8;
+    }
+
+    .hero-tagline {
+      font-size: clamp(1.2rem, 2vw, 1.8rem);
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      margin-top: 1.5rem;
+      color: #ff00c8;
+      text-transform: uppercase;
+      text-shadow: 0 0 8px #ff00c8;
+    }
+
+    .distortion-manifesto {
+      background: linear-gradient(135deg, #000000 0%, #1a001a 100%);
+      color: #ff0080;
+      padding: clamp(2rem, 5vw, 6rem) 2rem;
+      text-align: center;
+      font-family: 'Orbitron', sans-serif;
+      max-width: 900px;
+      margin: 0 auto 6rem;
+      border: 3px solid #ff0080;
+      border-radius: 12px;
+      box-shadow: 0 0 40px #ff0080;
+    }
+
+    .distortion-manifesto h2 {
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px #ff0080;
+    }
+
+    .distortion-manifesto p {
+      font-size: clamp(1rem, 2vw, 1.6rem);
+      line-height: 1.7;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #ff3399;
+    }
+
+    .distortion-visual-chaos {
+      background: #0a0010;
+      color: #ff00c8;
+      padding: clamp(2rem, 5vw, 6rem) 2rem;
+      font-family: 'Orbitron', sans-serif;
+      max-width: 1200px;
+      margin: 0 auto 6rem;
+      text-align: center;
+      border-radius: 14px;
+      box-shadow: 0 0 60px #ff00c8;
+    }
+
+    .distortion-visual-chaos h2 {
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 900;
+      margin-bottom: 2rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-shadow: 0 0 15px #ff00c8;
+    }
+
+    .distortion-visual-chaos p {
+      font-size: clamp(1rem, 2vw, 1.6rem);
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+      font-weight: 700;
+      color: #ff66cc;
+      max-width: 850px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .chaos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .chaos-item {
+      position: relative;
+      width: 100%;
+      height: 320px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 16px;
+      box-shadow: 0 0 30px #ff00c8;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.35s ease;
+    }
+
+    .chaos-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 60px #ff33cc;
+    }
+
+    /* Glitch effect for images */
+    .glitch {
+      animation: glitchImg 2.5s infinite;
+      position: relative;
+    }
+
+    .distortion-attitude {
+      background: linear-gradient(135deg, #1a001a 0%, #000000 100%);
+      color: #ff33bb;
+      padding: clamp(2rem, 5vw, 7rem) 2rem;
+      max-width: 900px;
+      margin: 0 auto 6rem;
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      border: 4px solid #ff33bb;
+      border-radius: 14px;
+      box-shadow: 0 0 60px #ff33bb;
+    }
+
+    .distortion-attitude h2 {
+      font-size: clamp(2rem, 5vw, 4.2rem);
+      font-weight: 900;
+      margin-bottom: 3rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-shadow: 0 0 20px #ff33bb;
+    }
+
+    .distortion-attitude h3 {
+      font-size: clamp(1.5rem, 4vw, 2.8rem);
+      font-weight: 800;
+      margin: 2.5rem 0 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #ff66cc;
+      text-shadow: 0 0 10px #ff66cc;
+    }
+
+    .distortion-attitude p {
+      font-size: clamp(1rem, 2vw, 1.7rem);
+      line-height: 1.7;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      color: #ff66cc;
+    }
+
+    .distortion-attitude ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 auto 3rem;
+      max-width: 600px;
+      text-align: left;
+    }
+
+    .distortion-attitude ul li {
+      font-size: clamp(0.9rem, 1.8vw, 1.5rem);
+      margin-bottom: 1.3rem;
+      font-weight: 800;
+      position: relative;
+      padding-left: 2.5rem;
+      color: #ff99dd;
+    }
+
+    .distortion-attitude ul li::before {
+      content: "⚡";
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 1.8rem;
+      color: #ff33bb;
+    }
+
+    .distortion-craft {
+      max-width: 1200px;
+      margin: 0 auto 6rem;
+      padding: 4rem 2rem;
+      font-family: 'Orbitron', sans-serif;
+      color: #ff00cc;
+    }
+
+    .distortion-craft .container {
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+    }
+
+    /* Each craft item: flex container to align image and text */
+    .distortion-craft .craft-item {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    /* Image styling */
+    .distortion-craft .craft-item img {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 16px;
+      box-shadow: 0 0 40px #ff00cc;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    /* Text block styling */
+    .distortion-craft .craft-text {
+      flex: 1;
+    }
+
+    .distortion-craft .craft-text h2 {
+      font-size: clamp(1.8rem, 4vw, 3.2rem);
+      font-weight: 900;
+      margin-bottom: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px #ff00cc;
+    }
+
+    .distortion-craft .craft-text p {
+      font-size: clamp(1rem, 2vw, 1.6rem);
+      line-height: 1.6;
+      font-weight: 700;
+      color: #ff66cc;
+    }
+
+    /* Alternate layout: odd items image left, text right */
+    .distortion-craft .craft-item:nth-child(odd) {
+      flex-direction: row;
+    }
+
+    /* Even items: image right, text left */
+    .distortion-craft .craft-item:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+
+    .distortion-behind-noise {
+      background: #100010;
+      color: #ff3399;
+      padding: clamp(2rem, 5vw, 6rem) 2rem;
+      font-family: 'Orbitron', sans-serif;
+      max-width: 900px;
+      margin: 0 auto 6rem;
+      border-left: 6px solid #ff00cc;
+      box-shadow: 0 0 40px #ff33cc;
+      text-align: center;
+      border-radius: 14px;
+    }
+
+    .distortion-behind-noise h2 {
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      font-weight: 900;
+      margin-bottom: 2.5rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px #ff33cc;
+    }
+
+    .distortion-behind-noise p {
+      font-size: clamp(1rem, 2vw, 1.6rem);
+      font-weight: 700;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      color: #ff66cc;
+    }
+
+    .distortion-cta {
+      background: #000000;
+      padding: clamp(2rem, 5vw, 5rem) 2rem;
+      text-align: center;
+      box-shadow: 0 0 80px #ff33cc;
+      border-radius: 16px;
+      max-width: 600px;
+      margin: 0 auto 6rem;
+    }
+
+    .btn-distortion {
+      display: inline-block;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: clamp(0.8rem, 2vw, 1rem);
+      color: #ff00cc;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      padding: clamp(0.8rem, 2vw, 1.2rem) clamp(2rem, 4vw, 3.5rem);
+      border: 3px solid #ff00cc;
+      border-radius: 12px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: color 0.3s ease, box-shadow 0.3s ease;
+      text-shadow: 0 0 10px #ff00cc;
+      text-decoration: none;
+    }
+
+    .btn-distortion::before,
+    .btn-distortion::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      border-radius: 12px;
+    }
+
+    .btn-distortion::before {
+      border: 2px solid #ff00cc;
+      animation: glitch-border 2s infinite;
+      mix-blend-mode: screen;
+    }
+
+    .btn-distortion::after {
+      border: 2px solid #ff66cc;
+      animation: glitch-border 2s infinite alternate;
+      mix-blend-mode: screen;
+      animation-delay: 1s;
+    }
+
+    .btn-distortion:hover {
+      color: #fff;
+      box-shadow: 0 0 25px #ff33cc, 0 0 45px #ff00cc;
+      background: #ff00cc;
+    }
+
+    .discover-more {
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 5px;
+    }
+
+    .discover-btn {
+      display: inline-block;
+      padding: 14px 40px;
+      border: 2px solid #000;
+      color: #000;
+      text-decoration: none;
+      font-size: 16px;
+      letter-spacing: 2px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .discover-btn:hover {
+      background: #ff00cc;
+      color: #fff;
+    }
+
+    /* Mobile-specific adjustments */
+    @media screen and (max-width: 768px) {
+      .distortion-craft .craft-item {
+        flex-direction: column !important;
+        text-align: center;
+        gap: 2rem;
+      }
+
+      .distortion-craft .craft-text {
+        flex: unset;
+        margin-top: 1rem;
+      }
+
+      .distortion-craft .craft-item img {
+        max-width: 100%;
+      }
+
+      .glitch-text::before,
+      .glitch-text::after {
+        clip-path: polygon(0 0, 100% 0, 100% 30%, 0 30%);
+      }
+    }
+
+    /* Extra small screens */
+    @media screen and (max-width: 480px) {
+      .glitch-text {
+        font-size: clamp(2rem, 10vw, 5rem);
+      }
+
+      .hero-tagline {
+        font-size: clamp(1rem, 4vw, 1.4rem);
+      }
+
+      .distortion-attitude ul li {
+        padding-left: 2rem;
+        font-size: 0.9rem;
+      }
+
+      .distortion-attitude ul li::before {
+        font-size: 1.4rem;
+      }
+
+      .btn-distortion {
+        padding: 0.8rem 2rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    function goBack() {
+      if (document.referrer) {
+        window.history.back();
+      } else {
+        window.location.href = "/";
+      }
+    }
+
+    function scrollToSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({
+          behavior: 'smooth'
+        });
+        // Close mobile menu if open
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        if (hamburger && navLinks) {
+          hamburger.classList.remove('active');
+          navLinks.classList.remove('open');
+        }
+      }
+    }
+  </script>
+
+  <header>
+    <!-- === INTEGRATED HAMBURGER MENU FROM distortionshopping.html === -->
+    <nav class="distortion-nav nav-container">
+      <div class="dst-logo" data-aos="zoom-in">
+        <img src="./images/distortion official logo.png" width="100px" alt="DISTORTION Logo">
+      </div>
+      <div class="nav-links" id="navbar">
+        <div class="nav-link"><a href="entry.html">Home</a></div>
+        <div class="nav-link"><a href="Distortionshopping.html">Shop</a></div>
+        <div class="nav-link" onclick="scrollToSection('distortion-attitude')">Signature</div>
+        <div class="nav-link" onclick="scrollToSection('distortion-behind-noise')">Behind The Noise</div>
+      </div>
+      <button class="hamburger" aria-label="Toggle Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="distortion-hero" data-aos="fade-up" data-aos-duration="1200">
+      <div class="hero-content">
+        <h1 class="glitch-text" data-text="DISTORTION" data-aos="zoom-out">DISTORTION</h1>
+        <p class="hero-tagline" data-aos="fade-up" data-aos-delay="300">Break every rule. Own your chaos.</p>
+      </div>
+    </section>
+
+    <section class="distortion-manifesto" data-aos="fade-right">
+      <div class="container">
+        <h2 data-aos="flip-left">We Don't Care</h2>
+        <p data-aos="fade-up">
+          Distortion is chaos made wearable. We bend every rule, shatter every expectation, and laugh at convention.
+          Fashion isn't about fitting in — it's about standing out, loud and proud, in neon pink and black.
+          This is the brand for the fearless, the restless, the ones who refuse to be tamed.
+        </p>
+      </div>
+    </section>
+
+    <section class="distortion-visual-chaos" data-aos="zoom-in-up">
+      <div class="container">
+        <h2 data-aos="fade-up">Visual Chaos</h2>
+        <p data-aos="fade-right">
+          Dive headfirst into the madness. Distortion's visuals don't just break the mold — they shatter it.
+          Expect explosive flashes of neon pink and deep black, warped glitch patterns, and images that pulse with raw
+          energy.
+          This isn't fashion for the faint of heart. It's a visual assault, a rebellion encoded in every pixel.
+        </p>
+        <div class="chaos-grid">
+          <div class="chaos-item glitch" style="background-image: url('./images/distortion image 11.png')"
+            data-aos="zoom-in"></div>
+          <div class="chaos-item glitch" style="background-image: url('./images/distortion image 12.png')"
+            data-aos="fade-left"></div>
+          <div class="chaos-item glitch" style="background-image: url('./images/distortion image 13.png')"
+            data-aos="fade-right"></div>
+          <div class="chaos-item glitch" style="background-image: url('./images/distortion image 14.png')"
+            data-aos="flip-up"></div>
+          <div class="chaos-item glitch" style="background-image: url('./images/distortion image 15.png')"
+            data-aos="zoom-in"></div>
+          <div class="chaos-item glitch" style="background-image: url('./images/distortion image 19.png')"
+            data-aos="fade-up"></div>
+          <div class="chaos-item glitch" style="background-image: url('./images/distortion image 17.png')"
+            data-aos="flip-down"></div>
+          <div class="chaos-item glitch" style="background-image: url('./images/distortion image 18.png')"
+            data-aos="fade-up-left"></div>
+        </div>
+        <p data-aos="fade-up">
+          Every image is a statement — a pixelated scream against conformity. Each glitch effect warps reality, just
+          like Distortion bends the rules of fashion.
+          Wear it loud. Wear it proud. Own your chaos.
+        </p>
+      </div>
+    </section>
+
+    <section class="distortion-attitude" id="distortion-attitude" data-aos="fade-left">
+      <div class="container">
+        <h2 data-aos="flip-right">Signature Attitude</h2>
+        <p data-aos="fade-up">
+          Wearing Distortion means stepping into a world where limits don't exist.
+          It's not just fashion — it's a lifestyle of fearless self-expression, of bold choices that refuse to be boxed
+          in or tamed.
+        </p>
+        <p data-aos="fade-up" data-aos-delay="200">
+          It's for the ones who challenge every expectation, who thrive in chaos, who make noise in a world of silence.
+          This attitude is raw, unapologetic, and loud — wearing Distortion is declaring, "I don't follow trends, I set
+          them."
+        </p>
+        <h3 data-aos="zoom-in">The Distortion Mindset:</h3>
+        <ul>
+          <li data-aos="fade-right"><strong>Rebel Without Apology:</strong> Break the rules, then rewrite them.</li>
+          <li data-aos="fade-left"><strong>Fearless Expression:</strong> Own your look, your voice, your chaos.</li>
+          <li data-aos="fade-right"><strong>Bold, Not Subtle:</strong> Make a statement that can't be ignored.</li>
+          <li data-aos="fade-left"><strong>Unfiltered Reality:</strong> Perfectly imperfect, raw and real.</li>
+          <li data-aos="zoom-in-up"><strong>Electric Energy:</strong> Pulsing with the power to disrupt and dazzle.</li>
+        </ul>
+        <p data-aos="fade-up">
+          Distortion isn't just clothes. It's a movement — a declaration that fashion is for those who dare to live
+          outside the lines.
+          If you want to fit in, look elsewhere. Here, we bend, break, and explode the rules.
+        </p>
+        <p data-aos="fade-up" data-aos-delay="150">
+          Step into the chaos. Wear the noise. Own the night.
+        </p>
+      </div>
+    </section>
+
+    <section class="distortion-craft" data-aos="zoom-in">
+      <div class="container">
+        <div class="craft-item" data-aos="fade-right">
+          <img src="./images/distortion image 1.png" alt="Innovative Materials">
+          <div class="craft-text" data-aos="fade-up">
+            <h2>Innovative Materials</h2>
+            <p>We source cutting-edge fabrics that stretch, breathe, and move with you — perfect for the restless and
+              fearless.
+              These materials blend street-smart durability with high-tech performance.</p>
+          </div>
+        </div>
+        <div class="craft-item" data-aos="fade-left">
+          <img src="./images/distortion image 2.png" alt="Precision Tailoring">
+          <div class="craft-text" data-aos="fade-up">
+            <h2>Precision Tailoring</h2>
+            <p>
+              Our artisans mix traditional tailoring with futuristic techniques, creating garments that defy
+              expectations and last beyond trends.
+              Every stitch is intentional — a mark of quality and rebellion.
+            </p>
+          </div>
+        </div>
+        <div class="craft-item" data-aos="fade-right">
+          <img src="./images/distortion image 3.png" alt="Wearable Art">
+          <div class="craft-text" data-aos="fade-up">
+            <h2>Wearable Art</h2>
+            <p>
+              The craft of Distortion is where chaos meets control — raw energy transformed into wearable art.
+              Quality that screams defiance and style that demands attention.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="distortion-behind-noise" id="distortion-behind-noise" data-aos="fade-up">
+      <div class="container">
+        <h2 data-aos="flip-up">Behind the Noise</h2>
+        <p data-aos="fade-right">
+          Distortion draws power from the streets, from the pulse of underground music, neon-lit nights, and digital
+          rebellion.
+          It's inspired by glitch art, urban chaos, and the fearless souls who dance through the static and noise.
+          Here, fashion is more than clothing — it's a soundtrack, a movement, a loud beat that won't be silenced.
+        </p>
+        <p data-aos="fade-left">
+          Our designs echo the fractured signals of a world overloaded with information — the static, the glitches, the
+          raw energy.
+          We celebrate imperfection, the unexpected, the bold contrasts of black and neon pink that flash like a warning
+          and a promise.
+        </p>
+        <p data-aos="zoom-in-up">
+          Behind every stitch and every pixel is a tribute to those who break the rules, challenge the system, and
+          create their own path.
+          This is fashion for the disruptors, the creators, the rebels who live in the chaos and thrive on the noise.
+        </p>
+      </div>
+    </section>
+
+    <section class="distortion-cta" data-aos="zoom-out">
+      <div class="container">
+        <a href="/Distortionshopping.html" class="btn-distortion" data-aos="fade-up">Shop the Distortion Collection</a>
+      </div>
+    </section>
+  </main>
+</body>
+
+</html>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    AOS.init({
+      once: false,
+      duration: 1000,
+      delay: 500,
+    });
+
+    // === INTEGRATED HAMBURGER TOGGLE FROM distortionshopping.html ===
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (hamburger && navLinks) {
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('open');
+      });
+
+      // Close menu when clicking on links
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+          hamburger.classList.remove('active');
+          navLinks.classList.remove('open');
+        });
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+          hamburger.classList.remove('active');
+          navLinks.classList.remove('open');
+        }
+      });
+    }
+  });
+</script>

@@ -1,0 +1,3131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blackline Empire | Architectural Fashion</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ---------- ROOT ---------- */
+    :root {
+      --bg: #000000;
+      --card-bg: #111111;
+      --accent: #ffffff;
+      --muted: #bdbdbd;
+      --hover-glow: rgba(255, 255, 255, 0.1);
+      --gold: #d4af37;
+      --neon-glow: #00ffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--accent);
+      font-family: "Inter", sans-serif;
+      line-height: 1.4;
+      position: relative;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .back-vid {
+      position: absolute;
+      width: 100%;
+      height: 100vh;
+
+    }
+
+    /* 🛒 Cart Popup Styles */
+    .cart-popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(3px);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .cart-popup-content {
+      background: rgba(10, 10, 10, 0.9);
+      backdrop-filter: blur(20px);
+      color: #00ffff;
+      width: 450px;
+      max-height: 80vh;
+      overflow-y: auto;
+      border-radius: 20px;
+      padding: 30px;
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 255, 255, 0.1);
+    }
+
+    .cart-popup-content h2 {
+      margin-top: 0;
+      border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+      padding-bottom: 15px;
+      font-family: 'Arial Black', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-align: center;
+    }
+
+    .close-cart {
+      float: right;
+      cursor: pointer;
+      font-size: 24px;
+      color: #ccc;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+      border-bottom: 1px solid #333;
+      padding-bottom: 10px;
+    }
+
+    .cart-item img {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      margin-right: 15px;
+    }
+
+    .cart-item h4 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .cart-item p {
+      margin: 3px 0;
+      color: #aaa;
+    }
+
+    .remove-btn {
+      background: none;
+      border: none;
+      color: #f44;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      background: #ffb400;
+      color: #111;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .checkout-btn:hover {
+      background: #ffd45a;
+    }
+
+
+    /* ---------- NAVIGATION ---------- */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 0.2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      background: transparent;
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .logo {
+      font-family: "Playfair Display", serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    .nav-links a:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover:after {
+      width: 100%;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-icon {
+      cursor: pointer;
+      transition: opacity 0.3s;
+    }
+
+    .nav-icon:hover {
+      opacity: 0.7;
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem 2rem;
+      position: relative;
+    }
+
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      animation: gradientShift 8s ease-in-out infinite;
+      z-index: -1;
+    }
+
+    @keyframes gradientShift {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.8;
+      }
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 72px);
+      font-family: "Playfair Display", serif;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      letter-spacing: 0.08em;
+      font-weight: 400;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: clamp(14px, 1.5vw, 20px);
+      margin-bottom: 2rem;
+      font-weight: 300;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .shop-btn {
+      padding: 12px 28px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: transparent;
+      font-weight: 600;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      letter-spacing: 0.05em;
+    }
+
+    .shop-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 30px rgba(255, 255, 255, 0.05);
+    }
+
+    .hero .scroll-arrow {
+      margin-top: 3rem;
+      font-size: 2rem;
+      color: var(--muted);
+      cursor: pointer;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(12px);
+      }
+    }
+
+    /* ---------- MASONRY / PRODUCTS ---------- */
+    .masonry {
+      column-count: 1;
+      column-gap: 1.5rem;
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media(min-width: 700px) {
+      .masonry {
+        column-count: 2;
+      }
+    }
+
+    @media(min-width: 1100px) {
+      .masonry {
+        column-count: 3;
+      }
+    }
+
+    .product {
+      display: inline-block;
+      width: 100%;
+      margin-bottom: 1.5rem;
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      padding: 0.5rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .product:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(255, 255, 255, 0.05);
+    }
+
+    .product img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.4s ease, filter 0.4s ease;
+      filter: grayscale(80%) brightness(0.9);
+    }
+
+    .product:hover img {
+      filter: grayscale(0%) brightness(1);
+      transform: scale(1.03);
+    }
+
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.5rem;
+      font-size: 14px;
+    }
+
+    .meta .name {
+      font-weight: 600;
+    }
+
+    .meta .price {
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* 
+    /* NEW FEATURES */
+    .product-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .product:hover .product-overlay {
+      opacity: 1;
+    }
+
+    */ .hologram-view {
+      width: 80%;
+      height: 60%;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .hologram-view::before {
+      content: '';
+      position: absolute;
+      width: 150%;
+      height: 150%;
+      background: conic-gradient(from 0deg at 50% 50%,
+          transparent 0%,
+          rgba(0, 255, 255, 0.1) 10%,
+          transparent 20%,
+          transparent 100%);
+      animation: rotateHologram 4s linear infinite;
+    }
+
+    @keyframes rotateHologram {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .hologram-text {
+      color: var(--neon-glow);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      z-index: 2;
+    }
+
+    .social-ghosts {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      gap: 5px;
+    }
+
+    .ghost {
+      width: 20px;
+      height: 20px;
+      background: transparent;
+      border-radius: 50%;
+      animation: ghostFloat 3s ease-in-out infinite;
+    }
+
+    .ghost:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .ghost:nth-child(2) {
+      animation-delay: 1s;
+    }
+
+    .ghost:nth-child(3) {
+      animation-delay: 2s;
+    }
+
+    @keyframes ghostFloat {
+
+      0%,
+      100% {
+        transform: translateY(0);
+        opacity: 0.3;
+      }
+
+      50% {
+        transform: translateY(-5px);
+        opacity: 0.7;
+      }
+    }
+
+    .mood-lighting {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      display: flex;
+      gap: 5px;
+    }
+
+    .mood-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    .mood-dot.architectural {
+      background: #00ffff;
+    }
+
+    .mood-dot.shadow {
+      background: #8a2be2;
+    }
+
+    .mood-dot.structural {
+      background: #ff6b6b;
+    }
+
+    .product:hover .mood-dot {
+      animation: moodPulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes moodPulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.7;
+      }
+
+      50% {
+        transform: scale(1.3);
+        opacity: 1;
+      }
+    }
+
+    /* ---------- CATEGORIES ---------- */
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      padding: 6rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .cat {
+      background: transparent;
+      padding: 3rem 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+
+    .cat::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      transition: left 0.6s ease;
+    }
+
+    .cat:hover::before {
+      left: 100%;
+    }
+
+    .cat::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      padding: 2px;
+      border-radius: 12px;
+      background: transparent;
+      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      mask-composite: exclude;
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .cat:hover::after {
+      opacity: 1;
+      animation: borderGlow 2s linear infinite;
+    }
+
+    @keyframes borderGlow {
+
+      0%,
+      100% {
+        background: linear-gradient(45deg, #00ffff, #8a2be2, #ff6b6b, #00ffff);
+        background-size: 400% 400%;
+      }
+
+      50% {
+        background: linear-gradient(45deg, #ff6b6b, #00ffff, #8a2be2, #ff6b6b);
+        background-size: 400% 400%;
+      }
+    }
+
+    .cat h3 {
+      font-family: "Playfair Display", serif;
+      margin-bottom: 1rem;
+      font-weight: 500;
+      font-size: 1.5rem;
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(45deg, #ffffff, #bdbdbd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      transition: all 0.4s ease;
+    }
+
+    .cat p {
+      color: var(--muted);
+      position: relative;
+      z-index: 2;
+      transition: all 0.4s ease;
+    }
+
+    .cat:hover h3 {
+      transform: translateY(-5px);
+      text-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+    }
+
+    .cat:hover p {
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* Glowing orb effect */
+    .cat .glow-orb {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      filter: blur(40px);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: 1;
+    }
+
+    .cat:nth-child(1) .glow-orb {
+      background: radial-gradient(circle, rgba(0, 255, 255, 0.4) 0%, transparent 70%);
+      top: -30px;
+      right: -30px;
+    }
+
+    .cat:nth-child(2) .glow-orb {
+      background: radial-gradient(circle, rgba(138, 43, 226, 0.4) 0%, transparent 70%);
+      bottom: -30px;
+      left: -30px;
+    }
+
+    .cat:nth-child(3) .glow-orb {
+      background: radial-gradient(circle, rgba(255, 107, 107, 0.4) 0%, transparent 70%);
+      top: -30px;
+      left: -30px;
+    }
+
+    .cat:nth-child(4) .glow-orb {
+      background: radial-gradient(circle, rgba(50, 205, 50, 0.4) 0%, transparent 70%);
+      bottom: -30px;
+      right: -30px;
+    }
+
+    .cat:hover .glow-orb {
+      opacity: 1;
+      animation: orbPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes orbPulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.6;
+      }
+
+      50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+      }
+    }
+
+    /* Floating particles */
+    .cat .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+      opacity: 0;
+    }
+
+    .cat:hover .particle {
+      animation: floatParticle 3s ease-in-out infinite;
+    }
+
+    .cat .particle:nth-child(1) {
+      top: 20%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .cat .particle:nth-child(2) {
+      top: 60%;
+      right: 15%;
+      animation-delay: 0.5s;
+    }
+
+    .cat .particle:nth-child(3) {
+      bottom: 30%;
+      left: 20%;
+      animation-delay: 1s;
+    }
+
+    .cat .particle:nth-child(4) {
+      top: 40%;
+      right: 25%;
+      animation-delay: 1.5s;
+    }
+
+    @keyframes floatParticle {
+
+      0%,
+      100% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+      }
+
+      50% {
+        transform: translateY(-10px) translateX(5px);
+        opacity: 0.8;
+      }
+    }
+
+    @media(max-width:900px) {
+      .categories {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+      }
+    }
+
+    @media(max-width:560px) {
+      .categories {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .cat {
+        padding: 2.5rem 1.5rem;
+      }
+    }
+
+    /* ---------- RUNWAY ---------- */
+
+    .blackline-universe {
+      background: radial-gradient(ellipse at center, rgba(20, 20, 30, 0.9) 0%, #000000 100%);
+      position: relative;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 0;
+      margin-bottom: 0;
+      border: none;
+    }
+
+    .universe-header {
+      text-align: center;
+      margin-bottom: 6rem;
+      z-index: 10;
+    }
+
+    .universe-header h2 {
+      font-family: "Playfair Display", serif;
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      background: linear-gradient(45deg, #ffffff, #bdbdbd, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .universe-header p {
+      color: var(--muted);
+      font-size: 1.2rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .universe-container {
+      position: relative;
+      width: 700px;
+      height: 700px;
+      margin: 0 auto;
+    }
+
+    /* Central Sun */
+    .central-sun {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 140px;
+      height: 140px;
+      z-index: 5;
+    }
+
+    .sun-core {
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, #ffffff 0%, #bdbdbd 50%, #000000 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: sunPulse 4s ease-in-out infinite;
+      box-shadow: 0 0 80px rgba(255, 255, 255, 0.4);
+    }
+
+    .sun-core img {
+      width: 70%;
+      height: 70%;
+      object-fit: contain;
+
+    }
+
+    .solar-flare {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 200px;
+      height: 200px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      animation: solarFlare 8s linear infinite;
+    }
+
+    .solar-flare:nth-child(2) {
+      animation-delay: -4s;
+      width: 280px;
+      height: 280px;
+    }
+
+    @keyframes sunPulse {
+
+      0%,
+      100% {
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      50% {
+        transform: translate(-50%, -50%) scale(1.08);
+      }
+    }
+
+    @keyframes solarFlare {
+      0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+        opacity: 0.3;
+      }
+
+      50% {
+        opacity: 0.1;
+      }
+
+      100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+        opacity: 0.3;
+      }
+    }
+
+    /* Orbits */
+    .orbit {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .orbit-1 {
+      width: 300px;
+      height: 300px;
+      animation: orbitRotate 25s linear infinite;
+    }
+
+    .orbit-2 {
+      width: 400px;
+      height: 400px;
+      animation: orbitRotate 30s linear infinite reverse;
+    }
+
+    .orbit-3 {
+      width: 500px;
+      height: 500px;
+      animation: orbitRotate 35s linear infinite;
+    }
+
+    .orbit-4 {
+      width: 600px;
+      height: 600px;
+      animation: orbitRotate 40s linear infinite reverse;
+    }
+
+    .orbit-5 {
+      width: 200px;
+      height: 200px;
+      animation: orbitRotate 20s linear infinite reverse;
+    }
+
+    .orbit-6 {
+      width: 250px;
+      height: 250px;
+      animation: orbitRotate 22s linear infinite;
+    }
+
+    /* Planets with Images */
+    .planet {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.4s ease;
+    }
+
+    .planet-image {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .planet-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(120%);
+      transition: all 0.4s ease;
+    }
+
+    .planet-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+
+    .planet:hover {
+      transform: translateX(-50%) scale(1.15);
+    }
+
+    .planet:hover .planet-image img {
+      filter: grayscale(0%) contrast(110%);
+      transform: scale(1.1);
+    }
+
+    .planet:hover .planet-glow {
+      opacity: 1;
+    }
+
+    /* Mini Planets */
+    .mini-planet {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.4s ease;
+    }
+
+    .mini-planet .planet-image img {
+      filter: grayscale(80%) contrast(130%);
+    }
+
+    .mini-planet:hover {
+      transform: translateX(-50%) scale(1.2);
+    }
+
+    .mini-planet:hover .planet-image img {
+      filter: grayscale(0%) contrast(110%);
+    }
+
+    @keyframes orbitRotate {
+      0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+
+      100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+
+    /* Shooting Stars */
+    .universe-container::before,
+    .universe-container::after {
+      content: '';
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      animation: shootingStar 12s linear infinite;
+      opacity: 0;
+    }
+
+    .universe-container::before {
+      top: 20%;
+      left: 10%;
+      width: 2px;
+      height: 2px;
+      animation-delay: 0s;
+    }
+
+    .universe-container::after {
+      top: 70%;
+      left: 85%;
+      width: 3px;
+      height: 3px;
+      animation-delay: 6s;
+    }
+
+    @keyframes shootingStar {
+      0% {
+        transform: translateX(0) translateY(0);
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateX(-150px) translateY(150px);
+        opacity: 0;
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .universe-container {
+        width: 500px;
+        height: 500px;
+      }
+
+      .orbit-1 {
+        width: 200px;
+        height: 200px;
+      }
+
+      .orbit-2 {
+        width: 280px;
+        height: 280px;
+      }
+
+      .orbit-3 {
+        width: 360px;
+        height: 360px;
+      }
+
+      .orbit-4 {
+        width: 440px;
+        height: 440px;
+      }
+
+      .orbit-5 {
+        width: 150px;
+        height: 150px;
+      }
+
+      .orbit-6 {
+        width: 180px;
+        height: 180px;
+      }
+
+      .planet {
+        width: 80px;
+        height: 80px;
+      }
+
+      .mini-planet {
+        width: 40px;
+        height: 40px;
+      }
+
+      .universe-header h2 {
+        font-size: 2.5rem;
+      }
+
+      .central-sun {
+        width: 100px;
+        height: 100px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .universe-container {
+        width: 350px;
+        height: 350px;
+      }
+
+      .orbit-1 {
+        width: 150px;
+        height: 150px;
+      }
+
+      .orbit-2 {
+        width: 200px;
+        height: 200px;
+      }
+
+      .orbit-3 {
+        width: 250px;
+        height: 250px;
+      }
+
+      .orbit-4 {
+        width: 300px;
+        height: 300px;
+      }
+
+      .orbit-5 {
+        width: 100px;
+        height: 100px;
+      }
+
+      .orbit-6 {
+        width: 120px;
+        height: 120px;
+      }
+
+      .planet {
+        width: 60px;
+        height: 60px;
+      }
+
+      .mini-planet {
+        width: 30px;
+        height: 30px;
+      }
+    }
+
+
+    /* ---------- ICON DROP ---------- */
+    .icon-drop {
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .icon-drop-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .icon-drop-header h2 {
+      font-family: "Playfair Display", serif;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      font-weight: 400;
+    }
+
+    .icon-drop-header p {
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    @media(max-width:900px) {
+      .icon-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .icon-card {
+      background: var(--card-bg);
+      padding: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .icon-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .icon-card img {
+      width: 100%;
+      margin-bottom: 1rem;
+      filter: grayscale(80%) brightness(0.9);
+      transition: filter 0.3s;
+    }
+
+    .icon-card:hover img {
+      filter: grayscale(0%) brightness(1);
+    }
+
+    .icon-card h4 {
+      font-family: "Playfair Display", serif;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .icon-card p {
+      color: var(--muted);
+    }
+
+    /* ---------- ASSISTANT WRAPPER ---------- */
+    /* ASSISTANT STYLES */
+    .assistant {
+      position: fixed;
+      right: 2rem;
+      bottom: 2rem;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.5rem;
+    }
+
+    /* ORB */
+    .assistant__orb {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.4), 0 4px 10px rgba(255, 255, 255, 0.1) inset;
+      display: grid;
+      place-items: center;
+      font-weight: bold;
+      cursor: pointer;
+      animation: float 3s ease-in-out infinite, glow 2.6s infinite;
+      transition: transform 0.3s;
+      color: white;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .assistant__orb:hover {
+      transform: scale(1.1);
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes glow {
+
+      0%,
+      100% {
+        box-shadow: 0 0 12px rgba(255, 255, 255, 0.4), 0 4px 10px rgba(255, 255, 255, 0.1) inset;
+      }
+
+      50% {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.6), 0 4px 12px rgba(255, 255, 255, 0.15) inset;
+      }
+    }
+
+    /* CHAT BOX */
+    .assistant__chat {
+      display: none;
+      width: 280px;
+      height: 360px;
+      background: rgba(17, 17, 17, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 1rem;
+      overflow-y: auto;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+      grid-template-rows: 1fr auto;
+      gap: 0.5rem;
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      position: relative;
+      z-index: 1001;
+    }
+
+    .assistant__chat.show {
+      display: grid;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .assistant__chat input {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      outline: none;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-family: "Inter", sans-serif;
+    }
+
+    .assistant__chat input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    #chatMessages div {
+      margin-bottom: 0.8rem;
+      font-size: 14px;
+      color: white;
+      line-height: 1.4;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes glow {
+
+      0%,
+      100% {
+        box-shadow: 0 0 12px rgba(255, 255, 255, 0.4), 0 4px 10px rgba(255, 255, 255, 0.1) inset;
+      }
+
+      50% {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.6), 0 4px 12px rgba(255, 255, 255, 0.15) inset;
+      }
+    }
+
+    /* --------------------- */
+    /* CHAT INPUT CONTAINER */
+    /* --------------------- */
+    .blackline-chat-input {
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      background: linear-gradient(145deg, #111111, #1a1a1a);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 0 0 10px 10px;
+      box-shadow: inset 0 1px 5px rgba(255, 255, 255, 0.05);
+    }
+
+    /* --------------------- */
+    /* CHAT INPUT FIELD */
+    /* --------------------- */
+    .blackline-chat-input input[type="text"] {
+      flex: 1;
+      padding: 12px 15px;
+      font-size: 16px;
+      color: #e0e0e0;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      border-radius: 25px;
+      outline: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+    }
+
+    .blackline-chat-input input[type="text"]::placeholder {
+      color: #a0a0a0;
+      opacity: 0.8;
+    }
+
+    .blackline-chat-input input[type="text"]:focus {
+      border-color: #00ffff;
+      background: rgba(0, 0, 0, 0.6);
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+    }
+
+    /* --------------------- */
+    /* SEND BUTTON */
+    /* --------------------- */
+    .blackline-chat-input .send-button {
+      margin-left: 10px;
+      padding: 12px 18px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #fff;
+      background: linear-gradient(135deg, #00ffff, #00aaff);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.3), 0 0 20px rgba(0, 255, 255, 0.2);
+    }
+
+    .blackline-chat-input .send-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.5), 0 0 40px rgba(0, 255, 255, 0.3);
+    }
+
+    /* --------------------- */
+    /* GLOW ANIMATION ON FOCUS */
+    /* --------------------- */
+    @keyframes glowPulse {
+      0% {
+        box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+      }
+
+      50% {
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+      }
+
+      100% {
+        box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+      }
+    }
+
+    .blackline-chat-input input[type="text"]:focus {
+      animation: glowPulse 1.5s infinite;
+    }
+
+    /* --------------------- */
+    /* RESPONSIVE ADJUSTMENTS */
+    /* --------------------- */
+    @media screen and (max-width: 480px) {
+      .blackline-chat-input {
+        padding: 8px 10px;
+      }
+
+      .blackline-chat-input input[type="text"] {
+        font-size: 14px;
+        padding: 10px 12px;
+      }
+
+      .blackline-chat-input .send-button {
+        padding: 10px 14px;
+        font-size: 16px;
+      }
+    }
+
+
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      padding: 4rem 2rem 2rem;
+      color: var(--muted);
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    @media(max-width: 900px) {
+      .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media(max-width: 560px) {
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .footer-column h3 {
+      font-family: "Playfair Display", serif;
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+      font-size: 1.2rem;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ---------- SHOP COLLECTION SECTION ---------- */
+    .shop-collection {
+      padding: 6rem 2rem;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .shop-collection h2 {
+      font-family: "Playfair Display", serif;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      font-weight: 400;
+    }
+
+    .shop-collection p {
+      color: var(--muted);
+      margin-bottom: 3rem;
+    }
+
+    .shop-arrow {
+      font-size: 3rem;
+      color: var(--muted);
+      cursor: pointer;
+      animation: bounce 2s infinite;
+    }
+
+    /* BLACKLINE ORB - MINI RECTANGLE BOX STYLE */
+    /* BLACKLINE ORB - CIRCULAR ORB WITH RECTANGULAR CHAT */
+    .blackline-orb {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 10000;
+      filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.6));
+    }
+
+    .blackline-orb .glowing-orb {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #000000 0%, #1a1a1a 25%, #000000 50%, #1a1a1a 75%, #000000 100%);
+      border: 2px solid #00ffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #00ffff;
+      font-weight: 800;
+      font-family: 'Arial Black', sans-serif;
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow:
+        0 0 25px rgba(0, 255, 255, 0.5),
+        0 0 50px rgba(0, 255, 255, 0.3),
+        inset 0 0 15px rgba(0, 255, 255, 0.2);
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .blackline-orb .glowing-orb::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #00ffff, #0080ff, #00ffff);
+      border-radius: 50%;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .blackline-orb .glowing-orb::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 30%, rgba(0, 255, 255, 0.2) 0%, transparent 50%);
+      border-radius: 50%;
+    }
+
+    .blackline-orb .glowing-orb:hover {
+      box-shadow:
+        0 0 35px rgba(0, 255, 255, 0.8),
+        0 0 70px rgba(0, 255, 255, 0.4),
+        inset 0 0 25px rgba(0, 255, 255, 0.3);
+      transform: scale(1.15) rotate(5deg);
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+    }
+
+    .blackline-orb .glowing-orb:hover::before {
+      opacity: 1;
+    }
+
+    .blackline-orb .glowing-orb:active {
+      transform: scale(1.05) rotate(-2deg);
+      transition: all 0.1s ease;
+    }
+
+    /* PULSING ANIMATION */
+    @keyframes blackline-pulse {
+
+      0%,
+      100% {
+        box-shadow:
+          0 0 25px rgba(0, 255, 255, 0.5),
+          0 0 50px rgba(0, 255, 255, 0.3),
+          inset 0 0 15px rgba(0, 255, 255, 0.2);
+      }
+
+      50% {
+        box-shadow:
+          0 0 35px rgba(0, 255, 255, 0.7),
+          0 0 70px rgba(0, 255, 255, 0.4),
+          inset 0 0 20px rgba(0, 255, 255, 0.3);
+      }
+    }
+
+    .blackline-orb .glowing-orb.pulse {
+      animation: blackline-pulse 2s ease-in-out infinite;
+    }
+
+    /* CHAT POPUP - RECTANGULAR STYLE */
+    .blackline-chat-popup {
+      position: fixed;
+      bottom: 110px;
+      right: 30px;
+      width: 400px;
+      height: 550px;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(0, 255, 255, 0.4);
+      border-radius: 20px;
+      box-shadow:
+        0 0 40px rgba(0, 255, 255, 0.2),
+        0 20px 50px rgba(0, 0, 0, 0.9);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 10001;
+      transform: translateY(30px);
+      opacity: 0;
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .blackline-chat-popup.active {
+      display: flex;
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .blackline-chat-popup::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #00ffff, transparent);
+    }
+
+    /* CHAT HEADER */
+    .blackline-chat-header {
+      background: linear-gradient(135deg, #000 0%, #111 100%);
+      padding: 15px 20px;
+      border-bottom: 1px solid #00ffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .blackline-chat-title {
+      color: #00ffff;
+      font-family: 'Arial Black', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    }
+
+    .blackline-chat-close {
+      background: none;
+      border: 1px solid #00ffff;
+      color: #00ffff;
+      width: 25px;
+      height: 25px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .blackline-chat-close:hover {
+      background: rgba(0, 255, 255, 0.1);
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    }
+
+    .ai-avatar {
+      margin-left: 37%;
+    }
+
+    /* CHAT CONTENT AREA */
+    .blackline-chat-content {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      background: #0a0a0a;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    /* MESSAGE STYLES */
+    .chat-message {
+      padding: 12px 16px;
+      border-radius: 12px;
+      max-width: 85%;
+      font-family: sans-serif;
+      font-size: 14px;
+      line-height: 1.4;
+      animation: messageSlideIn 0.3s ease-out;
+    }
+
+    @keyframes messageSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .user-message {
+      background: linear-gradient(135deg, #00aaaa 0%, #0080ff 100%);
+      color: #000;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+      font-weight: 600;
+    }
+
+    .bot-message {
+      background: linear-gradient(135deg, #1a1a1a 0%, #222 100%);
+      color: #00ffff;
+      border: 1px solid #00ffff;
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 12px 16px;
+      background: linear-gradient(135deg, #1a1a1a 0%, #222 100%);
+      border: 1px solid #00ffff;
+      border-radius: 12px;
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+      max-width: 85%;
+    }
+
+    .typing-dot {
+      width: 8px;
+      height: 8px;
+      background: #00ffff;
+      border-radius: 50%;
+      animation: typingBounce 1.4s ease-in-out infinite both;
+    }
+
+    .typing-dot:nth-child(1) {
+      animation-delay: -0.32s;
+    }
+
+    .typing-dot:nth-child(2) {
+      animation-delay: -0.16s;
+    }
+
+    @keyframes typingBounce {
+
+      0%,
+      80%,
+      100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+      }
+
+      40% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    /* CHAT INPUT AREA */
+    .chat-input-area {
+      padding: 15px 20px;
+      background: linear-gradient(135deg, #000 0%, #111 100%);
+      border-top: 1px solid #00ffff;
+    }
+
+    .input-container {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .chat-input {
+      flex: 1;
+      background: #000;
+      border-radius: 8px;
+      padding: 12px 15px;
+      color: #00ffff;
+      font-family: sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .chat-input:focus {
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+      background: #050505;
+    }
+
+    .chat-input::placeholder {
+      color: #008080;
+    }
+
+    .send-button {
+      background: linear-gradient(135deg, #00aaaa 0%, #00ffff 100%);
+      border: none;
+      border-radius: 8px;
+      width: 45px;
+      height: 45px;
+      color: #000;
+      font-family: 'Arial Black', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .send-button:hover {
+      background: linear-gradient(135deg, #00ffff 0%, #00cccc 100%);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+      transform: scale(1.1);
+    }
+
+    .send-button:active {
+      transform: scale(1.05);
+    }
+
+    /* OVERLAY */
+    .blackline-chat-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      display: none;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .blackline-chat-overlay.active {
+      display: block;
+      opacity: 1;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .blackline-orb {
+        bottom: 20px;
+        right: 20px;
+      }
+
+      .blackline-orb .glowing-orb {
+        width: 60px;
+        height: 60px;
+        font-size: 16px;
+      }
+
+      .blackline-chat-popup {
+        width: 90vw;
+        height: 70vh;
+        right: 5vw;
+        left: 5vw;
+        bottom: 100px;
+        border-radius: 25px;
+      }
+
+      .cart-popup-content {
+        width: 90vw;
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .blackline-orb {
+        bottom: 15px;
+        right: 15px;
+      }
+
+      .blackline-orb .glowing-orb {
+        width: 55px;
+        height: 55px;
+        font-size: 14px;
+      }
+
+      .blackline-chat-popup {
+        width: calc(100vw - 30px);
+        right: 15px;
+        bottom: 80px;
+        height: 400px;
+      }
+
+      .chat-input-area {
+        padding: 12px 15px;
+      }
+
+      .chat-input {
+        padding: 10px 12px;
+        font-size: 13px;
+      }
+
+      .send-button {
+        width: 40px;
+        height: 40px;
+        font-size: 14px;
+      }
+    }
+
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin: 5px 0;
+    }
+
+    .typing-indicator span {
+      width: 6px;
+      height: 6px;
+      background: #fff;
+      border-radius: 50%;
+      animation: blink 1s infinite;
+    }
+
+    .typing-indicator span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .typing-indicator span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes blink {
+
+      0%,
+      80%,
+      100% {
+        opacity: 0;
+      }
+
+      40% {
+        opacity: 1;
+      }
+    }
+
+    /* Standardized Hamburger Menu Styles from drops.html */
+    @media screen and (max-width: 900px) {
+      .hamburger {
+        display: flex;
+        width: 28px;
+        height: 22px;
+        flex-direction: column;
+        justify-content: space-between;
+        cursor: pointer;
+        z-index: 1100;
+      }
+
+      .hamburger span {
+        height: 3px;
+        width: 100%;
+        background: #fff;
+        border-radius: 3px;
+        transition: all 0.4s ease;
+      }
+
+      .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        right: 1rem;
+        background: rgba(0, 0, 0, 0.85);
+        display: flex !important;
+        flex-direction: column;
+        width: 240px;
+        padding: 2rem;
+        gap: 1.8rem;
+        border-radius: 12px;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-10px);
+        transition: all 0.4s ease;
+        z-index: 1000;
+      }
+
+      .nav-links.open {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body data-brand="blackline">
+  <video class="back-vid" autoplay loop muted plays-inline src="videos/galaxy.mp4"></video>
+  <!-- 🛒 Cart Popup -->
+  <div id="cartPopup" class="cart-popup">
+    <div class="cart-popup-content">
+      <span class="close-cart" onclick="closeCartPopup()">&times;</span>
+      <h2>Your Cart</h2>
+      <div id="cartItems"></div>
+      <div class="cart-total">
+        <h3>Total: <span id="cartTotal">$0</span></h3>
+        <button class="checkout-btn">Checkout</button>
+      </div>
+    </div>
+  </div>
+  <!-- NAVIGATION -->
+  <header>
+    <nav class="navbar nav-container">
+      <div class="logo">
+        <img src="./images/blackline real logo.png" alt="BLACKLINE Logo" width="70px">
+      </div>
+
+      <div class="nav-links" id="navbar">
+        <a href="entry.html">Home</a>
+        <a href="BLACKLINE.html">About</a>
+        <a href="#shop">Collections</a>
+        <a href="#runway">Runway</a>
+        <a href="#icon-drop">Icon Drops</a>
+      </div>
+
+      <div class="hamburger" aria-label="Toggle Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" data-aos="fade-up">
+    <div class="hero-bg"></div>
+    <h1>REDEFINE THE DARK</h1>
+    <p>Where architectural precision meets shadow. Crafted for the modern sovereign who commands attention through
+      subtlety.</p>
+    <div class="hero-cta-group">
+      <a href="#shop-collection" class="shop-btn">Shop Collection</a>
+    </div>
+    <div class="scroll-arrow" id="scrollArrow">↓</div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="masonry" id="shop">
+    <div class="product" onclick="viewProduct('blackline1')">
+      <img src="./images/BLN LATEST ACHITECTURAL BLAZER.png" alt="">
+      <div class="meta">
+        <span class="name">Architectural Blazer</span>
+        <span class="price">$21,700</span>
+      </div>
+      <div class="product-overlay">
+        <div class="hologram-view">
+          <div class="hologram-text"></div>
+        </div>
+        <div class="social-ghosts">
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+        </div>
+        <div class="mood-lighting">
+          <div class="mood-dot architectural"></div>
+          <div class="mood-dot shadow"></div>
+          <div class="mood-dot structural"></div>
+        </div>
+      </div>
+    </div>
+    <div class="product" onclick="viewProduct('blackline2')">
+      <img src="./images/BLACKLINE ARMORED BOOT-NEW.png" alt="">
+      <div class="meta">
+        <span class="name">Armored Boots</span>
+        <span class="price">$7,500</span>
+      </div>
+      <div class="product-overlay">
+        <div class="hologram-view">
+          <div class="hologram-text"></div>
+        </div>
+        <div class="social-ghosts">
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+        </div>
+        <div class="mood-lighting">
+          <div class="mood-dot architectural"></div>
+          <div class="mood-dot shadow"></div>
+          <div class="mood-dot structural"></div>
+        </div>
+      </div>
+    </div>
+    <div class="product" onclick="viewProduct('blackline3')">
+      <img src="./images/BLACKLINE ARTICULATED GAUNTLET-NEW.png" alt="">
+      <div class="meta">
+        <span class="name">Articulated Gauntlet</span>
+        <span class="price">$12,000</span>
+      </div>
+      <div class="product-overlay">
+        <div class="hologram-view">
+          <div class="hologram-text"></div>
+        </div>
+        <div class="social-ghosts">
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+        </div>
+        <div class="mood-lighting">
+          <div class="mood-dot architectural"></div>
+          <div class="mood-dot shadow"></div>
+          <div class="mood-dot structural"></div>
+        </div>
+      </div>
+    </div>
+    <div class="product" onclick="viewProduct('blackline4')">
+      <img src="./images/BLN LATEST CAPE DRESS.png" alt="">
+      <div class="meta">
+        <span class="name">CAPE DRESS</span>
+        <span class="price">$14,000</span>
+      </div>
+      <div class="product-overlay">
+        <div class="hologram-view">
+          <div class="hologram-text"></div>
+        </div>
+        <div class="social-ghosts">
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+        </div>
+        <div class="mood-lighting">
+          <div class="mood-dot architectural"></div>
+          <div class="mood-dot shadow"></div>
+          <div class="mood-dot structural"></div>
+        </div>
+      </div>
+    </div>
+    <div class="product" onclick="viewProduct('blackline5')">
+      <img src="./images/BLACKLINE ASSYMETRIC HAKAMA TROUSERS-NEW.png" alt="Asymmetric Blazer">
+      <div class="meta">
+        <span class="name">Asymmetric Hakama Pants</span>
+        <span class="price">$5000</span>
+      </div>
+      <div class="product-overlay">
+        <div class="hologram-view">
+          <div class="hologram-text"></div>
+        </div>
+        <div class="social-ghosts">
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+        </div>
+        <div class="mood-lighting">
+          <div class="mood-dot architectural"></div>
+          <div class="mood-dot shadow"></div>
+          <div class="mood-dot structural"></div>
+        </div>
+      </div>
+    </div>
+    <div class="product" onclick="viewProduct('blackline6')">
+      <img src="./images/BLACKLINE ASSYMETRIC SUNGLASSES-NEW.png" alt="">
+      <div class="meta">
+        <span class="name">Meticulated Sunglasses</span>
+        <span class="price">$7000</span>
+      </div>
+      <div class="product-overlay">
+        <div class="hologram-view">
+          <div class="hologram-text"></div>
+        </div>
+        <div class="social-ghosts">
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+        </div>
+        <div class="mood-lighting">
+          <div class="mood-dot architectural"></div>
+          <div class="mood-dot shadow"></div>
+          <div class="mood-dot structural"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="product" onclick="viewProduct('blackline8')">
+      <img src="./images/BLACKLINE BLADE HEEL-NEW.png" alt="">
+      <div class="meta">
+        <span class="name">BLADE HEEL</span>
+        <span class="price">$6,700</span>
+      </div>
+      <div class="product-overlay">
+        <div class="hologram-view">
+          <div class="hologram-text"></div>
+        </div>
+        <div class="social-ghosts">
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+        </div>
+        <div class="mood-lighting">
+          <div class="mood-dot architectural"></div>
+          <div class="mood-dot shadow"></div>
+          <div class="mood-dot structural"></div>
+        </div>
+      </div>
+    </div>
+    <div class="product" onclick="viewProduct('blackline9')">
+      <img src="./images/BLN LATEST COCOON COAT.png" alt="">
+      <div class="meta">
+        <span class="name">COCOON COAT</span>
+        <span class="price">$14,OOO</span>
+      </div>
+      <div class="product-overlay">
+        <div class="hologram-view">
+          <div class="hologram-text"></div>
+        </div>
+        <div class="social-ghosts">
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+        </div>
+        <div class="mood-lighting">
+          <div class="mood-dot architectural"></div>
+          <div class="mood-dot shadow"></div>
+          <div class="mood-dot structural"></div>
+        </div>
+      </div>
+    </div>
+    <div class="product" onclick="viewProduct('blackline10')">
+      <img src="./images/BLN LATEST COILED SHORTS.png" alt="Asymmetric Blazer">
+      <div class="meta">
+        <span class="name">COILED SHORTS</span>
+        <span class="price">$8000</span>
+      </div>
+      <div class="product-overlay">
+        <div class="hologram-view">
+          <div class="hologram-text"></div>
+        </div>
+        <div class="social-ghosts">
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+        </div>
+        <div class="mood-lighting">
+          <div class="mood-dot architectural"></div>
+          <div class="mood-dot shadow"></div>
+          <div class="mood-dot structural"></div>
+        </div>
+      </div>
+    </div>
+    <div class="product" onclick="viewProduct('blackline11')">
+      <img src="./images/BLACKLINE COLUMN GOWN-NEW.png" alt="Asymmetric Blazer">
+      <div class="meta">
+        <span class="name">COLUMN GOWN</span>
+        <span class="price">$12,000</span>
+      </div>
+      <div class="product-overlay">
+        <div class="hologram-view">
+          <div class="hologram-text"></div>
+        </div>
+        <div class="social-ghosts">
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+        </div>
+        <div class="mood-lighting">
+          <div class="mood-dot architectural"></div>
+          <div class="mood-dot shadow"></div>
+          <div class="mood-dot structural"></div>
+        </div>
+      </div>
+    </div>
+    <div class="product" onclick="viewProduct('blackline12')">
+      <img src="./images/BLN LATEST DECONSTRUCTED SHIRT.png" alt="Asymmetric Blazer">
+      <div class="meta">
+        <span class="name">DECONSTRUCTED SHIRT</span>
+        <span class="price">$7000</span>
+      </div>
+      <div class="product-overlay">
+        <div class="hologram-view">
+          <div class="hologram-text"></div>
+        </div>
+        <div class="social-ghosts">
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+        </div>
+        <div class="mood-lighting">
+          <div class="mood-dot architectural"></div>
+          <div class="mood-dot shadow"></div>
+          <div class="mood-dot structural"></div>
+        </div>
+      </div>
+    </div>
+    <div class="icon-card" onclick="viewProduct('blackline25')">
+      <img src="./images/BLACKLINE ORB CLUTCH-NEW.png" alt="Trinity Polo">
+      <h4>ORB CLUTCH</h4>
+      <p>$30,000</p>
+    </div>
+    <div class="product" onclick="viewProduct('blackline13')">
+      <img src="./images/BLACKLINE DISC DRESS-NEW.png" alt="Asymmetric Blazer">
+      <div class="meta">
+        <span class="name">DISC DRESS</span>
+        <span class="price">$8000</span>
+      </div>
+      <div class="product-overlay">
+        <div class="hologram-view">
+          <div class="hologram-text"></div>
+        </div>
+        <div class="social-ghosts">
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+        </div>
+        <div class="mood-lighting">
+          <div class="mood-dot architectural"></div>
+          <div class="mood-dot shadow"></div>
+          <div class="mood-dot structural"></div>
+        </div>
+      </div>
+    </div>
+    <div class="icon-card" onclick="viewProduct('blackline23')">
+      <img src="./images/BLACKLINE VOLUME SLEEVE DETACHMENT-NEW.png" alt="Sculpted Jacket">
+      <h4>BLACK VOLUME SLEEVE DETACHMENT</h4>
+      <p>$25,000</p>
+    </div>
+
+    <div class="product" onclick="viewProduct('blackline15')">
+      <img src="./images/BLACKLINE HARNESS TROUSERS-NEW.png" alt="Asymmetric Blazer">
+      <div class="meta">
+        <span class="name">HARNESS TROUSERS</span>
+        <span class="price">$7,500</span>
+      </div>
+      <div class="product-overlay">
+        <div class="hologram-view">
+          <div class="hologram-text"></div>
+        </div>
+        <div class="social-ghosts">
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+        </div>
+        <div class="mood-lighting">
+          <div class="mood-dot architectural"></div>
+          <div class="mood-dot shadow"></div>
+          <div class="mood-dot structural"></div>
+        </div>
+      </div>
+    </div>
+    <div class="product" onclick="viewProduct('blackline16')">
+      <img src="./images/BLACKLINE LAYERED NECKPIECE-NEW.png" alt="Asymmetric Blazer">
+      <div class="meta">
+        <span class="name">LAYERED NECKPIECE</span>
+        <span class="price">$15,000</span>
+      </div>
+      <div class="product-overlay">
+        <div class="hologram-view">
+          <div class="hologram-text"></div>
+        </div>
+        <div class="social-ghosts">
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+        </div>
+        <div class="mood-lighting">
+          <div class="mood-dot architectural"></div>
+          <div class="mood-dot shadow"></div>
+          <div class="mood-dot structural"></div>
+        </div>
+      </div>
+    </div>
+    <div class="product" onclick="viewProduct('blackline17')">
+      <img src="./images/BLACKLINE ORIGAMI FOLD DRESS-NEW.png" alt="Asymmetric Blazer">
+      <div class="meta">
+        <span class="name">ORIGAMI FOLD DRESS</span>
+        <span class="price">$10,000</span>
+      </div>
+      <div class="product-overlay">
+        <div class="hologram-view">
+          <div class="hologram-text"></div>
+        </div>
+        <div class="social-ghosts">
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+        </div>
+        <div class="mood-lighting">
+          <div class="mood-dot architectural"></div>
+          <div class="mood-dot shadow"></div>
+          <div class="mood-dot structural"></div>
+        </div>
+      </div>
+    </div>
+    <div class="product" onclick="viewProduct('blackline18')">
+      <img src="./images/BLACKLINE RIBBON WRAP DRESS-NEW.png" alt="Asymmetric Blazer">
+      <div class="meta">
+        <span class="name">RIBBON WRAP DRESS</span>
+        <span class="price">$9000</span>
+      </div>
+      <div class="product-overlay">
+        <div class="hologram-view">
+          <div class="hologram-text"></div>
+        </div>
+        <div class="social-ghosts">
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+        </div>
+        <div class="mood-lighting">
+          <div class="mood-dot architectural"></div>
+          <div class="mood-dot shadow"></div>
+          <div class="mood-dot structural"></div>
+        </div>
+      </div>
+    </div>
+    <div class="product" onclick="viewProduct('blackline19')">
+      <img src="./images/BLN LATEST FRAGMENTED CORSET.png" alt="Asymmetric Blazer">
+      <div class="meta">
+        <span class="name">FRAGMENTED CORSET</span>
+        <span class="price">$12,000</span>
+      </div>
+      <div class="product-overlay">
+        <div class="hologram-view">
+          <div class="hologram-text"></div>
+        </div>
+        <div class="social-ghosts">
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+        </div>
+        <div class="mood-lighting">
+          <div class="mood-dot architectural"></div>
+          <div class="mood-dot shadow"></div>
+          <div class="mood-dot structural"></div>
+        </div>
+      </div>
+    </div>
+    <div class="product" onclick="viewProduct('blackline20')">
+      <img src="./images/BLN LATEST SCULPTURAL CORSET.png" alt="Asymmetric Blazer">
+      <div class="meta">
+        <span class="name">SCULPTURAL CORSET</span>
+        <span class="price">$7000</span>
+      </div>
+      <div class="product-overlay">
+        <div class="hologram-view">
+          <div class="hologram-text"></div>
+        </div>
+        <div class="social-ghosts">
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+        </div>
+        <div class="mood-lighting">
+          <div class="mood-dot architectural"></div>
+          <div class="mood-dot shadow"></div>
+          <div class="mood-dot structural"></div>
+        </div>
+      </div>
+    </div>
+    <div class="product" onclick="viewProduct('blackline21')">
+      <img src="./images/BLN LATEST SLIT SPHERE DRESS.png" alt="Asymmetric Blazer">
+      <div class="meta">
+        <span class="name">SLIT SPHERE DRESS</span>
+        <span class="price">$21,000</span>
+      </div>
+      <div class="product-overlay">
+        <div class="hologram-view">
+          <div class="hologram-text">Hologram View</div>
+        </div>
+        <div class="social-ghosts">
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+          <div class="ghost"></div>
+        </div>
+        <div class="mood-lighting">
+          <div class="mood-dot architectural"></div>
+          <div class="mood-dot shadow"></div>
+          <div class="mood-dot structural"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Continue with remaining products... -->
+
+  </section>
+  <section class="categories" data-aos="fade-up">
+    <div class="cat">
+      <div class="glow-orb"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <h3>Outerwear</h3>
+      <p>Coats & Jackets</p>
+    </div>
+    <div class="cat">
+      <div class="glow-orb"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <h3>Footwear</h3>
+      <p>Architectural Shoes</p>
+    </div>
+    <div class="cat">
+      <div class="glow-orb"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <h3>Accessories</h3>
+      <p>Hardware & Details</p>
+    </div>
+    <div class="cat">
+      <div class="glow-orb"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <h3>Essentials</h3>
+      <p>Core Collection</p>
+    </div>
+  </section>
+
+  <!-- BLACKLINE UNIVERSE -->
+  <!-- BLACKLINE VISUAL UNIVERSE -->
+
+  <section class="blackline-universe" data-aos="fade-up">
+    <video class="back-vid" autoplay loop muted plays-inline src="videos/galaxy.mp4" width="100%"></video>
+    <div class="universe-header">
+      <h2>THE BLACKLINE UNIVERSE</h2>
+      <p>Architectural fashion in cosmic motion</p>
+    </div>
+
+    <div class="universe-container">
+      <!-- Central Blackline Logo -->
+      <div class="central-sun">
+        <div class="sun-core">
+          <img src="./images/./blackline real logo.png" alt="Blackline Core">
+        </div>
+        <div class="solar-flare"></div>
+        <div class="solar-flare"></div>
+      </div>
+
+      <!-- Orbiting Runway Images -->
+      <div class="orbit orbit-1">
+        <div class="planet">
+          <div class="planet-image">
+            <img src="./images/BLACKLINE SHADOW WRAP HEELS.png" alt="Runway Look 1">
+          </div>
+          <div class="planet-glow"></div>
+        </div>
+      </div>
+
+      <div class="orbit orbit-2">
+        <div class="planet">
+          <div class="planet-image">
+            <img src="./images/BLACKLINE HALO CROWN.png" alt="Runway Look 2">
+          </div>
+          <div class="planet-glow"></div>
+        </div>
+      </div>
+
+      <div class="orbit orbit-3">
+        <div class="planet">
+          <div class="planet-image">
+            <img src="./images/BLACKLINE FRAGMENTED CORSET.png" alt="Runway Look 3">
+          </div>
+          <div class="planet-glow"></div>
+        </div>
+      </div>
+
+      <div class="orbit orbit-4">
+        <div class="planet">
+          <div class="planet-image">
+            <img src="./images/BLACKLINE ECHO TROUSERS.png" alt="Runway Look 4">
+          </div>
+          <div class="planet-glow"></div>
+        </div>
+      </div>
+
+      <!-- Mini orbiting elements -->
+      <div class="orbit orbit-5">
+        <div class="mini-planet">
+          <div class="planet-image">
+            <img src="./images/BLACKLINE BROKEN HEEL BOOTS.png" alt="Collection Item">
+          </div>
+        </div>
+      </div>
+
+      <div class="orbit orbit-6">
+        <div class="mini-planet">
+          <div class="planet-image">
+            <img src="./images/BLACKLINE COILED SHORTS-NEW.png" alt="Collection Item">
+          </div>
+        </div>
+      </div>
+
+      <div class="orbit orbit-7">
+        <div class="mini-planet">
+          <div class="planet-image">
+            <img
+              src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+              alt="Collection Item">
+          </div>
+        </div>
+      </div>
+
+      <div class="orbit orbit-8">
+        <div class="mini-planet">
+          <div class="planet-image">
+            <img
+              src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+              alt="Collection Item">
+          </div>
+        </div>
+      </div>
+
+      <div class="orbit orbit-9">
+        <div class="mini-planet">
+          <div class="planet-image">
+            <img src="./images/BLACKLINE ECLIPSE JACKET.png" alt="Collection Item">
+          </div>
+        </div>
+      </div>
+
+      <div class="orbit orbit-10">
+        <div class="mini-planet">
+          <div class="planet-image">
+            <img
+              src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+              alt="Collection Item">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ICON DROP -->
+  <section class="icon-drop" id="icon-drop" data-aos="fade-up">
+    <div class="icon-drop-header">
+      <h2>Icon Drops</h2>
+      <p>Limited edition pieces that define the Blackline aesthetic.</p>
+    </div>
+    <div class="icon-grid">
+      <div class="icon-card" onclick="viewProduct('blackline22')">
+        <img src="./images/BLN LATEST SPINE DRESS.png" alt="Vault Sneakers">
+        <h4>BLACK SPINE DRESS</h4>
+        <p>$35,000</p>
+
+      </div>
+      <div class="product" onclick="viewProduct('blackline14')">
+        <img src="./images/BLACKLINE GEOMETRIC HEADDRESS-NEW.png" alt="Asymmetric Blazer">
+        <div class="meta">
+          <span class="name">GEOMETRIC HEADDRESS</span>
+          <span class="price">$2O,000</span>
+        </div>
+        <div class="product-overlay">
+          <div class="hologram-view">
+            <div class="hologram-text"></div>
+          </div>
+          <div class="social-ghosts">
+            <div class="ghost"></div>
+            <div class="ghost"></div>
+            <div class="ghost"></div>
+          </div>
+          <div class="mood-lighting">
+            <div class="mood-dot architectural"></div>
+            <div class="mood-dot shadow"></div>
+            <div class="mood-dot structural"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="icon-card" onclick="viewProduct('blackline24')">
+        <img src="./images/BLN LATEST PHANTOM TRENCH.png" alt="Designer Bag">
+        <h4>PHANTOM TRENCH</h4>
+        <p>$20,000</p>
+      </div>
+      <div class="product" onclick="viewProduct('blackline7')">
+        <img src="./images/BLACKLINE BLACK LIGHT RIG-NEW.png" alt="">
+        <div class="meta">
+          <span class="name">Black Light Rig</span>
+          <span class="price">$18,000</span>
+        </div>
+        <div class="product-overlay">
+          <div class="hologram-view">
+            <div class="hologram-text"></div>
+          </div>
+          <div class="social-ghosts">
+            <div class="ghost"></div>
+            <div class="ghost"></div>
+            <div class="ghost"></div>
+          </div>
+          <div class="mood-lighting">
+            <div class="mood-dot architectural"></div>
+            <div class="mood-dot shadow"></div>
+            <div class="mood-dot structural"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- BLACKLINE AI ASSISTANT -->
+  <div class="blackline-chat-overlay"></div>
+  <div class="blackline-chat-popup">
+    <div class="chat-close">×</div>
+
+    <!-- Chat Header -->
+    <div class="chat-header">
+      <div class="ai-avatar"><img src="./images/blackline real logo.png" width="60px" alt=""></div>
+    </div>
+
+    <!-- Chat Messages -->
+    <div class="chat-messages" id="blacklineChatMessages">
+      <div class="message ai-message">
+        Welcome to BLACKLINE! I'm your stylist.
+      </div>
+    </div>
+
+    <!-- Chat Input -->
+    <div class="chat-input-area">
+      <div class="input-container">
+        <input type="text" class="chat-input" id="blacklineChatInput" placeholder="Ask about our collections..."
+          onkeypress="handleBlacklineKeyPress(event)">
+        <button class="send-button" onclick="sendBlacklineMessage()">➤</button>
+      </div>
+    </div>
+  </div>
+  <div id="blacklineTypingIndicator" class="typing-indicator" style="display:none;">
+    <span></span><span></span><span></span>
+  </div>
+
+  <!-- AI Orb -->
+  <div class="blackline-orb">
+    <div class="glowing-orb" id="blacklineOrb">BL</div>
+  </div>
+
+
+
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>Shop</h3>
+        <div class="footer-links">
+          <a href="#">New Arrivals</a>
+          <a href="#">Bestsellers</a>
+          <a href="#">Sale</a>
+          <a href="#">Lookbook</a>
+        </div>
+      </div>
+      <div class="footer-column">
+        <h3>Information</h3>
+        <div class="footer-links">
+          <a href="#">Shipping</a>
+          <a href="#">Returns</a>
+          <a href="#">Size Guide</a>
+          <a href="#">Care Instructions</a>
+        </div>
+      </div>
+      <div class="footer-column">
+        <h3>Company</h3>
+        <div class="footer-links">
+          <a href="#">About</a>
+          <a href="#">Stores</a>
+          <a href="#">Careers</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+      <div class="footer-column">
+        <h3>Connect</h3>
+        <div class="footer-links">
+          <a href="#">Instagram</a>
+          <a href="#">Twitter</a>
+          <a href="#">TikTok</a>
+          <a href="#">Newsletter</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      BLACKLINE EMPIRE © 2025 – All Rights Reserved
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      AOS.init({
+        once: false,
+        duration: 1000,
+        delay: 500,
+      });
+    }
+
+    ) 
+  </script>
+  <script src="product.js"></script>
+  <script src="stylist.js"></script>
+  <script>
+    function viewProduct(productId) {
+      // Find product by id from the array
+      const product = blacklineProducts.find(p => p.id === productId);
+      if (product) {
+        // ✅ Save full product details into localStorage
+        localStorage.setItem("selectedProduct", JSON.stringify(product));
+        // ✅ Redirect to the product page
+        window.location.href = "blacklineproduct.html";
+      }
+    }
+  </script>
+  <script>
+    // Scroll arrow functionality with error handling
+    const scrollArrow = document.getElementById('scrollArrow');
+    if (scrollArrow) {
+      scrollArrow.addEventListener('click', function () {
+        const shopCollection = document.getElementById('shop-collection');
+        if (shopCollection) {
+          window.scrollTo({
+            top: shopCollection.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    }
+
+
+    // Universe Interactions with error handling
+    document.addEventListener('DOMContentLoaded', function () {
+      const planets = document.querySelectorAll('.planet');
+      const zoomInBtn = document.getElementById('zoomIn');
+      const zoomOutBtn = document.getElementById('zoomOut');
+      const speedUpBtn = document.getElementById('speedUp');
+      const exploreBtn = document.getElementById('exploreMode');
+      const universe = document.querySelector('.universe-container');
+
+      if (planets.length > 0 && universe) {
+        let zoomLevel = 1;
+        let speedMultiplier = 1;
+        let exploreMode = false;
+
+        // Planet click interactions
+        planets.forEach(planet => {
+          planet.addEventListener('click', function () {
+            const collection = this.dataset.collection;
+
+            // Create cosmic explosion effect
+            const explosion = document.createElement('div');
+            explosion.style.cssText = `
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        width: 100px;
+                        height: 100px;
+                        background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
+                        border-radius: 50%;
+                        transform: translate(-50%, -50%);
+                        animation: cosmicExplosion 0.6s ease-out forwards;
+                        pointer-events: none;
+                        z-index: 100;
+                    `;
+
+            universe.appendChild(explosion);
+
+            setTimeout(() => {
+              explosion.remove();
+              console.log('Navigating to:', collection);
+            }, 600);
+          });
+        });
+
+        // Universe controls with null checks
+        if (zoomInBtn) {
+          zoomInBtn.addEventListener('click', () => {
+            if (zoomLevel < 1.5) {
+              zoomLevel += 0.1;
+              universe.style.transform = `scale(${zoomLevel})`;
+            }
+          });
+        }
+
+        if (zoomOutBtn) {
+          zoomOutBtn.addEventListener('click', () => {
+            if (zoomLevel > 0.7) {
+              zoomLevel -= 0.1;
+              universe.style.transform = `scale(${zoomLevel})`;
+            }
+          });
+        }
+
+        if (speedUpBtn) {
+          speedUpBtn.addEventListener('click', () => {
+            speedMultiplier = speedMultiplier === 1 ? 2 : 1;
+            const orbits = document.querySelectorAll('.orbit');
+            orbits.forEach(orbit => {
+              const currentAnimation = orbit.style.animation;
+              if (currentAnimation) {
+                const newDuration = currentAnimation.replace(/\d+s/, match => {
+                  return (parseFloat(match) / speedMultiplier) + 's';
+                });
+                orbit.style.animation = newDuration;
+              }
+            });
+          });
+        }
+
+        if (exploreBtn) {
+          exploreBtn.addEventListener('click', () => {
+            exploreMode = !exploreMode;
+            document.body.classList.toggle('explore-mode', exploreMode);
+            exploreBtn.textContent = exploreMode ? 'Exit Explore' : 'Explore Mode';
+          });
+        }
+      }
+    });
+
+    // Add cosmic explosion animation only if not already added
+    if (!document.querySelector('style[data-cosmic-animations]')) {
+      const style = document.createElement('style');
+      style.setAttribute('data-cosmic-animations', 'true');
+      style.textContent = `
+            @keyframes cosmicExplosion {
+                0% {
+                    transform: translate(-50%, -50%) scale(0);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translate(-50%, -50%) scale(3);
+                    opacity: 0;
+                }
+            }
+            
+            .explore-mode .planet {
+                animation: planetFloat 3s ease-in-out infinite;
+            }
+            
+            .explore-mode .planet:nth-child(even) {
+                animation-delay: -1.5s;
+            }
+            
+            @keyframes planetFloat {
+                0%, 100% { transform: translateX(-50%) translateY(0px); }
+                50% { transform: translateX(-50%) translateY(-10px); }
+            }
+        `;
+      document.head.appendChild(style);
+    }
+  </script>
+  <script>
+    // ==== BLACKLINE AI CHATBOT ====
+
+    const blacklineOrb = document.getElementById('blacklineOrb');
+    const blacklineChatPopup = document.querySelector('.blackline-chat-popup');
+    const blacklineOverlay = document.querySelector('.blackline-chat-overlay');
+    const blacklineChatMessages = document.getElementById('blacklineChatMessages');
+    const blacklineChatInput = document.getElementById('blacklineChatInput');
+
+    // Typing indicator
+    const typingIndicator = document.createElement('div');
+    typingIndicator.className = 'typing-indicator';
+    typingIndicator.innerHTML = `<span></span><span></span><span></span>`;
+    typingIndicator.style.display = 'none';
+    blacklineChatMessages.appendChild(typingIndicator);
+
+    // Handle Enter key
+    function handleBlacklineKeyPress(event) {
+      if (event.key === 'Enter') sendBlacklineMessage();
+    }
+
+    // Orb click to open/close chat
+    blacklineOrb.addEventListener('click', () => {
+      blacklineChatPopup.classList.toggle('active');
+      blacklineOverlay.classList.toggle('active');
+      if (blacklineChatPopup.classList.contains('active')) {
+        setTimeout(() => blacklineChatInput.focus(), 200);
+      }
+    });
+
+    // Close chat
+    blacklineOverlay.addEventListener('click', () => {
+      blacklineChatPopup.classList.remove('active');
+      blacklineOverlay.classList.remove('active');
+    });
+    document.querySelector('.chat-close').addEventListener('click', () => {
+      blacklineChatPopup.classList.remove('active');
+      blacklineOverlay.classList.remove('active');
+    });
+
+    // Function to type AI message letter by letter
+    function typeMessage(text, container) {
+      let i = 0;
+      const messageDiv = document.createElement('div');
+      messageDiv.className = 'message ai-message';
+      container.appendChild(messageDiv);
+      blacklineChatMessages.scrollTop = blacklineChatMessages.scrollHeight;
+
+      const interval = setInterval(() => {
+        messageDiv.textContent += text[i];
+        i++;
+        blacklineChatMessages.scrollTop = blacklineChatMessages.scrollHeight;
+        if (i >= text.length) clearInterval(interval);
+      }, 20); // 20ms per letter → fast typing
+    }
+
+    // Send message
+    function sendBlacklineMessage() {
+      const message = blacklineChatInput.value.trim();
+      if (!message) return;
+
+      // Add user message
+      const userDiv = document.createElement('div');
+      userDiv.className = 'message user-message';
+      userDiv.textContent = message;
+      blacklineChatMessages.appendChild(userDiv);
+      blacklineChatInput.value = '';
+      blacklineChatMessages.scrollTop = blacklineChatMessages.scrollHeight;
+
+      // Show "Thinking..." indicator
+      typingIndicator.style.display = 'flex';
+      blacklineChatMessages.scrollTop = blacklineChatMessages.scrollHeight;
+
+      // Random thinking time 3–5 seconds
+      const thinkingTime = 3000 + Math.random() * 2000;
+
+      setTimeout(() => {
+        // Hide typing indicator
+        typingIndicator.style.display = 'none';
+
+        // Pick a random AI answer
+        const aiResponse = blacklineStylistAnswers[Math.floor(Math.random() * blacklineStylistAnswers.length)];
+
+        // Type response letter by letter
+        typeMessage(aiResponse.answer, blacklineChatMessages);
+      }, thinkingTime);
+    }
+
+
+  </script>
+
+
+
+  <script>
+    // Standardized Hamburger Toggle from drops.html
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (hamburger && navLinks) {
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('open');
+      });
+    }
+  </script>
+</body>
+
+</html>

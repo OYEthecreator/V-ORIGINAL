@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>VOUX | DISCOVER — Brand Universe</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        /* ========= ROOT / TOKENS ========= */
+        :root {
+            --bg: #000;
+            --fg: #fff;
+            --muted: #c9c9c9;
+            --ink: #0c0c0c;
+            --stone: #161616;
+            --parch: #f5ecd7;
+            --gold1: #caa86a;
+            --gold2: #ffefc5;
+            --gold3: #9e7b2f;
+            --accent: #8aa;
+            --shadow: 0 30px 100px rgba(0, 0, 0, .55);
+            --radius: 24px;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            height: 100%
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--fg);
+            font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial;
+            overflow-x: hidden;
+            scroll-snap-type: y mandatory;
+        }
+
+        .scene {
+            position: relative;
+            height: 100vh;
+            scroll-snap-align: start;
+            isolation: isolate
+        }
+
+        .panel {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            padding: clamp(18px, 3vw, 48px);
+            display: grid;
+            place-items: center
+        }
+
+        .max {
+            max-width: min(1200px, 92vw)
+        }
+
+        .stack {
+            display: grid;
+            gap: clamp(12px, 2vmin, 24px)
+        }
+
+        .caption {
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            font-size: .8rem;
+            opacity: .7
+        }
+
+        .vnotes {
+            position: absolute;
+            inset-block: 0;
+            left: 1rem;
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            letter-spacing: .2em;
+            font-size: .8rem;
+            opacity: .5
+        }
+
+        .vnotes.right {
+            left: auto;
+            right: 1rem
+        }
+
+        .soft {
+            filter: drop-shadow(0 40px 100px rgba(0, 0, 0, .6))
+        }
+
+        .grain::after {
+            content: "";
+            position: fixed;
+            inset: -10%;
+            z-index: 1000;
+            pointer-events: none;
+            background:
+                radial-gradient(transparent 0 40%, rgba(255, 255, 255, .02) 60% 100%) 0 0/12px 12px,
+                radial-gradient(transparent 0 45%, rgba(0, 0, 0, .03) 70% 100%) 6px 6px/12px 12px;
+            mix-blend-mode: overlay;
+            opacity: .7;
+        }
+
+        /* ========= TYPOGRAPHY ========= */
+        /* Section styling */
+        .scene.S1 {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at center, #050000 0%, #0a0a0a 70%);
+            overflow: hidden;
+        }
+
+        /* Panel container */
+        .scene.S1 .panel.center {
+            position: relative;
+            text-align: center;
+            z-index: 2;
+            perspective: 800px;
+        }
+
+        /* Floating subtle particles for premium effect */
+        .scene.S1::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://i.ibb.co/0GV7k7V/particle.png');
+            /* tiny subtle particle image or replace with dots */
+            background-size: cover;
+            opacity: 0.05;
+            pointer-events: none;
+            animation: floatParticles 30s linear infinite;
+        }
+
+        /* Particle animation */
+        @keyframes floatParticles {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-200px);
+            }
+        }
+
+        /* Vnotes text (top) */
+        .vnotes {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            letter-spacing: 4px;
+            font-size: 1rem;
+            color: #FFD700;
+            text-shadow: 0 0 8px #BFA13F, 0 0 20px rgba(255, 215, 0, 0.4);
+            margin-bottom: 1rem;
+            transform: rotateX(10deg);
+            animation: vnotesPulse 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes vnotesPulse {
+            0% {
+                text-shadow: 0 0 8px #BFA13F, 0 0 20px rgba(255, 215, 0, 0.4);
+            }
+
+            100% {
+                text-shadow: 0 0 15px #FFD700, 0 0 35px rgba(255, 215, 0, 0.6);
+            }
+        }
+
+        /* Hero title */
+        .hero.soft {
+            font-family: 'Poppins', sans-serif;
+            font-size: 6vw;
+            font-weight: 900;
+            color: #FFD700;
+            text-transform: uppercase;
+            letter-spacing: 1.5vw;
+            line-height: 1;
+            text-shadow:
+                0 0 15px #FFD700,
+                0 0 30px rgba(255, 215, 0, 0.5),
+                0 0 60px rgba(255, 215, 0, 0.3),
+                0 10px 20px rgba(0, 0, 0, 0.8);
+            transform: rotateX(5deg);
+            animation: heroGlow 2.5s ease-in-out infinite alternate;
+        }
+
+        /* Hero glow animation */
+        @keyframes heroGlow {
+            0% {
+                text-shadow:
+                    0 0 15px #FFD700,
+                    0 0 30px rgba(255, 215, 0, 0.5),
+                    0 0 60px rgba(255, 215, 0, 0.3),
+                    0 10px 20px rgba(0, 0, 0, 0.8);
+            }
+
+            100% {
+                text-shadow:
+                    0 0 30px #FFD700,
+                    0 0 60px rgba(255, 215, 0, 0.7),
+                    0 0 120px rgba(255, 215, 0, 0.4),
+                    0 15px 30px rgba(0, 0, 0, 0.8);
+            }
+        }
+
+        /* Caption text */
+        .caption {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            color: #fff;
+            opacity: 0.6;
+            letter-spacing: 2px;
+            text-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+            animation: captionFloat 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes captionFloat {
+            0% {
+                transform: translateY(0);
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: translateY(-10px);
+                opacity: 0.8;
+            }
+        }
+
+        /* Optional cinematic vignette */
+        .scene.S1::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 60%, rgba(0, 0, 0, 0.7) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .gold {
+            background: linear-gradient(120deg, var(--gold1), var(--gold2), var(--gold3), var(--gold2), var(--gold1));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 200% 200%;
+            animation: shimmer 7s linear infinite;
+            text-shadow: 0 2px 28px rgba(255, 215, 130, .25);
+        }
+
+        @keyframes shimmer {
+            to {
+                background-position: 200% 0
+            }
+        }
+
+        /* ========= IMAGE / ITEM CARDS ========= */
+        .items {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.2vmax
+        }
+
+        .item {
+            grid-column: span 3;
+            background: #111;
+            border-radius: calc(var(--radius) - 8px);
+            overflow: hidden;
+            position: relative;
+            display: grid;
+            box-shadow: var(--shadow);
+        }
+
+        .item.tall {
+            grid-column: span 4;
+            grid-row: span 2;
+            aspect-ratio: 3/4
+        }
+
+        .item.wide {
+            grid-column: span 6;
+            aspect-ratio: 16/9
+        }
+
+        .item.square {
+            aspect-ratio: 1/1;
+        }
+
+        /* ========= CRITICAL IMAGE FIXES ========= */
+        /* Image container fix - ensures images are fully visible and centered */
+        .item .img {
+            background: linear-gradient(135deg, #2a2a2a, #555);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            position: relative;
+        }
+
+        /* Actual image styling - ensures full visibility */
+        .item .img img {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            object-position: center;
+            display: block;
+            opacity: 1;
+            filter: none;
+        }
+
+        /* Fix for items that have img directly on .item instead of .img container */
+        .item > img,
+        .item img:not(.img img) {
+            width: auto !important;
+            height: auto !important;
+            max-width: 100% !important;
+            max-height: 100% !important;
+            object-fit: contain !important;
+            object-position: center !important;
+            display: block !important;
+            opacity: 1 !important;
+        }
+
+        /* Ensure all images maintain aspect ratio */
+        .item img {
+            aspect-ratio: auto;
+            background: transparent;
+        }
+
+        .item .meta {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 14px 14px 12px;
+            background: linear-gradient(180deg, transparent, rgba(0, 0, 0, .7));
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 8px;
+        }
+
+        .tag {
+            padding: 0.35em 0.6em;
+            border-radius: 999px;
+            font-size: clamp(8px, 0.8vw, 12px);
+            /* Fluid scaling */
+            letter-spacing: 0.06em;
+            background: rgba(255, 255, 255, .08);
+            backdrop-filter: blur(4px);
+            white-space: nowrap;
+        }
+
+        .brand {
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-size: clamp(9px, 0.9vw, 14px);
+            /* Fluid scaling */
+            opacity: .9;
+            white-space: nowrap;
+        }
+
+        /* ========= MASKS / CUTS ========= */
+        .diag {
+            --cut: 8vmax;
+            -webkit-mask: linear-gradient(160deg, transparent 0 var(--cut), #000 var(--cut) calc(100% - var(--cut)), transparent calc(100% - var(--cut)));
+            mask: linear-gradient(160deg, transparent 0 var(--cut), #000 var(--cut) calc(100% - var(--cut)), transparent calc(100% - var(--cut)));
+        }
+
+        .burnt {
+            -webkit-mask:
+                radial-gradient(120% 120% at -10% -10%, transparent 35%, #000 36%) top left,
+                radial-gradient(120% 120% at 110% -10%, transparent 35%, #000 36%) top right,
+                radial-gradient(120% 120% at -10% 110%, transparent 35%, #000 36%) bottom left,
+                radial-gradient(120% 120% at 110% 110%, transparent 35%, #000 36%) bottom right;
+            -webkit-mask-size: 51% 51%;
+            -webkit-mask-repeat: no-repeat;
+            mask:
+                radial-gradient(120% 120% at -10% -10%, transparent 35%, #000 36%) top left,
+                radial-gradient(120% 120% at 110% -10%, transparent 35%, #000 36%) top right,
+                radial-gradient(120% 120% at -10% 110%, transparent 35%, #000 36%) bottom left,
+                radial-gradient(120% 120% at 110% 110%, transparent 35%, #000 36%) bottom right;
+            mask-size: 51% 51%;
+            mask-repeat: no-repeat;
+        }
+
+        /* ========= SIMPLE ORBITS (pure CSS, no JS) ========= */
+        .orbit {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            pointer-events: none
+        }
+
+        .frag {
+            position: absolute;
+            width: 12vmax;
+            aspect-ratio: 1/1;
+            border-radius: 18%;
+            background: conic-gradient(from 0deg at 50% 50%, #333, #666, #222);
+            mix-blend-mode: screen;
+            opacity: .5;
+            filter: blur(.25px) drop-shadow(0 20px 40px rgba(0, 0, 0, .45));
+            animation: spin var(--t, 18s) linear infinite;
+            transform-origin: var(--ox, 50%) var(--oy, 50%);
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg) translateX(var(--rx, 22vmax)) rotate(-360deg);
+            }
+        }
+
+        /* ========= BACKGROUNDS per SCENE ========= */
+        .S1 {
+            background: linear-gradient(180deg, #0d0d0d, #000)
+        }
+
+        .S2 {
+            background:
+                radial-gradient(10% 150% at 50% 50%, rgba(255, 255, 255, .08), transparent 70%),
+                conic-gradient(from 180deg at 50% 50%, #000 0 40%, #2b2b2b 41% 45%, #000 46% 100%);
+        }
+
+        .S3 {
+            background: radial-gradient(40% 40% at 50% 50%, #111 0 30%, #000 60%)
+        }
+
+        .S4 {
+            background: linear-gradient(180deg, #050505, #0e0e0e)
+        }
+
+        .S5 {
+            background: linear-gradient(140deg, #0b0b0b, #1a1a1a 60%, #0b0b0b)
+        }
+
+        .S6 {
+            background: radial-gradient(80% 60% at 50% 50%, #1a1208, #000 70%)
+        }
+
+        .S7 {
+            background: linear-gradient(180deg, #fff, #eaeaea, #fff);
+            color: #111
+        }
+
+        .S8 {
+            background: #0c0c0c
+        }
+
+        .S9 {
+            background: #0a0a0a
+        }
+
+        .S10 {
+            background: linear-gradient(180deg, #0b0b0b, #000)
+        }
+
+        .S11 {
+            background: linear-gradient(180deg, #101010, #090909)
+        }
+
+        .S12 {
+            background: linear-gradient(180deg, var(--parch), #efe6cc);
+            color: var(--ink)
+        }
+
+        .S13 {
+            background: radial-gradient(70% 70% at 50% 50%, #121212 0 45%, #000 100%)
+        }
+
+        .S14 {
+            background: linear-gradient(180deg, #000 0 50%, #111)
+        }
+
+        .S15 {
+            background: radial-gradient(60% 60% at 50% 50%, #fff 0 7%, #ececec 8% 9%, #000 10% 100%);
+            color: #000
+        }
+
+        /* ========= NO MEDIA QUERIES (STRICT SCALING) ========= */
+        /* The layout persists 100% on mobile, elements just shrink */
+    </style>
+
+
+</head>
+
+<body>
+    <!-- 🔒 FIXED GOLD LUXURY BACK BUTTON -->
+    <style>
+        .back-btn-fixed {
+            position: fixed;
+            top: 22px;
+            /* adjust position */
+            left: 22px;
+            z-index: 9999;
+
+            background: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(212, 175, 55, 0.55);
+
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 9px 14px;
+            border-radius: 50px;
+            transition: 0.25s ease;
+            color: #d4af37;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .back-btn-fixed:hover {
+            background: rgba(212, 175, 55, 0.15);
+            transform: translateX(-2px);
+        }
+
+        .back-btn-fixed svg {
+            width: 17px;
+            height: 17px;
+            stroke: #d4af37;
+            transition: 0.25s ease;
+        }
+
+        .back-btn-fixed:hover svg {
+            stroke: #f0d98a;
+        }
+    </style>
+
+    <button class="back-btn-fixed" onclick="goBack()">
+        <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+        Back
+    </button>
+
+    <script>
+        function goBack() {
+            if (document.referrer) {
+                window.history.back();
+            } else {
+                window.location.href = "/"; // fallback home
+            }
+        }
+    </script>
+
+    <!-- 1. PORTAL / ENTRY -->
+    <section class="scene S1" data-aos="fade-down" data-aos-duration="2000" data-aos-easing="ease-out-back">
+        <div class="panel center">
+            <div class="vnotes" data-aos="fade-right" data-aos-delay="400" data-aos-duration="1800">DISCOVER • ENTRY
+            </div>
+            <h1 class="hero soft" data-aos="zoom-in-up" data-aos-duration="2200" data-aos-easing="ease-out-cubic">
+                DISCOVER</h1>
+            <div class="caption" style="position:absolute; bottom:6vh; opacity:.6" data-aos="fade-up"
+                data-aos-delay="1000" data-aos-duration="2000">Enter the world of VOUX</div>
+        </div>
+    </section>
+
+    <!-- 2. WHAT IS VOUX (crack motif) -->
+    <section class="scene S2" data-aos="fade-up" data-aos-duration="1800" data-aos-anchor-placement="top-bottom">
+        <div class="panel">
+            <div class="stack max" style="text-align:center">
+                <h2 class="gold" style="font-size:clamp(28px,6vw,84px); letter-spacing:.18em; text-transform:uppercase"
+                    data-aos="flip-up" data-aos-delay="300" data-aos-duration="2000">VOUX is a language worn</h2>
+                <p style="opacity:.8; max-width:70ch; margin:0 auto" data-aos="fade-up" data-aos-delay="600"
+                    data-aos-duration="1800">Not just garments — codes, silhouettes, textures. Discover the threads that
+                    define the house.</p>
+                <div class="soft"
+                    style="height:2px; width:min(85vw,1000px); background:linear-gradient(90deg,transparent,rgba(255,255,255,.8),transparent)"
+                    data-aos="zoom-in" data-aos-delay="900" data-aos-duration="1600"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. BRANDS OVERVIEW (orbiting tiles) -->
+    <section class="scene S3" data-aos="fade-in" data-aos-duration="2000">
+        <div class="panel center">
+            <div class="vnotes" data-aos="fade-down" data-aos-delay="200">Ecosystem</div>
+            <div class="orbit">
+                <div class="frag" style="--t:22s; --rx:24vmax;"></div>
+                <div class="frag" style="--t:28s; --rx:30vmax; opacity:.35;"></div>
+                <div class="frag" style="--t:16s; --rx:18vmax; opacity:.25;"></div>
+            </div>
+            <div class="items max">
+                <div class="item square" data-aos="flip-left" data-aos-delay="200" data-aos-duration="1800">
+                    <div class="img"><img src="./images/BLACKLINE NEGATIVE SPACE COAT.png" alt=""></div>
+                    <div class="meta"><span class="brand">Blackline</span><span class="tag">Tailored</span></div>
+                </div>
+                <div class="item square" data-aos="flip-right" data-aos-delay="400" data-aos-duration="1800">
+                    <div class="img"><img src="./images/LST ORBIT PUFFER JACKET.png" alt=""></div>
+                    <div class="meta"><span class="brand">Lustra</span><span class="tag">Reflective</span></div>
+                </div>
+                <div class="item square" data-aos="flip-up" data-aos-delay="600" data-aos-duration="1800">
+                    <div class="img"><img src="./images/distortion image 11.png" alt=""></div>
+                    <div class="meta"><span class="brand">Distortion</span><span class="tag">Street</span></div>
+                </div>
+                <div class="item square" data-aos="flip-down" data-aos-delay="800" data-aos-duration="1800">
+                    <div class="img"><img src="./images/ECLIPSE HORIZON CAPE.png" alt=""></div>
+                    <div class="meta"><span class="brand">Eclipse</span><span class="tag">Futurist</span></div>
+                </div>
+                <div class="item square" data-aos="zoom-in" data-aos-delay="1000" data-aos-duration="1800">
+                    <div class="img"><img src="./images/RBT EMBER WEAVE.png" alt=""></div>
+                    <div class="meta"><span class="brand">Monochrome</span><span class="tag">Transform</span></div>
+                </div>
+                <div class="item wide" data-aos="zoom-in-up" data-aos-delay="1200" data-aos-duration="2000">
+                    <div class="img"><img src="./images/herosectionimage4.png" alt=""></div>
+                    <div class="meta"><span class="brand">The House</span><span class="tag">Codes</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. BLACKLINE (tailoring noir) -->
+    <section class="scene S4 diag" data-aos="fade-right" data-aos-duration="2000">
+        <div class="panel">
+            <div class="vnotes" data-aos="fade-left" data-aos-delay="300">Blackline</div>
+            <div class="stack max">
+                <h3 class="gold"
+                    style="font-size:clamp(22px,4.5vw,54px); letter-spacing:.12em; text-transform:uppercase"
+                    data-aos="slide-down" data-aos-delay="500">Blackline — Structure & Silence</h3>
+                <div class="items">
+                    <div class="item tall" data-aos="fade-up-right" data-aos-delay="200" data-aos-duration="1800">
+                        <div class="img"><img src="./images/blackline real logo.png" alt=""></div>
+                        <div class="meta"><span class="brand">Blackline</span>
+                            <span class="tag"></span>
+                        </div>
+                    </div>
+                    <div class="item square" data-aos="fade-up-left" data-aos-delay="400" data-aos-duration="1800">
+                        <div class="img"><img src="./images/BLACKLINE ASSYMETRIC SUNGLASSES-NEW.png" alt=""></div>
+                        <div class="meta"><span class="brand">Blackline</span>
+                            <span class="tag"></span>
+                        </div>
+                    </div>
+                    <div class="item square" data-aos="fade-down-right" data-aos-delay="600" data-aos-duration="1800">
+                        <div class="img"><img src="./images/BLN LATEST ACHITECTURAL BLAZER.png" alt=""></div>
+                        <div class="meta"><span class="brand">Blackline</span><span class="tag"></span></div>
+                    </div>
+                    <div class="item wide" data-aos="fade-down-left" data-aos-delay="800" data-aos-duration="2000">
+                        <div class="img"><img src="./images/campaignherosectionimage.png" alt=""></div>
+                        <div class="meta"><span class="brand">Blackline</span><span class="tag">Lookbook</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. REBIRTH (renewal/heat) -->
+    <section class="scene S8" data-aos="fade-left" data-aos-duration="2000">
+        <div class="panel">
+            <div class="vnotes" data-aos="fade-right" data-aos-delay="300">MONOCHROME</div>
+            <div class="stack max">
+                <h3 class="gold"
+                    style="font-size:clamp(22px,4.5vw,54px); letter-spacing:.12em; text-transform:uppercase"
+                    data-aos="slide-up" data-aos-delay="500">MONOCHROME — ACHITECTURAL MINIMALISM</h3>
+                <div class="items">
+                    <div class="item wide" data-aos="zoom-out" data-aos-delay="200" data-aos-duration="2000">
+                        <div class="img"><img src="./images/monochrome official logo.png" alt=""></div>
+                        <div class="meta"><span class="brand">MONOCHROME</span><span class="tag"></span></div>
+                    </div>
+                    <div class="item square" data-aos="zoom-in" data-aos-delay="400" data-aos-duration="1800">
+                        <div class="img"><img src="./images/MNC WINGED BACKPIECE.png" alt=""></div>
+                        <div class="meta"><span class="brand">MONOCHROME</span><span class="tag">Co-ord</span></div>
+                    </div>
+                    <div class="item square" data-aos="zoom-in-up" data-aos-delay="600" data-aos-duration="1800">
+                        <div class="img"><img src="images/nick1.png" alt=""></div>
+                        <div class="meta"><span class="brand">MONOCHROME</span><span class="tag">Layer</span></div>
+                    </div>
+                    <div class="item tall" data-aos="zoom-in-down" data-aos-delay="800" data-aos-duration="1800">
+                        <div class="img"><img src="./images/natasha oakley.png" alt=""></div>
+                        <div class="meta"><span class="brand">MONOCHROME</span><span class="tag">Dress</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. LUSTRA (light/reflect) -->
+    <section class="scene S5" data-aos="fade-up-right" data-aos-duration="2000">
+        <div class="panel">
+            <div class="vnotes right" data-aos="fade-down-left" data-aos-delay="300">Lustra</div>
+            <div class="stack max">
+                <h3 style="font-size:clamp(22px,4.5vw,54px); letter-spacing:.12em; text-transform:uppercase"
+                    data-aos="flip-left" data-aos-delay="500">Lustra — Light that Dresses</h3>
+                <div class="items">
+                    <div class="item wide" data-aos="fade-down" data-aos-delay="200" data-aos-duration="2000">
+                        <div class="img"><img src="./images/Screenshot 2025-10-27 212809.png" alt=""></div>
+                        <div class="meta"><span class="brand">Lustra</span><span class="tag">Metallic</span></div>
+                    </div>
+                    <div class="item square" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1800">
+                        <div class="img"><img src="./images/Screenshot 2025-10-27 211126.png" alt=""></div>
+                        <div class="meta"><span class="brand">Lustra</span><span class="tag"></span></div>
+                    </div>
+                    <div class="item square" data-aos="fade-right" data-aos-delay="600" data-aos-duration="1800">
+                        <div class="img"><img src="./images/Screenshot 2025-10-27 210152.png" alt=""></div>
+                        <div class="meta"><span class="brand">Lustra</span><span class="tag"></span></div>
+                    </div>
+                    <div class="item tall" data-aos="fade-left" data-aos-delay="800" data-aos-duration="1800">
+                        <div class="img"><img src="./images/Screenshot 2025-10-27 212244.png" alt=""></div>
+                        <div class="meta"><span class="brand">Lustra</span><span class="tag"></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. DISTORTION (street/glitch) -->
+    <section class="scene S6 burnt" data-aos="fade-down-left" data-aos-duration="2000">
+        <div class="panel">
+            <div class="vnotes" data-aos="fade-up-right" data-aos-delay="300">Distortion</div>
+            <div class="stack max">
+                <h3 class="gold"
+                    style="font-size:clamp(22px,4.5vw,54px); letter-spacing:.12em; text-transform:uppercase"
+                    data-aos="flip-right" data-aos-delay="500">Distortion — The Beautiful Error</h3>
+                <div class="items">
+                    <div class="item square" data-aos="slide-left" data-aos-delay="200" data-aos-duration="1800">
+                        <div class="img"><img src="./images/Screenshot 2025-10-27 214846.png" alt=""></div>
+                        <div class="meta"><span class="brand">Distortion</span><span class="tag"></span></div>
+                    </div>
+                    <div class="item square" data-aos="slide-right" data-aos-delay="400" data-aos-duration="1800">
+                        <div class="img"><img src="./images/Screenshot 2025-10-27 214132.png" alt=""></div>
+                        <div class="meta"><span class="brand">Distortion</span><span class="tag"></span></div>
+                    </div>
+                    <div class="item wide" data-aos="slide-up" data-aos-delay="600" data-aos-duration="2000">
+                        <div class="img"><img src="./images/Screenshot 2025-10-27 213409.png" alt=""></div>
+                        <div class="meta"><span class="brand">Distortion</span><span class="tag"></span></div>
+                    </div>
+                    <div class="item square" data-aos="slide-down" data-aos-delay="800" data-aos-duration="1800">
+                        <div class="img"><img src="./images/Screenshot 2025-10-27 213922.png" alt=""></div>
+                        <div class="meta"><span class="brand">Distortion</span><span class="tag"></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><br>
+
+    <!-- 7. ECLIPSE (cosmic futurist) -->
+    <section class="scene S7" data-aos="fade-up-left" data-aos-duration="2000">
+        <div class="panel">
+            <div class="vnotes right" data-aos="fade-down-right" data-aos-delay="300">Eclipse</div>
+            <div class="stack max">
+                <h3 style="font-size:clamp(22px,4.5vw,54px); letter-spacing:.12em; text-transform:uppercase"
+                    data-aos="flip-up" data-aos-delay="500">Eclipse — Night Technology</h3>
+                <div class="items">
+                    <div class="item tall" data-aos="zoom-out-left" data-aos-delay="200" data-aos-duration="1800">
+                        <div class="img"><img src="./images/Screenshot 2025-10-27 222237.png" alt=""></div>
+                        <div class="meta"><span class="brand">Eclipse</span><span class="tag">Shell</span></div>
+                    </div>
+                    <div class="item square" data-aos="zoom-out-right" data-aos-delay="400" data-aos-duration="1800">
+                        <div class="img"><img src="./images/Screenshot 2025-10-27 215403.png" alt=""></div>
+                        <div class="meta"><span class="brand">Eclipse</span><span class="tag">Utility</span></div>
+                    </div>
+                    <div class="item wide" data-aos="zoom-out-up" data-aos-delay="600" data-aos-duration="2000">
+                        <div class="img"><img src="./images/Screenshot 2025-10-27 223758.png" alt=""></div>
+                        <div class="meta"><span class="brand">Eclipse</span><span class="tag">Neo</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><br><br>
+
+    <!-- 9. CONNECTION THREADS (accessories grid) -->
+    <section class="scene S9" data-aos="fade-down-right" data-aos-duration="2000">
+        <div class="panel">
+            <div class="stack max">
+                <h3 style="text-transform:uppercase; letter-spacing:.12em" data-aos="flip-down" data-aos-delay="300">
+                    Threads that Bind the House</h3>
+                <div class="items">
+                    <div class="item square" data-aos="rotate-in" data-aos-delay="200" data-aos-duration="1800">
+                        <div class="img"><img src="./images/Screenshot 2025-10-27 224241.png" alt=""></div>
+                        <div class="meta"><span class="brand">Sunglasses</span><span class="tag">Signature</span></div>
+                    </div>
+                    <div class="item square" data-aos="rotate-in-down-left" data-aos-delay="400"
+                        data-aos-duration="1800">
+                        <div class="img"><img src="./images/blacklinepiece3.png" alt=""></div>
+                        <div class="meta"><span class="brand">Bags</span><span class="tag">Vault</span></div>
+                    </div>
+                    <div class="item square" data-aos="rotate-in-down-right" data-aos-delay="600"
+                        data-aos-duration="1800">
+                        <div class="img"><img src="./images/blackline piece1.png" alt=""></div>
+                        <div class="meta"><span class="brand">COTTON</span><span class="tag">Seal</span></div>
+                    </div>
+                    <div class="item wide" data-aos="rotate-in-up-left" data-aos-delay="800" data-aos-duration="2000">
+                        <div class="img"><img src="./images/Screenshot 2025-10-27 224539.png" alt=""></div>
+                        <div class="meta"><span class="brand">Footwear</span><span class="tag">Line</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. DESIGN CODES (textures & fabric) -->
+    <section class="scene S10" data-aos="fade-up" data-aos-duration="2000" data-aos-anchor-placement="center-bottom">
+        <div class="panel">
+            <div class="vnotes right" data-aos="fade-left" data-aos-delay="300">Codes</div>
+            <div class="items max">
+                <div class="item wide" data-aos="zoom-in-down" data-aos-delay="200" data-aos-duration="2000">
+                    <div class="img"><img src="./images/Screenshot 2025-10-27 224746.png" alt=""></div>
+                    <div class="meta"><span class="brand">Texture</span><span class="tag">Matte</span></div>
+                </div>
+                <div class="item square" data-aos="zoom-in-up" data-aos-delay="400" data-aos-duration="1800">
+                    <div class="img"><img src="./images/Screenshot 2025-10-27 224731.png" alt=""></div>
+                    <div class="meta"><span class="brand">Texture</span><span class="tag">Gloss</span></div>
+                </div>
+                <div class="item square" data-aos="zoom-in-left" data-aos-delay="600" data-aos-duration="1800">
+                    <div class="img"><img src="./images/Screenshot 2025-10-27 224813.png" alt=""></div>
+                    <div class="meta"><span class="brand">Weave</span><span class="tag">Dense</span></div>
+                </div>
+                <div class="item square" data-aos="zoom-in-right" data-aos-delay="800" data-aos-duration="1800">
+                    <div class="img"><img src="./images/Screenshot 2025-10-28 091914.png" alt=""></div>
+                    <div class="meta"><span class="brand">Stitch</span><span class="tag">Edge</span></div>
+                </div>
+                <div class="item square" data-aos="zoom-out-down" data-aos-delay="1000" data-aos-duration="1800">
+                    <div class="img"><img src="./images/Screenshot 2025-10-28 091940.png" alt=""></div>
+                    <div class="meta"><span class="brand">Print</span><span class="tag">Eclipse</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11. CULTURE (street & runway) -->
+    <section class="scene S11" data-aos="fade-down" data-aos-duration="2000">
+        <div class="panel">
+            <div class="stack max">
+                <h3 class="gold" style="text-transform:uppercase; letter-spacing:.12em" data-aos="slide-right"
+                    data-aos-delay="400">Witnessed in the Wild</h3>
+                <div class="items">
+                    <div class="item wide" data-aos="flip-left" data-aos-delay="200" data-aos-duration="2000">
+                        <div class="img"><img src="./images/Screenshot 2025-10-28 092454.png" alt=""></div>
+                        <div class="meta"><span class="brand">Runway</span><span class="tag">Edit</span></div>
+                    </div>
+                    <div class="item square" data-aos="flip-right" data-aos-delay="400" data-aos-duration="1800">
+                        <div class="img"><img src="./images/Screenshot 2025-10-28 092515.png" alt=""></div>
+                        <div class="meta"><span class="brand">Street</span><span class="tag">Look</span></div>
+                    </div>
+                    <div class="item square" data-aos="flip-up" data-aos-delay="600" data-aos-duration="1800">
+                        <div class="img"><img src="./images/Screenshot 2025-10-28 092756.png" alt=""></div>
+                        <div class="meta"><span class="brand">Backstage</span><span class="tag">Raw</span></div>
+                    </div>
+                    <div class="item tall" data-aos="flip-down" data-aos-delay="800" data-aos-duration="1800">
+                        <div class="img"><img src="./images/Screenshot 2025-10-28 092838.png" alt=""></div>
+                        <div class="meta"><span class="brand">Campaign</span><span class="tag">Film</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 12. ARCHIVE (parchment collage) -->
+    <section class="scene S12" data-aos="fade-in" data-aos-duration="2200">
+        <div class="panel burnt">
+            <div class="vnotes" data-aos="fade-right" data-aos-delay="300">Archive</div>
+            <div class="stack max">
+                <h3 style="text-transform:uppercase; letter-spacing:.12em" data-aos="slide-left" data-aos-delay="500">
+                    From Sketch to Signature</h3>
+                <div class="items">
+                    <div class="item square" data-aos="zoom-out-left" data-aos-delay="200" data-aos-duration="1800">
+                        <div class="img"><img src="./images/Screenshot 2025-10-28 093343.png" alt=""></div>
+                        <div class="meta"><span class="brand">Sketch</span><span class="tag">Blackline</span></div>
+                    </div>
+                    <div class="item square" data-aos="zoom-out-right" data-aos-delay="400" data-aos-duration="1800">
+                        <div class="img"><img src="./images/LST SCULPTURAL CAPE DRESS.png" alt=""></div>
+                        <div class="meta"><span class="brand">Sample</span><span class="tag">Lustra</span></div>
+                    </div>
+                    <div class="item wide" data-aos="zoom-out-up" data-aos-delay="600" data-aos-duration="2000">
+                        <div class="img"><img src="./images/ECLIPSE HORIZON CAPE.png" alt=""></div>
+                        <div class="meta"><span class="brand">Prototype</span><span class="tag">Eclipse</span></div>
+                    </div>
+                    <div class="item square" data-aos="zoom-out-down" data-aos-delay="800" data-aos-duration="1800">
+                        <div class="img"><img src="./images/Screenshot 2025-10-28 094028.png" alt=""></div>
+                        <div class="meta"><span class="brand">Print</span><span class="tag">Distortion</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 13. LENS (macro details) -->
+    <section class="scene S13" data-aos="fade-up" data-aos-duration="2000">
+        <div class="panel">
+            <div class="vnotes right" data-aos="fade-left" data-aos-delay="300">Lens</div>
+            <div class="items max">
+                <div class="item tall" data-aos="slide-down" data-aos-delay="200" data-aos-duration="1800">
+                    <div class="img"><img src="./images/Screenshot 2025-10-28 105450.png" alt=""></div>
+                    <div class="meta"><span class="brand">Stitch</span><span class="tag">Edge</span></div>
+                </div>
+                <div class="item square" data-aos="slide-up" data-aos-delay="400" data-aos-duration="1800">
+                    <div class="img"><img src="./images/Screenshot 2025-10-28 095352.png" alt=""></div>
+                    <div class="meta"><span class="brand">Zip</span><span class="tag">Hardware</span></div>
+                </div>
+                <div class="item square" data-aos="slide-right" data-aos-delay="600" data-aos-duration="1800">
+                    <div class="img"><img src="./images/Screenshot 2025-10-28 094028.png" alt=""></div>
+                    <div class="meta"><span class="brand">Fabric</span><span class="tag">Weft</span></div>
+                </div>
+                <div class="item wide" data-aos="slide-left" data-aos-delay="800" data-aos-duration="2000">
+                    <div class="img"><img src="./images/SECTION 10 ORIGIN.png" alt=""></div>
+                    <div class="meta"><span class="brand">Emboss</span><span class="tag">Seal</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 14. FUTURE (tease) -->
+    <section class="scene S14" data-aos="fade-in" data-aos-duration="2200">
+        <div class="panel center">
+            <div class="stack max" style="text-align:center">
+                <h3 class="gold"
+                    style="font-size:clamp(22px,4.5vw,54px); letter-spacing:.12em; text-transform:uppercase"
+                    data-aos="zoom-in" data-aos-delay="400" data-aos-duration="2000">Next — Not Yet Seen</h3>
+                <p class="caption" data-aos="fade-up" data-aos-delay="700" data-aos-duration="1800">Silhouettes in
+                    shadow. The line continues.</p>
+                <div class="soft"
+                    style="height:2px; width:min(80vw,960px); background:linear-gradient(90deg,transparent,rgba(255,255,255,.7),transparent)"
+                    data-aos="zoom-in" data-aos-delay="1000" data-aos-duration="1600"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 15. OUTRO / CTA to DROPS -->
+    <section class="scene S15" data-aos="fade-up" data-aos-duration="2000" data-aos-anchor-placement="top-bottom">
+        <div class="panel center">
+            <div class="vnotes" data-aos="fade-down" data-aos-delay="300">Go Further</div>
+            <div class="soft"
+                style="background:#fff; color:#000; border-radius:var(--radius); padding:6vmin 8vmin; text-align:center"
+                data-aos="flip-up" data-aos-delay="500" data-aos-duration="2000">
+                <div style="font-size:clamp(28px,6vw,84px); letter-spacing:.2em; text-transform:uppercase" class="gold">
+                    VOUX</div>
+                <p style="margin:.8rem 0 1.6rem 0; color:#333">You have discovered the world. Now enter the drops.</p>
+                <a href="drops.html"
+                    style="display:inline-block; text-decoration:none; color:#000; background:#fff; border:2px solid #000; padding:.9rem 1.4rem; border-radius:999px; letter-spacing:.12em; text-transform:uppercase">Go
+                    to Drops</a>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            AOS.init({
+                duration: 1600,
+                easing: 'ease-in-out-cubic',
+                once: false,
+                mirror: false,
+                offset: 120
+            });
+        });
+    </script>
+</body>
+
+</html>

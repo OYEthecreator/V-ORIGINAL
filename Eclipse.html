@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <script src="https://unpkg.com/phosphor-icons"></script>
+  <link rel="stylesheet" href="./index.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #000;
+      color: #fff;
+    }
+
+    @media screen and (max-width: 900px) {
+      .hamburger {
+        display: flex;
+        width: 28px;
+        height: 22px;
+        flex-direction: column;
+        justify-content: space-between;
+        cursor: pointer;
+        z-index: 1100;
+      }
+
+      .hamburger span {
+        height: 3px;
+        width: 100%;
+        background: #fff;
+        border-radius: 3px;
+        transition: all 0.4s ease;
+      }
+
+      .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+
+      .navbar {
+        justify-content: space-around;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        right: 1rem;
+        background: rgba(0, 0, 0, 0.85);
+        display: flex !important;
+        flex-direction: column;
+        width: 240px;
+        padding: 2rem;
+        gap: 1.8rem;
+        border-radius: 12px;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-10px);
+        transition: all 0.4s ease;
+        z-index: 1000;
+      }
+
+      .nav-links.open {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+    }
+
+    /* === ECLIPSE NAVIGATION STYLING === */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 1.2rem 5%;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 69, 0, 0.2);
+      z-index: 2000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .navbar img {
+      filter: drop-shadow(0 0 10px rgba(255, 69, 0, 0.3));
+      transition: all 0.3s ease;
+    }
+
+    .navbar img:hover {
+      filter: drop-shadow(0 0 15px rgba(255, 69, 0, 0.5));
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #ff4500, #ff6600);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: #ff4500;
+      text-shadow: 0 0 10px rgba(255, 69, 0, 0.5);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+    }
+
+    @media screen and (max-width: 900px) {
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        right: 1rem;
+        background: rgba(0, 0, 0, 0.95);
+        display: flex !important;
+        flex-direction: column;
+        width: 240px;
+        padding: 2rem;
+        gap: 1.8rem;
+        border-radius: 12px;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-10px);
+        transition: all 0.4s ease;
+        z-index: 1000;
+        box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+      }
+
+      .hamburger {
+        display: flex;
+        width: 28px;
+        height: 22px;
+        flex-direction: column;
+        justify-content: space-between;
+        cursor: pointer;
+        z-index: 1100;
+      }
+
+      .hamburger span {
+        height: 3px;
+        width: 100%;
+        background: #FF6B35;
+        border-radius: 3px;
+        transition: all 0.4s ease;
+      }
+
+      .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+
+      .nav-links.open {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+    }
+
+    /* Prevent horizontal overflow */
+    body {
+      overflow-x: hidden;
+      max-width: 100vw;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .eclipse-hero {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+
+      font-family: 'Orbitron', sans-serif;
+      user-select: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #111;
+      padding: 0 5vw;
+      /* padding so text won't hit edges */
+      box-sizing: border-box;
+    }
+
+    .eclipse-hero .split {
+      position: absolute;
+      top: 0;
+      width: 50%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .eclipse-hero .left {
+      left: 0;
+      background: #111;
+    }
+
+    .eclipse-hero .right {
+      right: 0;
+      background: linear-gradient(45deg, #ff3300, #ff6600, #ff9900);
+      animation: flickerFire 3s infinite alternate ease-in-out;
+    }
+
+    .eclipse-hero .hero-text {
+      position: relative;
+      z-index: 2;
+      max-width: 100%;
+      width: 100%;
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .eclipse-hero .hero-text h1 {
+      font-size: 12vw;
+      margin: 0;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      position: relative;
+      color: #ff3300;
+      mix-blend-mode: screen;
+    }
+
+    .eclipse-hero .layer1 {
+      color: #ff6600;
+      opacity: 0.3;
+      filter: blur(6px);
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      pointer-events: none;
+      animation: foldText 6s ease-in-out infinite;
+      z-index: 1;
+    }
+
+    .eclipse-hero .layer2 {
+      position: relative;
+      animation: foldText 6s ease-in-out infinite alternate;
+      z-index: 2;
+    }
+
+    .eclipse-hero .tagline {
+      margin-top: 1rem;
+      font-size: 2.8vw;
+      font-weight: 700;
+      color: #ff6600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-shadow: 0 0 12px #ff6600;
+      z-index: 3;
+      margin-bottom: 10%;
+      margin-right: 2%;
+    }
+
+    .tagline-span {
+      color: black;
+    }
+
+    .eclipse-philosophy {
+      background: #1a0a00;
+      /* deep dark ember tone */
+      color: #ff6600;
+      /* warm fiery orange */
+      padding: 6rem 2rem;
+      max-width: 900px;
+      margin: 0 auto 6rem;
+      border-left: 6px solid #ff3300;
+      box-shadow: 0 0 50px #ff4400;
+      border-radius: 12px;
+      font-family: 'Cormorant Garamond', serif;
+      text-align: center;
+      margin-top: 2%;
+    }
+
+    .eclipse-philosophy h2 {
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      font-weight: 700;
+      margin-bottom: 2rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-family: 'Orbitron', sans-serif;
+      text-shadow: 0 0 15px #ff4400;
+      word-wrap: break-word;
+    }
+
+    .eclipse-philosophy p {
+      font-size: clamp(1rem, 3vw, 1.8rem);
+      line-height: 1.7;
+      font-weight: 400;
+      margin-bottom: 1.6rem;
+      word-wrap: break-word;
+    }
+
+    .eclipse-gallery {
+      background: #120700;
+      padding: 5rem 2rem 8rem;
+      color: #ff6f00;
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      max-width: 1200px;
+      margin: 0 auto 6rem;
+    }
+
+    .eclipse-gallery h2 {
+      font-size: 3.2rem;
+      margin-bottom: 3rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-shadow: 0 0 12px #ff6f00;
+    }
+
+    /* The irregular grid container */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(3, 200px);
+      gap: 1.5rem;
+      position: relative;
+    }
+
+    /* Position each gallery item with overlapping and offsets */
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      box-shadow: 0 0 20px #ff6f00cc;
+      filter: drop-shadow(0 0 4px #ff6f00);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.05) rotate(1deg);
+      box-shadow: 0 0 40px #ff9f00cc;
+      z-index: 10;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+
+    /* Irregular item placements to simulate fragmentation */
+    .item1 {
+      grid-column: 1 / span 2;
+      grid-row: 1 / span 2;
+      transform: rotate(-3deg);
+      z-index: 3;
+    }
+
+    .item2 {
+      grid-column: 3 / span 2;
+      grid-row: 1 / span 1;
+      transform: rotate(2deg);
+      z-index: 2;
+    }
+
+    .item3 {
+      grid-column: 3 / span 1;
+      grid-row: 2 / span 2;
+      transform: rotate(-2deg);
+      z-index: 4;
+    }
+
+    .item4 {
+      grid-column: 1 / span 1;
+      grid-row: 3 / span 1;
+      transform: rotate(1.5deg);
+      z-index: 1;
+    }
+
+    .item5 {
+      grid-column: 2 / span 3;
+      grid-row: 3 / span 1;
+      transform: rotate(-1deg);
+      z-index: 5;
+    }
+
+    /* GENERAL STYLING */
+
+
+    /* VISION & EDGE SECTION */
+    .vision-edge {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 80px 10%;
+      gap: 50px;
+      background: linear-gradient(90deg, #000 60%, #ff6600 100%);
+    }
+
+    .vision-text h2 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: #ff6600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .vision-text p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      max-width: 500px;
+      color: #fff;
+    }
+
+    .vision-image {
+      flex: 1;
+      height: 400px;
+      background: url('your-vision-image.jpg') center/cover no-repeat;
+      border: 5px solid #ff6600;
+      clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+      transition: transform 0.5s;
+    }
+
+    .vision-image:hover {
+      transform: scale(1.05);
+    }
+
+    /* RUNWAY MOMENT SECTION */
+    .runway-moment {
+      padding: 80px 10%;
+      background-color: #111;
+      text-align: center;
+    }
+
+    .runway-title {
+      font-size: 3rem;
+      color: #ff6600;
+      text-transform: uppercase;
+      margin-bottom: 50px;
+      letter-spacing: 3px;
+    }
+
+    .runway-gallery {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .runway-img {
+      flex: 1;
+      min-width: 250px;
+      height: 400px;
+      background-size: cover;
+      background-position: center;
+      border: 3px solid #ff6600;
+      transition: transform 0.5s, box-shadow 0.5s;
+    }
+
+    .runway-img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 30px rgba(255, 102, 0, 0.6);
+    }
+
+    .img1 {
+      background-image: url('./images/eclipse\ runway\ 1.png');
+    }
+
+    .img2 {
+      background-image: url('./images/eclipse\ runway\ 2.png');
+    }
+
+    .img3 {
+      background-image: url('./images/eclipse\ runway\ 3.png');
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .vision-edge {
+        flex-direction: column-reverse;
+        text-align: center;
+      }
+
+      .vision-image {
+        width: 100%;
+        height: 300px;
+      }
+
+      .runway-gallery {
+        flex-direction: column;
+      }
+
+      .runway-img {
+        width: 100%;
+        height: 300px;
+      }
+    }
+
+    .eclipse-fire {
+      position: relative;
+      background: #1a0a00;
+      color: #ff4c00;
+      overflow: hidden;
+      padding: 6rem 2rem;
+      max-width: 900px;
+      margin: 0 auto 8rem;
+      border-radius: 16px;
+      box-shadow: 0 0 80px #ff3300aa;
+      font-family: 'Cormorant Garamond', serif;
+      text-align: center;
+    }
+
+    .eclipse-fire h2 {
+      font-size: 3.6rem;
+      margin-bottom: 2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-family: 'Orbitron', sans-serif;
+      animation: flickerText 3s infinite alternate ease-in-out;
+    }
+
+    .eclipse-fire p {
+      font-size: 1.8rem;
+      line-height: 1.6;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Background flames */
+    .fire-bg {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 400px;
+      height: 400px;
+      transform: translateX(-50%);
+      pointer-events: none;
+      z-index: 0;
+      filter: drop-shadow(0 0 8px #ff5500);
+    }
+
+    .flame {
+      position: absolute;
+      bottom: 0;
+      width: 100px;
+      height: 180px;
+      background: radial-gradient(circle at 50% 100%, #ff6600, transparent 70%);
+      border-radius: 50% 50% 40% 40% / 100% 100% 60% 60%;
+      filter: blur(8px);
+      opacity: 0.6;
+      animation: flickerFlame 4s infinite ease-in-out alternate;
+    }
+
+    .flame1 {
+      left: 0;
+      animation-delay: 0s;
+      transform-origin: bottom center;
+    }
+
+    .flame2 {
+      left: 130px;
+      width: 140px;
+      height: 240px;
+      animation-delay: 1.2s;
+      background: radial-gradient(circle at 50% 100%, #ff4400, transparent 70%);
+    }
+
+    .flame3 {
+      left: 280px;
+      width: 80px;
+      height: 160px;
+      animation-delay: 2.6s;
+      background: radial-gradient(circle at 50% 100%, #ff9900, transparent 70%);
+      opacity: 0.5;
+    }
+
+    .eclipse-craft {
+      background: #1c0b00;
+      padding: 6rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto 8rem;
+      font-family: 'Cormorant Garamond', serif;
+      color: #ff6b00;
+      box-shadow: 0 0 60px #ff4400aa;
+      border-radius: 14px;
+    }
+
+    .craft-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+      flex-wrap: wrap;
+    }
+
+    .craft-image {
+      flex: 1 1 45%;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 25px #ff5500cc;
+    }
+
+    .craft-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .craft-image img:hover {
+      transform: scale(1.05);
+    }
+
+    .craft-text {
+      flex: 1 1 45%;
+      padding: 1rem 0;
+    }
+
+    .craft-text h2 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-family: 'Orbitron', sans-serif;
+      text-shadow:
+        0 0 12px #ff5500,
+        0 0 25px #ff7700;
+    }
+
+    .craft-text p {
+      font-size: 1.8rem;
+      line-height: 1.6;
+      font-weight: 400;
+      max-width: 600px;
+    }
+
+    .eclipse-wearer-journey {
+      background: #170c01;
+      color: #ff6a00;
+      padding: 6rem 2rem;
+      max-width: 800px;
+      margin: 0 auto 8rem;
+      font-family: 'Cormorant Garamond', serif;
+      text-align: center;
+      border-radius: 14px;
+      box-shadow: 0 0 50px #ff5500aa;
+    }
+
+    .eclipse-wearer-journey h2 {
+      font-size: 3.2rem;
+      margin-bottom: 3rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-family: 'Orbitron', sans-serif;
+      text-shadow: 0 0 12px #ff6a00;
+    }
+
+    .timeline {
+      position: relative;
+      margin: 0 auto;
+      padding-left: 2rem;
+      border-left: 3px solid #ff4c00;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3.5rem;
+      padding-left: 2.5rem;
+      text-align: left;
+    }
+
+    .marker {
+      position: absolute;
+      left: -11px;
+      top: 5px;
+      width: 18px;
+      height: 18px;
+      background: radial-gradient(circle at center, #ff6600, #ff3300);
+      border-radius: 50%;
+      box-shadow: 0 0 15px #ff6600;
+      animation: pulseMarker 2.5s infinite ease-in-out;
+    }
+
+    .timeline-item h3 {
+      font-size: 2.2rem;
+      margin-bottom: 0.6rem;
+      font-weight: 700;
+    }
+
+    .timeline-item p {
+      font-size: 1.6rem;
+      line-height: 1.5;
+      color: #ff7f33;
+    }
+
+    .eclipse-cta {
+      background: #1a0a00;
+      padding: 5rem 2rem 8rem;
+      text-align: center;
+      color: #ff4c00;
+      font-family: 'Orbitron', sans-serif;
+      box-shadow: 0 0 60px #ff6600aa;
+      border-radius: 16px;
+      max-width: 700px;
+      margin: 0 auto 6rem;
+    }
+
+    .eclipse-cta h2 {
+      font-size: 3.6rem;
+      margin-bottom: 1rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-shadow:
+        0 0 15px #ff6600,
+        0 0 40px #ff9900;
+    }
+
+    .eclipse-cta p {
+      font-size: 1.8rem;
+      margin-bottom: 3rem;
+      font-weight: 500;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-cta {
+      background: linear-gradient(45deg, #ff3300, #ff6600);
+      color: #fff;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      padding: 1.3rem 3.5rem;
+      border-radius: 40px;
+      box-shadow:
+        0 0 10px #ff3300,
+        0 0 30px #ff6600;
+      text-decoration: none;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      display: inline-block;
+    }
+
+    .btn-cta:hover {
+      box-shadow:
+        0 0 20px #ff5500,
+        0 0 50px #ff7700;
+      transform: scale(1.05);
+    }
+
+    .discover-more {
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 5px;
+      box-shadow:
+        0 0 10px #ff3300,
+        0 0 30px #ff6600;
+    }
+
+    .discover-btn {
+      display: inline-block;
+      padding: 14px 40px;
+      border: 2px solid #000;
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      letter-spacing: 2px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .discover-btn:hover {
+      background: #ff5500;
+      color: #fff;
+    }
+
+
+    @keyframes pulseMarker {
+
+      0%,
+      100% {
+        box-shadow: 0 0 15px #ff6600, 0 0 30px #ff3300;
+        opacity: 1;
+      }
+
+      50% {
+        box-shadow: 0 0 25px #ff9900, 0 0 40px #ff6600;
+        opacity: 0.7;
+      }
+    }
+
+
+    /* Flicker animations */
+    @keyframes flickerText {
+
+      0%,
+      100% {
+        text-shadow:
+          0 0
+      }
+    }
+
+
+
+    /* Flickering fire gradient animation */
+    @keyframes flickerFire {
+
+      0%,
+      100% {
+        filter: brightness(1) saturate(1);
+      }
+
+      50% {
+        filter: brightness(1.2) saturate(1.3);
+      }
+    }
+
+    /* Subtle fold/unfold text animation */
+    @keyframes foldText {
+
+      0%,
+      100% {
+        transform: translateX(-50%) rotateX(0deg) rotateY(0deg);
+      }
+
+      50% {
+        transform: translateX(-50%) rotateX(8deg) rotateY(8deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <script>
+    function goBack() {
+      if (document.referrer) {
+        window.history.back();
+      } else {
+        window.location.href = "/"; // fallback home
+      }
+    }
+  </script>
+
+  <header>
+    <nav class="navbar nav-container" data-aos="fade-down" data-aos-duration="1000">
+      <div data-aos="zoom-in" data-aos-delay="300">
+        <img src="images/eclipse official logo 1.png" width="100px" alt="ECLIPSE Logo">
+      </div>
+      <div class="nav-links" id="navbar" data-aos="fade-left" data-aos-delay="400">
+        <a href="entry.html">Home</a>
+        <a href="eclipseshopping.html">Shop</a>
+        <a href="#collections">Collections</a>
+        <a href="#runway">Runway</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="hamburger" aria-label="Toggle Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="eclipse-hero" data-aos="fade-in" data-aos-duration="1200">
+      <div class="split left" data-aos="slide-right" data-aos-delay="200"></div>
+      <div class="split right" data-aos="slide-left" data-aos-delay="200"></div>
+      <div class="hero-text" data-aos="zoom-in" data-aos-delay="400">
+        <h1 class="layer1" data-aos="fade-up" data-aos-delay="600">ECLIPSE</h1>
+        <h1 class="layer2" data-aos="fade-up" data-aos-delay="800">ECLIPSE</h1>
+        <h2 class="tagline" data-aos="fade-up" data-aos-delay="1000">
+          Time <span class="tagline-span" data-aos="zoom-in" data-aos-delay="1200">folds here</span>
+        </h2>
+      </div>
+    </section>
+
+
+    <!-- Philosophy -->
+    <section class="eclipse-philosophy" data-aos="fade-up" data-aos-duration="1200">
+      <div class="container">
+        <h2 data-aos="fade-down" data-aos-delay="200">Time Folds: The Philosophy</h2>
+        <p data-aos="fade-right" data-aos-delay="400">
+          In a world that races forward, Eclipse invites you to step into the folds of time —
+          where moments overlap, silence speaks louder than sound, and restraint is the ultimate power.
+        </p>
+        <p data-aos="fade-left" data-aos-delay="600">
+          Our designs embody this layered reality, crafted with precision and subtlety.
+          Each garment reveals itself gradually, reflecting a timeless presence beyond fleeting trends.
+        </p>
+        <p data-aos="fade-up" data-aos-delay="800">
+          Wearing Eclipse is an experience of calm strength, where time slows, bends, and folds around you —
+          a quiet rebellion against the chaos of the modern world.
+        </p>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="eclipse-gallery" data-aos="fade-up" data-aos-duration="1200" id="collections">
+      <div class="container">
+        <h2 data-aos="fade-down" data-aos-delay="100">Fragmented Reality</h2>
+        <div class="gallery-grid">
+          <div class="gallery-item item1" data-aos="zoom-in" data-aos-delay="200">
+            <img src="./images/eclipse image1.png" alt="Eclipse Piece 1" />
+          </div>
+          <div class="gallery-item item2" data-aos="zoom-in" data-aos-delay="300">
+            <img src="./images/eclipse image 2.png" alt="Eclipse Piece 2" />
+          </div>
+          <div class="gallery-item item3" data-aos="zoom-in" data-aos-delay="400">
+            <img src="./images/eclipse image 3.png" alt="Eclipse Piece 3" />
+          </div>
+          <div class="gallery-item item4" data-aos="zoom-in" data-aos-delay="500">
+            <img src="./images/eclipse image 4.png" alt="Eclipse Piece 4" />
+          </div>
+          <div class="gallery-item item5" data-aos="zoom-in" data-aos-delay="600">
+            <img src="./images/eclipse image 5.png" alt="Eclipse Piece 5" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vision & Edge -->
+    <section class="vision-edge" data-aos="fade-up" data-aos-duration="1200">
+      <div class="vision-text" data-aos="fade-right" data-aos-delay="200">
+        <h2>Vision & Edge</h2>
+        <p>Where precision tailoring meets fearless design. Every silhouette is crafted to challenge norms while
+          embracing elegance.</p>
+      </div>
+      <div class="vision-image" data-aos="fade-left" data-aos-delay="400"></div>
+    </section>
+
+    <!-- Runway -->
+    <section class="runway-moment" id="runway" data-aos="fade-up" data-aos-duration="1200">
+      <h2 class="runway-title" data-aos="fade-down" data-aos-delay="100">Runway Moment</h2>
+      <div class="runway-gallery">
+        <div class="runway-img img1" data-aos="flip-left" data-aos-delay="200"></div>
+        <div class="runway-img img2" data-aos="flip-up" data-aos-delay="300"></div>
+        <div class="runway-img img3" data-aos="flip-right" data-aos-delay="400"></div>
+      </div>
+    </section>
+
+    <!-- Fire -->
+    <section class="eclipse-fire" data-aos="fade-up" data-aos-duration="1200">
+      <div class="fire-bg">
+        <div class="flame flame1" data-aos="fade-in" data-aos-delay="200"></div>
+        <div class="flame flame2" data-aos="fade-in" data-aos-delay="400"></div>
+        <div class="flame flame3" data-aos="fade-in" data-aos-delay="600"></div>
+      </div>
+      <div class="fire-content" data-aos="zoom-in" data-aos-delay="800">
+        <h2>Essence of Time</h2>
+        <p>
+          Within every fold of time lies a burning core —
+          a fierce passion held in perfect restraint.
+          Eclipse channels this fire with deliberate intensity,
+          crafting moments that glow with silent power.
+        </p>
+      </div>
+    </section>
+
+    <!-- Craft -->
+    <section class="eclipse-craft" data-aos="fade-up" data-aos-duration="1200">
+      <div class="container">
+        <div class="craft-wrapper">
+          <div class="craft-image" data-aos="zoom-in" data-aos-delay="200">
+            <img src="./images/Eclipse craft image.png" alt="Eclipse Fabric Texture" />
+          </div>
+          <div class="craft-text" data-aos="fade-left" data-aos-delay="400">
+            <h2>The Folded Craft</h2>
+            <p>
+              Every thread of Eclipse is woven with intention — a delicate balance of innovation and tradition.
+              Our fabrics capture the heat of fire without losing the calm restraint that defines the brand.
+              Precision tailoring meets textured artistry, folding time into every stitch.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Journey -->
+    <section class="eclipse-wearer-journey" data-aos="fade-up" data-aos-duration="1200">
+      <div class="container">
+        <h2 data-aos="fade-down" data-aos-delay="100">The Wearer’s Journey</h2>
+        <div class="timeline">
+          <div class="timeline-item" data-aos="fade-right" data-aos-delay="200">
+            <div class="marker"></div>
+            <div class="content">
+              <h3>Discovery</h3>
+              <p>Unearthing Eclipse — a spark of restrained fire that calls to the bold.</p>
+            </div>
+          </div>
+          <div class="timeline-item" data-aos="fade-left" data-aos-delay="300">
+            <div class="marker"></div>
+            <div class="content">
+              <h3>Transformation</h3>
+              <p>Time folds around you as confidence and calm strength grow.</p>
+            </div>
+          </div>
+          <div class="timeline-item" data-aos="fade-right" data-aos-delay="400">
+            <div class="marker"></div>
+            <div class="content">
+              <h3>Presence</h3>
+              <p>Radiate quiet power — your style becomes a timeless statement.</p>
+            </div>
+          </div>
+          <div class="timeline-item" data-aos="fade-left" data-aos-delay="500">
+            <div class="marker"></div>
+            <div class="content">
+              <h3>Legacy</h3>
+              <p>Your journey with Eclipse becomes a story that bends time itself.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="eclipse-cta" data-aos="fade-up" data-aos-duration="1200">
+      <div class="container" data-aos="zoom-in" data-aos-delay="200">
+        <h2>Step Into the Fold</h2>
+        <p>Experience time redefined. Discover the Eclipse collection today.</p>
+        <a href="/eclipseshopping.html" class="btn-cta" data-aos="fade-up" data-aos-delay="400">Explore the
+          Collection</a>
+      </div>
+    </section>
+  </main>
+
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      AOS.init({
+        once: false,
+        duration: 1000,
+        delay: 500,
+      });
+      // Standardized Hamburger Toggle from drops.html
+      const hamburger = document.querySelector('.hamburger');
+      const navLinks = document.querySelector('.nav-links');
+
+      if (hamburger && navLinks) {
+        hamburger.addEventListener('click', () => {
+          hamburger.classList.toggle('active');
+          navLinks.classList.toggle('open');
+        });
+      }
+    }
+
+    ) 
+  </script>
+</body>
+
+</html>

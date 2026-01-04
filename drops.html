@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <script src="https://unpkg.com/phosphor-icons"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./index.css">
+  <style>
+    /* --- GENERAL RESET --- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: #0b0b0b;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* --- DROPS NAVBAR --- */
+    .nav-container {
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding: 20px 10%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 1000;
+    }
+
+    .drops-logo a {
+      font-size: 1.6rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: #fff;
+      letter-spacing: 2px;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 40px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links li {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-links li a {
+      text-decoration: none;
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.75);
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      padding: 8px 12px;
+      border-radius: 20px;
+    }
+
+    .drops-nav-links li a:hover,
+    .drops-nav-links li a.active {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* --- DROPS SECTION --- */
+    /* Container */
+    .drop-highlight-section {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      justify-content: center;
+      gap: 20px;
+      padding: 80px 40px;
+      background: #0a0a0a;
+      position: relative;
+      margin-left: 20%;
+    }
+
+    /* Each card */
+    .drop-item {
+      flex: 1 1 280px;
+      /* allows variable widths for asymmetry */
+      max-width: 280px;
+      background: #111;
+      border-radius: 20px;
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      position: relative;
+    }
+
+    /* Image */
+    .drop-item img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 16px;
+      transition: transform 0.5s ease, filter 0.5s ease;
+    }
+
+    /* Text overlay */
+    .drop-text {
+      padding: 15px 10px;
+    }
+
+    .drop-highlight-details2 {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #f2f2f2;
+      display: block;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Button */
+    .drop-highlight-btn {
+      background: var(--gold, #d4af37);
+      border: none;
+      border-radius: 50px;
+      padding: 10px 25px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+    }
+
+    .drop-highlight-btn a {
+      text-decoration: none;
+      color: #000;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .drop-highlight-btn:hover {
+      background: #fff;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+    }
+
+    /* Hover effect on card for depth and tilt */
+    .drop-item:hover {
+      transform: translateY(-15px) rotateX(3deg) rotateY(3deg) scale(1.05);
+      box-shadow: 0 20px 40px rgba(212, 175, 55, 0.4);
+    }
+
+    .drop-item:hover img {
+      transform: scale(1.08);
+      filter: brightness(1.1) contrast(1.05);
+    }
+
+    /* Asymmetry trick: alternate margins for chaos */
+    .drop-item:nth-child(odd) {
+      margin-top: 40px;
+    }
+
+    .drop-item:nth-child(even) {
+      margin-top: 0;
+    }
+
+    /* Slight rotation for chaotic editorial vibe */
+    .drop-item:nth-child(3n) {
+      transform: rotate(-2deg);
+    }
+
+    .drop-item:nth-child(3n+1) {
+      transform: rotate(1deg);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1024px) {
+      .drop-item {
+        flex: 1 1 45%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .drop-item {
+        flex: 1 1 90%;
+        margin-top: 30px !important;
+      }
+    }
+
+
+    /* --- DROP HERO --- */
+    .drop-hero {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(180deg, #000 0%, #0a0a0a 100%);
+      color: #fff;
+      text-align: center;
+      padding: 60px 20px;
+      position: relative;
+    }
+
+    .drop-hero-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .drop-hero h1 {
+      font-size: 6rem;
+      letter-spacing: 2px;
+      font-weight: 800;
+      margin: 0;
+    }
+
+    .drop-hero h2 {
+      font-size: 2rem;
+      font-weight: 500;
+      margin-top: 15px;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+      opacity: 0.85;
+    }
+
+    .launch-date {
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      margin-bottom: 40px;
+      opacity: 0.75;
+    }
+
+    /* CTA + Countdown container */
+    .drop-cta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 25px;
+    }
+
+    /* Join button */
+    .cta-button {
+      background: linear-gradient(90deg, #fff, #999);
+      color: #000;
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 14px 40px;
+      border-radius: 40px;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .cta-button:hover {
+      background: #fff;
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(255, 255, 255, 0.15);
+    }
+
+    /* Countdown styling */
+    #countdown {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      font-family: 'Helvetica Neue', sans-serif;
+    }
+
+    #countdown span {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: #fff;
+      padding: 14px 18px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      min-width: 70px;
+      text-align: center;
+      letter-spacing: 1px;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    #countdown span:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Scroll for preview */
+    .scroll-down {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1rem;
+      letter-spacing: 2px;
+      opacity: 0.6;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translate(-50%, 0);
+      }
+
+      50% {
+        transform: translate(-50%, 10px);
+      }
+    }
+
+
+    /* --- NEW FOOTER --- */
+    .voux-footer {
+      background: #0a0a0a;
+      padding: 80px 10% 40px 10%;
+      margin-top: 120px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .voux-footer::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 60%);
+      transform: rotate(25deg);
+    }
+
+    .voux-footer-content {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 40px;
+      z-index: 1;
+    }
+
+    .voux-footer-logo {
+      flex: 1 1 200px;
+    }
+
+    .voux-footer-logo img {
+      width: 140px;
+      opacity: 0.9;
+    }
+
+    .voux-footer-links {
+      flex: 2 1 300px;
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+
+    .voux-footer-column h4 {
+      font-size: 1rem;
+      margin-bottom: 15px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .voux-footer-column ul {
+      list-style: none;
+    }
+
+    .voux-footer-column ul li {
+      margin-bottom: 10px;
+    }
+
+    .voux-footer-column ul li a {
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.95rem;
+      transition: color 0.3s ease;
+    }
+
+    .voux-footer-column ul li a:hover {
+      color: #fff;
+    }
+
+    .voux-footer-bottom {
+      margin-top: 50px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* Manifesto Section */
+    .manifesto-section {
+      background: rgb(31, 0, 0);
+      color: var(--gold);
+      text-align: center;
+      padding: 120px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .manifesto-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: 3px;
+      margin-bottom: 60px;
+      text-transform: uppercase;
+      position: relative;
+      display: inline-block;
+    }
+
+    .manifesto-title::after {
+      content: "";
+      display: block;
+      width: 60%;
+      height: 2px;
+      background: var(--gold);
+      margin: 15px auto 0;
+      opacity: 0.6;
+    }
+
+    .manifesto-blocks {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .manifesto-block {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 215, 0, 0.15);
+      border-radius: 20px;
+      padding: 40px 25px;
+      transition: all 0.3s ease;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      font-weight: 400;
+    }
+
+    .manifesto-block:hover {
+      transform: translateY(-10px);
+      border-color: var(--gold);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .manifesto-block p {
+      margin: 10px 0;
+      font-size: 1rem;
+      letter-spacing: 1px;
+    }
+
+    /* Mobile Adjustments */
+    @media (max-width: 768px) {
+      .manifesto-title {
+        font-size: 2rem;
+      }
+
+      .manifesto-block {
+        padding: 30px 20px;
+        font-size: 1rem;
+      }
+    }
+
+    /* THIS IS THE ESSENTIALS SECTION */
+    .latest-arrivals {
+      padding: 100px 40px;
+      background: #0a0a0a;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+    }
+
+    .essentials-header h1 {
+      font-size: 3.5rem;
+      text-align: center;
+      margin-bottom: 90px;
+      font-weight: 800;
+      color: var(--gold, #d4af37);
+      text-transform: uppercase;
+      letter-spacing: 6px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .essentials-header h1::after {
+      content: "";
+      display: block;
+      width: 100px;
+      height: 4px;
+      background: var(--gold, #d4af37);
+      margin: 25px auto 0;
+      border-radius: 3px;
+    }
+
+    /* 🔥 New futuristic grid */
+    .essentials-grid {
+      column-count: 3;
+      column-gap: 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .essentials-card {
+      display: inline-block;
+      width: 100%;
+      margin-bottom: 40px;
+      break-inside: avoid;
+      background: linear-gradient(145deg, #111, #0c0c0c);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.5s ease;
+    }
+
+    .essentials-card img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin-bottom: 25px;
+      transition: transform 0.6s ease, filter 0.6s ease;
+    }
+
+    /* Subtle text styling */
+    .essentials-card p {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #f2f2f2;
+      margin-bottom: 20px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    /* CTA Button */
+    .essentials-card a {
+      display: inline-block;
+      padding: 14px 34px;
+      background: var(--gold, #d4af37);
+      color: #000;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: all 0.4s ease;
+    }
+
+    .essentials-card a:hover {
+      background: #fff;
+      color: #000;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+    }
+
+    /* Hover 3D lift + glow */
+    .essentials-card:hover {
+      transform: translateY(-15px) rotateX(5deg) rotateY(-5deg);
+      border-color: var(--gold, #d4af37);
+      box-shadow: 0 15px 40px rgba(212, 175, 55, 0.15);
+    }
+
+    .essentials-card:hover img {
+      transform: scale(1.08);
+      filter: brightness(1.1) contrast(1.05);
+    }
+
+    /* Staggered fade-in animation */
+    .essentials-card {
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .essentials-card:nth-child(1) {
+      animation-delay: 0.2s;
+    }
+
+    .essentials-card:nth-child(2) {
+      animation-delay: 0.4s;
+    }
+
+    .essentials-card:nth-child(3) {
+      animation-delay: 0.6s;
+    }
+
+    .essentials-card:nth-child(4) {
+      animation-delay: 0.8s;
+    }
+
+    .essentials-card:nth-child(5) {
+      animation-delay: 1s;
+    }
+
+    .essentials-card:nth-child(6) {
+      animation-delay: 1.2s;
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ===========================
+   PAST DROPS ARCHIVE
+=========================== */
+    .past-drops {
+      background: #0a0a0a;
+      padding: 80px 40px;
+      color: #eee;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .past-drops h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 50px;
+      color: var(--gold, #d4af37);
+      letter-spacing: 3px;
+    }
+
+    .drop-list {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .drop-card {
+      display: flex;
+      align-items: center;
+      background: #111;
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      padding: 20px 30px;
+      border-radius: 14px;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .drop-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--gold, #d4af37);
+    }
+
+    .drop-card img {
+      width: 120px;
+      height: auto;
+      margin-right: 30px;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+
+    .drop-info h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 0 0 10px;
+      text-align: left;
+      color: #fff;
+    }
+
+    .drop-info p {
+      margin: 5px 0;
+      font-size: 0.95rem;
+      color: #aaa;
+      text-align: left;
+    }
+
+    .drop-info .sold-out {
+      color: #d9534f;
+      font-weight: 700;
+    }
+
+
+    /* ===========================
+   SIGNUP SECTION
+=========================== */
+    .signup {
+      background: linear-gradient(180deg, #0a0a0a, #111);
+      padding: 80px 40px;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .signup h2 {
+      font-size: 2rem;
+      text-transform: uppercase;
+      color: var(--gold, #d4af37);
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+    }
+
+    .signup p {
+      font-size: 1rem;
+      color: #bbb;
+      margin-bottom: 30px;
+    }
+
+    .signup-form {
+      display: flex;
+      justify-content: center;
+      max-width: 450px;
+      margin: 0 auto;
+      background: #111;
+      border-radius: 50px;
+      overflow: hidden;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+    }
+
+    .signup-form input {
+      flex: 1;
+      border: none;
+      padding: 14px 20px;
+      font-size: 1rem;
+      background: transparent;
+      color: #fff;
+      outline: none;
+    }
+
+    .signup-form input::placeholder {
+      color: #666;
+    }
+
+    .signup-form button {
+      background: var(--gold, #d4af37);
+      border: none;
+      color: #000;
+      padding: 0 25px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: background 0.3s ease;
+    }
+
+    .signup-form button:hover {
+      background: #f0d878;
+    }
+
+    .email-popup {
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%) scale(0.95);
+      width: 360px;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 215, 0, 0.6);
+      border-radius: 16px;
+      box-shadow:
+        0 0 20px rgba(255, 215, 0, 0.25),
+        inset 0 0 15px rgba(255, 215, 0, 0.15);
+      color: var(--gold);
+      text-align: center;
+      padding: 2.2rem 1.6rem 2rem;
+      display: none;
+      z-index: 2000;
+      opacity: 0;
+      animation: popupEntrance 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+      overflow: hidden;
+    }
+
+    /* Light sweep shimmer */
+    .email-popup::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 80%;
+      height: 100%;
+      background: linear-gradient(120deg,
+          rgba(255, 215, 0, 0) 0%,
+          rgba(255, 215, 0, 0.15) 50%,
+          rgba(255, 215, 0, 0) 100%);
+      transform: skewX(-20deg);
+      animation: shimmer 4s infinite;
+    }
+
+    /* Headline */
+    .email-popup h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.8rem;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    /* Message text */
+    .email-popup p {
+      font-family: "Inter", sans-serif;
+      font-size: 0.95rem;
+      color: var(--gold);
+      line-height: 1.6;
+      margin: 0.5rem 0 0;
+    }
+
+    /* Close icon */
+    .close-popup {
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      font-size: 1.4rem;
+      font-weight: 300;
+      cursor: pointer;
+      color: var(--gold);
+      transition: all 0.3s ease;
+    }
+
+    .close-popup:hover {
+      color: #fff;
+      transform: rotate(90deg) scale(1.2);
+    }
+
+    /* Glow pulse ring */
+    .email-popup::after {
+      content: "";
+      position: absolute;
+      top: -40%;
+      left: -40%;
+      width: 180%;
+      height: 180%;
+      background: radial-gradient(circle,
+          rgba(255, 215, 0, 0.05) 0%,
+          rgba(0, 0, 0, 0.8) 60%);
+      z-index: -1;
+    }
+
+    /* Animations */
+    @keyframes popupEntrance {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, 30px) scale(0.95);
+        filter: blur(10px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translate(-50%, 0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes shimmer {
+      0% {
+        left: -100%;
+      }
+
+      50% {
+        left: 120%;
+      }
+
+      100% {
+        left: 120%;
+      }
+    }
+
+    /* Shake for invalid email */
+    @keyframes shake {
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      20%,
+      60% {
+        transform: translateX(-6px);
+      }
+
+      40%,
+      80% {
+        transform: translateX(6px);
+      }
+    }
+
+    .invalid {
+      animation: shake 0.3s ease;
+      border-color: red !important;
+    }
+
+    /* ===========================
+   VOUX FOOTER
+=========================== */
+    .voux-footer {
+      background: #0a0a0a;
+      /* dark backdrop */
+      color: #ddd;
+      padding: 80px 40px 40px;
+      font-family: 'Helvetica Neue', sans-serif;
+      border-top: 1px solid rgba(212, 175, 55, 0.2);
+      /* faint gold line */
+      position: relative;
+      overflow: hidden;
+    }
+
+    .voux-footer::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+      z-index: 0;
+    }
+
+    .voux-footer-content {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      position: relative;
+      z-index: 2;
+    }
+
+    .voux-footer-logo img {
+      width: 180px;
+      opacity: 0.9;
+      transition: transform 0.3s ease;
+    }
+
+    .voux-footer-logo img:hover {
+      transform: scale(1.05);
+    }
+
+    .voux-footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 80px;
+    }
+
+    .voux-footer-column h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--gold, #d4af37);
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+    }
+
+    .voux-footer-column ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .voux-footer-column ul li {
+      margin-bottom: 12px;
+    }
+
+    .voux-footer-column ul li a {
+      text-decoration: none;
+      color: #aaa;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      transition: color 0.3s ease, transform 0.3s ease;
+      display: inline-block;
+    }
+
+    .voux-footer-column ul li a:hover {
+      color: var(--gold, #d4af37);
+      transform: translateX(4px);
+    }
+
+    .voux-footer-bottom {
+      text-align: center;
+      margin-top: 60px;
+      font-size: 0.9rem;
+      color: #777;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Responsive adjustments - Page Specific Only */
+    /* Navbar responsiveness is handled by index.css */
+
+    @media (max-width: 1024px) {
+      .drop-highlight-section {
+        margin-left: 0;
+        padding: 80px 20px;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .essentials-grid {
+        column-count: 2;
+      }
+
+      .drop-hero h1 {
+        font-size: 5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+
+      /* Hero */
+      .drop-hero h1 {
+        font-size: 3.5rem;
+      }
+
+      .drop-hero h2 {
+        font-size: 1.5rem;
+      }
+
+      #countdown {
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      #countdown span {
+        font-size: 1.5rem;
+        padding: 10px;
+        min-width: 60px;
+      }
+
+      /* Highlight Section */
+      .drop-highlight-section {
+        grid-template-columns: repeat(1, 1fr);
+        /* Stack for mobile */
+        gap: 30px;
+      }
+
+      .drop-item {
+        margin-top: 0 !important;
+        /* Reset asymmetry */
+        max-width: 100%;
+        width: 100%;
+      }
+
+      /* Essentials */
+      .essentials-grid {
+        column-count: 1;
+      }
+
+      .essentials-header h1 {
+        font-size: 2.5rem;
+      }
+
+      /* Past Drops */
+      .drop-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px 20px;
+      }
+
+      .drop-card img {
+        margin: 0 0 20px 0;
+        width: 100%;
+        max-width: 250px;
+      }
+
+      .drop-info h3,
+      .drop-info p {
+        text-align: center;
+      }
+
+      /* Signup */
+      .signup-form {
+        flex-direction: column;
+        border-radius: 20px;
+        padding: 10px;
+        border: none;
+        background: transparent;
+      }
+
+      .signup-form input {
+        background: #111;
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        border-radius: 10px;
+        margin-bottom: 10px;
+        width: 100%;
+      }
+
+      .signup-form button {
+        width: 100%;
+        border-radius: 10px;
+        padding: 12px;
+      }
+
+      /* Footer */
+      .voux-footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 50px;
+      }
+
+      .voux-footer-links {
+        justify-content: center;
+        gap: 40px;
+      }
+
+      .voux-footer-logo img {
+        width: 150px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .drop-hero h1 {
+        font-size: 2.8rem;
+      }
+
+      .drop-hero h2 {
+        font-size: 1.2rem;
+      }
+
+      .launch-date {
+        font-size: 0.95rem;
+      }
+
+      .cta-button {
+        padding: 12px 30px;
+        font-size: 1rem;
+      }
+
+      #countdown span {
+        font-size: 1.2rem;
+        padding: 8px;
+        min-width: 50px;
+      }
+
+      .drop-item img {
+        height: 350px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 🔒 FIXED GOLD LUXURY BACK BUTTON -->
+  <style>
+
+@media screen and (max-width: 900px) {
+
+  .hamburger {
+    display: flex;
+    width: 28px;
+    height: 22px;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    z-index: 1100;
+  }
+
+  .hamburger span {
+    height: 3px;
+    width: 100%;
+    background: #fff;
+    border-radius: 3px;
+    transition: all 0.4s ease;
+  }
+
+  .hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    right: 1rem;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    flex-direction: column;
+    width: 240px;
+    padding: 2rem;
+    gap: 1.8rem;
+    border-radius: 12px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+    transition: all 0.4s ease;
+    z-index: 1000;
+  }
+
+  .nav-links.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .nav-actions {
+    display: none;
+  }
+}
+      /* Hide original flex nav-links on mobile but keep them toggleable */
+      .nav-links {
+        display: flex;
+      }
+
+      /* Hide nav-actions on mobile or move into nav-links */
+      .nav-actions {
+        display: none;
+        /* optional, you can wrap them in nav-links if desired */
+      }
+  </style>
+
+
+  <header>
+    <div class="nav-container">
+      <img src="./images/voux_main_logo_5-removebg-preview.png" alt="VOUX Logo" class="logo">
+
+      <nav class="nav-links" id="navbar">
+        <ul>
+          <li><a href="entry.html">Home</a></li>
+          <li><a href="drops.html">Drops</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+      <div class="hamburger" aria-label="Toggle Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+  <main>
+    <section data-aos="fade-left" data-aos-duration="1000" data-aos-easing="ease-in-out" class="drop-hero">
+      <div class="drop-hero-content">
+        <h1>DROP 002</h1>
+        <h2>“ROGUE” EDITION</h2>
+        <p class="launch-date">Launches December 14, 2025 — 9:00PM</p>
+
+        <div class="drop-cta">
+          <a href="#drop-preview" class="cta-button">Join the Drop</a>
+          <div id="countdown">
+            <span id="days">0</span>d
+            <span id="hours">00</span>h
+            <span id="minutes">00</span>m
+            <span id="seconds">00</span>s
+          </div>
+        </div>
+
+        <div class="scroll-down">↓ Scroll for preview</div>
+      </div>
+    </section>
+    <!-- THIS IS THE DROPLIST SECTION -->
+    <section data-aos="fade-left" data-aos-duration="1000" data-aos-easing="ease-in-out" class="drop-highlight-section">
+      <div data-aos="fade-left" data-aos-duration="1000" data-aos-easing="ease-in-out" data-aos-delay="300"
+        class="drop-item">
+        <img src="./images/newDROPS kryonex front.png" alt="" width="90%">
+        <div class="drop-text">
+          <span class="drop-highlight-details2">KRYNONEX</span><br>
+          <button onclick="viewProduct('vouxdrops1')" class="drop-highlight-btn"><a href="dropsproduct1.html">view
+              collection</a></button>
+        </div>
+      </div>
+      <div data-aos="fade-left" data-aos-duration="1000" data-aos-easing="ease-in-out" data-aos-delay="600"
+        class="drop-item">
+        <img src="./images/newDROPS aurevan front.png" alt="" width="90%">
+        <div class="drop-text">
+          <span class="drop-highlight-details2">AUREVAN</span><br>
+          <button onclick="viewProduct('vouxdrops2')" class="drop-highlight-btn"><a href="dropsproduct2.html">view
+              collection</a></button>
+        </div>
+      </div>
+      <div data-aos="fade-left" data-aos-duration="1000" data-aos-easing="ease-in-out" data-aos-delay="900"
+        class="drop-item">
+        <img src="./images/newDROPS dravenyx front.png" alt="" width="90%">
+        <div class="drop-text">
+          <span class="drop-highlight-details2">DRAVENYX ARMOR</span><br>
+          <button onclick="viewProduct('vouxdrops3')" class="drop-highlight-btn"><a href="dropsproduct3.html">view
+              collection</a></button>
+        </div>
+      </div>
+      <div data-aos="fade-left" data-aos-duration="1000" data-aos-easing="ease-in-out" data-aos-delay="300"
+        class="drop-item">
+        <img src="./images/newDROPS lykoris front.png" alt="" width="90%">
+        <div class="drop-text">
+          <span class="drop-highlight-details2">LYKORIS</span><br>
+          <button onclick="viewProduct('vouxdrops4')" class="drop-highlight-btn"><a href="dropsproduct4.html">view
+              collection</a></button>
+        </div>
+      </div>
+      <div data-aos="fade-left" data-aos-duration="1000" data-aos-easing="ease-in-out" data-aos-delay="600"
+        class="drop-item">
+        <img src="./images/newDROPS noxiris front.png" alt="" width="90%">
+        <div class="drop-text">
+          <span class="drop-highlight-details2">NOXIRIS</span><br>
+          <button onclick="viewProduct('vouxdrops5')" class="drop-highlight-btn"><a href="dropsproduct5.html">view
+              collection</a></button>
+        </div>
+      </div>
+      <div data-aos="fade-left" data-aos-duration="1000" data-aos-easing="ease-in-out" data-aos-delay="900"
+        class="drop-item">
+        <img src="./images/newDROPS zarvenn front.png" alt="" width="90%">
+        <div class="drop-text">
+          <span class="drop-highlight-details2">ZARVENN GOWN</span><br>
+          <button onclick="viewProduct('vouxdrops6')" class="drop-highlight-btn"><a href="dropsproduct6.html">view
+              collection</a></button>
+        </div>
+      </div>
+      <div data-aos="fade-left" data-aos-duration="1000" data-aos-easing="ease-in-out" data-aos-delay="300"
+        class="drop-item">
+        <img src="./images/newDROPS quorinth front.png" alt="" width="90%">
+        <div class="drop-text">
+          <span class="drop-highlight-details2">QUORINTH</span><br>
+          <button onclick="viewProduct('vouxdrops7')" class="drop-highlight-btn"><a href="dropsproduct7.html">view
+              collection</a></button>
+        </div>
+      </div>
+      <div data-aos="fade-left" data-aos-duration="1000" data-aos-easing="ease-in-out" data-aos-delay="600"
+        class="drop-item">
+        <img src="./images/newDROPS sygmare front.png" alt="" width="90%">
+        <div class="drop-text">
+          <span class="drop-highlight-details2">SYGMARE TUX</span><br>
+          <button onclick="viewProduct('vouxdrops8')" class="drop-highlight-btn"><a href="dropsproduct8.html">view
+              collection</a></button>
+        </div>
+      </div>
+      <div data-aos="fade-left" data-aos-duration="1000" data-aos-easing="ease-in-out" data-aos-delay="900"
+        class="drop-item">
+        <img src="./images/newDROPS velthor front.png" alt="" width="90%">
+        <div class="drop-text">
+          <span class="drop-highlight-details2">VELTHOR</span><br>
+          <button onclick="viewProduct('vouxdrops9')" class="drop-highlight-btn"><a href="dropsproduct9.html">view
+              collection</a></button>
+        </div>
+      </div>
+
+
+
+
+    </section>
+    <!-- BLOCK 1 -->
+    <section data-aos="fade-left" data-aos-duration="1000" data-aos-easing="ease-in-out" data-aos-delay="300"
+      class="manifesto-section">
+      <h2 class="manifesto-title">THE VOUX studio</h2>
+      <div class="manifesto-blocks">
+        <div data-aos="fade-right" data-aos-duration="1000" data-aos-easing="ease-in-out" data-aos-delay="300"
+          class="manifesto-block">
+          <p>We don’t drop collections.</p>
+          <p>We drop statements.</p>
+          <p>VOUX is not for everyone.</p>
+        </div>
+
+        <div data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-out" data-aos-delay="300"
+          class="manifesto-block">
+          <p>This isn’t fashion.</p>
+          <p>This is structure and silence.</p>
+          <p>We speak in shapes, not trends.</p>
+        </div>
+
+        <div data-aos="fade-left" data-aos-duration="1000" data-aos-easing="ease-in-out" data-aos-delay="300"
+          class="manifesto-block">
+          <p>Designed to disappear in plain sight.</p>
+          <p>Built for the ones who never need to shout.</p>
+          <p>This is VOUX.</p>
+        </div>
+      </div>
+    </section>
+    <section" class="latest-arrivals">
+      <div class="essentials-header">
+        <h1>Latest Arrivals</h1>
+      </div>
+
+      <div data-aos="fade-left" data-aos-easing="ease-in-out" class="essentials-grid">
+        <div class="essentials-card">
+          <img src="./images/monoclith coat front.png" alt="">
+        </div>
+        <div data-aos="fade-up" data-aos-easing="ease-in-out" class="essentials-card">
+          <img src="./images/fracture jacket front.png" alt="">
+        </div>
+        <div data-aos="fade-right" data-aos-easing="ease-in-out" class="essentials-card">
+          <img src="./images/axis pants front.png" alt="">
+        </div>
+        <div data-aos="fade-left" data-aos-easing="ease-in-out" class="essentials-card">
+          <img src="./images/oracle front.png" alt="">
+        </div>
+        <div data-aos="fade-up" data-aos-easing="ease-in-out" class="essentials-card">
+          <img src="./images/obsidian hoodie front.png" alt="">
+        </div>
+        <div data-aos="fade-right" data-aos-easing="ease-in-out" class="essentials-card">
+          <img src="./images/strata vest front.png" alt="">
+        </div>
+      </div>
+      </section>
+      <section data-aos="fade-left" data-aos-duration="1000" data-aos-easing="ease-in-out" class="past-drops">
+        <h2>Past Drops Archive</h2>
+        <div class="drop-list">
+          <div class="drop-card">
+            <img src="./images/essentials image 4.png" alt="Drop 001 " width="20%">
+            <div class="drop-info">
+              <h3>DROP 001 — SHADOW INDEX</h3>
+              <p>Status: <span class="sold-out">SOLD OUT</span></p>
+              <p>Released: March 2025</p>
+            </div>
+          </div>
+
+          <div class="drop-card">
+            <img src="./images/essential white long shirt.png" alt="Drop 000" width="20%">
+            <div class="drop-info">
+              <h3>DROP 002 — Tees</h3>
+              <p>Status: <span class="sold-out">SOLD OUT</span></p>
+              <p>Released: November 2024</p>
+            </div>
+          </div>
+
+
+          <div class="drop-card">
+            <img src="./images/essential hoodie.png" alt="Drop 000" width="20%">
+            <div class="drop-info">
+              <h3>DROP 003 — sweats</h3>
+              <p>Status: <span class="sold-out">SOLD OUT</span></p>
+              <p>Released: December 2024</p>
+            </div>
+          </div>
+
+          <div class="drop-card">
+            <img src="./images/essential vest.png" alt="Drop 000" width="20%">
+            <div class="drop-info">
+              <h3>DROP 004 — Vests</h3>
+              <p>Status: <span class="sold-out">SOLD OUT</span></p>
+              <p>Released: December 2024</p>
+            </div>
+          </div>
+
+          <div class="drop-card">
+            <img src="./images/technical cargo pants.png" alt="Drop 000" width="20%">
+            <div class="drop-info">
+              <h3>DROP 005 — Cargo</h3>
+              <p>Status: <span class="sold-out">SOLD OUT</span></p>
+              <p>Released: December 2024</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section data-aos="fade-left" data-aos-duration="1000" data-aos-easing="ease-in-out" class="signup">
+        <h2>Join the Drop List</h2>
+        <p>Be the first to access exclusive releases and archive unlocks.</p>
+
+        <form class="signup-form">
+          <input type="email" placeholder="your@email.com" required>
+          <button type="submit">→</button>
+        </form>
+
+        <!-- Popup now lives inside signup -->
+        <div class="email-popup" id="emailPopup">
+          <div class="popup-content">
+            <span class="close-popup" id="closePopup">&times;</span>
+            <h3>Welcome to the Drop List</h3>
+            <p id="popupMessage"></p>
+          </div>
+        </div>
+      </section>
+      <footer class="voux-footer">
+        <div class="voux-footer-content">
+          <div class="voux-footer-logo">
+            <img src="./images/voux_main_logo_5-removebg-preview.png" alt="">
+          </div>
+          <div class="voux-footer-links">
+            <div class="voux-footer-column">
+              <h4>Explore</h4>
+              <ul>
+                <li><a href="#">Collections</a></li>
+                <li><a href="#">Editorials</a></li>
+                <li><a href="#">Drops</a></li>
+              </ul>
+            </div>
+            <div class="voux-footer-column">
+              <h4>About</h4>
+              <ul>
+                <li><a href="#">Our Story</a></li>
+                <li><a href="#">Vision</a></li>
+                <li><a href="#">Contact</a></li>
+              </ul>
+            </div>
+            <div class="voux-footer-column">
+              <h4>Social</h4>
+              <ul>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">TikTok</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="voux-footer-bottom">
+          © 2025 VOUX. All Rights Reserved.
+        </div>
+      </footer>
+
+
+
+
+      <script>
+
+
+        // Select hamburger and nav-links
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        // Toggle classes on click
+        hamburger.addEventListener('click', () => {
+          hamburger.classList.toggle('active'); // animates the hamburger
+          navLinks.classList.toggle('open');    // shows/hides the mobile nav
+        });
+
+        const form = document.querySelector('.signup-form');
+        const emailInput = form.querySelector('input[type="email"]');
+        const popup = document.getElementById('emailPopup');
+        const popupMessage = document.getElementById('popupMessage');
+        const closePopup = document.getElementById('closePopup');
+
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const email = emailInput.value.trim();
+
+          const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+          if (!validEmail.test(email)) {
+            emailInput.classList.add('invalid');
+            setTimeout(() => emailInput.classList.remove('invalid'), 400);
+            return;
+          }
+
+          popupMessage.innerHTML = `
+    We've received your email <strong>${email}</strong>.<br><br>
+    Stay tuned — you’ll get early access, exclusive previews, and drop alerts straight to your inbox.
+  `;
+
+          popup.style.display = 'block';
+        });
+
+        closePopup.addEventListener('click', () => {
+          popup.style.display = 'none';
+        });
+
+      </script>
+</body>
+
+</html>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    AOS.init({
+      once: false,
+      duration: 1000,
+      delay: 0,
+    });
+  }
+
+  ) 
+</script>
+
+<script>
+  function viewProduct(productId) {
+    localStorage.setItem("selectedProduct", productId);
+    window.location.href = "product.html"
+  }
+</script>
+
+
+
+<script defer src="script.js"></script>
+</body>
+
+</html>

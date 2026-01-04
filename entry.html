@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VOUX | Luxury Fashion</title>
+  <link rel="stylesheet" href="index.css">
+
+  <script defer src="hero.js"></script>
+  <link href="https://unpkg.com/phosphor-icons@1.4.2/src/css/icons.css" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Inter:wght@300;400;600&display=swap"
+    rel="stylesheet">
+</head>
+<body>
+  <!-- Welcome Box -->
+  <div class="welcome-message" id="welcome-section">
+    <span class="closeBtn" id="closeBtn">
+      <i class="ph ph-x-circle"></i>
+    </span>
+    <h1 id="welcome-text"></h1><br>
+    <p id="welcome-subtext"><br></p>
+  </div>
+  <!-- Header -->
+  <header class="luxury-header">
+    <div class="nav-container">
+      <img src="./images/voux_main_logo_5-removebg-preview.png"  alt="VOUX Logo" class="logo">
+      <nav class="nav-links" id="navbar">
+        <ul>
+          <li><a href="entry.html">Home</a></li>
+          <li><a href="drops.html">Drops</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="about.html">About</a></li>
+<!-- <li class="nav-profile">
+  <button id="profileBtn" aria-label="Profile">
+    <i class="ph-user-bold"></i>
+  </button>
+</li> -->
+<!-- PROFILE POPUP OVERLAY -->
+<div id="profileOverlay" class="profile-overlay">
+  <div class="profile-popup">
+    <button class="profile-close">&times;</button>
+    <h2>My Profile</h2>
+    <div class="profile-details">
+      <p><strong>Full Name:</strong> <span id="profileName"></span></p>
+      <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+      <p><strong>Phone:</strong> <span id="profilePhone"></span></p>
+      <p><strong>Country:</strong> <span id="profileCountry"></span></p>
+      <p><strong>Style Preference:</strong> <span id="profileStyle"></span></p>
+      <p><strong>Social Handles:</strong> <span id="profileSocials"></span></p>
+    </div>
+  </div>
+</div>
+
+
+<!-- Include Phosphor Icons CDN (if not already included) -->
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+        </ul>
+      </nav>
+  <div class="hamburger" aria-label="Toggle Menu">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+    </div>
+  </header>
+  <button id="trackOrderBtn" onclick="window.location.href='order.html'" title="Track Order">
+    ⌁
+  </button>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-image left">
+      <img src="./images/ChatGPT Image Dec 30, 2025, 04_39_11 PM.png" alt="Model Left">
+    </div>
+    <div class="hero-image right">
+      <img src="./images/ChatGPT Image Dec 30, 2025, 04_27_50 PM.png" alt="">
+    </div>
+
+    <div class="hero-center-text">
+      <h1><span style="color: #070500;">Disc</span>over <span class="gold"></span></h1>
+      <p><span  style="color: rgb(5, 0, 0);">BEYOND TR</span>ENDS. PURE IDENTITY.</p>
+      <a href="collection.html" class="cta-btn">Collections</a>
+    </div>
+  </section><br>
+
+  <main>
+    <!-- LUXURY EDITORIALS SHOWCASE -->
+    <section class="Editorials-wrapper">
+      <!-- TOP DIVIDER -->
+      <div class="editorials-divider top-divider"></div>
+      <!-- ORIGINAL SECTION (UNTOUCHED STRUCTURE) -->
+      <section class="Editorials-section">
+
+        <button class="nav-arrow left-arrow">‹</button>
+
+        <div class="editorial-card" data-aos="fade-left" data-aos-duration="1000">
+          <h1>BlackLine</h1>
+          <a href="BLACKLINE.html">
+            <img src="/images/blk cover.jpg" alt="BlackLine">
+          </a>
+          <p>Sculpted in silence, <br> This is black Reimagined</p>
+        </div>
+
+        <div class="editorial-card" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="300">
+          <h1>Monochrome</h1>
+          <a href="MONOCHROME.html">
+            <img src="./images/ChatGPT Image Sep 26, 2025, 06_26_29 PM.png" alt="Monochrome">
+          </a>
+          <p>Timeless. United. Monochrome. <br> The essence of form, stripped of noise.</p>
+        </div>
+
+        <div class="editorial-card tall" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="500">
+          <a href="LUSTRA.html">
+            <img src="images/ChatGPT Image Oct 1, 2025, 01_29_51 PM.png" alt="Lustra">
+          </a>
+          <h1>LUSTRA</h1>
+          <p>Luminous By Nature. <br> Voux turns light into silhouette</p>
+        </div>
+
+        <div class="editorial-card" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="800">
+          <a href="distortion.html">
+            <img src="./images/distortion image 17.png" alt="Distortion">
+          </a>
+          <h1>Distortion</h1>
+          <p>Order, Undone. <br> Voux is bending the rules of fashion.</p>
+        </div>
+
+        <div class="editorial-card tall" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="1000">
+          <a href="Eclipse.html">
+            <img src="images/replace eclipse.png" alt="Eclipse">
+          </a>
+          <h1>Eclipse</h1>
+          <p>Time folds here. <br> Nothing speaks louder than restraint</p>
+        </div>
+
+        <button class="nav-arrow right-arrow">›</button>
+
+      </section>
+
+      <!-- BOTTOM DIVIDER -->
+      <div class="editorials-divider bottom-divider"></div>
+
+    </section>
+
+    <section class="voux-wall" data-aos-delay="1000">
+      <h2 class="voux-wall-heading">VOUX WALL</h2>
+      <p>Moving images, still emotions</p>
+
+      <div data-aos="fade-up" class="video-grid">
+        <video class="video-item" src="./videos/voux-manifesto.mp4" autoplay muted loop playsinline></video>
+        <video class="video-item" src="./videos/voux-manifesto 3.mp4" autoplay muted loop playsinline></video>
+        <video class="video-item" src="./videos/voux-manifesto 2.mp4" autoplay muted loop playsinline></video>
+      </div>
+    </section>
+    <section class="voux-fashion-main-section" data-aos="fade-left" data-aos-duration="1000">
+      <div class="voux-fashion-section">
+        <div class="fashion-image" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="300">
+          <img class="fashion-image1" src="/images/ORIGIN COVER IMAGE.png" width="100%" height="90%" alt="">
+          <h1><a href="ORIGIN.HTML">ORIGIN</a></h1>
+        </div>
+        <div class="fashion-image" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="500">
+          <img class="fashion-image2" src="./images/DISVOVER COVER IMAGE.png" width="100%" height="90%" alt="">
+          <h1><a href="discover.html">DISCOVER</a></h1>
+        </div>
+        <!-- <div class="fashion-image" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="800">
+                    <img class="fashion-image3" src="./images/icons COVER IMAGE.png" width="100%" height="90%"  alt="">
+                    <h1><a href="icons.html">Icons</a></h1>
+                </div>
+                <div class="fashion-image" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="1100">
+                    <img class="fashion-image4" src="./images/drafts COVER IMAGE.png" width="100%" height="90%" alt="">
+                    <h1><a href="draft.html">Draft</a></h1>
+                </div> -->
+
+      </div>
+    </section>
+    <section class="pulse-main-section">
+      <div data-aos="fade-up" class="pulse-image-details">
+        <h1 class="pulse-header">THE PULSE: Tailor-Born / Vol.1</h1>
+        <p class="pulse-subtext">A moment. A shift. A new way to wear the now.</p>
+      </div>
+
+      <div class="pulse-content">
+        <img src="./images/vintage tailor for pulse.jpg" alt="Tailor Born Image" />
+
+        <div class="pulse-text">
+          <p data-aos="fade-left">
+            <span class="pulse-section-span1">Tailor-Born is the untamed elegance of Africa — stitched in reverence,
+              worn in rebellion.</span>
+            <span class="pulse-section-span2">It is VOUX’s first brand drop — a concept born from the streets of Lagos,
+              made by</span>
+            <span class="pulse-section-span3">the raw essence of African tailoring and the precision of modern fashion.
+              It draws power</span>
+            <span class="pulse-section-span4">from ancestral stitchwork, earthy tones, and the rhythm of tradition
+              reimagined.</span>
+            <span class="pulse-section-span5">It is legacy — reshaped. Power in restraint. Luxury in
+              storytelling.</span>
+            <span class="pulse-section-span6">This is where heritage meets rebellion. Where timeless craftsmanship
+              becomes</span>
+            <span class="pulse-section-span7">the uniform of a new tribe. Tailor-Born doesn’t imitate Africa — it is
+              Africa:</span>
+            <span class="pulse-section-span8">layered, vibrant, bold without apology. Every piece is a conversation —
+              between the past</span>
+            <span class="pulse-section-span9">and now, between the sacred and the street.</span><br><br>
+            <strong>Premiering Summer ‘26 — Lagos.</strong><br>
+            <strong>Crafted with history. Worn with destiny.</strong>
+          </p>
+        </div>
+      </div>
+      <div class="pulse-meta">
+        <h4 data-aos="fade-up" data-aos-delay="1000">Vol.1 — Stitches of Origin</h4>
+        <ul data-aos="fade-left" data-aos-delay="5000">
+          <li>Explore</li>
+          <li>Texture</li>
+        </ul>
+        <h2 data-aos="fade-up" data-aos-delay="7000">Tailor-Born arrives — Premiering Summer ’26 Lagos</h2>
+        <h5 data-aos="fade-right" data-aos-delay="10000">Crafted with edge. Worn with story. Our first drop lands in
+          full force next summer. Stay ready.</h5>
+        <a href="tailorbornofficial1.html" class="pulse-section-maker">EXPLORE</a>
+        <span class="pulse-section-maker"><a href="tailorbornmaker.html">Read Maker’s Note ⮕</a></span>
+      </div>
+    </section>
+  </main>
+  <footer>
+  <div class="footer-section">
+    <img src="./images/voux_main_logo_5-removebg-preview.png" alt="VOUX Logo">
+
+    <div class="footer-texts">
+      <div>
+        <h6>SUPPORT</h6>
+        <p><a href="contact.html">Help Center</a></p>
+        <p><a href="contact.html">Shipping</a></p>
+        <p><a href="contact.html">Returns</a></p>
+        <p><a href="contact.html">Track Order</a></p>
+        <p><a href="contact.html">Size Guide</a></p>
+      </div>
+
+      <div>
+        <h6>EXPLORE</h6>
+        <p><a href="collection.html">SHOP</a></p>
+        <p><a href="tailorbornmaker.html">Pulse</a></p>
+        <p><a href="icons.html">ICONS</a></p>
+        <p><a href="draft.html">DRAFTS</a></p>
+        <p><a href="collection.html">COLLECTIONS</a></p>
+        <p><a href="discover.html">DISCOVER</a></p>
+        <p><a href="#">THE VOUX WALL</a></p>
+      </div>
+
+      <div>
+        <h6>Contact Us</h6>
+        <p><a href="mailto:studio@vouxlabel.com">Email: studio@vouxlabel.com</a></p>
+        <p><a href="tel:+2345532252658">Phone: +234 553 225 2658</a></p>
+        <p><a href="#">Victoria Island,<br>Lagos, Nigeria</a></p>
+      </div>
+
+      <div>
+        <h6>FOLLOW US</h6>
+        <p><a href="#">Instagram</a></p>
+        <p><a href="#">TikTok</a></p>
+        <p><a href="#">Pinterest</a></p>
+        <p><a href="#">Twitter</a></p>
+      </div>
+
+      <div>
+        <h6><a href="#">The Brand</a></h6>
+        <p><a href="#">Origin</a></p>
+        <p><a href="#">Chronicles</a></p>
+        <p><a href="#">Tailor Born Vol. 1</a></p>
+        <p><a href="#">VOUX Community</a></p>
+      </div>
+
+      <div>
+        <h6>INFO</h6>
+        <p><a href="#">Terms & Conditions</a></p>
+        <p><a href="#">Returns & Exchanges</a></p>
+        <p><a href="#">Shipping Policy</a></p>
+        <p><a href="#">Cookie Preferences</a></p>
+        <p><a href="#">Legal</a></p>
+      </div>
+    </div>
+
+    <div class="footer-line"></div>
+
+    <div class="footer-form-section">
+      <div class="footer-form-section1">
+        Be the first to know about new collections
+      </div>
+    </div>
+
+    <div class="footer-copyright">
+      <p>© 2025 VOUX. Made in Lagos. Worn Worldwide. Terms · Privacy · Accessibility</p>
+    </div>
+  </div>
+</footer>
+ <script src="script.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      AOS.init({
+        once: false,
+        duration: 1000,
+        delay: 500,
+      });
+    }
+    ) 
+    
+  </script>
+  <script>
+    // WELCOME BOX CLOSE FUNCTION
+    document.getElementById("closeBtn").addEventListener("click", () => {
+      document.getElementById("welcome-section").style.display = "none";
+    });
+
+      // Select hamburger and nav-links
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.nav-links');
+
+// Toggle classes on click
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('active'); // animates the hamburger
+  navLinks.classList.toggle('open');    // shows/hides the mobile nav
+});
+    
+    // === SAME 3D ORBIT LOGIC - JUST INVERTED ===
+    class InvertedOrbitShowcase {
+      constructor() {
+        this.section = document.querySelector('.Editorials-section');
+        this.cards = Array.from(document.querySelectorAll('.editorial-card'));
+        this.leftArrow = document.querySelector('.left-arrow');
+        this.rightArrow = document.querySelector('.right-arrow');
+        this.currentIndex = 0;
+        this.isAnimating = false;
+
+        this.createOrbitContainer();
+        this.init();
+      }
+
+      createOrbitContainer() {
+        const orbitContainer = document.createElement('div');
+        orbitContainer.className = 'orbit-container';
+
+        // Move all cards into orbit container
+        this.cards.forEach(card => {
+          orbitContainer.appendChild(card);
+        });
+
+        this.section.appendChild(orbitContainer);
+
+        // Remove AOS attributes
+        this.cards.forEach(card => {
+          card.removeAttribute('data-aos');
+          card.removeAttribute('data-aos-duration');
+          card.removeAttribute('data-aos-delay');
+        });
+      }
+
+      init() {
+        this.setupInitialOrbit();
+        this.bindEvents();
+      }
+
+      setupInitialOrbit() {
+        this.cards.forEach(card => {
+          card.className = 'editorial-card';
+        });
+
+        // Position cards in INVERTED semi-circle
+        this.cards.forEach((card, index) => {
+          if (index === 0) {
+            card.classList.add('active');
+          } else if (index === 1) {
+            card.classList.add('next-1');
+          } else if (index === 2) {
+            card.classList.add('next-2');
+          } else if (index === this.cards.length - 1) {
+            card.classList.add('prev-1');
+          } else if (index === this.cards.length - 2) {
+            card.classList.add('prev-2');
+          } else {
+            card.classList.add('far-right');
+          }
+        });
+      }
+
+      bindEvents() {
+        this.leftArrow.addEventListener('click', () => this.rotateOrbit(-1));
+        this.rightArrow.addEventListener('click', () => this.rotateOrbit(1));
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowLeft') this.rotateOrbit(-1);
+          if (e.key === 'ArrowRight') this.rotateOrbit(1);
+        });
+      }
+
+      rotateOrbit(direction) {
+        if (this.isAnimating) return;
+        this.isAnimating = true;
+
+        this.currentIndex = (this.currentIndex + direction + this.cards.length) % this.cards.length;
+        this.animateOrbitRotation();
+
+        setTimeout(() => {
+          this.isAnimating = false;
+        }, 1000);
+      }
+
+      animateOrbitRotation() {
+        this.cards.forEach(card => {
+          card.classList.remove('active', 'next-1', 'next-2', 'prev-1', 'prev-2', 'far-left', 'far-right');
+        });
+
+        this.cards.forEach((card, index) => {
+          const position = (index - this.currentIndex + this.cards.length) % this.cards.length;
+
+          switch (position) {
+            case 0:
+              card.classList.add('active');
+              break;
+            case 1:
+              card.classList.add('next-1');
+              break;
+            case 2:
+              card.classList.add('next-2');
+              break;
+            case this.cards.length - 1:
+              card.classList.add('prev-1');
+              break;
+            case this.cards.length - 2:
+              card.classList.add('prev-2');
+              break;
+            case 3:
+              card.classList.add('far-right');
+              break;
+            case this.cards.length - 3:
+              card.classList.add('far-left');
+              break;
+            default:
+              card.classList.add('far-right');
+          }
+        });
+      }
+    }
+
+
+    // Initialize the showcase
+    document.addEventListener('DOMContentLoaded', () => {
+      new InvertedOrbitShowcase();
+    });
+  </script>
+
+
+
+
+
+  <script defer src="script.js"></script>
+
+</body>
+
+</html>

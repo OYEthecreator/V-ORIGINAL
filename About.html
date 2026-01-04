@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About VOUX</title>
+
+  <!-- AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+  <!-- Icons -->
+  <script src="https://unpkg.com/phosphor-icons"></script>
+
+  <style>
+    /* =========================================================
+   VOUX — ABOUT PAGE CSS
+   Ultra-premium, mature, cinematic fashion aesthetic
+   (No footer included)
+========================================================= */
+
+    /* -------- RESET & BASE -------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #fdfdfd;
+      --gray: #b3b3b3;
+      --gold: #c6a23a;
+      --font-primary: "Inter", "Helvetica Neue", Arial, sans-serif;
+      --font-serif: "Playfair Display", serif;
+    }
+
+    body {
+      font-family: var(--font-primary);
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+      line-height: 1.8;
+      scroll-behavior: smooth;
+    }
+
+    /* -------- NAVBAR -------- */
+    /* -------- NAVBAR (Matched to contact.html) -------- */
+    .nav-container {
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding: 10px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 9999;
+    }
+
+    .logo {
+      width: 100px;
+    }
+
+    .nav-links ul {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links li a {
+      text-decoration: none;
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.95);
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .nav-links li a:hover,
+    .nav-links li a.active {
+      color: var(--gold);
+    }
+
+    .hamburger {
+      display: none;
+    }
+
+    /* -------- BACK BUTTON (Matched to contact2.html) -------- */
+    .back-btn-fixed {
+      position: fixed;
+      top: 100px;
+      /* Below navbar */
+      left: 20px;
+      z-index: 9990;
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(212, 175, 55, 0.55);
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.25s ease;
+      padding: 0;
+    }
+
+    .back-btn-fixed:hover {
+      background: rgba(212, 175, 55, 0.15);
+      transform: translateX(-2px);
+    }
+
+    .back-btn-fixed svg {
+      width: 18px;
+      height: 18px;
+      stroke: #d4af37;
+    }
+
+    /* -------- RESPONSIVE NAVBAR -------- */
+    @media screen and (max-width: 900px) {
+      .hamburger {
+        display: flex;
+        width: 28px;
+        height: 20px;
+        flex-direction: column;
+        justify-content: space-between;
+        cursor: pointer;
+        z-index: 10001;
+        /* Above nav-links */
+      }
+
+      .hamburger span {
+        display: block;
+        height: 3px;
+        width: 100%;
+        background-color: #fff;
+        border-radius: 3px;
+        transition: all 0.4s ease;
+      }
+
+      .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(10, 10, 10, 0.98);
+        backdrop-filter: blur(10px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-20px);
+        transition: all 0.4s ease;
+        z-index: 10000;
+      }
+
+      .nav-links.open {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+
+      .nav-links ul {
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+      }
+
+      .nav-links li a {
+        font-size: 1.5rem;
+      }
+    }
+
+    /* -------- HERO SECTION -------- */
+    .about-hero {
+      height: 100vh;
+      background: linear-gradient(160deg, #000, #111 70%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 30%, rgba(255, 215, 0, 0.12), transparent 70%);
+      mix-blend-mode: overlay;
+      animation: softPulse 10s infinite ease-in-out;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      padding: 0 2rem;
+      animation: fadeInUp 1.5s ease-out forwards;
+      opacity: 0;
+    }
+
+    .hero-content h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 700;
+      background: linear-gradient(90deg, #d4af37, #fff, #d4af37);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 200%;
+      animation: goldFlow 7s linear infinite;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 1rem;
+    }
+
+    .hero-content p {
+      font-size: 1.4rem;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    /* -------- STORY SECTION -------- */
+    .about-story {
+      display: flex;
+      flex-wrap: wrap;
+      background: #111;
+      padding: 0;
+    }
+
+    .story-image {
+      flex: 1;
+      min-height: 500px;
+      background: url('./images/about genesis image.png') center/cover no-repeat;
+    }
+
+    .story-text {
+      flex: 1;
+      padding: 100px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .story-text h2 {
+      font-size: 2.8rem;
+      color: var(--gold);
+      font-family: var(--font-serif);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .story-text p {
+      color: #d9d9d9;
+      font-size: 1.15rem;
+      max-width: 600px;
+    }
+
+    /* -------- GALLERY SECTION -------- */
+    .about-gallery {
+      padding: 80px 40px;
+      background: #0d0d0d;
+    }
+
+    .gallery-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .gallery-item {
+      flex: 1;
+      min-width: 300px;
+      height: 400px;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.02);
+      z-index: 2;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+
+    /* Global Image Safeguard */
+    img {
+      max-width: 100%;
+      height: auto;
+      font-style: italic;
+      /* for alt text */
+    }
+
+    /* -------- MANIFESTO -------- */
+    .about-manifesto {
+      background: var(--black);
+      text-align: center;
+      padding: 160px 40px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .about-manifesto h2 {
+      color: var(--gold);
+      font-size: 2.6rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 3px;
+      margin-bottom: 2rem;
+    }
+
+    .about-manifesto p {
+      max-width: 800px;
+      margin: 0 auto;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.25rem;
+      line-height: 1.9;
+    }
+
+    /* -------- BIOGRAPHY / TEAM STORIES -------- */
+    .face-card {
+      background: #141414;
+      margin: 100px auto;
+      padding: 80px 60px;
+      border-radius: 20px;
+      max-width: 1100px;
+      display: flex;
+      align-items: center;
+      gap: 50px;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .face-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 40px rgba(255, 215, 0, 0.05);
+    }
+
+    .face-card img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 100%;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .face-text h2 {
+      color: var(--gold);
+      font-size: 1.8rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .face-text span {
+      display: block;
+      font-size: 0.95rem;
+      color: #aaa;
+      margin-bottom: 1rem;
+    }
+
+    .face-text p {
+      color: #e0e0e0;
+      line-height: 1.8;
+      font-size: 1.05rem;
+      max-width: 700px;
+    }
+
+    /* -------- UNIVERSE -------- */
+    .about-universe {
+      padding: 120px 40px;
+      background: #0c0c0c;
+      text-align: center;
+    }
+
+    .about-universe h2 {
+      color: var(--gold);
+      font-size: 2.5rem;
+      text-transform: uppercase;
+      margin-bottom: 80px;
+    }
+
+    .universe-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 60px;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .universe-tile {
+      background: #161616;
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .universe-tile:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 0 30px rgba(255, 215, 0, 0.08);
+    }
+
+    .universe-tile img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    .universe-tile h3 {
+      color: var(--gold);
+      font-size: 1.3rem;
+      margin-top: 20px;
+    }
+
+    .universe-tile p {
+      color: #ccc;
+      font-size: 1rem;
+      padding: 0 25px 40px;
+    }
+
+    /* -------- CTA -------- */
+    .about-cta {
+      text-align: center;
+      padding: 150px 40px;
+      background: linear-gradient(180deg, #111, #0a0a0a);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .about-cta h2 {
+      color: var(--gold);
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      letter-spacing: 2px;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: var(--gold);
+      color: #000;
+      padding: 18px 50px;
+      border-radius: 50px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+    }
+
+    .cta-button:hover {
+      background: #e4c45f;
+      transform: translateY(-3px);
+    }
+
+    /* -------- ANIMATIONS -------- */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(60px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes goldFlow {
+      0% {
+        background-position: 200% center;
+      }
+
+      100% {
+        background-position: -200% center;
+      }
+    }
+
+    @keyframes softPulse {
+
+      0%,
+      100% {
+        opacity: 0.4;
+      }
+
+      50% {
+        opacity: 0.9;
+      }
+    }
+
+    /* -------- RESPONSIVE -------- */
+    @media (max-width: 992px) {
+      .face-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 60px 30px;
+      }
+
+      .story-text {
+        padding: 80px 40px;
+      }
+
+      .contact-hero {
+        padding-top: 140px;
+        /* More space for fixed nav */
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 3rem;
+        line-height: 1.2;
+      }
+
+      .about-story {
+        flex-direction: column;
+      }
+
+      .story-image {
+        min-height: 300px;
+      }
+
+      .story-text {
+        padding: 60px 20px;
+      }
+
+      .universe-grid {
+        gap: 40px;
+        grid-template-columns: 1fr;
+        /* Stack visually */
+      }
+
+      .about-cta h2 {
+        font-size: 2rem;
+      }
+
+      .back-btn-fixed {
+        top: 85px;
+        /* Adjust for mobile nav height */
+        left: 15px;
+      }
+    }
+
+
+
+
+    /* ====== FOOTER ====== */
+    .voux-footer {
+      background: #0a0a0a;
+      color: #ddd;
+      padding: 80px 40px 40px;
+      font-family: 'Helvetica Neue', sans-serif;
+      border-top: 1px solid rgba(212, 175, 55, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .voux-footer::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+      z-index: 0;
+    }
+
+    .voux-footer-content {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      position: relative;
+      z-index: 2;
+    }
+
+    .voux-footer-logo img {
+      width: 180px;
+      opacity: 0.9;
+      transition: transform 0.3s ease;
+    }
+
+    .voux-footer-logo img:hover {
+      transform: scale(1.05);
+    }
+
+    .voux-footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 80px;
+    }
+
+    .voux-footer-column h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--gold, #d4af37);
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+    }
+
+    .voux-footer-column ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .voux-footer-column ul li {
+      margin-bottom: 12px;
+    }
+
+    .voux-footer-column ul li a {
+      text-decoration: none;
+      color: #aaa;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      transition: color 0.3s ease, transform 0.3s ease;
+      display: inline-block;
+    }
+
+    .voux-footer-column ul li a:hover {
+      color: var(--gold, #d4af37);
+      transform: translateX(4px);
+    }
+
+    .voux-footer-bottom {
+      text-align: center;
+      margin-top: 60px;
+      font-size: 0.9rem;
+      color: #777;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ================================
+   VOUX ABOUT SECTIONS – LUXURY STYLE
+================================ */
+    :root {
+      --bg-dark: #0a0a0a;
+      --text-light: #e8e8e8;
+      --accent: #bfa67a;
+      /* subtle gold */
+      --muted: #888;
+      --max-width: 1000px;
+      --line-height: 1.8;
+      --transition: all 0.4s ease;
+      --font-primary: "Poppins", "Helvetica Neue", sans-serif;
+    }
+
+
+
+    /* GENERAL SECTION STYLES */
+    section[class^="about-"] {
+      max-width: var(--max-width);
+      margin: 8rem auto;
+      padding: 4rem 2rem;
+      position: relative;
+      border-left: 2px solid rgba(255, 255, 255, 0.08);
+      border-right: 2px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.05));
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.4);
+      border-radius: 16px;
+      transform: perspective(1000px) translateZ(0);
+      transition: var(--transition);
+    }
+
+    section[class^="about-"]:hover {
+      transform: perspective(1000px) translateY(-8px) scale(1.02);
+      box-shadow: 0 0 60px rgba(191, 166, 122, 0.2);
+    }
+
+    /* HEADINGS */
+    section[class^="about-"] h2 {
+      font-size: 2.8rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    section[class^="about-"] h2::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+    }
+
+    /* PARAGRAPHS */
+    section[class^="about-"] p {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      line-height: var(--line-height);
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.3px;
+      text-align: justify;
+    }
+
+    section[class^="about-"] strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* INDIVIDUAL SECTION THEMES */
+    .about-architects {
+      background: linear-gradient(145deg, rgba(191, 166, 122, 0.05), rgba(0, 0, 0, 0.5));
+    }
+
+    .about-culture {
+      background: linear-gradient(145deg, rgba(102, 82, 255, 0.05), rgba(0, 0, 0, 0.6));
+    }
+
+    .about-innovation {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.7));
+    }
+
+    .about-craft {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.03), rgba(191, 166, 122, 0.08));
+    }
+
+    .about-legacy {
+      background: linear-gradient(145deg, rgba(191, 166, 122, 0.07), rgba(0, 0, 0, 0.5));
+    }
+
+    /* ANIMATIONS */
+    [data-aos="fade-up"] {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    [data-aos="fade-up"].aos-animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      section[class^="about-"] {
+        margin: 5rem 1rem;
+        padding: 3rem 1.5rem;
+      }
+
+      section[class^="about-"] h2 {
+        font-size: 2rem;
+      }
+
+      section[class^="about-"] p {
+        font-size: 1rem;
+        line-height: 1.7;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About — VOUX</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <!-- NAV -->
+    <!-- NAV (New Structure) -->
+    <header>
+      <div class="nav-container">
+        <img src="./images/voux_main_logo_5-removebg-preview.png" alt="VOUX Logo" class="logo">
+        <nav class="nav-links">
+          <ul>
+            <li><a href="entry.html">Home</a></li>
+            <li><a href="drops.html">DROPS</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="about.html" class="active">ABOUT</a></li>
+          </ul>
+        </nav>
+        <div class="hamburger" aria-label="Toggle Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </header>
+    <main>
+      <!-- HERO -->
+      <section class="about-hero" data-aos="fade-up">
+        <div class="hero-content">
+          <h1>Inside the House of VOUX</h1>
+          <p>
+            A study in form, silence, and rebellion. VOUX is not merely worn —
+            it is inhabited. Each piece a dialogue between precision and chaos,
+            structure and void, light and obsidian.
+          </p>
+        </div>
+      </section>
+
+      <!-- STORY -->
+      <section class="about-story">
+        <div class="story-image" data-aos="fade-right"></div>
+        <div class="story-text" data-aos="fade-left">
+          <h2>Our Genesis</h2>
+          <p>
+            Born in the heat of Lagos, VOUX was founded with one mission: to push culture forward.
+            What began as an underground label reimagining black minimalism has evolved into
+            a global movement — blending art, rhythm, and rebellion into modern silhouettes.
+          </p>
+        </div>
+      </section>
+
+      <!-- MANIFESTO -->
+      <section class="about-manifesto" data-aos="zoom-in">
+        <div class="manifesto-text">
+          <h2>What We Stand For</h2>
+          <p>
+            VOUX is not just a brand. It’s a stance. A declaration. A movement.
+            Every collection defies conformity, turning simplicity into statement and shadow into language.
+            We believe true design doesn’t shout — it whispers with power.
+          </p>
+        </div>
+      </section>
+
+      <!-- GALLERY -->
+      <section class="about-gallery">
+        <div class="gallery-row">
+          <div class="gallery-item" data-aos="zoom-in"><img src="./images/galleryitem1.png" alt=""></div>
+          <div class="gallery-item" data-aos="zoom-in" data-aos-delay="100"><img src="./images/gallery item2.png"
+              alt=""></div>
+          <div class="gallery-item" data-aos="zoom-in" data-aos-delay="200"><img src="./images/gallery item3.png"
+              alt=""></div>
+        </div>
+      </section>
+
+      <!-- NEW SECTION 1: THE ARCHITECTS -->
+      <section class="about-architects" data-aos="fade-up">
+        <h2>The Architects of Vision</h2>
+        <p>
+          The house of VOUX is guided by a collective of minds — not faces, but forces.
+          Among them is <strong>Adesola Ayeni</strong>, a Nigerian creative strategist
+          who began sketching garments on paper scraps in her mother’s tailoring shop in Ibadan.
+          Her path led from architecture in Cape Town to fashion innovation in Paris, where she redefined
+          proportion and geometry in design. Her philosophy — that structure should breathe —
+          became the DNA of VOUX’s sharp yet fluid aesthetic.
+        </p>
+        <p>
+          Alongside her, <strong>Emil Novak</strong>, a Czech-born material researcher,
+          introduced fabric manipulation techniques used by VOUX to mimic light distortion,
+          giving garments their quiet cinematic sheen. Together, they shaped a studio built
+          not on personality but on principle — design that thinks before it speaks.
+        </p>
+      </section>
+
+      <!-- NEW SECTION 2: THE CULTURE MAKERS -->
+      <section class="about-culture" data-aos="fade-up">
+        <h2>The Culture Makers</h2>
+        <p>
+          From Lagos to London, the soul of VOUX is powered by its culture department —
+          a team translating human emotion into brand language. Led by <strong>Kemi Odubanjo</strong>,
+          a cultural curator and former art journalist from Lagos, the team maps the intersections
+          between music, protest, and couture.
+          Their work ensures every drop speaks the dialect of modern identity, grounded in African futurism
+          yet understood globally.
+        </p>
+        <p>
+          Their process is not trend-driven but time-driven. They observe silence, collect sound,
+          and build stories that make each collection more than wearable — they make it experiential.
+        </p>
+      </section>
+
+      <!-- NEW SECTION 3: THE INNOVATORS -->
+      <section class="about-innovation" data-aos="fade-up">
+        <h2>The Innovators</h2>
+        <p>
+          VOUX’s innovation lab, nicknamed “The Obsidian Room,” was born out of necessity —
+          a creative rebellion against fashion’s repetition. In this underground workspace,
+          fabrics are rewired using experimental processes combining heat, shadow, and reflective layering.
+          Here, digital and physical design merge seamlessly.
+        </p>
+        <p>
+          Every prototype is tested for sensory impact: how it moves, how it absorbs silence,
+          how it commands space. The team believes innovation should not feel futuristic — it should feel inevitable.
+        </p>
+      </section>
+
+      <!-- NEW SECTION 4: THE CRAFT -->
+      <section class="about-craft" data-aos="fade-up">
+        <h2>The Craft</h2>
+        <p>
+          Every VOUX piece passes through ten hands — sculptors, cutters, pattern engineers,
+          and textile artists — each fluent in the language of discipline. The brand’s ateliers
+          in Lagos and Milan operate like orchestras: measured, precise, and emotionally charged.
+        </p>
+        <p>
+          The use of matte blacks, unfinished seams, and sharp contours are intentional acts of restraint.
+          They reject excess and celebrate clarity. This craft isn’t about perfection —
+          it’s about control. And in that control lies art.
+        </p>
+      </section>
+
+      <!-- NEW SECTION 5: THE LEGACY -->
+      <section class="about-legacy" data-aos="fade-up">
+        <h2>The Legacy We Build</h2>
+        <p>
+          The story of VOUX is still unfolding. The brand’s commitment to education,
+          sustainability, and cultural mentorship extends beyond fashion. Through
+          its “Rebirth Program,” young designers from Lagos, Nairobi, and Accra are trained
+          in storytelling through design — ensuring the next generation inherits not just a label,
+          but a philosophy.
+        </p>
+        <p>
+          What began as an echo from West Africa now resonates globally.
+          VOUX continues to evolve, not to impress, but to impact.
+          The legacy isn’t fame — it’s the freedom to create without fear.
+        </p>
+      </section>
+
+      <!-- UNIVERSE -->
+      <section class="about-universe" data-aos="fade-up">
+        <h2>Inside the VOUX Universe</h2>
+        <div class="universe-grid">
+          <div class="universe-tile" data-aos="fade-up">
+            <img src="./images/inside the universe1.png" alt="">
+            <h3>Fashion</h3>
+            <p>Experimental cuts, fearless textures, and design born from silence.</p>
+          </div>
+          <div class="universe-tile" data-aos="fade-up" data-aos-delay="100">
+            <img src="./images/inside the universe2.png" alt="">
+            <h3>Storytelling</h3>
+            <p>Every collection is a chapter, every garment a verse.</p>
+          </div>
+          <div class="universe-tile" data-aos="fade-up" data-aos-delay="200">
+            <img src="./images/inside the universe3.png" alt="">
+            <h3>Collaboration</h3>
+            <p>From musicians to architects, each collaboration expands the universe of form.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="about-cta" data-aos="fade-in">
+        <h2>Be Part of the Future</h2>
+        <a href="drops.html" class="cta-button">Explore Our Drops</a>
+      </section>
+    </main>
+
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <!-- END MAIN CONTENT -->
+
+
+    <!-- FOOTER -->
+    <footer class="voux-footer">
+      <div class="voux-footer-content">
+        <div class="voux-footer-logo"> <img src="./images/voux_main_logo_5-removebg-preview.png" alt="VOUX Logo"></div>
+        <div class="voux-footer-links">
+          <div class="voux-footer-column">
+            <h4>Explore</h4>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="drops.html">Drops</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="about.html">About</a></li>
+            </ul>
+          </div>
+          <div class="voux-footer-column">
+            <h4>Follow Us</h4>
+            <ul>
+              <li><a href="#">Instagram</a></li>
+              <li><a href="#">Twitter</a></li>
+              <li><a href="#">TikTok</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="voux-footer-bottom">
+        <p>© 2025 VOUX. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- INIT AOS -->
+    <script>
+      AOS.init({
+        duration: 1200,
+        once: false,
+        easing: 'ease-in-out'
+      });
+
+      // Navbar Toggling
+      const hamburger = document.querySelector('.hamburger');
+      const navLinks = document.querySelector('.nav-links');
+
+      if (hamburger) {
+        hamburger.addEventListener('click', () => {
+          hamburger.classList.toggle('active');
+          navLinks.classList.toggle('open');
+        });
+      }
+
+      // Navbar Scroll Background
+      window.addEventListener('scroll', () => {
+        const navContainer = document.querySelector('.nav-container');
+        if (navContainer) {
+          if (window.scrollY > 50) {
+            navContainer.style.background = 'rgba(10, 10, 10, 0.95)';
+          } else {
+            navContainer.style.background = 'rgba(10, 10, 10, 0.85)';
+          }
+        }
+      });
+    </script>
+  </body>
+
+  </html>

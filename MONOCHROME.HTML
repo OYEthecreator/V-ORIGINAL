@@ -1,0 +1,1168 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MONOCHROME — Story</title>
+
+  <!-- Fonts & AOS -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;600;800&display=swap"
+    rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #0b0b0b;
+      --muted: #666666;
+      --accent: #000000;
+      --max-width: 1320px;
+    }
+
+    /* Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html,
+    body {
+      height: 100%
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Back Button */
+    .back-btn {
+      position: fixed;
+      top: 24px;
+      left: 24px;
+      z-index: 100;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 30px;
+      transition: all 2s ease;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .back-btn:hover {
+      background: var(--accent);
+      color: var(--bg);
+      transform: translateX(-4px);
+    }
+
+    /* Sticky top nav (minimal) */
+    .topnav {
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      background: var(--bg);
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      gap: 3rem;
+    }
+
+    .brand {
+      font-family: "Playfair Display", serif;
+      font-size: 20px;
+      letter-spacing: 4px;
+    }
+
+    .navlinks {
+      display: flex;
+      gap: 18px;
+      font-weight: 600;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .navlinks a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .navlinks a:hover {
+      color: var(--text)
+    }
+
+    main {
+      position: relative;
+    }
+
+    /* ---------------- HERO - MASSIVE TYPOGRAPHY ---------------- */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      text-align: center;
+      padding: 0 24px;
+    }
+
+    .hero-typo {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .brand-large {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(64px, 12vw, 140px);
+      line-height: 0.9;
+      letter-spacing: -4px;
+      font-weight: 900;
+      color: var(--text);
+      text-transform: uppercase;
+    }
+
+    .hero-tag {
+      font-size: 16px;
+      color: var(--muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 12px 20px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+    }
+
+    /* ---------------- ASYMMETRIC ORIGIN ---------------- */
+    .origin {
+      min-height: 80vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      padding: 120px calc((100% - var(--max-width))/2);
+    }
+
+    .origin .img-wrap {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    .origin .img-big {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .origin .text-block {
+      padding: 0 20px;
+    }
+
+    .origin h2 {
+      font-family: "Playfair Display", serif;
+      font-size: 48px;
+      margin-bottom: 24px;
+      line-height: 1.1;
+    }
+
+    .origin p {
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    /* ---------------- VISION ---------------- */
+    .vision-slant {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      padding: 100px calc((100% - var(--max-width))/2);
+      background: #f8f8f8;
+    }
+
+    .vision-slant .left {
+      width: 50%;
+      padding: 0 40px;
+    }
+
+    .vision-slant .left h2 {
+      font-size: 48px;
+      font-family: "Playfair Display", serif;
+      margin-bottom: 24px;
+      line-height: 1.1;
+    }
+
+    .vision-slant .left p {
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    .vision-slant .right {
+      width: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .vision-slant img {
+      width: 90%;
+      border-radius: 8px;
+    }
+
+    /* ---------------- CRAFTSMANSHIP ---------------- */
+    .craft {
+      min-height: 80vh;
+      padding: 120px calc((100% - var(--max-width))/2);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .craft .left {
+      position: relative;
+    }
+
+    .card {
+      background: var(--bg);
+      padding: 40px;
+      border-radius: 8px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      margin-bottom: 30px;
+    }
+
+    .card small {
+      color: var(--muted);
+      display: block;
+      margin-bottom: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 12px;
+    }
+
+    .card strong {
+      font-size: 24px;
+      display: block;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .craft .right img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    /* ---------------- 4. CRAFT & PROCESS (POLAROID STACK) ---------------- */
+    .craft {
+      padding: 90px calc((100% - var(--max-width))/2);
+      display: flex;
+      gap: 48px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .polaroids {
+      width: 55%;
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap
+    }
+
+    .polaroid {
+      width: 48%;
+      background: var(--bone);
+      padding: 10px;
+      border-radius: 8px;
+      transform-origin: center;
+      box-shadow: 0 20px 60px rgba(10, 10, 10, 0.35);
+      border: 1px solid rgba(10, 10, 10, 0.04);
+    }
+
+    .polaroid:nth-child(1) {
+      transform: rotate(-4deg)
+    }
+
+    .polaroid:nth-child(2) {
+      transform: rotate(3deg)
+    }
+
+    .polaroid img {
+      display: block;
+      border-radius: 6px;
+      gap: 10px;
+    }
+
+    .craft .meta {
+      width: 40%;
+      margin-left: 20%;
+
+    }
+
+    .craft .meta h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 28px;
+      color: var(--orchid);
+      margin-bottom: 10px
+    }
+
+    .craft .meta p {
+      color: var(--black)
+    }
+
+    /* ---------------- RUNWAY - HORIZONTAL SCROLLER ---------------- */
+    .runway-wrap {
+      padding: 100px 0 120px 0;
+      background: #f8f8f8;
+    }
+
+    .runway-title {
+      padding: 0 calc((100% - var(--max-width))/2);
+      color: var(--text);
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 40px;
+      font-size: 14px;
+      text-transform: uppercase;
+    }
+
+    .runway {
+      height: 64vh;
+      max-width: 100%;
+      margin: 0;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .runway-track {
+      display: flex;
+      gap: 28px;
+      padding: 28px;
+      height: 100%;
+      align-items: center;
+      will-change: transform;
+      scroll-snap-type: x mandatory;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .runway-item {
+      flex: 0 0 56%;
+      scroll-snap-align: center;
+      height: 86%;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .runway-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .runway-item .label {
+      position: absolute;
+      left: 24px;
+      bottom: 22px;
+      z-index: 3;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-family: "Playfair Display", serif;
+      color: var(--text);
+    }
+
+    /* ---------------- MASONRY GRID ---------------- */
+    .masonry {
+      padding: 120px calc((100% - var(--max-width))/2);
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+    }
+
+    .masonry .tile {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      min-height: 400px;
+    }
+
+    .masonry .tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .masonry .tile .meta {
+      position: absolute;
+      left: 18px;
+      bottom: 18px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-family: "Playfair Display", serif;
+      font-weight: 600;
+    }
+
+    /* ---------------- BTS ---------------- */
+    .bts {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f8f8f8;
+      position: relative;
+      padding: 100px 24px;
+      text-align: center;
+    }
+
+    .bts .copy {
+      max-width: 700px;
+      text-align: center;
+    }
+
+    .bts h2 {
+      font-size: 48px;
+      font-family: "Playfair Display", serif;
+      margin-bottom: 24px;
+      line-height: 1.1;
+    }
+
+    .bts p {
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    /* ---------------- MANIFESTO ---------------- */
+    .manifesto {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--text);
+      position: relative;
+      padding: 100px 24px;
+      text-align: center;
+    }
+
+    .manifesto .lines {
+      max-width: 900px;
+      font-family: "Playfair Display", serif;
+      font-size: 42px;
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+      text-transform: uppercase;
+      color: var(--bg);
+    }
+
+    .manifesto .lines p {
+      margin: 28px 0;
+    }
+
+    /* ---------------- CTA ---------------- */
+    .cta {
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 100px calc((100% - var(--max-width))/2);
+      position: relative;
+      text-align: center;
+    }
+
+    .cta .box {
+      padding: 40px;
+      max-width: 600px;
+    }
+
+    .cta h2 {
+      font-family: "Playfair Display", serif;
+      font-size: 48px;
+      margin-bottom: 24px;
+      line-height: 1.1;
+    }
+
+    .cta .btn {
+      display: inline-block;
+      padding: 16px 40px;
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: 600;
+      border-radius: 30px;
+      text-decoration: none;
+      letter-spacing: 1px;
+      margin-top: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .cta .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .discover-more {
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    .discover-btn {
+      display: inline-block;
+      padding: 14px 36px;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 14px;
+      letter-spacing: 1px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+    }
+
+    .discover-btn:hover {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    /* responsive */
+    @media (max-width:1000px) {
+      .origin {
+        grid-template-columns: 1fr;
+        padding: 80px 24px;
+        gap: 40px;
+      }
+
+      .vision-slant {
+        flex-direction: column;
+        padding: 80px 24px;
+      }
+
+      .vision-slant .left {
+        width: 100%;
+        padding: 0;
+        margin-bottom: 40px;
+      }
+
+      .vision-slant .right {
+        width: 100%;
+      }
+
+      .craft {
+        grid-template-columns: 1fr;
+        padding: 80px 24px;
+        gap: 40px;
+      }
+
+      .runway-item {
+        flex: 0 0 82%;
+      }
+
+      .masonry {
+        grid-template-columns: 1fr 1fr;
+        padding: 80px 24px;
+      }
+
+      .brand-large {
+        font-size: clamp(48px, 15vw, 100px);
+      }
+
+      .manifesto .lines {
+        font-size: 32px;
+      }
+
+      .back-btn {
+        top: 16px;
+        left: 16px;
+      }
+    }
+
+    /* Standardized Hamburger Menu Styles from drops.html */
+    @media screen and (max-width: 900px) {
+      .hamburger {
+        display: flex;
+        width: 28px;
+        height: 22px;
+        flex-direction: column;
+        justify-content: space-between;
+        cursor: pointer;
+        z-index: 1100;
+      }
+
+      .hamburger span {
+        height: 3px;
+        width: 100%;
+        background: #000;
+        /* Monochrome uses dark text/bg contrast swap, but drops uses #fff. Since Monochrome is white bg, I should probably use black? Actually, drops.html logic should be verbatim, but Monochrome might need adjustment for visibility if it's on a white header. However, requirements say "exact structure and behavior". */
+        border-radius: 3px;
+        transition: all 0.4s ease;
+      }
+
+      .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        right: 1rem;
+        background: rgba(255, 255, 255, 0.95);
+        display: flex !important;
+        flex-direction: column;
+        width: 240px;
+        padding: 2rem;
+        gap: 1.8rem;
+        border-radius: 12px;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-10px);
+        transition: all 0.4s ease;
+        z-index: 1000;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .nav-links.open {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width:600px) {
+      .masonry {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .navlinks {
+        display: none;
+      }
+
+      .hero-tag {
+        font-size: 14px;
+        padding: 10px 16px;
+      }
+
+      .origin h2,
+      .vision-slant .left h2,
+      .bts h2,
+      .cta h2 {
+        font-size: 36px;
+      }
+
+      .manifesto .lines {
+        font-size: 24px;
+      }
+    }
+/* Tablet responsiveness */
+@media (max-width: 1024px) {
+  .origin {
+    grid-template-columns: 1fr;
+    padding: 80px 5%;
+    gap: 40px;
+  }
+
+  .vision-slant {
+    flex-direction: column;
+    padding: 80px 5%;
+  }
+
+  .vision-slant .left,
+  .vision-slant .right {
+    width: 100%;
+  }
+
+  .vision-slant .left {
+    margin-bottom: 40px;
+    padding: 0;
+  }
+
+  .vision-slant .right img {
+    width: 100%;
+  }
+
+  .craft {
+    flex-direction: column;
+    padding: 80px 5%;
+    gap: 40px;
+  }
+
+  .polaroids,
+  .craft .meta {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .polaroid {
+    width: calc(50% - 9px);
+  }
+
+  .masonry {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 80px 5%;
+  }
+
+  .runway-item {
+    flex: 0 0 70%;
+  }
+
+  .cta {
+    padding: 80px 5%;
+  }
+
+  .topnav {
+    padding: 16px 5%;
+    gap: 1.5rem;
+  }
+
+  .navlinks {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 70px;
+    right: 5%;
+    left: 5%;
+    width: auto;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .hero {
+    height: 80vh;
+    padding: 0 20px;
+  }
+
+  .brand-large {
+    font-size: clamp(48px, 15vw, 80px);
+    letter-spacing: -2px;
+  }
+
+  .hero-tag {
+    font-size: 14px;
+    padding: 10px 16px;
+    letter-spacing: 1px;
+  }
+
+  .origin h2,
+  .vision-slant .left h2,
+  .bts h2,
+  .cta h2 {
+    font-size: 36px;
+  }
+
+  .origin p,
+  .vision-slant .left p,
+  .bts p,
+  .cta .box p {
+    font-size: 16px;
+  }
+
+  .origin .img-big {
+    height: 350px;
+  }
+
+  .card {
+    padding: 30px;
+  }
+
+  .card strong {
+    font-size: 20px;
+  }
+
+  .runway-item {
+    flex: 0 0 85%;
+  }
+
+  .runway-title {
+    padding: 0 5%;
+  }
+
+  .polaroids {
+    gap: 12px;
+  }
+
+  .polaroid {
+    width: 100%;
+  }
+
+  .masonry {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .manifesto .lines {
+    font-size: 28px;
+  }
+
+  .cta .btn {
+    padding: 14px 32px;
+    font-size: 15px;
+  }
+
+  .discover-btn {
+    padding: 12px 28px;
+    font-size: 13px;
+  }
+
+  .back-btn {
+    top: 16px;
+    left: 16px;
+    font-size: 24px;
+  }
+}
+
+/* Small mobile adjustments */
+@media (max-width: 480px) {
+  .brand-large {
+    font-size: clamp(40px, 12vw, 60px);
+  }
+
+  .origin h2,
+  .vision-slant .left h2,
+  .bts h2,
+  .cta h2 {
+    font-size: 32px;
+  }
+
+  .manifesto .lines {
+    font-size: 24px;
+  }
+
+  .card {
+    padding: 24px;
+  }
+
+  .runway-item {
+    flex: 0 0 90%;
+  }
+
+  .masonry .tile {
+    min-height: 300px;
+  }
+
+  .cta .box {
+    padding: 30px 20px;
+  }
+
+  .topnav {
+    padding: 14px 5%;
+  }
+
+  .nav-links {
+    right: 5%;
+    left: 5%;
+    width: auto;
+  }
+}
+
+/* Ensure touch targets are ergonomic */
+@media (max-width: 1024px) {
+  .nav-links a {
+    padding: 12px 0;
+    font-size: 16px;
+  }
+
+  .btn,
+  .discover-btn {
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .runway-track {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .runway-track::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Prevent horizontal overflow */
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  main {
+    overflow-x: hidden;
+  }
+
+  .runway-track {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+/* Image responsiveness */
+@media (max-width: 1024px) {
+  .origin .img-big,
+  .vision-slant img,
+  .craft .right img,
+  .polaroid img,
+  .runway-item img,
+  .masonry .tile img {
+    height: auto;
+    max-width: 100%;
+  }
+}
+
+  </style>
+</head>
+
+<body>
+  <header class="topnav nav-container">
+    <div class="brand">
+      <img src="./images/monochrome_official_logo-removebg-preview.png" width="100px" alt="MONOCHROME">
+    </div>
+    <nav class="navlinks nav-links" id="navbar">
+      <a href="entry.html">Home</a>
+      <a href="monochromeshopping.html">Shop</a>
+      <a href="#origin">Origin</a>
+      <a href="#craft">Craft</a>
+      <a href="#runway">Runway</a>
+      <a href="#manifesto">Manifesto</a>
+    </nav>
+
+    <div class="hamburger" aria-label="Toggle Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </header>
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="top" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500"
+      data-aos-easing="ease-in-out">
+      <div class="hero-typo">
+        <div class="brand-large">MONOCHROME</div>
+        <div class="hero-tag">Shadow becomes form — editorial by design</div>
+      </div>
+    </section>
+
+    <!-- ASYMMETRIC ORIGIN -->
+    <section class="origin" id="origin" data-aos="fade-up" data-aos-duration="1000">
+      <div class="img-wrap" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="200">
+        <img class="img-big" src="./images/lustra origin.png" alt="MONOCHROME Origin">
+      </div>
+      <div class="text-block" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="400">
+        <h2>Our Origin</h2>
+        <p>Born in the tension between city and night, MONOCHROME started as a handwritten note on a torn sketchbook. We
+          translate raw constraint into refined silhouette — a stubborn clarity that refuses to dilute.</p>
+        <p>The garments are quiet until worn; then they demand attention. Every piece is an argument for restraint,
+          crafted by small-run ateliers and shaped by hands that know how to make black feel like architecture.</p>
+      </div>
+    </section>
+
+    <!-- VISION -->
+    <section class="vision-slant" id="vision" data-aos="fade-up" data-aos-duration="1000">
+      <div class="left" data-aos="fade-right" data-aos-duration="1000">
+        <h2>Minimalism as Architecture</h2>
+        <p>Our philosophy treats each seam as a structural line. We pare back until function becomes ritual. This is not
+          empty space — it is deliberately chosen canvas for presence.</p>
+      </div>
+      <div class="right" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+        <img src="./images/monochrome shhome section.png" alt="MONOCHROME Vision">
+      </div>
+    </section>
+
+    <!-- CRAFTSMANSHIP -->
+    <section class="craft" id="craft" data-aos="fade-up" data-aos-duration="1000">
+      <div class="left">
+        <div class="card" data-aos="fade-up" data-aos-duration="800">
+          <small>Design</small>
+          <strong>Sketch to silhouette</strong>
+          <p>The first line defines the piece. Pattern-makers translate that line into three dimensions with near
+            surgical precision.</p>
+        </div>
+
+        <div class="card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+          <small>Materials</small>
+          <strong>Textile as voice</strong>
+          <p>We source dense weaves and textiles that hold form: woolwarps, coated silks, engineered cottons and
+            recycled technical blends.</p>
+        </div>
+      </div>
+
+      <div class="right" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="400">
+        <img src="./images/monochrome home craft - Copy.png" alt="MONOCHROME Craft">
+      </div>
+    </section>
+
+    <section id="craft" class="craft">
+      <div class="polaroids">
+        <figure class="polaroid" data-aos="fade-up" data-aos-duration="800" data-aos-delay="1000"><img
+            src="./images/lustra process 3.png" alt="Fabric swatch"></figure>
+        <figure class="polaroid" data-aos="fade-up" data-aos-duration="800" data-aos-delay="1000"><img
+            src="./images/lustra process sketch.png" alt="Tailoring"></figure>
+        <figure class="polaroid" data-aos="fade-up" data-aos-duration="800" data-aos-delay="5000"><img
+            src="./images/lustra process tailoring.png" alt="Finish"></figure>
+      </div>
+      <div class="meta">
+        <h3>Process</h3>
+        <p>From sketch to stitch, every stage is judged by whether it supports light. Fabrics are selected for memory
+          and structure; seams are placed to guide shadow.</p>
+        <p style="margin-top:12px;color:rgba(10,10,10,0.7)"><strong>Limited runs.</strong> Small batches kept
+          intentionally small to preserve craft and reduce waste.</p>
+      </div>
+    </section>
+
+    <!-- RUNWAY -->
+    <section class="runway-wrap" id="runway">
+      <div class="runway-title">Runway Highlights</div>
+      <div class="runway" aria-label="Runway gallery">
+        <div class="runway-track" id="runwayTrack">
+          <div class="runway-item" data-aos="fade-right" data-aos-duration="400"><img src="./images/lustra runway 1.png"
+              alt=""></div>
+          <div class="runway-item" data-aos="fade-right" data-aos-duration="400" data-aos-delay="100"><img
+              src="./images/lustra runway 2.png" alt=""></div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- BTS -->
+    <section class="bts" id="bts" data-aos="fade-up" data-aos-duration="400">
+      <div class="copy">
+        <h2>Behind the Scenes</h2>
+        <p>Studio experiments, night shoots and the ritual fittings — everything that refines an idea into a wearable
+          concept. Witness the slow, patient translation of thought into cloth.</p>
+      </div>
+    </section>
+
+    <!-- MANIFESTO -->
+    <section class="manifesto" id="manifesto" data-aos="fade-up" data-aos-duration="400">
+      <div class="lines">
+        <p>We are not bound by trends.</p>
+        <p>We are not afraid of shadows.</p>
+        <p>We carve light into fabric.</p>
+        <p>We are the shape of tomorrow.</p>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+      <div class="box" data-aos="fade-up" data-aos-duration="400">
+        <h2>The Collection Awaits</h2>
+        <a class="btn" href="monochromeshopping.html">Shop the Collection</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- AOS & JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Initialize AOS
+    AOS.init({
+      duration: 400,
+      once: false,
+      offset: 100
+    });
+
+    // Runway horizontal scrolling
+    (function () {
+      const track = document.getElementById('runwayTrack');
+      if (!track) return;
+      let isDown = false, startX, scrollLeft;
+
+      track.addEventListener('mousedown', (e) => {
+        isDown = true;
+        track.classList.add('active');
+        startX = e.pageX - track.offsetLeft;
+        scrollLeft = track.scrollLeft;
+      });
+      track.addEventListener('mouseleave', () => { isDown = false; track.classList.remove('active'); });
+      track.addEventListener('mouseup', () => { isDown = false; track.classList.remove('active'); });
+      track.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - track.offsetLeft;
+        const walk = (x - startX) * 1.6;
+        track.scrollLeft = scrollLeft - walk;
+      });
+
+      // Touch support
+      let startTouchX = 0, startTouchScroll = 0;
+      track.addEventListener('touchstart', (e) => { startTouchX = e.touches[0].pageX; startTouchScroll = track.scrollLeft; });
+      track.addEventListener('touchmove', (e) => {
+        const x = e.touches[0].pageX;
+        const walk = (x - startTouchX) * 1.4;
+        track.scrollLeft = startTouchScroll - walk;
+      });
+
+      // Keyboard accessibility
+      track.tabIndex = 0;
+      track.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') track.scrollBy({ left: 400, behavior: 'smooth' });
+        if (e.key === 'ArrowLeft') track.scrollBy({ left: -400, behavior: 'smooth' });
+      });
+    })();
+
+    // Standardized Hamburger Toggle from drops.html
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (hamburger && navLinks) {
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('open');
+      });
+    }
+  </script>
+
+</body>
+
+</html>

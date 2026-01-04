@@ -1,0 +1,2024 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DISTORTION | Reality-Bending Fashion</title>
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+    <style>
+        /* === DISTORTION COLOR SYSTEM === */
+        :root {
+            --neon-pink: #ff00c8;
+            --void-black: #000000;
+            --static-white: #ffffff;
+
+            /* Color Variations */
+            --pink-energy: #ff40d4;
+            --pink-glow: #ff00c880;
+            --pink-pulse: #ff00c840;
+
+            /* Reality States */
+            --reality-stable: rgba(255, 0, 200, 0.1);
+            --reality-corrupted: rgba(255, 0, 200, 0.3);
+            --reality-broken: rgba(255, 0, 200, 0.6);
+
+            /* Glitch Effects */
+            --neon-glow: 0 0 20px var(--neon-pink);
+            --energy-shadow: 0 0 40px var(--pink-glow);
+            --void-depth: 0 0 60px var(--void-black);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--void-black);
+            color: var(--static-white);
+            font-family: 'Courier New', monospace;
+            overflow-x: hidden;
+            cursor: none;
+        }
+        .nav-links a{
+            color: var(--static-white);
+            list-style: none;
+            text-decoration: none;
+        }
+        .nav-links:hover{
+            border: none;
+        }
+        /* === QUANTUM SUPERPOSITION SHOPPING === */
+        .quantum-grid {
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .superposition-product {
+            background: var(--reality-stable);
+            border: 2px solid var(--neon-pink);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Multiple Reality States */
+        .superposition-product::before,
+        .superposition-product::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            border-radius: inherit;
+            opacity: 0;
+            transition: all 0.8s ease;
+            z-index: -1;
+        }
+
+        .superposition-product::before {
+            transform: translate(-10px, -10px) rotate(-5deg);
+            filter: hue-rotate(90deg) brightness(1.2);
+        }
+
+        .superposition-product::after {
+            transform: translate(10px, 10px) rotate(5deg);
+            filter: hue-rotate(-90deg) brightness(0.8);
+        }
+
+        .superposition-product:hover::before,
+        .superposition-product:hover::after {
+            opacity: 0.4;
+        }
+
+        /* === TIME-FOLDING PRODUCT DISPLAY === */
+        .product-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            transition: all 0.8s ease;
+            position: relative;
+        }
+
+        .superposition-product:hover .product-image {
+            animation: timeFold 3s ease-in-out infinite;
+        }
+
+        @keyframes timeFold {
+
+            0%,
+            100% {
+                transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+                filter: brightness(1);
+            }
+
+            25% {
+                transform: perspective(1000px) rotateX(10deg) rotateY(-5deg);
+                filter: brightness(1.2) hue-rotate(45deg);
+            }
+
+            50% {
+                transform: perspective(1000px) rotateX(-5deg) rotateY(10deg);
+                filter: brightness(0.8) hue-rotate(-45deg);
+            }
+
+            75% {
+                transform: perspective(1000px) rotateX(5deg) rotateY(-10deg);
+                filter: brightness(1.1) hue-rotate(90deg);
+            }
+        }
+
+        /* === DIGITAL DNA FABRIC ANALYSIS === */
+        .dna-strand {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    var(--neon-pink) 10%,
+                    transparent 20%,
+                    var(--pink-energy) 30%,
+                    transparent 40%,
+                    var(--neon-pink) 50%,
+                    transparent 60%,
+                    var(--pink-energy) 70%,
+                    transparent 80%,
+                    var(--neon-pink) 90%,
+                    transparent 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .superposition-product:hover .dna-strand {
+            opacity: 0.3;
+            animation: dnaFlow 2s linear infinite;
+        }
+
+        @keyframes dnaFlow {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        /* === NEON SHADOW INTERACTION === */
+        .neon-shadow {
+            position: absolute;
+            bottom: -10px;
+            left: 10px;
+            right: -10px;
+            height: 20px;
+            background: var(--neon-pink);
+            border-radius: 50%;
+            filter: blur(15px);
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+
+        .superposition-product:hover .neon-shadow {
+            opacity: 0.6;
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        /* === REALITY LAYER PEELING === */
+        .reality-peel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, var(--pink-glow) 50%, transparent 70%);
+            clip-path: polygon(0 0, 100% 0, 100% 30%, 0 50%);
+            opacity: 0;
+            transition: all 0.6s ease;
+            pointer-events: none;
+        }
+
+        .superposition-product:hover .reality-peel {
+            opacity: 0.4;
+            animation: peelEffect 2s ease-in-out infinite;
+        }
+
+        @keyframes peelEffect {
+
+            0%,
+            100% {
+                clip-path: polygon(0 0, 100% 0, 100% 30%, 0 50%);
+            }
+
+            50% {
+                clip-path: polygon(0 0, 100% 0, 100% 50%, 0 70%);
+            }
+        }
+
+        /* === GLITCH PORTAL SHOPPING === */
+        .glitch-portal {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, var(--neon-pink), transparent 70%);
+            border-radius: 50%;
+            filter: blur(10px);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1000;
+            animation: portalPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes portalPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 0.9;
+            }
+        }
+
+        /* === DIGITAL KALEIDOSCOPE MODE === */
+        .kaleidoscope-mode {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                repeating-conic-gradient(from 0deg, transparent 0deg 10deg, var(--pink-glow) 10deg 20deg),
+                repeating-conic-gradient(from 30deg, transparent 0deg 10deg, var(--pink-energy) 10deg 20deg);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 999;
+            transition: opacity 0.5s ease;
+        }
+
+        /* === DATA CRYSTAL PRODUCT STORAGE === */
+        .data-crystal {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 60px;
+            height: 60px;
+            background: var(--pink-glow);
+            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .superposition-product:hover .data-crystal {
+            opacity: 0.8;
+            animation: crystalGlow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes crystalGlow {
+
+            0%,
+            100% {
+                filter: brightness(1);
+                transform: scale(1);
+            }
+
+            50% {
+                filter: brightness(1.5);
+                transform: scale(1.1);
+            }
+        }
+
+        /* === NEON ECHO MAPPING === */
+        .echo-trail {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: var(--neon-pink);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1001;
+            animation: echoFade 2s ease-out forwards;
+        }
+
+        @keyframes echoFade {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: scale(3);
+            }
+        }
+
+        /* === REALITY FRACTURE COMPARISON === */
+        .fracture-line {
+            position: fixed;
+            height: 2px;
+            background: var(--neon-pink);
+            transform-origin: left center;
+            pointer-events: none;
+            z-index: 1002;
+            box-shadow: var(--neon-glow);
+        }
+
+        /* === DIGITAL WEATHER SYSTEM === */
+        .data-storm {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                repeating-linear-gradient(90deg, transparent, transparent 10px, var(--pink-glow) 10px, var(--pink-glow) 12px),
+                repeating-linear-gradient(0deg, transparent, transparent 15px, var(--pink-energy) 15px, var(--pink-energy) 17px);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 998;
+            animation: stormMove 20s linear infinite;
+        }
+
+        @keyframes stormMove {
+            0% {
+                transform: translateY(-100%);
+            }
+
+            100% {
+                transform: translateY(100%);
+            }
+        }
+
+        /* === QUANTUM ENTANGLEMENT CART === */
+
+
+        /* === REALITY INK ANNOTATION === */
+        .ink-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1003;
+        }
+
+        /* === GRAVITY CURSOR === */
+        .gravity-cursor {
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, transparent 30%, var(--neon-pink) 70%);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10001;
+            mix-blend-mode: screen;
+            filter: blur(15px);
+            transition: transform 0.1s ease;
+            animation: cursorPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes cursorPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+
+            50% {
+                transform: scale(1.3);
+                opacity: 1;
+            }
+        }
+
+        /* Product Content */
+        .product-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: var(--neon-glow);
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--neon-pink);
+        }
+
+        /* Section Titles */
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            margin: 4rem 0;
+            text-shadow:
+                var(--neon-glow),
+                4px 4px 0px var(--void-black),
+                -4px -4px 0px var(--void-black);
+            animation: titleGlitch 3s infinite;
+        }
+
+        @keyframes titleGlitch {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-2px);
+            }
+
+            75% {
+                transform: translateX(2px);
+            }
+        }
+
+        /* === DIGITAL SUPERNOVA ORB STYLES === */
+
+        .supernova-orb {
+            position: fixed;
+            right: 3rem;
+            bottom: 3rem;
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+            z-index: 10000;
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .orb-core {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 30%,
+                    #ffffff 0%,
+                    var(--neon-pink) 30%,
+                    var(--pink-energy) 60%,
+                    transparent 80%);
+            border-radius: 50%;
+            animation: corePulse 2s ease-in-out infinite;
+            box-shadow:
+                0 0 60px var(--neon-pink),
+                0 0 120px var(--pink-glow),
+                inset 0 0 30px #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .energy-rings {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--neon-pink);
+            border-radius: 50%;
+            animation: energySpin 3s linear infinite;
+        }
+
+        .energy-rings::before,
+        .energy-rings::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 1px solid var(--pink-energy);
+            border-radius: 50%;
+            animation: energySpin 2s linear infinite reverse;
+        }
+
+        .static-field {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            background:
+                repeating-radial-gradient(circle at 50% 50%,
+                    transparent,
+                    transparent 10px,
+                    var(--pink-glow) 10px,
+                    var(--pink-glow) 12px);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: staticPulse 4s ease-in-out infinite;
+        }
+
+        /* Orb Animations */
+        @keyframes corePulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                box-shadow:
+                    0 0 60px var(--neon-pink),
+                    0 0 120px var(--pink-glow);
+            }
+
+            50% {
+                transform: scale(1.1);
+                box-shadow:
+                    0 0 80px #ffffff,
+                    0 0 160px var(--neon-pink),
+                    0 0 240px var(--pink-glow);
+            }
+        }
+
+        @keyframes energySpin {
+            from {
+                transform: rotate(0deg) scale(1);
+            }
+
+            to {
+                transform: rotate(360deg) scale(1.1);
+            }
+        }
+
+        @keyframes staticPulse {
+
+            0%,
+            100% {
+                opacity: 0.2;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(1.05);
+            }
+        }
+
+        /* Orb Hover Effects */
+        .supernova-orb:hover {
+            transform: scale(1.2);
+        }
+
+        .supernova-orb:hover .orb-core {
+            animation: corePulse 0.5s ease-in-out infinite;
+        }
+
+        .supernova-orb:hover .energy-rings {
+            animation: energySpin 1s linear infinite;
+        }
+
+        /* === SUPERNOVA CHAT INTERFACE === */
+
+        .supernova-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(15px);
+            z-index: 10002;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .supernova-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .chaos-chat {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            width: 420px;
+            height: 650px;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--neon-pink);
+            border-radius: 24px;
+            z-index: 10003;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow:
+                0 0 50px var(--neon-pink),
+                0 0 100px rgba(255, 0, 200, 0.4),
+                inset 0 0 20px rgba(255, 0, 200, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chaos-chat.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* Chat Interface Styles */
+        .chat-interface {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            padding: 1.5rem 2rem;
+            background: var(--reality-corrupted);
+            border-bottom: 2px solid var(--neon-pink);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+        }
+
+        .glitch-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--neon-pink);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: var(--void-black);
+            animation: avatarGlitch 2s infinite;
+        }
+
+        @keyframes avatarGlitch {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-1px);
+            }
+
+            75% {
+                transform: translateX(1px);
+            }
+        }
+
+        .chat-header h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .chat-close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            width: 30px;
+            height: 30px;
+            background: var(--reality-broken);
+            border: 1px solid var(--neon-pink);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 900;
+        }
+
+        .chat-close:hover {
+            background: var(--neon-pink);
+            color: var(--void-black);
+            transform: rotate(90deg);
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            animation: messageSlide 0.5s ease-out;
+        }
+
+        .ai-message {
+            background: var(--reality-stable);
+            border: 1px solid var(--neon-pink);
+            border-radius: 15px;
+            padding: 1rem 1.2rem;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chat-input {
+            padding: 1.5rem 2rem;
+            border-top: 2px solid var(--reality-corrupted);
+            background: var(--reality-void);
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 1rem 1.2rem;
+            background: var(--reality-stable);
+            border: 1px solid var(--neon-pink);
+            border-radius: 25px;
+            color: var(--static-white);
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .chat-input input:focus {
+            background: var(--reality-corrupted);
+            box-shadow: var(--neon-glow);
+        }
+
+        .send-button {
+            width: 45px;
+            height: 45px;
+            background: var(--neon-pink);
+            border: none;
+            border-radius: 50%;
+            color: var(--void-black);
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .send-button:hover {
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: var(--neon-glow);
+        }
+
+        :root {
+            --neon-pink: #ff00c8;
+            --void-black: #000000;
+            --static-white: #ffffff;
+            --pink-energy: #ff40d4;
+            --pink-glow: #ff00c880;
+            --pink-pulse: #ff00c840;
+            --reality-stable: rgba(255, 0, 200, 0.1);
+            --reality-corrupted: rgba(255, 0, 200, 0.3);
+            --reality-broken: rgba(255, 0, 200, 0.6);
+            --neon-glow: 0 0 20px var(--neon-pink);
+            --energy-shadow: 0 0 40px var(--pink-glow);
+        }
+
+
+        /* === NAVIGATION === */
+        .distortion-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--neon-pink);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: var(--neon-glow);
+        }
+
+        .dst-logo {
+            margin-left: 150px;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--neon-pink);
+            text-shadow: var(--neon-glow);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .chaos-chat {
+                width: 90vw;
+                height: 75vh;
+                border-radius: 20px;
+            }
+        }
+
+        /* Standardized Hamburger Menu Styles from drops.html */
+        @media screen and (max-width: 900px) {
+            .hamburger {
+                display: flex;
+                width: 28px;
+                height: 22px;
+                flex-direction: column;
+                justify-content: space-between;
+                cursor: pointer;
+                z-index: 1100;
+            }
+
+            .hamburger span {
+                height: 3px;
+                width: 100%;
+                background: #ff00c8;
+                /* Neon pink for Distortion */
+                border-radius: 3px;
+                transition: all 0.4s ease;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                right: 1rem;
+                background: rgba(0, 0, 0, 0.95);
+                display: flex !important;
+                flex-direction: column;
+                width: 240px;
+                padding: 2rem;
+                gap: 1.8rem;
+                border-radius: 12px;
+                opacity: 0;
+                pointer-events: none;
+                transform: translateY(-10px);
+                transition: all 0.4s ease;
+                z-index: 1000;
+                box-shadow: 0 0 20px rgba(255, 0, 200, 0.2);
+            }
+
+            .nav-links.open {
+                opacity: 1;
+                pointer-events: auto;
+                transform: translateY(0);
+            }
+        }
+
+        .nav-link {
+            color: var(--static-white);
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            border: 1px solid var(--neon-pink);
+            box-shadow: var(--neon-glow);
+        }
+
+        /* === MAIN SECTIONS === */
+        .main-section {
+            min-height: 100vh;
+            padding: 6rem 2rem 2rem;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            margin: 2rem 0 4rem;
+            text-shadow: var(--neon-glow);
+        }
+
+        /* === HERO SECTION === */
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at center, var(--reality-corrupted) 0%, transparent 70%);
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.5em;
+            margin-bottom: 2rem;
+            text-shadow:
+                var(--neon-glow),
+                0 0 100px var(--neon-pink);
+            animation: titleGlitch 3s infinite;
+        }
+
+        @keyframes titleGlitch {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-2px);
+            }
+
+            75% {
+                transform: translateX(2px);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            opacity: 0.8;
+        }
+
+        .shop-now-btn {
+            padding: 1.5rem 3rem;
+            background: var(--neon-pink);
+            border: none;
+            border-radius: 10px;
+            color: var(--void-black);
+            font-size: 1.2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .shop-now-btn:hover {
+            background: var(--static-white);
+            box-shadow: var(--energy-shadow);
+            transform: translateY(-5px);
+        }
+
+        /* === PRODUCT GRID === */
+        .quantum-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .superposition-product {
+            background: var(--reality-stable);
+            border: 2px solid var(--neon-pink);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.6s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .superposition-product:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--energy-shadow);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            transition: all 0.8s ease;
+        }
+
+        .superposition-product:hover .product-image {
+            animation: timeFold 3s ease-in-out infinite;
+        }
+
+        @keyframes timeFold {
+
+            0%,
+            100% {
+                transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+            }
+
+            25% {
+                transform: perspective(1000px) rotateX(10deg) rotateY(-5deg);
+            }
+
+            50% {
+                transform: perspective(1000px) rotateX(-5deg) rotateY(10deg);
+            }
+
+            75% {
+                transform: perspective(1000px) rotateX(5deg) rotateY(-10deg);
+            }
+        }
+
+        .product-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: var(--neon-glow);
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--neon-pink);
+        }
+
+        /* === COLLECTIONS SECTION === */
+        .collections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .collection-item {
+            height: 400px;
+            background: var(--reality-stable);
+            border: 2px solid var(--neon-pink);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .collection-item:hover {
+            transform: scale(1.05);
+            box-shadow: var(--energy-shadow);
+        }
+
+        .collection-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transition: all 0.4s ease;
+        }
+
+        .collection-item:hover .collection-image {
+            filter: grayscale(0%);
+        }
+
+        .collection-name {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, var(--void-black));
+            padding: 2rem 1rem 1rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* === SUPERNOVA EFFECTS === */
+
+        @keyframes screenFlash {
+            0% {
+                background: #ffffff;
+                opacity: 0;
+            }
+
+            10% {
+                background: #ffffff;
+                opacity: 1;
+            }
+
+            100% {
+                background: #000000;
+                opacity: 0.9;
+            }
+        }
+
+        @keyframes screenShake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            10%,
+            30%,
+            50%,
+            70%,
+            90% {
+                transform: translateX(-10px);
+            }
+
+            20%,
+            40%,
+            60%,
+            80% {
+                transform: translateX(10px);
+            }
+        }
+
+        @keyframes elementGlitch {
+
+            0%,
+            100% {
+                filter: hue-rotate(0deg) blur(0px);
+                transform: translate(0, 0);
+            }
+
+            25% {
+                filter: hue-rotate(90deg) blur(1px);
+                transform: translate(-2px, 2px);
+            }
+
+            50% {
+                filter: hue-rotate(180deg) blur(2px);
+                transform: translate(2px, -2px);
+            }
+
+            75% {
+                filter: hue-rotate(270deg) blur(1px);
+                transform: translate(-2px, -2px);
+            }
+        }
+
+        @keyframes textCorrupt {
+
+            0%,
+            100% {
+                content: attr(data-text);
+                filter: none;
+            }
+
+            25% {
+                content: "01000100 01001001";
+                filter: blur(1px);
+            }
+
+            50% {
+                content: "11010011 10101001";
+                filter: blur(2px);
+            }
+
+            75% {
+                content: "00101100 11010110";
+                filter: blur(1px);
+            }
+        }
+
+        @keyframes colorInvert {
+
+            0%,
+            100% {
+                filter: invert(0) hue-rotate(0deg);
+            }
+
+            50% {
+                filter: invert(1) hue-rotate(180deg);
+            }
+        }
+    </style>
+</head>
+
+<body data-brand="distortion">
+
+
+    <!-- Digital Weather System -->
+    <div class="data-storm" id="dataStorm"></div>
+    <!-- Kaleidoscope Mode -->
+    <div class="kaleidoscope-mode" id="kaleidoscope"></div>
+    <!-- Ink Canvas -->
+    <canvas class="ink-canvas" id="inkCanvas"></canvas>
+    <!-- Gravity Cursor -->
+    <div class="gravity-cursor"></div>
+    <header>
+        <nav class="distortion-nav nav-container">
+            <div class="dst-logo">
+                <img src="./images/distortion official logo.png" width="100px" alt="DISTORTION Logo">
+            </div>
+            <div class="nav-links" id="navbar">
+                <div class="nav-link"><a href="entry.html">Home</a></div> 
+                <div class="nav-link"><a href="distortion.html">About</a></div>
+                <div class="nav-link" onclick="scrollToSection('products')">SHOP</div>
+                <div class="nav-link" onclick="scrollToSection('collections')">COLLECTIONS</div>
+            </div>
+            <div class="hamburger" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+    <!-- Hero Section -->
+    <section class="main-section hero-section" id="hero" data-aos="fade-up" data-aos-duration="1200">
+        <h1 class="hero-title glitch-text" data-text="DISTORTION">
+            <span data-aos="slide-right" data-aos-delay="0">D</span>
+            <span data-aos="slide-up" data-aos-delay="100">I</span>
+            <span data-aos="slide-left" data-aos-delay="200">S</span>
+            <span data-aos="slide-up" data-aos-delay="300">T</span>
+            <span data-aos="slide-right" data-aos-delay="400">O</span>
+            <span data-aos="slide-up" data-aos-delay="500">R</span>
+            <span data-aos="slide-left" data-aos-delay="600">T</span>
+            <span data-aos="slide-up" data-aos-delay="700">I</span>
+            <span data-aos="slide-right" data-aos-delay="800">O</span>
+            <span data-aos="slide-up" data-aos-delay="900">N</span>
+        </h1>
+
+        <p class="hero-subtitle" data-aos="fade-in" data-aos-delay="1200">
+            REALITY-BENDING FASHION THROUGH DIGITAL CORRUPTION
+        </p>
+
+        <button class="shop-now-btn" onclick="scrollToSection('products')" data-aos="zoom-in" data-aos-delay="1500">
+            Shop Now
+        </button>
+    </section>
+
+    <!-- Products Section -->
+    <section class="main-section" id="products" data-aos="fade-up" data-aos-duration="1200">
+        <h2 class="section-title" data-aos="fade-down" data-aos-delay="100">QUANTUM PRODUCTS</h2>
+        <div class="quantum-grid">
+            <!-- Product 1 -->
+            <div class="superposition-product" data-aos="flip-left" data-aos-delay="100"
+                onclick="viewProduct('distortion1')">
+                <img src="./images/DST CORRUPTED MEMORY JACKET - Copy.png" alt="Glitch Jacket" class="product-image">
+                <h3 class="product-name">THE CORUPTED MEMORY</h3>
+                <p style="margin-bottom: 1rem; opacity: 0.8;"></p>
+                <div class="product-price">12,000</div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="superposition-product" data-aos="flip-up" data-aos-delay="200"
+                onclick="viewProduct('distortion2')">
+                <img src="./images/DST DATA MOSH TROUSERS.png" alt="Binary Pants" class="product-image">
+                <h3 class="product-name">THE DATA-MOSH PANTS</h3>
+                <p style="margin-bottom: 1rem; opacity: 0.8;">Exists in 1s and 0s</p>
+                <div class="product-price">$7,000</div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="superposition-product" data-aos="flip-right" data-aos-delay="300"
+                onclick="viewProduct('distortion3')">
+                <img src="./images/DST BLUE SCREEN.png" alt="Static Dress" class="product-image">
+                <h3 class="product-name">THE BLUE S-D</h3>
+                <p style="margin-bottom: 1rem; opacity: 0.8;">Digital interference pattern</p>
+                <div class="product-price">$10,000</div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="superposition-product" data-aos="zoom-in" data-aos-delay="400"
+                onclick="viewProduct('distortion4')">
+                <img src="./images/DST STATIC BLOOM .png" alt="Corruption Sneakers" class="product-image">
+                <h3 class="product-name">THE STATIC BLOOM</h3>
+                <p style="margin-bottom: 1rem; opacity: 0.8;">Reality-tearing footwear</p>
+                <div class="product-price">$8,000</div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="superposition-product" data-aos="fade-up" data-aos-delay="500"
+                onclick="viewProduct('distortion5')">
+                <img src="./images/DST GLITCH WEAVE TAIL.png" alt="Glitch Hoodie" class="product-image">
+                <h3 class="product-name">THE WEAVE TAIL</h3>
+                <p style="margin-bottom: 1rem; opacity: 0.8;">Digital distortion wear</p>
+                <div class="product-price">$6,000</div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="superposition-product" data-aos="fade-down" data-aos-delay="600"
+                onclick="viewProduct('distortion6')">
+                <img src="./images/DST GLITCH HEX CODE CORSET.png" alt="Neon Pants" class="product-image">
+                <h3 class="product-name">THE HEX CODE CORSET</h3>
+                <p style="margin-bottom: 1rem; opacity: 0.8;">Energy-emitting trousers</p>
+                <div class="product-price">$5,000</div>
+            </div>
+
+            <div class="superposition-product" data-aos="fade-left" data-aos-delay="700"
+                onclick="viewProduct('distortion7')">
+                <img src="./images/DST PIXEL DRIP TOP.png" alt="Neon Pants" class="product-image">
+                <h3 class="product-name">THE PIXEL DRIP</h3>
+                <p style="margin-bottom: 1rem; opacity: 0.8;">Energy-emitting trousers</p>
+                <div class="product-price">$7000</div>
+            </div>
+
+            <div class="superposition-product" data-aos="fade-right" data-aos-delay="800"
+                onclick="viewProduct('distortion8')">
+                <img src="./images/DST BUFFER ERROR SKIRT.png" alt="Neon Pants" class="product-image">
+                <h3 class="product-name">THE BUFFER ERROR</h3>
+                <p style="margin-bottom: 1rem; opacity: 0.8;">Energy-emitting trousers</p>
+                <div class="product-price">$8,200</div>
+            </div>
+
+            <div class="superposition-product" data-aos="zoom-out" data-aos-delay="900"
+                onclick="viewProduct('distortion9')">
+                <img src="./images/DST FORK BOMB HARNESS.png" alt="Neon Pants" class="product-image">
+                <h3 class="product-name">THE BOMB HARNESS</h3>
+                <p style="margin-bottom: 1rem; opacity: 0.8;">Energy-emitting trousers</p>
+                <div class="product-price">$12,020</div>
+            </div>
+
+            <div class="superposition-product" data-aos="flip-left" data-aos-delay="1000"
+                onclick="viewProduct('distortion10')">
+                <img src="./images/DST 404.png" alt="Neon Pants" class="product-image">
+                <h3 class="product-name">THE 404</h3>
+                <p style="margin-bottom: 1rem; opacity: 0.8;">Energy-emitting trousers</p>
+                <div class="product-price">$10,000</div>
+            </div>
+
+            <div class="superposition-product" data-aos="flip-up" data-aos-delay="1100"
+                onclick="viewProduct('distortion11')">
+                <img src="./images/DST KERNEL PANIC SILT.png" alt="Neon Pants" class="product-image">
+                <h3 class="product-name">THE KERNEL PANIC KILT</h3>
+                <p style="margin-bottom: 1rem; opacity: 0.8;">Energy-emitting trousers</p>
+                <div class="product-price">$13,000</div>
+            </div>
+
+            <div class="superposition-product" data-aos="flip-up" data-aos-delay="1100"
+                onclick="viewProduct('distortion12')">
+                <img src="./images/DST LAG SPIKE.png" alt="Neon Pants" class="product-image">
+                <h3 class="product-name">THE LAG SPIKE</h3>
+                <p style="margin-bottom: 1rem; opacity: 0.8;">Energy-emitting trousers</p>
+                <div class="product-price">$11,000</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collections Section -->
+    <section class="main-section" id="collections" data-aos="fade-up" data-aos-duration="1200">
+        <h2 class="section-title" data-aos="fade-down" data-aos-delay="100">DISTORTION COLLECTIONS</h2>
+        <div class="collections-grid">
+            <div class="collection-item" data-aos="zoom-in" data-aos-delay="100" onclick="viewProduct('distortion13')">
+                <img src="./images/DST SYNTAX ERROR.png" alt="Digital Corruption" class="collection-image">
+                <div class="collection-name">THE SYNTAX</div>
+            </div>
+            <div class="collection-item" data-aos="zoom-in" data-aos-delay="200" onclick="viewProduct('distortion14')">
+                <img src="./images/DST DISC READ HEADDRESS.png" alt="Neon Void" class="collection-image">
+                <div class="collection-name">THE DISC HEADDRESS</div>
+            </div>
+            <div class="collection-item" data-aos="zoom-in" data-aos-delay="300" onclick="viewProduct('distortion15')">
+                <img src="./images/DST STACK OVERFLOW VEIL.png" alt="Data Storm" class="collection-image">
+                <div class="collection-name">THE STACK VEIL</div>
+            </div>
+            <div class="collection-item" data-aos="zoom-in" data-aos-delay="400" onclick="viewProduct('distortion16')">
+                <img src="./images/DST MEMORY LEAK.png" alt="Data Storm" class="collection-image">
+                <div class="collection-name">THE LEAK GOWN</div>
+            </div>
+            <div class="collection-item" data-aos="zoom-in" data-aos-delay="500" onclick="viewProduct('distortion17')">
+                <img src="./images/DST RACE CONDITION BLAZER.png" alt="Data Storm" class="collection-image">
+                <div class="collection-name">THE RACE CONDITIONer</div>
+            </div>
+            <div class="collection-item" data-aos="zoom-in" data-aos-delay="600" onclick="viewProduct('distortion18')">
+                <img src="./images/DST NULL POINTER DRESS.png" alt="Data Storm" class="collection-image">
+                <div class="collection-name">THE NULL POINTER</div>
+            </div>
+            <div class="collection-item" data-aos="zoom-in" data-aos-delay="700" onclick="viewProduct('distortion19')">
+                <img src="./images/DST DIGITAL SUPERNOVA.png" alt="Data Storm" class="collection-image">
+                <div class="collection-name">THE DIGITAL SUPERNOVA</div>
+            </div>
+            <div class="collection-item" data-aos="zoom-in" data-aos-delay="800" onclick="viewProduct('distortion20')">
+                <img src="./images/DST TROJAN HORSE.png" alt="Data Storm" class="collection-image">
+                <div class="collection-name">THE TROJAN HORSE</div>
+            </div>
+            <div class="collection-item" data-aos="zoom-in" data-aos-delay="900" onclick="viewProduct('distortion21')">
+                <img src="./images/DST HARD REBOOT.png" alt="Data Storm" class="collection-image">
+                <div class="collection-name">THE HARD SUIT</div>
+            </div>
+            <div class="collection-item" data-aos="zoom-in" data-aos-delay="1000" onclick="viewProduct('distortion22')">
+                <img src="./images/DST PATCHWORK FRANKESTINE.png" alt="Data Storm" class="collection-image">
+                <div class="collection-name">THE PATCHWORK FRANKESTINE</div>
+            </div>
+            <div class="collection-item" data-aos="zoom-in" data-aos-delay="1100" onclick="viewProduct('distortion23')">
+                <img src="./images/DST INFINITE LOOP CAPE.png" alt="Data Storm" class="collection-image">
+                <div class="collection-name">THE INFINITE LOOP CAPE</div>
+            </div>
+            <div class="collection-item" data-aos="zoom-in" data-aos-delay="1200" onclick="viewProduct('distortion24')">
+                <img src="./images/DST CORE DUMP SCULPTURE.png" alt="Data Storm" class="collection-image">
+                <div class="collection-name">THE CORE DUMP SCULPTURE</div>
+            </div>
+            <div class="collection-item" data-aos="zoom-in" data-aos-delay="1300" onclick="viewProduct('distortion25')">
+                <img src="./images/DST ENCRYPTION VEIL.png" alt="Data Storm" class="collection-image">
+                <div class="collection-name">THE ENCRYPTION VEIL</div>
+            </div>
+            <div class="collection-item" data-aos="zoom-in" data-aos-delay="1400" onclick="viewProduct('distortion26')">
+                <img src="./images/DST FINAL SEGMENTATION.png" alt="Data Storm" class="collection-image">
+                <div class="collection-name">THE SEGMENTATION FAULT</div>
+            </div>
+            <div class="collection-item" data-aos="zoom-in" data-aos-delay="1500" onclick="viewProduct('distortion27')">
+                <img src="./images/DST ZIP BOMB BAG.png" alt="Data Storm" class="collection-image">
+                <div class="collection-name">THE ZIP BOMB BAG</div>
+            </div>
+            <div class="collection-item" data-aos="zoom-in" data-aos-delay="1500" onclick="viewProduct('distortion28')">
+                <img src="./images/DST UNRENDERED.png" alt="Data Storm" class="collection-image">
+                <div class="collection-name">THE UN -RENDE</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Digital Supernova Orb -->
+    <div class="supernova-orb" id="supernovaOrb" data-aos="zoom-out" data-aos-delay="800">
+        <div class="orb-core" data-aos="fade-in" data-aos-delay="1000"></div>
+        <div class="energy-rings" data-aos="fade-up" data-aos-delay="1200"></div>
+        <div class="static-field" data-aos="fade-down" data-aos-delay="1400"></div>
+    </div>
+
+    <!-- Supernova Chat Interface -->
+    <div class="supernova-overlay" id="supernovaOverlay"></div>
+    <div class="chaos-chat" id="chaosChat">
+        <div class="chat-interface">
+            <div class="chat-header">
+                <div class="glitch-avatar">AI</div>
+                <h3>DISTORTION ASSISTANT</h3>
+                <div class="chat-close" onclick="closeSupernovaChat()">×</div>
+            </div>
+            <div class="chat-messages">
+                <div class="message ai-message">
+                    REALITY BREACH DETECTED. I EMERGE FROM THE DIGITAL SUPERNOVA.
+                </div>
+            </div>
+
+
+            <div class="chat-input">
+                <input type="text" id="chaosInput" placeholder="Speak through the chaos...">
+                <button class="send-button" id="chaosSend">⤴</button>
+            </div>
+
+        </div>
+    </div>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            AOS.init({
+                once: false,
+                duration: 1000,
+                delay: 500,
+            });
+        }
+
+        ) 
+    </script>
+    <script src="product.js"></script>
+    <script src="stylist.js"></script>
+
+    <script>
+        function viewProduct(productId) {
+            // Find product by id from the array
+            const product = distortionProducts.find(p => p.id === productId);
+            if (product) {
+                // ✅ Save full product details into localStorage
+                localStorage.setItem("selectedProduct", JSON.stringify(product));
+                // ✅ Redirect to the product page
+                window.location.href = "distortionproduct.html";
+            }
+        }
+    </script>
+    <script>
+        // Scroll arrow functionality with error handling
+        const scrollArrow = document.getElementById('scrollArrow');
+        if (scrollArrow) {
+            scrollArrow.addEventListener('click', function () {
+                const shopCollection = document.getElementById('shop-collection');
+                if (shopCollection) {
+                    window.scrollTo({
+                        top: shopCollection.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        }
+        // Visual feedback
+        // Navigation Scroll
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Collection Hover Effects
+        document.addEventListener('DOMContentLoaded', function () {
+            const collectionItems = document.querySelectorAll('.collection-item');
+
+            collectionItems.forEach(item => {
+                item.addEventListener('mouseenter', function () {
+                    this.style.transform = 'scale(1.05)';
+                    this.style.boxShadow = '0 0 50px var(--neon-pink)';
+                });
+
+                item.addEventListener('mouseleave', function () {
+                    this.style.transform = 'scale(1)';
+                    this.style.boxShadow = '';
+                });
+            });
+
+            // Product hover effects
+            const products = document.querySelectorAll('.superposition-product');
+
+            products.forEach(product => {
+                product.addEventListener('mouseenter', function () {
+                    this.style.transform = 'translateY(-10px)';
+                    this.style.boxShadow = '0 0 40px var(--pink-glow)';
+                });
+
+                product.addEventListener('mouseleave', function () {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '';
+                });
+            });
+        });
+
+        // Add flying animation
+        const style = document.createElement('style');
+        style.textContent = `
+        @keyframes flyToCart {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(0.5) translateY(-50px);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(0.1) translate(100px, -100px);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px var(--neon-pink); }
+            50% { box-shadow: 0 0 40px var(--neon-pink), 0 0 60px var(--pink-energy); }
+        }
+        
+        .nav-logo {
+            animation: pulseGlow 2s ease-in-out infinite;
+        }
+    `;
+        document.head.appendChild(style);
+
+        // Reality Distortion Effect on Scroll
+        let lastScrollY = 0;
+        const realityBar = document.querySelector('.reality-bar');
+
+        window.addEventListener('scroll', function () {
+            const scrollY = window.scrollY;
+            const scrollPercent = (scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+
+            // Update reality indicator
+            if (realityBar) {
+                const stability = Math.max(50, 100 - scrollPercent * 0.5);
+                realityBar.style.width = stability + '%';
+                realityBar.nextElementSibling.textContent = `REALITY: ${Math.round(stability)}%`;
+            }
+
+            // Add subtle glitch effect at certain scroll points
+            if (Math.abs(scrollY - lastScrollY) > 100) {
+                document.body.style.animation = 'quickGlitch 0.3s ease-out';
+                setTimeout(() => {
+                    document.body.style.animation = '';
+                }, 300);
+            }
+
+            lastScrollY = scrollY;
+        });
+
+        // Add quick glitch animation
+        const glitchStyle = document.createElement('style');
+        glitchStyle.textContent = `
+        @keyframes quickGlitch {
+            0%, 100% { transform: translateX(0); filter: hue-rotate(0deg); }
+            25% { transform: translateX(-2px); filter: hue-rotate(90deg); }
+            75% { transform: translateX(2px); filter: hue-rotate(-90deg); }
+        }
+        
+        .reality-bar {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .reality-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, var(--neon-pink), transparent);
+            animation: realityScan 2s linear infinite;
+            opacity: 0.5;
+        }
+        
+        @keyframes realityScan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+    `;
+        document.head.appendChild(glitchStyle);
+
+        // Gravity Cursor
+        const gravityCursor = document.querySelector('.gravity-cursor');
+        document.addEventListener('mousemove', (e) => {
+            gravityCursor.style.left = e.clientX - 30 + 'px';
+            gravityCursor.style.top = e.clientY - 30 + 'px';
+        });
+
+        // Neon Echo Mapping
+        let echoTrails = [];
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.7) { // Random echo creation
+                const echo = document.createElement('div');
+                echo.className = 'echo-trail';
+                echo.style.left = e.clientX - 2 + 'px';
+                echo.style.top = e.clientY - 2 + 'px';
+                document.body.appendChild(echo);
+                echoTrails.push(echo);
+
+                // Clean up old echoes
+                if (echoTrails.length > 50) {
+                    const oldEcho = echoTrails.shift();
+                    if (oldEcho && document.body.contains(oldEcho)) {
+                        document.body.removeChild(oldEcho);
+                    }
+                }
+            }
+        });
+
+        // Reality Ink Annotation
+        const inkCanvas = document.getElementById('inkCanvas');
+        const ctx = inkCanvas.getContext('2d');
+        let isDrawing = false;
+
+        inkCanvas.width = window.innerWidth;
+        inkCanvas.height = window.innerHeight;
+
+        document.addEventListener('mousedown', (e) => {
+            if (e.ctrlKey) { // Ctrl + Click to draw
+                isDrawing = true;
+                ctx.beginPath();
+                ctx.moveTo(e.clientX, e.clientY);
+            }
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (isDrawing) {
+                ctx.lineTo(e.clientX, e.clientY);
+                ctx.strokeStyle = '#ff00c8';
+                ctx.lineWidth = 3;
+                ctx.lineCap = 'round';
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = '#ff00c8';
+                ctx.stroke();
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDrawing = false;
+        });
+
+        // Digital Weather System
+        const dataStorm = document.getElementById('dataStorm');
+        setInterval(() => {
+            if (Math.random() > 0.8) {
+                dataStorm.style.opacity = '0.1';
+                setTimeout(() => {
+                    dataStorm.style.opacity = '0';
+                }, 2000);
+            }
+        }, 5000);
+
+        // Glitch Portal Creation
+        setInterval(() => {
+            if (Math.random() > 0.9) {
+                const portal = document.createElement('div');
+                portal.className = 'glitch-portal';
+                portal.style.left = Math.random() * window.innerWidth + 'px';
+                portal.style.top = Math.random() * window.innerHeight + 'px';
+                document.body.appendChild(portal);
+
+                setTimeout(() => {
+                    if (document.body.contains(portal)) {
+                        document.body.removeChild(portal);
+                    }
+                }, 3000);
+            }
+        }, 2000);
+
+        // Quantum Entanglement Cart
+        const entanglementCart = document.getElementById('entanglementCart');
+        let cartItems = 0;
+
+        document.querySelectorAll('.superposition-product').forEach(product => {
+            product.addEventListener('click', function () {
+                cartItems++;
+                entanglementCart.style.transform = 'scale(1.3)';
+                entanglementCart.innerHTML = `<span style="color: var(--void-black); font-weight: 900;">${cartItems}</span>`;
+
+                setTimeout(() => {
+                    entanglementCart.style.transform = 'scale(1)';
+                }, 300);
+
+                // Create fracture line to cart
+                const rect = this.getBoundingClientRect();
+                const cartRect = entanglementCart.getBoundingClientRect();
+
+                const fracture = document.createElement('div');
+                fracture.className = 'fracture-line';
+                fracture.style.left = rect.left + rect.width / 2 + 'px';
+                fracture.style.top = rect.top + rect.height / 2 + 'px';
+
+                const angle = Math.atan2(
+                    cartRect.top - rect.top,
+                    cartRect.left - rect.left
+                );
+                const distance = Math.sqrt(
+                    Math.pow(cartRect.left - rect.left, 2) +
+                    Math.pow(cartRect.top - rect.top, 2)
+                );
+
+                fracture.style.width = distance + 'px';
+                fracture.style.transform = `rotate(${angle}rad)`;
+
+                document.body.appendChild(fracture);
+
+                setTimeout(() => {
+                    if (document.body.contains(fracture)) {
+                        document.body.removeChild(fracture);
+                    }
+                }, 1000);
+            });
+        });
+
+        // Kaleidoscope Mode Toggle
+        const kaleidoscope = document.getElementById('kaleidoscope');
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'k' || e.key === 'K') {
+                kaleidoscope.style.opacity = kaleidoscope.style.opacity === '0.3' ? '0' : '0.3';
+            }
+        });
+
+        // Reality Layer Peeling Enhancement
+        document.querySelectorAll('.superposition-product').forEach(product => {
+            product.addEventListener('mouseenter', function () {
+                this.style.zIndex = '10';
+            });
+
+            product.addEventListener('mouseleave', function () {
+                this.style.zIndex = '1';
+            });
+        });
+
+        // Window resize handling
+        window.addEventListener('resize', () => {
+            inkCanvas.width = window.innerWidth;
+            inkCanvas.height = window.innerHeight;
+        });
+        // === ADD TO EXISTING JAVASCRIPT ===
+
+        // Digital Supernova Orb
+        const supernovaOrb = document.getElementById('supernovaOrb');
+        const supernovaOverlay = document.getElementById('supernovaOverlay');
+        const chaosChat = document.getElementById('chaosChat');
+
+        function triggerSupernova() {
+            // 1. WHITE FLASH
+            document.body.style.animation = 'screenFlash 0.5s ease-out';
+
+            // 2. VIOLENT SCREEN SHAKE
+            document.body.style.animation = 'screenShake 0.8s ease-in-out';
+
+            // 3. ELEMENT GLITCHING
+            const allElements = document.querySelectorAll('*');
+            allElements.forEach(element => {
+                if (element !== supernovaOrb && element !== chaosChat && element !== supernovaOverlay) {
+                    element.style.animation = 'elementGlitch 1s ease-in-out';
+                }
+            });
+
+            // 4. TEXT CORRUPTION
+            const textElements = document.querySelectorAll('h1, h2, h3, p, span, div');
+            textElements.forEach(element => {
+                if (element.textContent && element.textContent.length > 0) {
+                    element.setAttribute('data-text', element.textContent);
+                    element.style.animation = 'textCorrupt 2s ease-in-out';
+                }
+            });
+
+            // 5. COLOR INVERSION
+            document.body.style.animation = 'colorInvert 1.5s ease-in-out';
+
+            // 6. LOUD GLITCH SOUND (simulated)
+            console.log("🔊 LOUD GLITCH NOISES! 🔊");
+
+            // 7. SHOW CHAT AFTER CHAOS
+            setTimeout(() => {
+                // Reset animations
+                document.body.style.animation = '';
+                allElements.forEach(element => {
+                    element.style.animation = '';
+                });
+                textElements.forEach(element => {
+                    element.style.animation = '';
+                });
+
+                // Show chat interface
+                supernovaOverlay.classList.add('active');
+                chaosChat.classList.add('active');
+
+                // Permanent reality damage
+                document.body.style.filter = 'hue-rotate(45deg)';
+
+            }, 2000);
+        }
+
+        function closeSupernovaChat() {
+            supernovaOverlay.classList.remove('active');
+            chaosChat.classList.remove('active');
+        }
+
+        // Orb click event
+        supernovaOrb.addEventListener('click', triggerSupernova);
+
+        // Close chat when clicking overlay
+        supernovaOverlay.addEventListener('click', closeSupernovaChat);
+
+        // Add audio simulation
+        function playGlitchSound() {
+            // In a real implementation, you would play actual audio files
+            console.log("🎵 Playing: nuclear_glitch_explosion.mp3 🎵");
+            console.log("🔊 Volume: MAXIMUM CHAOS 🔊");
+        }
+
+        // Enhance orb interaction
+        supernovaOrb.addEventListener('mouseenter', () => {
+            gravityCursor.style.background = 'radial-gradient(circle, transparent 20%, #ffffff 80%)';
+            gravityCursor.style.transform = 'scale(2)';
+        });
+
+        supernovaOrb.addEventListener('mouseleave', () => {
+            gravityCursor.style.background = 'radial-gradient(circle, transparent 30%, var(--neon-pink) 70%)';
+            gravityCursor.style.transform = 'scale(1)';
+        });
+    </script>
+    <script>
+        // ===== Distortion AI Orb Chat =====
+        document.addEventListener("DOMContentLoaded", function () {
+
+            // --- Elements ---
+            const supernovaOrb = document.getElementById('supernovaOrb');
+            const supernovaOverlay = document.getElementById('supernovaOverlay');
+            const chaosChat = document.getElementById('chaosChat');
+            const chatMessages = chaosChat.querySelector('.chat-messages');
+            const chatInput = chaosChat.querySelector('input');
+            const sendButton = chaosChat.querySelector('.send-button');
+
+            // --- Open/Close Chat ---
+            function openChat() {
+                supernovaOverlay.classList.add('active');
+                chaosChat.classList.add('active');
+                chatInput.focus();
+            }
+
+            function closeChat() {
+                supernovaOverlay.classList.remove('active');
+                chaosChat.classList.remove('active');
+            }
+
+            supernovaOrb.addEventListener('click', openChat);
+            supernovaOverlay.addEventListener('click', closeChat);
+            chaosChat.querySelector('.chat-close').addEventListener('click', closeChat);
+
+            // --- Add Message ---
+            function addMessage(text, sender) {
+                const msgDiv = document.createElement('div');
+                msgDiv.className = `message ${sender}-message`;
+
+                const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                msgDiv.innerHTML = `<span class="message-text"></span>
+                            <div class="message-time">${time}</div>`;
+
+                chatMessages.appendChild(msgDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                // Type letter by letter if AI
+                if (sender === 'ai') {
+                    let i = 0;
+                    const textSpan = msgDiv.querySelector('.message-text');
+                    const interval = setInterval(() => {
+                        textSpan.textContent += text[i];
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                        i++;
+                        if (i >= text.length) clearInterval(interval);
+                    }, 25);
+                } else {
+                    msgDiv.querySelector('.message-text').textContent = text;
+                }
+            }
+
+            // --- Get AI Response ---
+            function getResponse(input) {
+                input = input.toLowerCase();
+                for (let item of distortionStylistAnswers) {
+                    for (let kw of item.keywords) {
+                        if (input.includes(kw.toLowerCase())) {
+                            return item.answer;
+                        }
+                    }
+                }
+                return "Hmm, reality is glitching... I can't find an answer for that yet!";
+            }
+
+            // --- Send Message ---
+            function sendMessage() {
+                const text = chatInput.value.trim();
+                if (!text) return;
+                addMessage(text, 'user');
+                chatInput.value = '';
+
+                // Thinking indicator
+                const thinkingDiv = document.createElement('div');
+                thinkingDiv.className = 'message ai-message';
+                thinkingDiv.innerHTML = `<span class="message-text">💀 Glitching...</span>
+                                 <div class="message-time"></div>`;
+                chatMessages.appendChild(thinkingDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                setTimeout(() => {
+                    thinkingDiv.remove();
+                    const response = getResponse(text);
+                    addMessage(response, 'ai');
+                }, 1000 + Math.random() * 1500);
+            }
+
+            // --- Event Listeners ---
+            sendButton.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendMessage();
+            });
+
+            // Standardized Hamburger Toggle from drops.html
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+
+            if (hamburger && navLinks) {
+                hamburger.addEventListener('click', () => {
+                    hamburger.classList.toggle('active');
+                    navLinks.classList.toggle('open');
+                });
+            }
+
+            // --- Optional: welcome message ---
+            setTimeout(() => {
+                addMessage("REALITY BREACH DETECTED. You can ask me about styling, outfits, or fashion advice.", 'ai');
+            }, 500);
+        });
+
+    </script>
+</body>
+
+</html>

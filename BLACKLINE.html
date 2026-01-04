@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/phosphor-icons"></script>
+  <link rel="stylesheet" href="./index.css">
+  <style>
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 0.2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      background: transparent;
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      color: white;
+    }
+
+    .logo {
+      font-family: "Playfair Display", serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      position: relative;
+      padding: 0.5rem 0;
+      color: white;
+      text-decoration: none;
+    }
+
+    .nav-links a:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover:after {
+      width: 100%;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-icon {
+      cursor: pointer;
+      transition: opacity 0.3s;
+    }
+
+    .nav-icon:hover {
+      opacity: 0.7;
+    }
+
+    /* Standardized Hamburger Menu Styles from drops.html */
+    @media screen and (max-width: 900px) {
+      .hamburger {
+        display: flex;
+        width: 28px;
+        height: 22px;
+        flex-direction: column;
+        justify-content: space-between;
+        cursor: pointer;
+        z-index: 1100;
+      }
+
+      .hamburger span {
+        height: 3px;
+        width: 100%;
+        background: #fff;
+        border-radius: 3px;
+        transition: all 0.4s ease;
+      }
+
+      .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        right: 1rem;
+        background: rgba(0, 0, 0, 0.85);
+        display: flex !important;
+        flex-direction: column;
+        width: 240px;
+        padding: 2rem;
+        gap: 1.8rem;
+        border-radius: 12px;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-10px);
+        transition: all 0.4s ease;
+        z-index: 1000;
+      }
+
+      .nav-links.open {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+    }
+
+    .brand-philosophy {
+      display: flex;
+      flex-wrap: wrap;
+      min-height: 100vh;
+      background-color: #111;
+      color: #fff;
+    }
+
+    .philosophy-image {
+      flex: 1 1 50%;
+      min-height: 400px;
+    }
+
+    .philosophy-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(30%) contrast(1.1);
+      position: relative;
+    }
+
+    .philosophy-text {
+      flex: 1 1 50%;
+      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: absolute;
+      top: 10%;
+    }
+
+    .philosophy-text h2 {
+      font-family: "Times New Roman", serif;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+
+    .intro-quote {
+      font-style: italic;
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      color: #d4af37;
+    }
+
+    .philosophy-text p {
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      max-width: 500px;
+    }
+
+    .brand-story {
+      padding: 0;
+      background-color: black;
+      color: white;
+    }
+
+    .brand-story-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 20px;
+      gap: 40px;
+    }
+
+    .brand-story-text {
+      flex: 1;
+    }
+
+    .brand-story-text h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .brand-story-text p {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .brand-story-image {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .brand-story-image img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .brand-story-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .brand-story-text,
+      .brand-story-image {
+        flex: unset;
+        width: 100%;
+      }
+    }
+
+
+/* ---------- Global safety fixes ---------- */
+.brand-philosophy,
+.brand-story {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* ---------- Tablets (≤ 1024px) ---------- */
+@media (max-width: 1024px) {
+
+  .philosophy-text {
+    padding: 40px;
+    top: 5%;
+  }
+
+  .philosophy-text h2 {
+    font-size: 2.2rem;
+  }
+
+  .brand-story-content {
+    padding: 50px 24px;
+    gap: 32px;
+  }
+
+  .brand-story-text h2 {
+    font-size: 2.2rem;
+  }
+}
+
+
+/* ---------- Mobile & Small Tablets (≤ 768px) ---------- */
+@media (max-width: 768px) {
+
+  /* BRAND PHILOSOPHY STACKING */
+  .brand-philosophy {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .philosophy-image {
+    flex: none;
+    width: 100%;
+    min-height: 300px;
+  }
+
+  .philosophy-text {
+    position: relative;
+    top: auto;
+    padding: 32px 20px;
+    width: 100%;
+  }
+
+  .philosophy-text h2 {
+    font-size: 2rem;
+  }
+
+  .intro-quote {
+    font-size: 1.1rem;
+  }
+
+  .philosophy-text p {
+    max-width: 100%;
+  }
+
+  /* BRAND STORY STACKING */
+  .brand-story-content {
+    flex-direction: column;
+    padding: 40px 20px;
+    gap: 28px;
+  }
+
+  .brand-story-image {
+    width: 100%;
+  }
+
+  .brand-story-text h2 {
+    font-size: 2rem;
+  }
+}
+
+
+/* ---------- Small Phones (≤ 480px) ---------- */
+@media (max-width: 480px) {
+
+  .philosophy-image {
+    min-height: 240px;
+  }
+
+  .philosophy-text {
+    padding: 28px 16px;
+  }
+
+  .philosophy-text h2,
+  .brand-story-text h2 {
+    font-size: 1.8rem;
+  }
+
+  .intro-quote {
+    font-size: 1rem;
+  }
+
+  .philosophy-text p,
+  .brand-story-text p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .brand-story-content {
+    padding: 32px 16px;
+  }
+}
+
+    .lume-highlights {
+      background-color: #0d0d0d;
+      padding: 6rem 2rem;
+      color: #fff;
+    }
+
+    .highlight-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+    }
+
+    .highlight-item {
+      flex: 1 1 300px;
+      max-width: 400px;
+      background-color: #1a1a1a;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+      transition: transform 0.4s ease;
+    }
+
+    .highlight-item:hover {
+      transform: translateY(-10px);
+    }
+
+    .highlight-image {
+      height: 250px;
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.85);
+    }
+
+    .highlight-text {
+      padding: 1.5rem;
+    }
+
+    .highlight-text h3 {
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .highlight-text p {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #cfcfcf;
+    }
+
+    .ln-inspiration {
+      background: #000;
+      color: #fff;
+      padding: 100px 8%;
+    }
+
+    .ln-inspiration-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .ln-inspiration-images {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .ln-inspiration-images img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
+    }
+
+    .ln-inspiration-text h2 {
+      font-size: 2.5rem;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .ln-inspiration-text h2 span {
+      color: #c9a96e;
+    }
+
+    .ln-tagline {
+      font-style: italic;
+      font-size: 1.2rem;
+      color: #aaa;
+      margin-bottom: 20px;
+    }
+
+    .ln-inspiration-text p {
+      line-height: 1.7;
+      margin-bottom: 15px;
+    }
+
+    .lume-noire-signature {
+      background: #0b0b0b;
+      color: #fff;
+      padding: 100px 5%;
+      text-align: center;
+    }
+
+    .signature-title {
+      font-size: 2.8rem;
+      letter-spacing: 2px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .signature-subtitle {
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto 50px auto;
+      color: #ccc;
+      line-height: 1.6;
+    }
+
+    .signature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+    }
+
+    .signature-item {
+      overflow: hidden;
+      border-radius: 12px;
+      background: #111;
+    }
+
+    .signature-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+
+    .signature-item:hover img {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+
+    .craft-process {
+      background: #0a0a0a url('images/gold-dust-bg.png') center/cover no-repeat;
+      padding: 8rem 5%;
+      color: #e5e5e5;
+    }
+
+    .craft-block {
+      display: flex;
+      align-items: center;
+      margin-bottom: 6rem;
+      gap: 4rem;
+    }
+
+    .craft-block.reverse {
+      flex-direction: row-reverse;
+    }
+
+    .craft-image img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 0 40px rgba(255, 215, 0, 0.15);
+    }
+
+    .craft-text {
+      max-width: 500px;
+    }
+
+    .craft-text h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: gold;
+      font-weight: 600;
+    }
+
+    .craft-text p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      opacity: 0.9;
+    }
+
+    .legacy-vision {
+      position: relative;
+      background: url('images/legacyblacklineimage.png') center/cover no-repeat;
+      color: white;
+      text-align: center;
+      padding: 140px 20px;
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .legacy-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .legacy-content {
+      position: relative;
+      max-width: 900px;
+      z-index: 1;
+    }
+
+    .legacy-content h2 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 25px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .legacy-content p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      opacity: 0.9;
+    }
+
+    .sustainability-ethics {
+      padding: 100px 20px;
+      background-color: #111;
+      color: #f4f4f4;
+      text-align: center;
+    }
+
+    .sustainability-ethics h2 {
+      font-size: 2.8rem;
+      letter-spacing: 2px;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+    }
+
+    .sustainability-ethics p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      max-width: 800px;
+      margin: 0 auto 20px;
+      color: #ccc;
+    }
+
+    .sustainability-ethics strong {
+      color: #fff;
+    }
+
+    .shop-cta {
+      background: #000;
+      color: #fff;
+      text-align: center;
+      padding: 100px 20px;
+    }
+
+    .shop-cta h2 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 30px;
+      letter-spacing: 2px;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      padding: 15px 50px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #000;
+      background-color: #fff;
+      text-decoration: none;
+      border-radius: 30px;
+      transition: all 2s ease;
+    }
+
+    .cta-btn:hover {
+      background-color: #e5e5e5;
+      transform: translateY(-3px);
+    }
+
+
+
+
+
+    @media (max-width: 768px) {
+      .legacy-content h2 {
+        font-size: 2.2rem;
+      }
+
+      .legacy-content p {
+        font-size: 1rem;
+      }
+    }
+    /* Responsive */
+    @media (max-width: 900px) {
+      .craft-block {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .craft-block.reverse {
+        flex-direction: column;
+      }
+
+      .craft-text {
+        max-width: 100%;
+      }
+    }
+
+
+
+    @media (max-width: 900px) {
+      .ln-inspiration-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+
+
+    /* Make it stack on smaller screens */
+    @media (max-width: 768px) {
+      .brand-philosophy {
+        flex-direction: column;
+      }
+
+      .philosophy-image,
+      .philosophy-text {
+        flex: 1 1 100%;
+        padding: 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+  <header>
+    <nav class="navbar nav-container" data-aos="fade-down">
+      <div class="logo">
+        <img src="./images/blackline real logo.png" alt="BLACKLINE Logo" width="70px">
+      </div>
+
+      <div class="nav-links" id="navbar">
+         <a href="entry.html">Home</a>
+          <a href="BLACKLINEshopping.html">Shop</a>
+        <a href="#brand-philosophy">Philosophy</a>
+        <a href="#lume-highlights">Highlight</a>
+        <a href="#legacy-vision">Legacy</a>
+        <a href="#sustainability-ethics">Ethics</a>
+      </div>
+
+      <div class="hamburger" aria-label="Toggle Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </header>
+  <script>
+    function goBack() {
+      if (document.referrer) {
+        window.history.back();
+      } else {
+        window.location.href = "/";
+      }
+    }
+  </script>
+  <main>
+    <section class="brand-philosophy" data-aos="fade-up">
+      <div class="philosophy-image">
+        <img src="./images/blackline hero section.png" alt="Lume Noire Editorial Shot">
+      </div>
+      <div class="philosophy-text">
+        <h2>Our Philosophy</h2>
+        <p class="intro-quote">"Where darkness breathes elegance, and light dares to whisper."</p>
+        <p>Born from the quiet hum of the city's after-hours, Lume Noire explores the poetry of shadows. Every stitch,
+          every fold, is a dialogue between the seen and the unseen — a testament to beauty that doesn't scream, but
+          lingers.</p>
+        <p>Our garments are more than fabric; they are an atmosphere. Inspired by minimalism, elevated by meticulous
+          craftsmanship, and rooted in a belief that true style is timeless.</p>
+      </div>
+    </section>
+    <section class="brand-story" data-aos="fade-up">
+      <div class="brand-story-content">
+        <div class="brand-story-text">
+          <h2>Born in Shadows, Crafted in Light</h2>
+          <p>BlackLine is not just a brand — it is an atmosphere. A movement born from the tension between light and
+            darkness.</p>
+          <p>Every piece is designed with intention, merging sharp tailoring with poetic imperfection.</p>
+          <p>In the silence of the atelier, fabrics breathe, shapes emerge, and every seam tells a story.</p>
+        </div>
+        <div class="brand-story-image">
+          <img src="./images/replace nick 1.png" alt="Lume Noire Editorial">
+        </div>
+      </div>
+    </section>
+
+
+    <section class="lume-highlights" data-aos="fade-up">
+      <div class="highlight-container">
+        <div class="highlight-item">
+          <div class="highlight-image" style="background-image: url('./images/blacklinegrid1.png');"></div>
+          <div class="highlight-text">
+            <h3>Architectural Silhouettes</h3>
+            <p>Sharp lines, bold forms, and tailored precision — BlackLine's designs echo the geometry of modern
+              architecture.</p>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-image" style="background-image: url('images/blacklinegrid2.png');"></div>
+          <div class="highlight-text">
+            <h3>BlackLine's Elegance</h3>
+            <p>Luxurious fabrics in deep, velvety tones create an aura of quiet power and timeless sophistication.</p>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-image" style="background-image: url('images/blacklinegrid3.png');"></div>
+          <div class="highlight-text">
+            <h3>Shadowplay Textures</h3>
+            <p>Layered materials and contrasting finishes capture the dance between light and darkness.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ln-inspiration" data-aos="fade-up">
+      <div class="ln-inspiration-container">
+        <div class="ln-inspiration-images">
+          <img src="./images/blackline inspiration1.png" alt="Lume Noire Editorial">
+          <img src="images/blacklineinspiration2.png" alt="Lume Noire Fashion Shot">
+        </div>
+        <div class="ln-inspiration-text">
+          <h2>Inspiration Behind <span>BlackLine</span></h2>
+          <p class="ln-tagline">"Where darkness becomes the light that defines you."</p>
+          <p>BlackLine was born from the idea that true elegance is found not in what is shown, but in what is hidden.
+            Drawing from the interplay of shadow and illumination, our collections speak to those who embrace the
+            mystery — who walk in the space between boldness and subtlety.</p>
+          <p>Each piece is designed as a statement of quiet power, an exploration of texture, shape, and tone. This is
+            fashion for the ones who don't follow the light, but carry their own.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="lume-noire-signature" data-aos="fade-up">
+      <div class="signature-container">
+        <h2 class="signature-title">Signature Pieces</h2>
+        <p class="signature-subtitle">A curated selection of BlackLines's most defining designs — timeless, bold, and
+          unapologetically dark.</p>
+        <div class="signature-grid">
+          <div class="signature-item"><img src="./images/blackline piece1.png" alt="Signature Piece 1"></div>
+          <div class="signature-item"><img src="./images/blacklinepiece2.png" alt="Signature Piece 2"></div>
+          <div class="signature-item"><img src="images/blacklinepiece3.png" alt="Signature Piece 3"></div>
+          <div class="signature-item"><img src="images/blacklinepiece4.png" alt="Signature Piece 4"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="craft-process" data-aos="fade-up">
+      <div class="craft-block">
+        <div class="craft-image"><img src="images/materialsblacklineimage.png" alt="Lume Noire Materials"></div>
+        <div class="craft-text">
+          <h2>Materials & Sourcing</h2>
+          <p>Only the rarest textiles, chosen for their depth and resilience. Sourced from secluded ateliers where
+            darkness itself seems to weave.</p>
+        </div>
+      </div>
+      <div class="craft-block reverse" data-aos="slide-left" data-aos-duration="3000">
+        <div class="craft-image"><img src="images/materialsblackline2.png" alt="Lume Noire Design Rituals"></div>
+        <div class="craft-text">
+          <h2>Design Rituals</h2>
+          <p>Before a garment is cut, it is conjured. The BlackLines's ritual blends shadow and form into living
+            sculpture.</p>
+        </div>
+      </div>
+      <div class="craft-block" data-aos="slide-right" data-aos-duration="3000">
+        <div class="craft-image"><img src="images/materialsblacklinemaking.png" alt="Lume Noire Making"></div>
+        <div class="craft-text">
+          <h2>The Making</h2>
+          <p>Every seam is an invocation. Precision measured in breaths, each piece imbued with silent power.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="legacy-vision" data-aos="fade-up">
+      <div class="legacy-overlay"></div>
+      <div class="legacy-content">
+        <h2>Legacy & Vision</h2>
+        <p>BlackLine is more than a name — it's a promise. A legacy carved in shadows, and a vision reaching for what
+          lies beyond. We honor the darkness, not as absence, but as the canvas for infinite light. Every piece, every
+          stitch, is a whisper of the past and a vow to the future.</p>
+      </div>
+    </section>
+
+    <section class="sustainability-ethics" data-aos="fade-up">
+      <div class="content-wrapper">
+        <h2>Sustainability & Ethics</h2>
+        <p>At <strong>BlackLine</strong>, every garment tells a story of responsibility. We source premium fabrics with
+          minimal environmental impact, work with artisans who are paid fairly, and ensure our production process honors
+          both the planet and the people behind the craft.</p>
+        <p>This commitment isn't a trend — it's the foundation of our legacy. Each collection is designed to stand the
+          test of time, ensuring that beauty and integrity walk hand in hand into the future.</p>
+      </div>
+    </section>
+
+    <section class="shop-cta" data-aos="fade-up">
+      <div class="cta-content">
+        <h2>Discover the Collection</h2>
+        <a href="BLACKLINEshopping.html" class="cta-btn">Shop Now</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      AOS.init({
+        once: false,
+        duration: 1000,
+      });
+
+      // Standardized Hamburger Toggle from drops.html
+      const hamburger = document.querySelector('.hamburger');
+      const navLinks = document.querySelector('.nav-links');
+
+      if (hamburger && navLinks) {
+        hamburger.addEventListener('click', () => {
+          hamburger.classList.toggle('active');
+          navLinks.classList.toggle('open');
+        });
+      }
+    }
+
+    ) 
+  </script>
+</body>
+
+</html>

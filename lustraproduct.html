@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUSTRA - The Magnetized Capelet</title>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --pure-light: #ffffff;
+      --crystal-white: #f8fafc;
+      --deep-purple: #2D1B69;
+      --electric-purple: #5E43D3;
+      --neon-purple: #8B5FBF;
+      --lavender-glow: #A78BFA;
+      --violet-burst: #7C3AED;
+      --dark-bg: #0F0F23;
+      --glass-morph: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.15);
+      --deep-text: #E2E8F0;
+      --light-text: #94A3B8;
+      --accent-glow: linear-gradient(135deg, var(--electric-purple), var(--violet-burst));
+      --accent-solid: var(--electric-purple);
+      --drawer-bg: rgba(15, 15, 35, 0.98);
+      --muted: rgba(148, 163, 184, 0.7);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--dark-bg);
+      color: var(--pure-light);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .light-beams {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background:
+        radial-gradient(circle at 20% 30%, var(--deep-purple) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, var(--electric-purple) 0%, transparent 40%),
+        radial-gradient(circle at 40% 80%, var(--violet-burst) 0%, transparent 45%);
+      opacity: 0.4;
+      z-index: -3;
+    }
+
+    /* NAVIGATION */
+    .glass-nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15, 15, 35, 0.95);
+      backdrop-filter: blur(40px);
+      border-bottom: 1px solid var(--glass-border);
+      z-index: 1000;
+    }
+
+    .nav-brand {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--pure-light);
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 35px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--light-text);
+      text-decoration: none;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--pure-light);
+    }
+
+    /* LUSTRA FLOATING CART */
+    .time-capsule-cart {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      width: 60px;
+      height: 60px;
+      background: rgba(15, 15, 35, 0.8);
+      border: 1px solid var(--neon-purple);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1001;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 0 20px var(--neon-purple);
+    }
+
+    .time-capsule-cart:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px var(--lavender-glow);
+    }
+
+    .cart-icon-lustra {
+      font-size: 1.4rem;
+      color: var(--lavender-glow);
+    }
+
+    #cart-count {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: var(--accent-glow);
+      color: var(--pure-light);
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border: 2px solid var(--dark-bg);
+    }
+
+    /* MAIN CONTENT */
+    .lustra-universe {
+      min-height: 100vh;
+      padding: 120px 40px 60px;
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* PRODUCT GALLERY */
+    .product-gallery {
+      position: sticky;
+      top: 120px;
+    }
+
+    /* THUMBNAIL GALLERY */
+    .thumbnail-strip {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+      padding: 10px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+    }
+
+    .thumbnail-strip::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .thumbnail-strip::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .thumbnail-strip::-webkit-scrollbar-thumb {
+      background: var(--neon-purple);
+      border-radius: 10px;
+    }
+
+    .thumbnail {
+      flex: 0 0 80px;
+      height: 80px;
+      border-radius: 12px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-morph);
+      cursor: pointer;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .thumbnail:hover {
+      border-color: var(--neon-purple);
+      transform: translateY(-2px);
+      box-shadow: 0 0 15px var(--neon-purple);
+    }
+
+    .thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.6;
+      transition: opacity 0.3s ease;
+    }
+
+    .thumbnail:hover img {
+      opacity: 1;
+    }
+
+    .main-image {
+      position: relative;
+      width: 100%;
+      height: 900px;
+      backdrop-filter: blur(40px);
+      border-radius: 24px;
+      box-shadow: 0 25px 60px rgba(45, 27, 105, 0.3);
+      overflow: hidden;
+    }
+
+    .image-placeholder {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-placeholder img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .badge {
+      position: absolute;
+      top: 20px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .badge.new-arrival {
+      left: 20px;
+      background: var(--accent-glow);
+      color: var(--pure-light);
+    }
+
+    .badge.limited-edition {
+      left: 160px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      color: var(--pure-light);
+    }
+
+    /* PRODUCT INFO */
+    .info-orbit {
+      flex: 1;
+      max-width: 600px;
+    }
+
+    .orbit-panel {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(40px);
+      border-radius: 20px;
+      border: 1px solid var(--glass-border);
+      padding: 40px;
+      box-shadow: 0 20px 50px rgba(45, 27, 105, 0.2);
+    }
+
+    .product-title {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--pure-light);
+    }
+
+    .product-price {
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: var(--lavender-glow);
+      margin-bottom: 24px;
+    }
+
+    .product-description {
+      color: var(--light-text);
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+
+    .stock-info {
+      font-size: 0.95rem;
+      color: #10B981;
+      margin: 15px 0;
+      font-weight: 600;
+    }
+
+    .quantity-selector {
+      display: flex;
+      align-items: center;
+      margin: 20px 0;
+      gap: 10px;
+    }
+
+    .quantity-selector button {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--pure-light);
+      cursor: pointer;
+      font-size: 1.2rem;
+      border-radius: 10px;
+    }
+
+    .quantity-selector input {
+      width: 60px;
+      text-align: center;
+      margin: 0 5px;
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--pure-light);
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 10px;
+    }
+
+    .product-variants {
+      margin: 25px 0;
+    }
+
+    .product-variants h3 {
+      margin-bottom: 12px;
+      color: var(--pure-light);
+      font-weight: 600;
+    }
+
+    .color-options,
+    .material-options {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+
+    .color-option {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid var(--glass-border);
+    }
+
+    .material-option {
+      padding: 8px 16px;
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+      border-radius: 8px;
+      color: var(--light-text);
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .material-option:hover {
+      border-color: var(--lavender-glow);
+      color: var(--pure-light);
+    }
+
+    .material-option.selected {
+      border-color: var(--lavender-glow);
+      background: var(--accent-glow);
+      color: var(--pure-light);
+    }
+
+    .light-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 32px 0;
+    }
+
+    .feature-crystal {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .feature-crystal:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--neon-purple);
+      box-shadow: 0 0 20px rgba(139, 95, 191, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .light-actions {
+      display: flex;
+      gap: 15px;
+      margin: 32px 0;
+    }
+
+    .light-btn {
+      padding: 16px 32px;
+      border: none;
+      border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-size: 12px;
+      flex: 1;
+    }
+
+    .light-btn.primary {
+      background: var(--accent-glow);
+      color: var(--pure-light);
+    }
+
+    .light-btn.secondary {
+      background: transparent;
+      color: var(--pure-light);
+      border: 1px solid var(--glass-border);
+    }
+
+    /* CART OVERLAY */
+    #cart-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cart-content {
+      background: var(--drawer-bg);
+      width: 90%;
+      max-width: 500px;
+      max-height: 80vh;
+      border-radius: 20px;
+      border: 1px solid var(--glass-border);
+      padding: 30px;
+      position: relative;
+    }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .cart-title {
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: var(--pure-light);
+    }
+
+    #close-cart {
+      background: none;
+      border: none;
+      color: var(--light-text);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    #cart-items {
+      max-height: 400px;
+      overflow-y: auto;
+      margin-bottom: 20px;
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 80px 2fr 1fr 1fr auto;
+      align-items: center;
+      gap: 10px;
+      background: #111;
+      padding: 15px;
+      border-left: 5px solid gold;
+      margin-bottom: 15px;
+      border-radius: 8px;
+    }
+
+    .cart-item img {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid gold;
+    }
+
+    .remove-item {
+      background: none;
+      border: 1px solid gold;
+      color: gold;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .cart-footer {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--glass-border);
+    }
+
+    #cart-total {
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--pure-light);
+      font-size: 1.3rem;
+    }
+
+    /* BUY POPUP */
+    #buy-popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 99999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .popup-content-lux {
+      width: 420px;
+      max-height: 90vh;
+      overflow-y: auto;
+      background: rgba(0, 0, 0, 0.96);
+      border: 2px solid gold;
+      border-radius: 12px;
+      padding: 22px;
+      color: gold;
+      position: relative;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    #close-popup-x {
+      position: absolute;
+      right: 14px;
+      top: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      color: gold;
+    }
+
+    @media (max-width: 968px) {
+      .lustra-universe {
+        flex-direction: column;
+        gap: 40px;
+        padding: 100px 20px 40px;
+      }
+
+      .product-gallery,
+      .info-orbit {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .main-image {
+        height: 500px;
+      }
+
+      .light-features {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* PERFECT DROPDOWNS FOR CHECKOUT */
+    .popup-content-lux select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%238B5FBF'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 15px center;
+      background-size: 18px;
+      padding-right: 45px !important;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .popup-content-lux select:hover {
+      border-color: var(--lavender-glow);
+      box-shadow: 0 0 15px rgba(167, 139, 250, 0.2);
+    }
+
+    .popup-content-lux select:focus {
+      outline: none;
+      border-color: var(--lavender-glow);
+      box-shadow: 0 0 20px rgba(167, 139, 250, 0.4);
+    }
+
+    .popup-content-lux select option {
+      background: #0F0F23;
+      color: var(--pure-light);
+    }
+
+    /* HOLOGRAPHIC MODALS */
+    .hologram-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 15, 35, 0.9);
+      backdrop-filter: blur(20px);
+      z-index: 20000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .hologram-content {
+      background: var(--glass-morph);
+      border: 1px solid var(--neon-purple);
+      border-radius: 24px;
+      padding: 40px;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 0 50px rgba(139, 95, 191, 0.3);
+      position: relative;
+    }
+
+    .hologram-content h2 {
+      color: var(--lavender-glow);
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+    }
+
+    .hologram-content p {
+      color: var(--light-text);
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+
+    .hologram-close {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--light-text);
+    }
+
+    .hologram-icon-large {
+      font-size: 4rem;
+      margin-bottom: 25px;
+      filter: drop-shadow(0 0 15px var(--neon-purple));
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 🔒 FIXED GOLD LUXURY BACK BUTTON -->
+  <style>
+    .back-btn-fixed {
+      position: fixed;
+      top: 22px;
+      left: 22px;
+      z-index: 9999;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(139, 95, 237, 0.4);
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 10px 16px;
+      border-radius: 50px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      color: #8B5FED;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(139, 95, 237, 0.2);
+    }
+
+    .back-btn-fixed:hover {
+      background: rgba(139, 95, 237, 0.15);
+      border-color: #8B5FED;
+      transform: translateX(-3px);
+      box-shadow: 0 6px 20px rgba(139, 95, 237, 0.3);
+    }
+
+    .back-btn-fixed svg {
+      width: 18px;
+      height: 18px;
+      stroke: #8B5FED;
+      transition: transform 0.3s ease;
+    }
+
+    .back-btn-fixed:hover svg {
+      transform: translateX(-2px);
+    }
+
+
+/* Tablet Responsiveness */
+@media (max-width: 1024px) {
+  .lustra-universe {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 120px 30px 60px;
+  }
+  
+  .product-gallery {
+    position: static;
+    top: auto;
+  }
+  
+  .main-image {
+    height: auto;
+    max-height: 80vh;
+    border-radius: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+  
+  .thumbnail-strip {
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .image-placeholder {
+    position: relative;
+    width: 100%;
+  }
+  
+  .image-placeholder img {
+    width: 100%;
+    height: auto;
+    max-height: 80vh;
+    object-fit: contain;
+  }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .glass-nav {
+    padding: 15px 20px;
+  }
+  
+  .nav-links {
+    gap: 20px;
+  }
+  
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 1px;
+  }
+  
+  .lustra-universe {
+    padding: 100px 20px 40px;
+    gap: 30px;
+  }
+  
+  .main-image {
+    height: auto;
+    max-height: 70vh;
+    border-radius: 0;
+  }
+  
+  .badge.new-arrival {
+    left: 15px;
+  }
+  
+  .badge.limited-edition {
+    left: 140px;
+  }
+  
+  .orbit-panel {
+    padding: 25px;
+  }
+  
+  .product-title {
+    font-size: 2rem;
+  }
+  
+  .product-price {
+    font-size: 1.5rem;
+  }
+  
+  .light-features {
+    grid-template-columns: 1fr;
+  }
+  
+  .light-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .light-btn {
+    width: 100%;
+  }
+  
+  .thumbnail-strip {
+    justify-content: flex-start;
+  }
+  
+  .thumbnail {
+    flex: 0 0 60px;
+    height: 60px;
+  }
+  
+  .time-capsule-cart {
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 50px;
+    height: 50px;
+  }
+  
+  .cart-icon-lustra {
+    font-size: 1.2rem;
+  }
+  
+  #cart-count {
+    width: 20px;
+    height: 20px;
+    font-size: 0.65rem;
+  }
+  
+  .image-placeholder img {
+    max-height: 70vh;
+  }
+}
+
+/* Small Mobile Responsiveness */
+@media (max-width: 480px) {
+  .glass-nav {
+    padding: 12px 15px;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .nav-links {
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .nav-links a {
+    font-size: 10px;
+  }
+  
+  .lustra-universe {
+    padding: 90px 15px 30px;
+  }
+  
+  .main-image {
+    max-height: 60vh;
+  }
+  
+  .badge {
+    padding: 6px 12px;
+    font-size: 10px;
+  }
+  
+  .badge.limited-edition {
+    left: 120px;
+  }
+  
+  .product-title {
+    font-size: 1.75rem;
+  }
+  
+  .product-price {
+    font-size: 1.3rem;
+  }
+  
+  .product-description {
+    font-size: 0.95rem;
+  }
+  
+  .color-options,
+  .material-options {
+    gap: 8px;
+  }
+  
+  .material-option {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+  
+  .quantity-selector button {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .quantity-selector input {
+    width: 50px;
+  }
+  
+  .orbit-panel {
+    padding: 20px;
+  }
+  
+  .feature-crystal {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+  
+  .cart-content {
+    width: 95%;
+    padding: 20px;
+  }
+  
+  .cart-item {
+    grid-template-columns: 60px 1fr auto;
+    grid-template-rows: auto auto;
+    gap: 8px;
+  }
+  
+  .cart-item img {
+    grid-row: 1 / 3;
+    width: 60px;
+    height: 60px;
+  }
+  
+  .popup-content-lux {
+    width: 95%;
+    padding: 20px;
+  }
+  
+  .hologram-content {
+    padding: 25px;
+  }
+  
+  .image-placeholder img {
+    max-height: 60vh;
+  }
+}
+
+/* Desktop - Make main image full height */
+@media (min-width: 1025px) {
+  .main-image {
+    height: 90vh;
+    max-height: 900px;
+    border-radius: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+  
+  .image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+/* Prevent horizontal overflow */
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+  
+  .lustra-universe,
+  .product-gallery,
+  .info-orbit,
+  .orbit-panel {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+/* Ensure touch targets are ergonomic */
+@media (max-width: 768px) {
+  .light-btn,
+  .material-option,
+  .thumbnail,
+  .quantity-selector button {
+    min-height: 44px;
+  }
+  
+  .color-option {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* Maintain readable text sizes */
+@media (max-width: 480px) {
+  .product-description,
+  .stock-info,
+  .material-option {
+    font-size: 0.9rem;
+  }
+  
+  .hologram-content p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+}
+  </style>
+
+  <button class="back-btn-fixed" onclick="goBack()">
+    <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+    </svg>
+    Back
+  </button>
+
+  <script>
+    function goBack() {
+      if (document.referrer) {
+        window.history.back();
+      } else {
+        window.location.href = "/"; // fallback home
+      }
+    }
+  </script>
+
+  <!-- Background -->
+  <div class="light-beams"></div>
+
+  <!-- LUSTRA FLOATING CART -->
+  <div class="time-capsule-cart" id="open-cart">
+    <i class="fa-solid fa-bag-shopping cart-icon-lustra"></i>
+    <span id="cart-count">0</span>
+  </div>
+
+
+  <!-- MAIN CONTENT -->
+  <div class="lustra-universe">
+    <!-- Product Gallery -->
+    <div class="product-gallery">
+      <div class="main-image">
+        <div class="image-placeholder">
+          <img src="" alt="LUSTRA Magnetized Capelet" id="main-product-image">
+          <div
+            style="position: absolute; bottom: 20px; left: 20px; background: rgba(175, 14, 14, 0.8); padding: 10px; border-radius: 8px;">
+            Drag to rotate • Scroll to zoom
+          </div>
+          <!-- Badges -->
+          <div class="badge new-arrival">New Arrival</div>
+          <div class="badge limited-edition">Limited Edition</div>
+        </div>
+      </div>
+      <div class="thumbnail-strip">
+        <div class="thumbnail"></div>
+        <div class="thumbnail"></div>
+        <div class="thumbnail"></div>
+        <div class="thumbnail"></div>
+        <div class="thumbnail"></div>
+      </div>
+    </div>
+
+    <!-- Product Information -->
+    <div class="info-orbit">
+      <div class="orbit-panel">
+        <h1 class="product-title" id="dynamic-title">The Magnetized Capelet</h1>
+        <div class="product-price" id="dynamic-price">$1,800</div>
+
+        <p class="product-description">
+          A capelet with magnetically attached transparent panels that can be reconfigured.
+          The panels float and shift positions, creating evolving light relationships.
+        </p>
+
+        <!-- Stock & Quantity -->
+        <div class="stock-info">In Stock: 8 units</div>
+
+        <div class="quantity-selector">
+          <button onclick="decreaseQuantity()">-</button>
+          <input type="number" id="quantity-input" value="1" min="1" max="8">
+          <button onclick="increaseQuantity()">+</button>
+        </div>
+
+        <!-- Product Variants -->
+        <div class="product-variants">
+          <h3>Color</h3>
+          <div class="color-options">
+            <div class="color-option" style="background: #2D1B69;"></div>
+            <div class="color-option" style="background: #5E43D3;"></div>
+            <div class="color-option" style="background: #7C3AED;"></div>
+          </div>
+
+          <h3>Material</h3>
+          <div class="material-options">
+            <div class="material-option selected" onclick="selectMaterial(this)">Technical Fabric</div>
+            <div class="material-option" onclick="selectMaterial(this)">Polycarbonate</div>
+            <div class="material-option" onclick="selectMaterial(this)">Magnetic Mesh</div>
+          </div>
+        </div>
+
+        <!-- Features -->
+        <div class="light-features">
+          <div class="feature-crystal" onclick="openHologram('lightTransparency')">
+            <div class="crystal-icon">💎</div>
+            <div>Light Transparency</div>
+          </div>
+          <div class="feature-crystal" onclick="openHologram('colorShift')">
+            <div class="crystal-icon">🌈</div>
+            <div>Color Shift</div>
+          </div>
+          <div class="feature-crystal" onclick="openHologram('lightRefraction')">
+            <div class="crystal-icon">🔍</div>
+            <div>Light Refraction</div>
+          </div>
+          <div class="feature-crystal" onclick="openHologram('specifications')">
+            <div class="crystal-icon">📐</div>
+            <div>Specifications</div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="light-actions">
+          <button class="light-btn primary" id="add-to-cart">
+            Add to Collection
+          </button>
+          <button class="light-btn secondary" id="buy-now">
+            Buy Now
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CART OVERLAY -->
+  <div id="cart-overlay">
+    <div class="cart-content">
+      <div class="cart-header">
+        <div class="cart-title">Your Collection</div>
+        <button id="close-cart">✕</button>
+      </div>
+      <div id="cart-items">
+        <!-- Cart items populated by JavaScript -->
+      </div>
+      <div class="cart-footer">
+        <div id="cart-total">Total: $0</div>
+        <button class="light-btn primary" id="buy-now-cart" style="width: 100%;">
+          Proceed to Checkout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="product.js"></script>
+  <script>
+    // Initialize AOS
+    AOS.init({
+      duration: 1000,
+      once: true
+    });
+
+    // Your JavaScript code starts here
+    // COMPLETE LUSTRA JAVASCRIPT - FULL VERSION
+    (function () {
+      'use strict';
+
+      // -----------------------
+      // State from localStorage
+      // -----------------------
+      const cartCountEl = document.getElementById('cart-count');
+      let cartCount = parseInt(localStorage.getItem('cartCount')) || 0;
+      if (cartCountEl) cartCountEl.textContent = cartCount;
+
+      // key: cartItems
+      let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+      // -----------------------
+      // Helper utilities
+      // -----------------------
+      function saveCartToStorage() {
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        localStorage.setItem('cartCount', cartItems.reduce((s, i) => s + (i.qty || 0), 0));
+        cartCount = parseInt(localStorage.getItem('cartCount')) || 0;
+        if (cartCountEl) cartCountEl.textContent = cartCount;
+      }
+
+      function parsePriceText(priceText) {
+        if (!priceText) return 0;
+        const numeric = String(priceText).replace(/[^\d.,-]/g, '');
+        return parseFloat(numeric.replace(/,/g, '')) || 0;
+      }
+
+      function formatCurrency(amount, symbol = '$') {
+        return symbol + Number(amount || 0).toLocaleString();
+      }
+
+      // -----------------------
+      // ADD TO CART - FULL FUNCTIONALITY
+      // -----------------------
+      const addToCartBtn = document.getElementById('add-to-cart');
+      if (addToCartBtn) {
+        addToCartBtn.addEventListener('click', () => {
+          const name = document.getElementById('dynamic-title')?.textContent.trim() || 'The Magnetized Capelet';
+          const priceText = document.getElementById('dynamic-price')?.textContent.trim() || '$1,800';
+          const currencySymbol = priceText.match(/[^\d,.\s]/)?.[0] || '$';
+          const price = parsePriceText(priceText);
+
+          const image = document.querySelector('.main-image img')?.src || 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';
+          const quantity = parseInt(document.getElementById('quantity-input')?.value) || 1;
+          const size = 'M';
+
+          let existingItem = cartItems.find(item => item.name === name && item.size === size);
+          if (existingItem) {
+            existingItem.qty += quantity;
+          } else {
+            cartItems.push({
+              id: 'product-' + Date.now(),
+              name: name,
+              price: price,
+              currency: currencySymbol,
+              qty: quantity,
+              size: size,
+              image: image
+            });
+          }
+
+          saveCartToStorage();
+          showLustraNotification(`Added to Light Collection ✨`);
+        });
+      }
+
+      // -----------------------
+      // LUSTRA NOTIFICATION SYSTEM
+      // -----------------------
+      function showLustraNotification(message) {
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+      position: fixed;
+      top: 100px;
+      right: 30px;
+      background: linear-gradient(135deg, var(--neon-purple), var(--electric-purple));
+      color: white;
+      padding: 15px 25px;
+      border-radius: 15px;
+      font-weight: 600;
+      z-index: 10000;
+      box-shadow: 0 10px 30px rgba(139, 95, 191, 0.5);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      transform: translateX(400px);
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    `;
+        notification.textContent = message;
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+          notification.style.transform = 'translateX(0)';
+        }, 100);
+
+        setTimeout(() => {
+          notification.style.transform = 'translateX(400px)';
+          setTimeout(() => {
+            if (notification.parentNode) {
+              notification.parentNode.removeChild(notification);
+            }
+          }, 400);
+        }, 3000);
+      }
+
+      // -----------------------
+      // CART FUNCTIONALITY - FULL VERSION
+      // -----------------------
+      const cartIcon = document.querySelector('.time-capsule-cart');
+      const cartOverlay = document.getElementById('cart-overlay');
+      const closeCartBtn = document.getElementById('close-cart');
+      const cartItemsEl = document.getElementById('cart-items');
+      const cartTotalEl = document.getElementById('cart-total');
+      function renderCart() {
+        if (!cartItemsEl) return;
+
+        if (cartItems.length === 0) {
+          cartItemsEl.innerHTML = `
+        <div style="text-align:center; padding:40px; color:rgba(255,255,255,0.7);">
+          <div style="font-size:3rem; margin-bottom:20px;">✨</div>
+          <div>Your light collection is empty</div>
+        </div>
+      `;
+          if (cartTotalEl) cartTotalEl.textContent = 'Total: $0';
+          return;
+        }
+
+        let total = 0;
+        cartItemsEl.innerHTML = cartItems.map(item => {
+          total += item.price * item.qty;
+          return `
+        <div class="cart-item" data-id="${item.id}">
+          <img src="${item.image}" alt="${item.name}" style="width:70px;height:70px;object-fit:cover;border-radius:6px;border:1px solid white;">
+          <div style="color:#DA70D6;">
+            <strong>${item.name}</strong><br><small style="color:#E6E6FA">Size: ${item.size}</small>
+          </div>
+          <div style="color:#DA70D6;text-align:center;">Qty: ${item.qty}</div>
+          <div style="color:#DA70D6;text-align:center;">${item.currency}${(item.price * item.qty).toLocaleString()}</div>
+          <button class="remove-item" data-id="${item.id}" style="background:none;border:1px solid white;color:#DA70D6;padding:5px 10px;border-radius:5px;cursor:pointer;">Remove</button>
+        </div>
+      `;
+        }).join('');
+
+        if (cartTotalEl) cartTotalEl.textContent = `Total: ${cartItems[0]?.currency || '$'}${total.toLocaleString()}`;
+        if (cartCountEl) cartCountEl.textContent = cartItems.reduce((s, i) => s + i.qty, 0);
+
+        // Remove item functionality
+        document.querySelectorAll('.remove-item').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const id = e.target.dataset.id;
+            cartItems = cartItems.filter(it => it.id !== id);
+            saveCartToStorage();
+            renderCart();
+          });
+        });
+      }
+
+      // Cart open/close
+      if (cartIcon && cartOverlay) {
+        cartIcon.addEventListener('click', () => {
+          cartOverlay.style.display = 'flex';
+          renderCart();
+        });
+      }
+      if (closeCartBtn) closeCartBtn.addEventListener('click', () => {
+        cartOverlay.style.display = 'none';
+      });
+
+      // -----------------------
+      // BUY NOW SYSTEM - COMPLETE VERSION
+      // -----------------------
+      let popupOverlay = document.getElementById('buy-popup');
+      if (!popupOverlay) {
+        popupOverlay = document.createElement('div');
+        popupOverlay.id = 'buy-popup';
+        popupOverlay.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 15, 35, 0.95);
+    backdrop-filter: blur(20px);
+    z-index: 99999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  `;
+        document.body.appendChild(popupOverlay);
+      }
+
+      // Luxury confirmation with reference code
+      function showLuxuryConfirmation(orderSummaryText, maskedPaymentText, expectedDelivery, referenceCode) {
+        const conf = document.createElement('div');
+        conf.style.cssText = `
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(30, 41, 59, 0.95);
+    backdrop-filter: blur(50px);
+    border: 2px solid var(--glass-border);
+    color: var(--pure-light);
+    padding: 40px;
+    border-radius: 25px;
+    z-index: 100000;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    box-shadow: 0 40px 120px rgba(139, 95, 191, 0.5);
+    opacity: 1;
+  `;
+        conf.innerHTML = `
+    <div style="font-size:4rem; line-height:1; margin-bottom:20px;">⚡</div>
+    <h3 style="margin:10px 0 15px 0; font-size:1.5rem; font-weight:700;">Light Order Confirmed!</h3>
+    <p style="margin:6px 0 8px 0;font-size:0.95rem;">${maskedPaymentText}</p>
+    <p style="margin:6px 0 8px 0;font-size:0.95rem;">Reference Code: <strong>${referenceCode}</strong></p>
+    <p style="margin:6px 0 10px 0;font-size:0.9rem; opacity:0.8;">Expected delivery: <strong>${expectedDelivery}</strong></p>
+    <span id="close-conf-x" style="cursor:pointer; display:inline-block; margin-top:15px; font-size:1.2rem; padding:6px 12px; background:var(--accent-glow); border-radius:12px;">Close</span>
+  `;
+        document.body.appendChild(conf);
+
+        const closeConfX = document.getElementById('close-conf-x');
+        closeConfX.addEventListener('click', () => {
+          if (conf.parentNode) conf.parentNode.removeChild(conf);
+        });
+      }
+
+      // Save order to localStorage
+      function saveOrder(referenceCode, items, total, paymentMethod, expectedDelivery) {
+        const previousOrders = JSON.parse(localStorage.getItem('lustraOrders') || '[]');
+        previousOrders.push({ referenceCode, items, total, paymentMethod, expectedDelivery, timestamp: Date.now() });
+        localStorage.setItem('lustraOrders', JSON.stringify(previousOrders));
+      }
+
+      function openBuyNow(items, options = { clearCartOnComplete: false }) {
+        if (!popupOverlay) return;
+        popupOverlay.innerHTML = '';
+        popupOverlay.style.display = 'flex';
+
+        const popup = document.createElement('div');
+        popup.className = 'popup-content-lux';
+        popup.style.cssText = `
+    width: 420px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(40px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 40px;
+    position: relative;
+    box-shadow: 0 30px 80px rgba(45, 27, 105, 0.4);
+  `;
+
+        popup.innerHTML = `
+    <span id="close-popup-x" style="position:absolute;right:25px;top:20px;cursor:pointer;font-size:28px;color:var(--light-text);">&times;</span>
+    <h2 style="text-align:center; margin-bottom:30px; color:var(--pure-light); font-weight:600; font-size:1.8rem;">Complete Your Illumination</h2>
+
+    <form id="buy-now-form" style="display:flex;flex-direction:column;gap:15px;">
+      <div>
+        <h3 style="color:var(--lavender-glow); margin-bottom:15px; font-size:1.1rem; font-weight:600;">Light Delivery Information</h3>
+        <input id="full-name" placeholder="Full Name" style="width:100%; padding:14px; background:rgba(255,255,255,0.05); color:var(--pure-light); border:1px solid var(--glass-border); border-radius:12px; font-size:14px;">
+        <input id="address" placeholder="Address" style="width:100%; padding:14px; background:rgba(255,255,255,0.05); color:var(--pure-light); border:1px solid var(--glass-border); border-radius:12px; font-size:14px;">
+        <input id="city" placeholder="City" style="width:100%; padding:14px; background:rgba(255,255,255,0.05); color:var(--pure-light); border:1px solid var(--glass-border); border-radius:12px; font-size:14px;">
+        <input id="phone" placeholder="Phone Number" style="width:100%; padding:14px; background:rgba(255,255,255,0.05); color:var(--pure-light); border:1px solid var(--glass-border); border-radius:12px; font-size:14px;">
+      </div>
+
+      <div>
+        <h3 style="color:var(--lavender-glow); margin-bottom:15px; font-size:1.1rem; font-weight:600;">Light Delivery Method</h3>
+        <select id="shipping-method" style="width:100%; padding:14px; background:rgba(255,255,255,0.05); color:var(--pure-light); border:1px solid var(--glass-border); border-radius:12px; font-size:14px;">
+          <option value="0">Standard Illumination ($0)</option>
+          <option value="50">Express Light Beam ($50)</option>
+          <option value="100">Quantum Light Speed ($100)</option>
+        </select>
+      </div>
+
+      <div>
+        <h3 style="color:var(--lavender-glow); margin-bottom:15px; font-size:1.1rem; font-weight:600;">Light Payment Method</h3>
+        <select id="payment-method" style="width:100%; padding:14px; background:rgba(255,255,255,0.05); color:var(--pure-light); border:1px solid var(--glass-border); border-radius:12px; font-size:14px;">
+          <option value="card">Light Card</option>
+          <option value="bank">Bank Transfer</option>
+          <option value="pod">Pay on Illumination</option>
+        </select>
+
+        <div id="card-fields" style="margin-top:15px;">
+          <input id="card-number" placeholder="Card Number (xxxx xxxx xxxx xxxx)" style="width:100%; padding:14px; background:rgba(255,255,255,0.05); color:var(--pure-light); border:1px solid var(--glass-border); border-radius:12px; font-size:14px;">
+          <div style="display:grid; grid-template-columns:2fr 1fr 1fr; gap:10px; margin-top:10px;">
+            <input id="card-expiry" placeholder="MM/YY" style="padding:14px; background:rgba(255,255,255,0.05); color:var(--pure-light); border:1px solid var(--glass-border); border-radius:12px; font-size:14px;">
+            <input id="card-cvv" placeholder="CVV" style="padding:14px; background:rgba(255,255,255,0.05); color:var(--pure-light); border:1px solid var(--glass-border); border-radius:12px; font-size:14px;">
+          </div>
+        </div>
+
+        <div id="bank-fields" style="display:none; margin-top:15px; color:var(--light-text);">
+          <p style="margin-bottom:15px;">Transfer to:</p>
+          <p style="margin:5px 0; color:var(--pure-light);">Account Name: LUSTRA Worldwide</p>
+          <p style="margin:5px 0; color:var(--pure-light);">Account Number: <strong>0123456789</strong></p>
+          <p style="margin:5px 0;">Bank: Zenith Bank</p>
+          <p style="margin:5px 0; color:var(--muted); font-size:0.9rem;">Use reference: <strong id="bank-reference">LUSTRA-REF</strong></p>
+        </div>
+
+        <div id="pod-note" style="display:none; margin-top:15px; color:var(--light-text);">
+          <p>Pay when the light arrives. A $10 illumination fee applies.</p>
+        </div>
+      </div>
+
+      <div id="order-summary" style="margin:25px 0; padding:20px; background:rgba(255,255,255,0.05); border-radius:12px; color:var(--pure-light);"></div>
+
+      <button type="submit" style="width:100%; background:var(--accent-glow); color:var(--pure-light); padding:16px; border:none; border-radius:16px; font-size:15px; cursor:pointer; font-weight:600; margin-top:10px;">Confirm Light Purchase</button>
+    </form>
+  `;
+
+        popupOverlay.appendChild(popup);
+
+        // Close popup
+        const closeX = document.getElementById('close-popup-x');
+        if (closeX) closeX.addEventListener('click', () => {
+          popupOverlay.style.display = 'none';
+          popup.remove();
+        });
+
+        // Payment method toggle
+        const paymentSelect = document.getElementById('payment-method');
+        paymentSelect.addEventListener('change', (e) => {
+          const val = e.target.value;
+          document.getElementById('card-fields').style.display = val === 'card' ? 'block' : 'none';
+          document.getElementById('bank-fields').style.display = val === 'bank' ? 'block' : 'none';
+          document.getElementById('pod-note').style.display = val === 'pod' ? 'block' : 'none';
+          updateOrderSummary();
+        });
+
+        // Bank reference
+        const bankRefEl = document.getElementById('bank-reference');
+        bankRefEl.textContent = 'LUSTRA-' + Date.now().toString(36).toUpperCase().slice(-8);
+
+        // Order summary
+        const shippingSelect = document.getElementById('shipping-method');
+        let shippingFee = parseInt(shippingSelect.value, 10) || 0;
+
+        function updateOrderSummary() {
+          shippingFee = parseInt(shippingSelect.value, 10) || 0;
+          let subtotal = 0;
+          const currency = items[0]?.currency || '$';
+
+          const itemsHTML = items.map(item => {
+            subtotal += item.price * item.qty;
+            return `<div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+        <span>${item.name} (${item.size}) x${item.qty}</span>
+        <span>${currency}${(item.price * item.qty).toLocaleString()}</span>
+      </div>`;
+          }).join('');
+
+          const podExtra = document.getElementById('payment-method').value === 'pod' ? 10 : 0;
+          const total = subtotal + shippingFee + podExtra;
+
+          document.getElementById('order-summary').innerHTML = `
+      ${itemsHTML}
+      <div style="border-top:1px solid var(--glass-border); margin-top:10px; padding-top:10px;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+          <span>Shipping:</span>
+          <span>${currency}${shippingFee}</span>
+        </div>
+        ${podExtra ? `<div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+          <span>Illumination Fee:</span>
+          <span>${currency}${podExtra}</span>
+        </div>` : ''}
+        <div style="display:flex; justify-content:space-between; font-weight:600; font-size:1.1rem;">
+          <span>Total:</span>
+          <span>${currency}${total.toLocaleString()}</span>
+        </div>
+      </div>
+    `;
+        }
+
+        shippingSelect.addEventListener('change', updateOrderSummary);
+        updateOrderSummary();
+
+        // Form submission
+        const buyNowForm = document.getElementById('buy-now-form');
+        buyNowForm.addEventListener('submit', (ev) => {
+          ev.preventDefault();
+
+          const fullName = document.getElementById('full-name').value.trim();
+          const address = document.getElementById('address').value.trim();
+          const city = document.getElementById('city').value.trim();
+          const phone = document.getElementById('phone').value.trim();
+          const paymentMethod = document.getElementById('payment-method').value;
+
+          if (!fullName || !address || !city || !phone) {
+            showLustraNotification('Please complete all light fields 🌟');
+            return;
+          }
+
+          let subtotal = items.reduce((s, it) => s + it.price * it.qty, 0);
+          const podExtra = paymentMethod === 'pod' ? 10 : 0;
+          const finalTotal = subtotal + shippingFee + podExtra;
+          const currency = items[0]?.currency || '$';
+
+          // Masked payment
+          let masked = '';
+          if (paymentMethod === 'card') {
+            const card = document.getElementById('card-number').value.trim();
+            masked = 'Card: **** **** **** ' + (card.replace(/\s+/g, '').slice(-4) || 'XXXX');
+          } else if (paymentMethod === 'bank') {
+            masked = `Bank transfer to Account 0123456789 (Ref: ${bankRefEl.textContent})`;
+          } else {
+            masked = 'Pay on Illumination (COD)';
+          }
+
+          const referenceCode = bankRefEl.textContent;
+
+          // Save order
+          saveOrder(referenceCode, items, finalTotal, paymentMethod, '3-5 business days');
+
+          const orderSummaryText = `Order ${items.length} item(s) • Total: ${currency}${finalTotal.toLocaleString()}`;
+          const expectedDelivery = '3-5 business days';
+
+          showLuxuryConfirmation(orderSummaryText, masked, expectedDelivery, referenceCode);
+
+          if (options.clearCartOnComplete) {
+            cartItems = [];
+            saveCartToStorage();
+            renderCart();
+          }
+
+          popup.remove();
+          popupOverlay.style.display = 'none';
+        });
+      }
+
+      // Attach Buy Now buttons
+      function attachBuyNowHandlers() {
+        const buyNowBtn = document.getElementById('buy-now');
+        if (buyNowBtn) {
+          buyNowBtn.addEventListener('click', () => {
+            const name = document.getElementById('dynamic-title')?.textContent.trim() || 'The Magnetized Capelet';
+            const priceText = document.getElementById('dynamic-price')?.textContent.trim() || '$1,800';
+            const currencySymbol = priceText.match(/[^\d,.\s]/)?.[0] || '$';
+            const price = parsePriceText(priceText);
+            const image = document.querySelector('.main-image img')?.src;
+            const qty = parseInt(document.getElementById('quantity-input')?.value) || 1;
+
+            openBuyNow([{
+              name,
+              price,
+              currency: currencySymbol,
+              qty,
+              size: 'M',
+              image
+            }], { clearCartOnComplete: false });
+          });
+        }
+
+
+        // Cart checkout button - FIXED
+        const buyNowCartBtn = document.getElementById('buy-now-cart');
+        if (buyNowCartBtn) {
+          buyNowCartBtn.addEventListener('click', () => {
+            if (cartItems.length === 0) {
+              showLustraNotification('Your light collection is empty ✨');
+              return;
+            }
+            openBuyNow([...cartItems], { clearCartOnComplete: true });
+          });
+        }
+      }
+
+      // -----------------------
+      // INITIALIZATION
+      // -----------------------
+      document.addEventListener('DOMContentLoaded', function () {
+        // Initialize AOS
+        AOS.init({
+          duration: 1000,
+          once: true
+        });
+
+        // Attach buy now handlers
+        attachBuyNowHandlers();
+
+        // Initialize cart
+        renderCart();
+
+        // Navigation cart button
+        const openCartNav = document.getElementById('openCartNav');
+        if (openCartNav) {
+          openCartNav.addEventListener('click', () => {
+            if (cartOverlay) {
+              cartOverlay.style.display = 'flex';
+              renderCart();
+            }
+          });
+        }
+
+        // Welcome notification
+        setTimeout(() => {
+          showLustraNotification('Welcome to LUSTRA ✨');
+        }, 1000);
+
+        // Manual Thumbnail handler because product.js doesn't do it
+        setTimeout(() => {
+          const thumbs = document.querySelectorAll('.thumbnail');
+          const mainImg = document.querySelector('.image-placeholder img');
+          if (thumbs.length && mainImg) {
+            thumbs.forEach(t => {
+              t.addEventListener('click', () => {
+                const imgInThumb = t.querySelector('img');
+                if (imgInThumb) {
+                  mainImg.src = imgInThumb.src;
+                }
+              });
+            });
+          }
+        }, 1500); // Wait for product.js to populate
+      });
+
+    })();
+
+    // -----------------------
+    // GLOBAL FUNCTIONS
+    // -----------------------
+    function increaseQuantity() {
+      const input = document.getElementById('quantity-input');
+      if (parseInt(input.value) < 8) {
+        input.value = parseInt(input.value) + 1;
+      }
+    }
+
+    function decreaseQuantity() {
+      const input = document.getElementById('quantity-input');
+      if (parseInt(input.value) > 1) {
+        input.value = parseInt(input.value) - 1;
+      }
+    }
+
+    function openHologram(type) {
+      const modal = document.getElementById('hologram' + type.charAt(0).toUpperCase() + type.slice(1));
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function closeHologram(type) {
+      const modal = document.getElementById('hologram' + type.charAt(0).toUpperCase() + type.slice(1));
+      if (modal) modal.style.display = 'none';
+    }
+
+    function selectMaterial(el) {
+      document.querySelectorAll('.material-option').forEach(opt => opt.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+  </script>
+  <!-- HOLOGRAPHIC FEATURES MODALS -->
+  <div id="hologramLightTransparency" class="hologram-modal">
+    <div class="hologram-content">
+      <span class="hologram-close" onclick="closeHologram('lightTransparency')">&times;</span>
+      <div class="hologram-icon-large">💎</div>
+      <h2>Light Transparency</h2>
+      <p>Our magnetized panels utilize ultra-pure polycarbonate with 99.9% light transmission. This ensures that the
+        capelet remains virtually invisible under direct light while creating an ethereal glow around the wearer.</p>
+      <button class="light-btn primary" onclick="closeHologram('lightTransparency')">Synchronize</button>
+    </div>
+  </div>
+
+  <div id="hologramColorShift" class="hologram-modal">
+    <div class="hologram-content">
+      <span class="hologram-close" onclick="closeHologram('colorShift')">&times;</span>
+      <div class="hologram-icon-large">🌈</div>
+      <h2>Color Shift Technology</h2>
+      <p>The LUSTRA surface is coated with a dichroic nano-layer that shifts color based on the angle of light.
+        Experience seamless transitions from deep violet to electric blue as you move through different environments.
+      </p>
+      <button class="light-btn primary" onclick="closeHologram('colorShift')">Acknowledge</button>
+    </div>
+  </div>
+
+  <div id="hologramLightRefraction" class="hologram-modal">
+    <div class="hologram-content">
+      <span class="hologram-close" onclick="closeHologram('lightRefraction')">&times;</span>
+      <div class="hologram-icon-large">🔍</div>
+      <h2>Light Refraction</h2>
+      <p>Each panel is precision-etched to bend light in specific patterns. This creates a halo effect, diffusing
+        ambient light into a soft prismatic aura that enhances the silhouette.</p>
+      <button class="light-btn primary" onclick="closeHologram('lightRefraction')">Focus</button>
+    </div>
+  </div>
+
+  <div id="hologramSpecifications" class="hologram-modal">
+    <div class="hologram-content">
+      <span class="hologram-close" onclick="closeHologram('specifications')">&times;</span>
+      <div class="hologram-icon-large">📐</div>
+      <h2>Technical Specifications</h2>
+      <p style="text-align: left; font-size: 0.9rem;">
+        • Material: Quantum-Grade Polycarbonate<br>
+        • Weight: 450g (Ultra-Lightweight)<br>
+        • Attachment: NdFeB Magnetic Array<br>
+        • Resilience: Scratch-Resistant / Water-Repellent<br>
+        • Size: Adjustable Multi-Fit
+      </p>
+      <button class="light-btn primary" onclick="closeHologram('specifications')">Close Data</button>
+    </div>
+  </div>
+</body>
+
+</html>

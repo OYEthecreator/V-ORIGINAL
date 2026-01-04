@@ -1,0 +1,2120 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>VOUX — Private Entrance (Final)</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --black: #030303;
+      --gold-1: #c29203;
+      --gold-2: #d4af37;
+      --glass-bg: rgba(255, 255, 255, 0.04);
+      --glass-border: rgba(191, 161, 74, 0.38);
+      --text-muted: rgba(255, 255, 255, 0.78);
+      --ease: cubic-bezier(0.25, 0.9, 0.35, 1);
+    }
+
+    /* ---------- Base ---------- */
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%
+    }
+
+    body {
+      margin: 0;
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:
+        radial-gradient(900px 600px at 30% 30%, rgba(191, 161, 74, 0.04), transparent 6%),
+        linear-gradient(180deg, #000 0%, #080808 100%);
+      color: #fff;
+      min-height: 100vh;
+      overflow: visible;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* global sheen */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(120deg, rgba(214, 175, 55, 0.03), rgba(0, 0, 0, 0.02), rgba(214, 175, 55, 0.03));
+      background-size: 200% 200%;
+      animation: globalSheen 14s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes globalSheen {
+      0% {
+        background-position: 0% 0%
+      }
+
+      100% {
+        background-position: 200% 0%
+      }
+    }
+
+    /* Stage */
+    .stage {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      pointer-events: auto;
+      padding: 36px;
+    }
+
+    /* Intro container */
+    .intro {
+      position: relative;
+      width: 920px;
+      max-width: 96vw;
+      height: 560px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 26px;
+      z-index: 5;
+      pointer-events: none;
+      transition: opacity .9s var(--ease), transform .9s var(--ease);
+    }
+
+    /* Skip link (keyboard accessible) */
+    .skip {
+      position: absolute;
+      right: 22px;
+      top: 18px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.55);
+      background: rgba(255, 255, 255, 0.02);
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      text-decoration: none;
+      pointer-events: auto;
+      z-index: 7;
+    }
+
+    .skip:focus,
+    .skip:hover {
+      color: #fff;
+      outline: none;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+    }
+
+    /* V wrap */
+    .v-wrap {
+      position: relative;
+      width: 260px;
+      height: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    /* SVG V initial blur/scale */
+    svg.v-logo {
+      width: 100%;
+      height: 100%;
+      display: block;
+      filter: blur(6px) saturate(120%) contrast(1.02);
+      opacity: 0;
+      transform: scale(0.98);
+      will-change: filter, opacity, transform;
+    }
+
+    /* when visible start slow unblur */
+    .v-visible svg.v-logo {
+      animation: vUnblur 5.6s linear forwards;
+    }
+
+    @keyframes vUnblur {
+      0% {
+        opacity: 0;
+        filter: blur(6px) saturate(110%) contrast(0.9);
+        transform: scale(0.98);
+      }
+
+      25% {
+        opacity: 0.28;
+        filter: blur(4px) saturate(120%) contrast(0.98);
+        transform: scale(0.985);
+      }
+
+      65% {
+        opacity: 0.86;
+        filter: blur(1px) saturate(135%) contrast(1.02);
+        transform: scale(0.995);
+      }
+
+      100% {
+        opacity: 1;
+        filter: blur(0px) saturate(150%) contrast(1.06);
+        transform: scale(1);
+      }
+    }
+
+    /* shimmer overlay */
+    .v-shimmer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: visible;
+    }
+
+    .v-shimmer .shine {
+      position: absolute;
+      left: -50%;
+      top: -10%;
+      width: 36%;
+      height: 120%;
+      background: linear-gradient(120deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.46), rgba(255, 255, 255, 0.02));
+      transform: rotate(-18deg);
+      opacity: 0;
+      filter: blur(6px);
+    }
+
+    /* shimmer timing */
+    .v-visible .v-shimmer .shine {
+      animation: shimmerPass 6.6s linear 0.45s forwards;
+    }
+
+    @keyframes shimmerPass {
+      0% {
+        left: -50%;
+        opacity: 0
+      }
+
+      15% {
+        opacity: 0.45
+      }
+
+      50% {
+        left: 60%;
+        opacity: 0.98;
+        transform: rotate(-18deg) scale(1.05)
+      }
+
+      95% {
+        opacity: 0.15
+      }
+
+      100% {
+        left: 120%;
+        opacity: 0
+      }
+    }
+
+    /* spaced-out brand name under V */
+    .brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 14px;
+      color: rgba(255, 240, 200, 0.9);
+      letter-spacing: 8px;
+      margin-top: 6px;
+      opacity: 0;
+      transform: translateY(6px);
+      pointer-events: none;
+      text-align: center;
+    }
+
+    .v-visible .brand-name {
+      transition: opacity 1s var(--ease) 1.2s, transform 1s var(--ease) 1.2s;
+      opacity: 0.95;
+      transform: none;
+    }
+
+    /* tagline */
+    .tagline {
+      max-width: 760px;
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      line-height: 1.35;
+      color: var(--text-muted);
+      opacity: 0;
+      transform: translateY(6px);
+      pointer-events: none;
+    }
+
+    .tagline .typed {
+      color: #f7edd1;
+    }
+
+    .typing-active {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+    }
+
+    /* caret */
+    .caret {
+      display: inline-block;
+      width: 1px;
+      background: #f7edd1;
+      margin-left: 6px;
+      opacity: 0;
+      vertical-align: middle;
+      animation: blinkCaret 900ms steps(1) infinite;
+    }
+
+    @keyframes blinkCaret {
+      0% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: 0.2
+      }
+
+      100% {
+        opacity: 1
+      }
+    }
+    /* Enter button */
+    .enter-btn {
+      margin-top: 8px;
+      pointer-events: auto;
+      opacity: 0;
+      transform: translateY(10px);
+      padding: 12px 30px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 215, 0, 0.12);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.02));
+      color: #070707;
+      font-weight: 600;
+      letter-spacing: 1px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      cursor: pointer;
+      transition: opacity 1.2s var(--ease), transform 0.9s var(--ease), box-shadow .3s ease;
+      background-image: linear-gradient(90deg, rgba(214, 175, 55, 0.95), rgba(191, 161, 74, 0.95));
+      background-size: 220% 100%;
+      opacity: 0;
+      display: none;
+    }
+
+    .enter-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.55);
+    }
+
+    .btn-visible {
+      opacity: 1;
+      transform: none;
+    }
+    /* ---------- Auth (hidden until drop) ---------- */
+    .auth-wrap {
+      position: absolute;
+      top: -120vh;
+      left: 50%;
+      transform: translateX(-50%) translateY(0);
+      width: 540px;
+      max-width: 94vw;
+      z-index: 40;
+      transition: transform 1.85s cubic-bezier(.22, 1, .36, 1), opacity 0.9s ease;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .auth-wrap.landed {
+      top: 8vh;
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    /* auth container glass */
+    .auth-container {
+      border-radius: 12px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(26px) saturate(140%);
+      -webkit-backdrop-filter: blur(26px) saturate(140%);
+      padding: 28px;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+      overflow: visible;
+    }
+
+    /* watermark V behind form (soft, centered) */
+    .auth-v-watermark {
+      pointer-events: none;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 220px;
+      height: 220px;
+      opacity: 0.06;
+      z-index: 0;
+      filter: blur(0.6px) saturate(120%);
+    }
+
+/* ===== LUXURY FORM POLISHING ===== */
+
+.form-viewport {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(15, 15, 15, 0.98));
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(212, 175, 55, 0.08);
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 0 0 1px rgba(0, 0, 0, 0.3);
+}
+
+.forms-wrapper {
+  display: flex;
+  width: 200%;
+  transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform;
+}
+
+.form {
+  width: 50%;
+  padding: 48px 40px;
+  position: relative;
+  min-height: 540px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(212, 175, 55, 0.3), 
+    transparent);
+}
+
+.panel {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+.brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: rgba(212, 175, 55, 0.9);
+  letter-spacing: 0.5px;
+  text-align: center;
+  margin-bottom: 16px;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.brand::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    rgba(212, 175, 55, 0), 
+    rgba(212, 175, 55, 0.8), 
+    rgba(212, 175, 55, 0));
+  border-radius: 1px;
+}
+
+.brand img {
+  filter: brightness(1.1) contrast(1.05) saturate(1.1);
+  max-width: 100%;
+  height: auto;
+}
+
+.subtitle {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 32px;
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 300;
+  letter-spacing: 0.3px;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 28px;
+  position: relative;
+}
+
+.inputs::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.05), 
+    transparent);
+}
+#su-country option{
+  color: #000;
+}
+#su-style option{
+  color: #000;
+}
+input,
+select {
+  padding: 16px 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, 
+    rgba(255, 255, 255, 0.03), 
+    rgba(0, 0, 0, 0.3));
+  color: rgba(255, 255, 255, 0.92);
+  outline: none;
+  font-size: 15px;
+  font-weight: 400;
+  transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.02),
+    0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+  font-weight: 300;
+  letter-spacing: 0.2px;
+}
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='rgba(212,175,55,0.6)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 20px center;
+  background-size: 16px;
+  padding-right: 48px;
+  cursor: pointer;
+}
+
+input:focus,
+select:focus {
+  border-color: rgba(212, 175, 55, 0.6);
+  background: linear-gradient(180deg, 
+    rgba(255, 255, 255, 0.05), 
+    rgba(0, 0, 0, 0.4));
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 0 0 1px rgba(212, 175, 55, 0.15),
+    0 8px 24px rgba(212, 175, 55, 0.1);
+  transform: translateY(-1px);
+}
+
+input:hover:not(:focus),
+select:hover:not(:focus) {
+  border-color: rgba(212, 175, 55, 0.2);
+  background: linear-gradient(180deg, 
+    rgba(255, 255, 255, 0.04), 
+    rgba(0, 0, 0, 0.35));
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 18px 24px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, 
+    rgba(212, 175, 55, 0.95), 
+    rgba(179, 147, 46, 0.95));
+  color: rgba(10, 10, 10, 0.95);
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 8px 20px rgba(212, 175, 55, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 1px 2px rgba(0, 0, 0, 0.2);
+  touch-action: manipulation;
+  min-height: 56px;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.15), 
+    transparent);
+  transition: left 0.6s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 12px 28px rgba(212, 175, 55, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 
+    0 4px 12px rgba(212, 175, 55, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.links {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.2px;
+  line-height: 1.5;
+}
+
+.links a {
+  color: rgba(212, 175, 55, 0.8);
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 6px;
+  position: relative;
+  transition: color 0.25s ease;
+  display: inline-block;
+}
+
+.links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    rgba(212, 175, 55, 0.8), 
+    rgba(212, 175, 55, 0.4));
+  transition: width 0.3s ease;
+}
+
+.links a:hover {
+  color: rgba(212, 175, 55, 0.95);
+}
+
+.links a:hover::after {
+  width: 100%;
+}
+/* =============================
+   NEW INPUTS: Phone & Socials
+   ============================= */
+#su-phone,
+#su-socials {
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  border: 1.5px solid beige;
+  border-radius: 6px;
+  background-color: var(--input-bg, #000);
+  color: var(--text-light, #fff);
+  font-size: 15px;
+  font-family: 'Arial', sans-serif;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  border: none;
+}
+
+#su-phone::placeholder,
+#su-socials::placeholder {
+  color: var(--text-muted, #aaa);
+  font-size: 14px;
+}
+
+#su-phone:focus,
+#su-socials:focus {
+  outline: none;
+  border-color: var(--gold-1);
+  box-shadow: 0 0 8px rgba(191, 161, 74, 0.4);
+}
+
+#su-phone small,
+#su-socials small {
+  display: block;
+  margin-top: -8px;
+  margin-bottom: 10px;
+  font-size: 11px;
+  color: var(--text-muted, #aaa);
+}
+/* =========================
+   WELCOME POPUP
+========================= */
+/* =========================
+   LOGIN LOADER
+========================= */
+
+.login-loader {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.login-loader.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================
+   WELCOME POPUP
+========================= */
+
+.welcome-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+  z-index: 9999;
+}
+
+.welcome-popup.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.welcome-card {
+  background: #0c0c0c;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 36px 44px;
+  border-radius: 16px;
+  text-align: center;
+  min-width: 280px;
+  max-width: 90%;
+  color: #fff;
+  position: relative;
+  transform: scale(0.94);
+  transition: transform 0.35s ease;
+}
+
+.welcome-popup.active .welcome-card {
+  transform: scale(1);
+}
+
+.welcome-card h2 {
+  font-size: 22px;
+  margin-bottom: 6px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+}
+
+.welcome-card p {
+  font-size: 16px;
+  color: #cfcfcf;
+}
+
+.welcome-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.welcome-close:hover {
+  color: #fff;
+}
+
+
+
+@media (max-width: 768px) {
+  #su-phone,
+  #su-socials {
+    font-size: 14px;
+    padding: 12px 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  #su-phone,
+  #su-socials {
+    font-size: 13px;
+    padding: 10px 12px;
+  }
+}
+
+/* ===== ULTRA-WIDE DESKTOP (≥1600px) ===== */
+@media (min-width: 1600px) {
+  .form {
+    padding: 64px 60px;
+    min-height: 620px;
+  }
+  
+  .panel {
+    max-width: 440px;
+  }
+  
+  .brand {
+    font-size: 32px;
+    padding-bottom: 24px;
+  }
+  
+  .brand::after {
+    width: 60px;
+  }
+  
+  .subtitle {
+    font-size: 15px;
+    margin-bottom: 40px;
+  }
+  
+  input,
+  select {
+    padding: 18px 22px;
+    font-size: 16px;
+  }
+  
+  .btn-primary {
+    padding: 20px 28px;
+    font-size: 16px;
+    min-height: 60px;
+  }
+  
+  .links {
+    font-size: 14px;
+    margin-top: 28px;
+  }
+}
+
+/* ===== STANDARD DESKTOP (1200px-1599px) ===== */
+@media (min-width: 1200px) and (max-width: 1599px) {
+  .form {
+    padding: 48px 40px;
+    min-height: 540px;
+  }
+  
+  .panel {
+    max-width: 380px;
+  }
+}
+
+/* ===== LAPTOP (1024px-1199px) ===== */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .form {
+    padding: 44px 36px;
+    min-height: 500px;
+  }
+  
+  .panel {
+    max-width: 360px;
+  }
+  
+  .brand {
+    font-size: 26px;
+  }
+  
+  .brand::after {
+    width: 44px;
+  }
+  
+  .subtitle {
+    font-size: 13.5px;
+    margin-bottom: 30px;
+  }
+}
+
+/* ===== TABLET LANDSCAPE (768px-1023px) ===== */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .form {
+    padding: 40px 32px;
+    min-height: 480px;
+  }
+  
+  .panel {
+    max-width: 340px;
+  }
+  
+  .brand {
+    font-size: 24px;
+    padding-bottom: 18px;
+  }
+  
+  .brand::after {
+    width: 40px;
+  }
+  
+  .subtitle {
+    font-size: 13px;
+    margin-bottom: 28px;
+    line-height: 1.5;
+  }
+  
+  .inputs {
+    gap: 18px;
+  }
+  
+  input,
+  select {
+    padding: 15px 18px;
+    font-size: 14.5px;
+  }
+  
+  .btn-primary {
+    padding: 17px 22px;
+    font-size: 14.5px;
+    min-height: 54px;
+  }
+  
+  .links {
+    margin-top: 22px;
+  }
+}
+
+/* ===== TABLET PORTRAIT (600px-767px) ===== */
+@media (min-width: 600px) and (max-width: 767px) {
+  .form {
+    padding: 36px 28px;
+    min-height: 460px;
+  }
+  
+  .panel {
+    max-width: 100%;
+    padding: 0 20px;
+  }
+  
+  .brand {
+    font-size: 22px;
+    padding-bottom: 16px;
+  }
+  
+  .brand::after {
+    width: 36px;
+  }
+  
+  .brand img[width="150px"],
+  .brand img[width="120px"] {
+    width: 130px !important;
+  }
+  
+  .subtitle {
+    font-size: 12.5px;
+    margin-bottom: 26px;
+    padding: 0 10px;
+  }
+  
+  .inputs {
+    gap: 16px;
+  }
+  
+  input,
+  select {
+    padding: 14px 16px;
+    font-size: 14px;
+  }
+  
+  select {
+    background-position: right 16px center;
+    padding-right: 44px;
+  }
+  
+  .btn-primary {
+    padding: 16px 20px;
+    font-size: 14px;
+    min-height: 52px;
+  }
+  
+  .links {
+    font-size: 12.5px;
+    margin-top: 20px;
+    padding: 0 10px;
+  }
+}
+
+/* ===== MOBILE LARGE (425px-599px) ===== */
+@media (min-width: 425px) and (max-width: 599px) {
+  .form {
+    padding: 32px 24px;
+    min-height: 440px;
+  }
+  
+  .panel {
+    padding: 0 16px;
+  }
+  
+  .brand {
+    font-size: 20px;
+    padding-bottom: 14px;
+  }
+  
+  .brand::after {
+    width: 32px;
+  }
+  
+  .brand img[width="150px"],
+  .brand img[width="120px"] {
+    width: 110px !important;
+  }
+  
+  .subtitle {
+    font-size: 12px;
+    margin-bottom: 24px;
+    padding: 0;
+  }
+  
+  .inputs {
+    gap: 14px;
+  }
+  
+  input,
+  select {
+    padding: 13px 15px;
+    font-size: 13.5px;
+    border-radius: 10px;
+  }
+  
+  select {
+    background-position: right 15px center;
+    padding-right: 40px;
+  }
+  
+  .btn-primary {
+    padding: 15px 18px;
+    font-size: 13.5px;
+    min-height: 50px;
+    border-radius: 10px;
+  }
+  
+  .links {
+    font-size: 12px;
+    margin-top: 18px;
+  }
+}
+
+/* ===== MOBILE SMALL (375px-424px) ===== */
+@media (min-width: 375px) and (max-width: 424px) {
+  .form {
+    padding: 28px 20px;
+    min-height: 420px;
+  }
+  
+  .panel {
+    padding: 0 12px;
+  }
+  
+  .brand {
+    font-size: 18px;
+    padding-bottom: 12px;
+  }
+  
+  .brand::after {
+    width: 28px;
+  }
+  
+  .brand img[width="150px"],
+  .brand img[width="120px"] {
+    width: 100px !important;
+  }
+  
+  .subtitle {
+    font-size: 11.5px;
+    margin-bottom: 22px;
+  }
+  
+  .inputs {
+    gap: 13px;
+  }
+  
+  input,
+  select {
+    padding: 12px 14px;
+    font-size: 13px;
+  }
+  
+  .btn-primary {
+    padding: 14px 16px;
+    font-size: 13px;
+  }
+  
+  .links {
+    font-size: 11.5px;
+  }
+}
+
+/* ===== MOBILE EXTRA SMALL (≤374px) ===== */
+@media (max-width: 374px) {
+  .form {
+    padding: 24px 16px;
+    min-height: 400px;
+  }
+  
+  .panel {
+    padding: 0 8px;
+  }
+  
+  .brand {
+    font-size: 17px;
+    padding-bottom: 10px;
+  }
+  
+  .brand::after {
+    width: 24px;
+  }
+  
+  .brand img[width="150px"],
+  .brand img[width="120px"] {
+    width: 90px !important;
+  }
+  
+  .subtitle {
+    font-size: 11px;
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+  
+  .inputs {
+    gap: 12px;
+  }
+  
+  input,
+  select {
+    padding: 11px 13px;
+    font-size: 12.5px;
+    border-radius: 8px;
+  }
+  
+  select {
+    background-size: 14px;
+    background-position: right 13px center;
+    padding-right: 36px;
+  }
+  
+  .btn-primary {
+    padding: 13px 15px;
+    font-size: 12.5px;
+    min-height: 46px;
+    border-radius: 8px;
+  }
+  
+  .links {
+    font-size: 11px;
+    margin-top: 16px;
+  }
+  
+  .links a {
+    margin-left: 4px;
+  }
+}
+
+/* ===== TOUCH DEVICE OPTIMIZATIONS ===== */
+@media (hover: none) and (pointer: coarse) {
+  input:focus,
+  select:focus {
+    transform: none;
+  }
+  
+  .btn-primary:hover {
+    transform: none;
+  }
+  
+  .btn-primary:active {
+    transform: scale(0.98);
+  }
+  
+  input,
+  select,
+  .btn-primary {
+    min-height: 44px;
+  }
+}
+
+/* ===== HIGH DPI SCREENS ===== */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .form-viewport {
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+  }
+  
+  .brand::after,
+  .inputs::before {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+}
+
+/* ===== SAFARI SPECIFIC FIXES ===== */
+@supports (-webkit-touch-callout: none) {
+  .form-viewport {
+    -webkit-backdrop-filter: blur(30px);
+  }
+  
+  input,
+  select {
+    font-size: 16px; /* Prevents zoom on focus in iOS */
+  }
+}
+
+/* ===== DARK MODE CONSISTENCY ===== */
+@media (prefers-color-scheme: dark) {
+  .form-viewport {
+    background: linear-gradient(145deg, rgba(5, 5, 5, 0.98), rgba(10, 10, 10, 0.96));
+    border-color: rgba(212, 175, 55, 0.12);
+  }
+}
+
+/* ===== MOTION REDUCTION PREFERENCE ===== */
+@media (prefers-reduced-motion: reduce) {
+  .forms-wrapper,
+  .btn-primary,
+  input,
+  select,
+  .links a::after {
+    transition: none;
+  }
+  
+  .btn-primary::before {
+    display: none;
+  }
+}
+
+    /* responsive */
+    @media (max-width:720px) {
+      .intro {
+        gap: 18px;
+      }
+
+      .v-wrap {
+        width: 190px;
+        height: 190px;
+      }
+
+      .auth-wrap {
+        width: 94vw;
+        left: 50%;
+        top: -80vh;
+      }
+
+      .auth-container {
+        padding: 20px;
+      }
+
+      .tagline {
+        font-size: 16px;
+        max-width: 88vw;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="stage" role="main" aria-live="polite">
+
+    <!-- Skip intro (keyboard accessible) -->
+    <a href="#" class="skip" id="skipLink">Skip Intro</a>
+
+    <!-- Intro -->
+    <div class="intro" id="intro" aria-hidden="false">
+      <div class="v-wrap" id="vWrap" aria-hidden="true">
+        <!-- Custom SVG V (gold metallic) -->
+        <svg class="v-logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="VOUX">
+          <defs>
+            <linearGradient id="metalG" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="#e6d293" />
+              <stop offset="30%" stop-color="#fff3bf" />
+              <stop offset="70%" stop-color="#dbbf66" />
+              <stop offset="100%" stop-color="#bfa14a" />
+            </linearGradient>
+            <radialGradient id="hl" cx="30%" cy="18%" r="75%">
+              <stop offset="0%" stop-color="rgba(255,255,255,0.95)" />
+              <stop offset="30%" stop-color="rgba(255,255,255,0.22)" />
+              <stop offset="100%" stop-color="rgba(255,255,255,0)" />
+            </radialGradient>
+          </defs>
+          <!-- thick V using text for typographic crispness -->
+          <text x="50%" y="58%" text-anchor="middle" font-family="Playfair Display, serif" font-weight="700"
+            font-size="142" fill="url(#metalG)" transform="translate(0,8)">V</text>
+          <!-- highlight path -->
+          <path d="M60 32 L140 32 L100 168 Z" fill="url(#hl)" opacity="0.06" />
+        </svg>
+
+        <div class="v-shimmer" aria-hidden="true">
+          <div class="shine"></div>
+        </div>
+      </div>
+
+      <div class="brand-name" id="brandName">V O U X</div>
+
+      <div class="tagline" id="tagline" aria-hidden="true">
+        <span id="typedText"></span><span class="caret" id="caret" aria-hidden="true"></span>
+      </div>
+      <img src="./" alt="">
+
+      <button class="enter-btn" id="enterBtn" aria-hidden="true" tabindex="0">Enter Experience</button>
+    </div>
+
+    <!-- Auth (starts off-screen) -->
+    <div class="auth-wrap" id="authWrap" aria-hidden="true">
+      <div class="auth-container" id="authContainer" role="region" aria-label="Authentication">
+        <!-- watermark V behind fields -->
+        <svg class="auth-v-watermark" viewBox="0 0 200 200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="wmG" x1="0" x2="1">
+              <stop offset="0%" stop-color="#d9c274" />
+              <stop offset="100%" stop-color="#bfa14a" />
+            </linearGradient>
+          </defs>
+          <text x="50%" y="58%" text-anchor="middle" font-family="Playfair Display, serif" font-weight="700"
+            font-size="220" fill="url(#wmG)" transform="translate(0,8)">V</text>
+        </svg>
+
+        <!-- clipped viewport so hidden form never shows outside -->
+        <div class="form-viewport" aria-hidden="false">
+          <div class="forms-wrapper" id="formsWrapper">
+
+            <!-- Sign In -->
+            <div class="form sign-in" aria-label="Sign in">
+              <div class="panel">
+                <div class="brand"><img src="./images/voux_main_logo_5-removebg-preview.png" width="150px" alt=""></div>
+                <div class="subtitle">Members access — welcome back</div>
+                <div class="inputs">
+                  <input id="si-email" type="email" placeholder="Email address" autocomplete="username" />
+                  <input id="si-pass" type="password" placeholder="Password" autocomplete="current-password" />
+                </div>
+                <button class="btn-primary" id="signInBtn" type="button">Sign In</button>
+                <div class="links">Don’t have an account?<a href="#" id="toSignUp">Create account</a></div>
+              </div>
+            </div>
+
+            <!-- Sign Up -->
+            <div class="form sign-up" aria-label="Sign up">
+              <div class="panel">
+                <div class="brand"><img src="./images/voux_main_logo_5-removebg-preview.png" width="120px" alt=""></div>
+                <div class="subtitle">Join VOUX — private drops & insider access</div>
+                <div class="inputs">
+                  <input id="su-name" type="text" placeholder="Full name" autocomplete="name" />
+                  <input id="su-email" type="email" placeholder="Email address" autocomplete="email" />
+                  <input id="su-pass" type="password" placeholder="Password" autocomplete="new-password" />
+                  <input id="su-pass2" type="password" placeholder="Confirm password" autocomplete="new-password" />
+                  <!-- Phone Number -->
+<div class="inputs">
+  <input id="su-phone" type="tel" placeholder="Phone number (optional)" autocomplete="tel" />
+  <small style="color:var(--text-muted); font-size:11px;">
+    Include country code if applicable (e.g., +2348012345678)
+  </small>
+</div>
+
+                  <select id="su-country" aria-label="Country">
+  <option value="">Country / City</option>
+  <option>Afghanistan</option>
+  <option>Albania</option>
+  <option>Algeria</option>
+  <option>Andorra</option>
+  <option>Angola</option>
+  <option>Antigua and Barbuda</option>
+  <option>Argentina</option>
+  <option>Armenia</option>
+  <option>Australia</option>
+  <option>Austria</option>
+  <option>Azerbaijan</option>
+  <option>Bahamas</option>
+  <option>Bahrain</option>
+  <option>Bangladesh</option>
+  <option>Barbados</option>
+  <option>Belarus</option>
+  <option>Belgium</option>
+  <option>Belize</option>
+  <option>Benin</option>
+  <option>Bhutan</option>
+  <option>Bolivia</option>
+  <option>Bosnia and Herzegovina</option>
+  <option>Botswana</option>
+  <option>Brazil</option>
+  <option>Brunei</option>
+  <option>Bulgaria</option>
+  <option>Burkina Faso</option>
+  <option>Burundi</option>
+  <option>Cabo Verde</option>
+  <option>Cambodia</option>
+  <option>Cameroon</option>
+  <option>Canada</option>
+  <option>Central African Republic</option>
+  <option>Chad</option>
+  <option>Chile</option>
+  <option>China</option>
+  <option>Colombia</option>
+  <option>Comoros</option>
+  <option>Congo (Congo-Brazzaville)</option>
+  <option>Costa Rica</option>
+  <option>Croatia</option>
+  <option>Cuba</option>
+  <option>Cyprus</option>
+  <option>Czechia (Czech Republic)</option>
+  <option>Democratic Republic of the Congo</option>
+  <option>Denmark</option>
+  <option>Djibouti</option>
+  <option>Dominica</option>
+  <option>Dominican Republic</option>
+  <option>Ecuador</option>
+  <option>Egypt</option>
+  <option>El Salvador</option>
+  <option>Equatorial Guinea</option>
+  <option>Eritrea</option>
+  <option>Estonia</option>
+  <option>Eswatini</option>
+  <option>Ethiopia</option>
+  <option>Fiji</option>
+  <option>Finland</option>
+  <option>France</option>
+  <option>Gabon</option>
+  <option>Gambia</option>
+  <option>Georgia</option>
+  <option>Germany</option>
+  <option>Ghana</option>
+  <option>Greece</option>
+  <option>Grenada</option>
+  <option>Guatemala</option>
+  <option>Guinea</option>
+  <option>Guinea-Bissau</option>
+  <option>Guyana</option>
+  <option>Haiti</option>
+  <option>Holy See</option>
+  <option>Honduras</option>
+  <option>Hungary</option>
+  <option>Iceland</option>
+  <option>India</option>
+  <option>Indonesia</option>
+  <option>Iran</option>
+  <option>Iraq</option>
+  <option>Ireland</option>
+  <option>Israel</option>
+  <option>Italy</option>
+  <option>Jamaica</option>
+  <option>Japan</option>
+  <option>Jordan</option>
+  <option>Kazakhstan</option>
+  <option>Kenya</option>
+  <option>Kiribati</option>
+  <option>Kuwait</option>
+  <option>Kyrgyzstan</option>
+  <option>Laos</option>
+  <option>Latvia</option>
+  <option>Lebanon</option>
+  <option>Lesotho</option>
+  <option>Liberia</option>
+  <option>Libya</option>
+  <option>Liechtenstein</option>
+  <option>Lithuania</option>
+  <option>Luxembourg</option>
+  <option>Madagascar</option>
+  <option>Malawi</option>
+  <option>Malaysia</option>
+  <option>Maldives</option>
+  <option>Mali</option>
+  <option>Malta</option>
+  <option>Marshall Islands</option>
+  <option>Mauritania</option>
+  <option>Mauritius</option>
+  <option>Mexico</option>
+  <option>Micronesia</option>
+  <option>Moldova</option>
+  <option>Monaco</option>
+  <option>Mongolia</option>
+  <option>Montenegro</option>
+  <option>Morocco</option>
+  <option>Mozambique</option>
+  <option>Myanmar</option>
+  <option>Namibia</option>
+  <option>Nauru</option>
+  <option>Nepal</option>
+  <option>Netherlands</option>
+  <option>New Zealand</option>
+  <option>Nicaragua</option>
+  <option>Niger</option>
+  <option>Nigeria</option>
+  <option>North Korea</option>
+  <option>North Macedonia</option>
+  <option>Norway</option>
+  <option>Oman</option>
+  <option>Pakistan</option>
+  <option>Palau</option>
+  <option>Palestine State</option>
+  <option>Panama</option>
+  <option>Papua New Guinea</option>
+  <option>Paraguay</option>
+  <option>Peru</option>
+  <option>Philippines</option>
+  <option>Poland</option>
+  <option>Portugal</option>
+  <option>Qatar</option>
+  <option>Romania</option>
+  <option>Russia</option>
+  <option>Rwanda</option>
+  <option>Saint Kitts and Nevis</option>
+  <option>Saint Lucia</option>
+  <option>Saint Vincent and the Grenadines</option>
+  <option>Samoa</option>
+  <option>San Marino</option>
+  <option>Sao Tome and Principe</option>
+  <option>Saudi Arabia</option>
+  <option>Senegal</option>
+  <option>Serbia</option>
+  <option>Seychelles</option>
+  <option>Sierra Leone</option>
+  <option>Singapore</option>
+  <option>Slovakia</option>
+  <option>Slovenia</option>
+  <option>Solomon Islands</option>
+  <option>Somalia</option>
+  <option>South Africa</option>
+  <option>South Korea</option>
+  <option>South Sudan</option>
+  <option>Spain</option>
+  <option>Sri Lanka</option>
+  <option>Sudan</option>
+  <option>Suriname</option>
+  <option>Sweden</option>
+  <option>Switzerland</option>
+  <option>Syria</option>
+  <option>Tajikistan</option>
+  <option>Tanzania</option>
+  <option>Thailand</option>
+  <option>Timor-Leste</option>
+  <option>Togo</option>
+  <option>Tonga</option>
+  <option>Trinidad and Tobago</option>
+  <option>Tunisia</option>
+  <option>Turkey</option>
+  <option>Turkmenistan</option>
+  <option>Tuvalu</option>
+  <option>Uganda</option>
+  <option>Ukraine</option>
+  <option>United Arab Emirates</option>
+  <option>United Kingdom</option>
+  <option>United States</option>
+  <option>Uruguay</option>
+  <option>Uzbekistan</option>
+  <option>Vanuatu</option>
+  <option>Venezuela</option>
+  <option>Vietnam</option>
+  <option>Yemen</option>
+  <option>Zambia</option>
+  <option>Zimbabwe</option>
+</select>
+
+                  <select id="su-style" aria-label="Style preference">
+                    <option value="">Style preference (optional)</option>
+                    <option>Classic</option>
+                    <option>Avant-Garde</option>
+                    <option>Streetwear</option>
+                    <option>Minimal</option>
+                  </select>
+                </div>
+                <div style="color:var(--text-muted); font-size:12px; margin-bottom:10px;">By creating an account you
+                  agree to our <strong style="color:var(--gold-2)">Terms & Privacy</strong>.</div>
+                <button class="btn-primary" id="createBtn" type="button">Create Account</button>
+                <div class="links">Already a member?<a href="#" id="toSignIn">Sign in</a></div>
+              </div>
+            </div>
+
+          </div>
+        </div> 
+      </div> 
+    </div> 
+  </div> 
+<!-- Loading Spinner -->
+<div id="loginLoader" class="login-loader">
+  <div class="spinner"></div>
+</div>
+
+<!-- Welcome Popup -->
+<div id="welcomePopup" class="welcome-popup">
+  <div class="welcome-card">
+    <button class="welcome-close" aria-label="Close popup">✕</button>
+    <h2>Welcome back</h2>
+    <p id="welcomeName"></p>
+  </div>
+</div>
+
+
+   <script src="script.js"></script>
+  <script>
+    // ===========================
+// VOUX SIGNUP LOCAL STORAGE
+// ===========================
+
+document.addEventListener("DOMContentLoaded", () => {
+  const createBtn = document.getElementById("createBtn");
+
+  createBtn.addEventListener("click", () => {
+    // Collect signup input values
+    const name = document.getElementById("su-name").value.trim();
+    const email = document.getElementById("su-email").value.trim();
+    const password = document.getElementById("su-pass").value;
+    const confirmPassword = document.getElementById("su-pass2").value;
+    const phone = document.getElementById("su-phone").value.trim();
+    const country = document.getElementById("su-country").value;
+    const stylePref = document.getElementById("su-style").value;
+    const socialHandles = document.getElementById("su-socials") 
+                          ? document.getElementById("su-socials").value.trim() 
+                          : "";
+
+    // Simple required fields validation
+    if (!name || !email || !password || !confirmPassword) {
+      alert("Please fill in all required fields.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match.");
+      return;
+    }
+
+    // Get existing users from localStorage
+    const users = JSON.parse(localStorage.getItem("vouxUsers") || "[]");
+
+    // Check if user already exists (based on email)
+    const userExists = users.some(user => user.email.toLowerCase() === email.toLowerCase());
+    if (userExists) {
+      alert("User already exists. Please log in instead.");
+      return;
+    }
+
+    // Create new user object
+    const newUser = {
+      name,
+      email,
+      password, // in production, store hashed password
+      phone: phone || "",
+      country: country || "",
+      stylePreference: stylePref || "",
+      socialHandles: socialHandles || ""
+    };
+
+    // Add new user to array and save back to localStorage
+    users.push(newUser);
+    localStorage.setItem("vouxUsers", JSON.stringify(users));
+
+    alert("Account created successfully!");
+  });
+});
+// ===========================
+// VOUX SIGN-IN LOCAL STORAGE
+// ===========================
+
+document.addEventListener("DOMContentLoaded", () => {
+  const signInBtn = document.getElementById("signInBtn");
+
+  signInBtn.addEventListener("click", () => {
+    const email = document.getElementById("si-email").value.trim().toLowerCase();
+    const password = document.getElementById("si-pass").value;
+
+    // Basic validation
+    if (!email || !password) {
+      alert("Please enter both email and password.");
+      return;
+    }
+
+    // Get stored users
+    const users = JSON.parse(localStorage.getItem("vouxUsers") || "[]");
+
+    // Check if user exists
+    const user = users.find(u => u.email.toLowerCase() === email);
+
+    if (!user) {
+      alert("Account does not exist. Please sign up to create an account.");
+      return;
+    }
+
+    // Check password
+    if (user.password !== password) {
+      alert("Incorrect password. Please try again.");
+      return;
+    }const loader = document.getElementById("loginLoader");
+const popup = document.getElementById("welcomePopup");
+const nameEl = document.getElementById("welcomeName");
+const closeBtn = document.querySelector(".welcome-close");
+
+// Extract FIRST name only
+const firstName = user.name.trim().split(" ")[0];
+
+// Show loader
+loader.classList.add("active");
+
+// Wait 5 seconds
+setTimeout(() => {
+  loader.classList.remove("active");
+
+  // Show popup
+  nameEl.textContent = firstName;
+  popup.classList.add("active");
+
+  // Auto redirect after popup
+  setTimeout(() => {
+    popup.classList.remove("active");
+    window.location.href = "entry.html";
+  }, 2500);
+
+}, 5000);
+
+// Manual close
+closeBtn.onclick = () => {
+  popup.classList.remove("active");
+  window.location.href = "entry.html";
+};
+
+  });
+});
+
+
+    (function () {
+      const TAGLINE = "Beyond Trends.Pure Identity."; // editable
+      const vWrap = document.getElementById('vWrap');
+      const intro = document.getElementById('intro');
+      const typedTextEl = document.getElementById('typedText');
+      const tagline = document.getElementById('tagline');
+      const caret = document.getElementById('caret');
+      const enterBtn = document.getElementById('enterBtn');
+      const authWrap = document.getElementById('authWrap');
+      const authContainer = document.getElementById('authContainer');
+      const toSignUp = document.getElementById('toSignUp');
+      const toSignIn = document.getElementById('toSignIn');
+      const skipLink = document.getElementById('skipLink');
+      const formsWrapper = document.getElementById('formsWrapper');
+
+      // timings (ms) tuned to ~18-20s full intro
+      const startDelay = 3000;           // wait 3s then start V reveal
+      const vRevealDuration = 5600;      // 5.6s reveal
+      const typeStartAfter = startDelay + vRevealDuration; // ~8.6s
+      const typingDuration = 6400;       // 6.4s to type
+      const btnAppearAt = typeStartAfter + typingDuration + 900; // ~15.9s
+      const autoDropAt = btnAppearAt + 2600; // fallback drop ~18.5s
+
+      // helper to ensure skip disappears
+      function hideSkip() {
+        if (skipLink) {
+          skipLink.style.transition = 'opacity 360ms var(--ease), visibility 360ms';
+          skipLink.style.opacity = '0';
+          skipLink.style.visibility = 'hidden';
+          skipLink.style.pointerEvents = 'none';
+        }
+      }
+
+      // start V reveal
+      setTimeout(() => { vWrap.classList.add('v-visible'); }, startDelay);
+
+      // typing routine (soft fade-in per char)
+      function typeSlowly(text, container, totalDuration, callback) {
+        container.textContent = "";
+        caret.style.opacity = 1;
+        const chars = Array.from(text);
+        const letters = chars.length;
+        const per = Math.max(90, Math.round(totalDuration / Math.max(1, letters)));
+        let i = 0;
+        function charTick() {
+          if (i < letters) {
+            const span = document.createElement('span');
+            span.className = 'typed';
+            span.style.opacity = "0";
+            span.textContent = chars[i];
+            container.appendChild(span);
+            requestAnimationFrame(() => {
+              setTimeout(() => { span.style.transition = 'opacity 260ms ease'; span.style.opacity = '1'; }, 12);
+            });
+            i++;
+            setTimeout(charTick, per);
+          } else {
+            caret.style.opacity = 0;
+            if (typeof callback === 'function') callback();
+          }
+        }
+        charTick();
+      }
+
+      // schedule typing
+      setTimeout(() => {
+        tagline.classList.add('typing-active');
+        typeSlowly(TAGLINE, typedTextEl, typingDuration, () => { /* done */ });
+      }, typeStartAfter);
+
+      // reveal enter button
+      setTimeout(() => {
+        enterBtn.classList.add('btn-visible');
+        enterBtn.setAttribute('aria-hidden', 'false');
+        enterBtn.style.pointerEvents = 'auto';
+      }, btnAppearAt);
+
+      // show form function (drop)
+      function revealForm() {
+        // first hide skip immediately
+        hideSkip();
+
+        // fade intro
+        intro.style.transition = 'opacity 850ms var(--ease), transform 850ms var(--ease)';
+        intro.style.opacity = '0';
+        intro.style.transform = 'translateY(-12px)';
+
+        // remove pointer events inbound
+        intro.style.pointerEvents = 'none';
+
+        // small delay then drop form
+        setTimeout(() => {
+          authWrap.classList.add('landed');
+
+          // ensure formsWrapper is reset to sign-in position
+          formsWrapper.style.transform = 'translateX(0)';
+
+          // focus first input after it lands
+          setTimeout(() => { const e = document.getElementById('si-email'); if (e) e.focus(); }, 1200);
+        }, 650);
+      }
+
+      // enter button click
+      enterBtn.addEventListener('click', (e) => { e.preventDefault(); revealForm(); });
+
+      // auto fallback
+      const autoTimer = setTimeout(() => { if (!authWrap.classList.contains('landed')) revealForm(); }, autoDropAt);
+
+      // reduced motion skip
+      const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if (mq.matches) {
+        clearTimeout(autoTimer);
+        vWrap.classList.add('v-visible');
+        tagline.classList.add('typing-active');
+        enterBtn.classList.add('btn-visible');
+        setTimeout(() => revealForm(), 300);
+      }
+
+      // skip link handler (immediately reveal)
+      skipLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        clearTimeout(autoTimer);
+        revealForm();
+      });
+
+      // allow user to interrupt (wheel/keydown/pointer) -> skip intro
+      function userInterrupt() {
+        if (!authWrap.classList.contains('landed')) {
+          clearTimeout(autoTimer);
+          revealForm();
+        }
+        window.removeEventListener('wheel', userInterrupt);
+        window.removeEventListener('keydown', userInterrupt);
+        window.removeEventListener('pointerdown', userInterrupt);
+      }
+      window.addEventListener('wheel', userInterrupt, { passive: true });
+      window.addEventListener('keydown', userInterrupt);
+      window.addEventListener('pointerdown', userInterrupt);
+
+      // sign toggles (soft slide) - uses sliding transform on .forms-wrapper
+      toSignUp.addEventListener('click', (e) => {
+        e.preventDefault();
+        authContainer.classList.add('signup-mode');
+        // ensure slide transform applied
+        formsWrapper.style.transform = 'translateX(-50%)';
+        setTimeout(() => { const f = document.getElementById('su-name'); if (f) f.focus(); }, 950);
+      });
+      toSignIn.addEventListener('click', (e) => {
+        e.preventDefault();
+        authContainer.classList.remove('signup-mode');
+        formsWrapper.style.transform = 'translateX(0)';
+        setTimeout(() => { const f = document.getElementById('si-email'); if (f) f.focus(); }, 950);
+      });
+
+      // tiny feedback for form buttons
+      const signInBtn = document.getElementById('signInBtn');
+      const createBtn = document.getElementById('createBtn');
+      function microTap(el) {
+        if (!el) return;
+        el.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-4px)' }, { transform: 'translateY(0)' }], { duration: 260, easing: 'ease-out' });
+      }
+      signInBtn && signInBtn.addEventListener('click', (e) => { e.preventDefault(); microTap(signInBtn); });
+      createBtn && createBtn.addEventListener('click', (e) => { e.preventDefault(); microTap(createBtn); });
+
+    })();
+  </script>
+  <script>
+    (function () {
+      // ====== ELEMENTS ======
+      const nameInput = document.getElementById('su-name');
+      const emailInput = document.getElementById('su-email');
+      const passwordInput = document.getElementById('su-pass');
+      const confirmInput = document.getElementById('su-pass2');
+      const countryInput = document.getElementById('su-country');
+      const styleInput = document.getElementById('su-style');
+      const createBtn = document.getElementById('createBtn');
+
+      // ====== CREATE ERROR NODES ======
+      function createErrorNode(input) {
+        let parent = input.parentElement;
+        let existing = parent.querySelector('.field-error');
+        if (!existing) {
+          const error = document.createElement('div');
+          error.className = 'field-error';
+          error.style.cssText = 'color:#ffdbd8; font-size:12px; margin-top:6px; display:none;';
+          parent.appendChild(error);
+          return error;
+        }
+        return existing;
+      }
+
+      const errorName = createErrorNode(nameInput);
+      const errorEmail = createErrorNode(emailInput);
+      const errorPassword = createErrorNode(passwordInput);
+      const errorConfirm = createErrorNode(confirmInput);
+      const errorCountry = createErrorNode(countryInput);
+
+      // ====== PASSWORD STRENGTH BAR ======
+      function createStrengthBar() {
+        if (!passwordInput.parentElement.querySelector('.pw-strength')) {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'pw-strength';
+          wrapper.style.cssText = 'height:8px; background:rgba(255,255,255,0.06); border-radius:6px; margin-top:8px; overflow:hidden;';
+          const inner = document.createElement('div');
+          inner.className = 'pw-strength-inner';
+          inner.style.cssText = 'width:0%; height:100%; transition: width 300ms ease, background 300ms ease;';
+          wrapper.appendChild(inner);
+          passwordInput.parentElement.appendChild(wrapper);
+
+          const label = document.createElement('div');
+          label.className = 'pw-strength-label';
+          label.style.cssText = 'font-size:12px; color:rgba(255,255,255,0.65); margin-top:6px;';
+          passwordInput.parentElement.appendChild(label);
+        }
+        return {
+          bar: passwordInput.parentElement.querySelector('.pw-strength-inner'),
+          label: passwordInput.parentElement.querySelector('.pw-strength-label')
+        };
+      }
+
+      const strength = createStrengthBar();
+
+      // ====== VALIDATION HELPERS ======
+      function showError(node, message) {
+        node.textContent = message;
+        node.style.display = 'block';
+      }
+
+      function clearError(node) {
+        node.textContent = '';
+        node.style.display = 'none';
+      }
+
+      function validateName() {
+        const val = nameInput.value.trim();
+        if (!val || !/^[A-Za-zÀ-ÖØ-öø-ÿ'’.\- ]{2,}$/.test(val)) {
+          showError(errorName, 'Please enter your full name.');
+          return false;
+        }
+        clearError(errorName);
+        return true;
+      }
+
+      function validateEmail() {
+        const val = emailInput.value.trim();
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+        if (!val || !re.test(val)) {
+          showError(errorEmail, 'Enter a valid email address.');
+          return false;
+        }
+        clearError(errorEmail);
+        return true;
+      }
+
+      function passwordScore(pw) {
+        let score = 0;
+        if (pw.length >= 8) score++;
+        if (pw.length >= 12) score++;
+        if (/[A-Z]/.test(pw)) score++;
+        if (/[0-9]/.test(pw)) score++;
+        if (/[^A-Za-z0-9]/.test(pw)) score++;
+        return score;
+      }
+
+      function getStrengthDescriptor(score) {
+        switch (score) {
+          case 0: return { pct: 0, color: '#ff4d4f', text: 'Too weak' };
+          case 1: return { pct: 20, color: '#ff6b6b', text: 'Very weak' };
+          case 2: return { pct: 45, color: '#ffb86b', text: 'Weak' };
+          case 3: return { pct: 65, color: '#ffd36b', text: 'Fair' };
+          case 4: return { pct: 85, color: '#bfff6b', text: 'Strong' };
+          case 5: return { pct: 100, color: '#6bff9a', text: 'Very strong' };
+          default: return { pct: 0, color: '#ff4d4f', text: 'Too weak' };
+        }
+      }
+
+      function validatePassword() {
+        const val = passwordInput.value;
+        const score = passwordScore(val);
+        const desc = getStrengthDescriptor(score);
+
+        strength.bar.style.width = desc.pct + '%';
+        strength.bar.style.background = desc.color;
+        strength.label.textContent = desc.text;
+
+        if (score < 3) {
+          showError(errorPassword, 'Password should be stronger (uppercase, numbers, symbols).');
+          return false;
+        }
+        clearError(errorPassword);
+        return true;
+      }
+
+      function validateConfirm() {
+        if (confirmInput.value !== passwordInput.value) {
+          showError(errorConfirm, 'Passwords do not match.');
+          return false;
+        }
+        clearError(errorConfirm);
+        return true;
+      }
+
+      function validateCountry() {
+        if (!countryInput.value.trim()) {
+          showError(errorCountry, 'Please select your country.');
+          return false;
+        }
+        clearError(errorCountry);
+        return true;
+      }
+
+      // ====== EVENT LISTENERS ======
+      nameInput.addEventListener('input', validateName);
+      emailInput.addEventListener('input', validateEmail);
+      passwordInput.addEventListener('input', () => {
+        validatePassword();
+      });
+
+      // ====== LUXURY GOLD SPINNER ======
+      function showSpinner() {
+        createBtn.disabled = true;
+        createBtn.innerHTML = `
+      <div class="lux-spinner" style="
+        width:24px;
+        height:24px;
+        margin:auto;
+        border-radius:50%;
+        background: conic-gradient(gold 0%, rgba(255,215,0,0.3) 25%, gold 50%, rgba(255,215,0,0.3) 75%, gold 100%);
+        animation: spin-lux 1s linear infinite;
+      "></div>
+    `;
+      }
+
+      // ====== SUBMIT HANDLER ======
+      createBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        const valid = [
+          validateName(),
+          validateEmail(),
+          validatePassword(),
+          validateConfirm(),
+          validateCountry()
+        ];
+
+        if (valid.every(v => v)) {
+          // store minimal user for guest page
+          try {
+            const newUser = {
+              name: nameInput.value.trim(),
+              email: emailInput.value.trim(),
+              country: countryInput.value,
+              style: styleInput.value || ''
+            };
+            localStorage.setItem('voux_new_user', JSON.stringify(newUser));
+          } catch (err) { }
+
+          // show spinner
+          showSpinner();
+
+          // 5-second luxury wait
+          setTimeout(() => {
+            window.location.href = 'guest.html';
+          }, 5000);
+        }
+      });
+
+      // ====== ENTER KEY SUBMIT ======
+      confirmInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          createBtn.click();
+        }
+      });
+
+      // ====== SPINNER ANIMATION CSS ======
+      const style = document.createElement('style');
+      style.textContent = `
+    @keyframes spin-lux {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  `;
+      document.head.appendChild(style);
+
+    })();
+  </script>
+</body>
+
+</html>

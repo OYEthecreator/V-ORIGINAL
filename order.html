@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VOUX - Enterprise Delivery Tracking</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gold: #d4af37;
+            --dark-gold: #b8941f;
+            --light-gold: #f4d03f;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --card-bg: #1a1a1a;
+            --text-light: #ffffff;
+            --text-muted: #cccccc;
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: var(--text-light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--card-bg) 0%, #2d2d2d 100%);
+            padding: 15px 20px;
+            border-bottom: 2px solid var(--primary-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.1);
+            z-index: 1000;
+            color: aliceblue;
+        }
+
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            background: none;
+            border: none;
+            color: var(--primary-gold);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateX(-3px);
+        }
+
+        .header h1 {
+            color: var(--primary-gold);
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        #auth-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 10, 0.98);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            backdrop-filter: blur(10px);
+        }
+        
+        .auth-container {
+            background: linear-gradient(135deg, var(--card-bg), #2d2d2d);
+            padding: 40px;
+            border-radius: 20px;
+            border: 2px solid var(--primary-gold);
+            text-align: center;
+            color: var(--text-light);
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.2);
+        }
+        
+        .auth-logo {
+            font-size: 3rem;
+            color: var(--primary-gold);
+            margin-bottom: 20px;
+        }
+        
+        .auth-input {
+            width: 100%;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border: 1px solid var(--primary-gold);
+            background: rgba(255,255,255,0.05);
+            color: var(--text-light);
+            border-radius: 10px;
+            font-size: 1.1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .auth-input:focus {
+            outline: none;
+            border-color: var(--light-gold);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+            background: rgba(255,255,255,0.08);
+        }
+        
+        .auth-btn {
+            background: linear-gradient(135deg, var(--primary-gold), var(--light-gold));
+            color: var(--card-bg);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+        }
+
+        .auth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+        }
+        
+        .spinner-container {
+            display: none;
+            margin: 30px 0;
+        }
+        
+        .spinner-text {
+            color: var(--primary-gold);
+            font-size: 1.2rem;
+            margin-top: 20px;
+            font-weight: 500;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(212, 175, 55, 0.3);
+            border-top: 4px solid var(--primary-gold);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error-message {
+            color: #ff6b6b;
+            margin: 10px 0;
+            display: none;
+            font-weight: 500;
+        }
+
+        #map {
+            height: calc(100vh - 70px);
+            width: 100%;
+            display: none;
+        }
+
+        .control-panel {
+            position: fixed;
+            background: rgba(26, 26, 26, 0.95);
+            border: 1px solid var(--primary-gold);
+            color: var(--text-light);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        #driver-controls {
+            top: 80px;
+            right: 20px;
+            max-width: 320px;
+            display: none;
+        }
+
+        #customer-info {
+            bottom: 20px;
+            left: 20px;
+            max-width: 350px;
+            display: none;
+        }
+
+        #analytics-panel {
+            top: 80px;
+            left: 20px;
+            max-width: 280px;
+            display: none;
+        }
+
+        .driver-control-btn {
+            background: linear-gradient(135deg, var(--primary-gold), var(--light-gold));
+            color: var(--card-bg);
+            border: none;
+            padding: 10px 15px;
+            margin: 5px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .driver-control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .vehicle-marker {
+            background: none;
+            border: none;
+            text-align: center;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+        }
+
+        .gold-driver {
+            animation: goldPulse 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px gold) drop-shadow(0 0 20px gold);
+        }
+
+        @keyframes goldPulse {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        .moving-car { animation: carBounce 0.8s ease-in-out infinite; }
+        .moving-bike { animation: bikeBounce 0.6s ease-in-out infinite; }
+        .moving-helicopter { animation: helicopterFloat 1.2s ease-in-out infinite; }
+        .moving-plane { animation: planeFloat 3s ease-in-out infinite; }
+        .moving-boat { animation: boatFloat 1.5s ease-in-out infinite; }
+
+        @keyframes carBounce {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-2px) rotate(1deg); }
+        }
+
+        @keyframes bikeBounce {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-3px) rotate(2deg); }
+        }
+
+        @keyframes helicopterFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-4px) rotate(-1deg); }
+            75% { transform: translateY(-2px) rotate(1deg); }
+        }
+
+        @keyframes planeFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(0.5deg); }
+        }
+
+        @keyframes boatFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-2px) rotate(1deg); }
+        }
+
+        .customer-photo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-gold);
+            margin-right: 15px;
+            object-fit: cover;
+        }
+
+        .customer-details {
+            flex: 1;
+        }
+
+        .customer-name {
+            color: var(--primary-gold);
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .customer-address {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .order-items {
+            background: rgba(212, 175, 55, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .metric-card {
+            background: rgba(255,255,255,0.05);
+            padding: 10px;
+            border-radius: 8px;
+            margin: 8px 0;
+            border-left: 3px solid var(--primary-gold);
+        }
+
+        .metric-value {
+            color: var(--primary-gold);
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .metric-label {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+     .lux-back-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 99999;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 16px;
+  border-radius: 999px;
+
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  border: 1px solid rgba(212, 175, 55, 0.6);
+  color: #d4af37;
+
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.lux-back-btn svg {
+  width: 18px;
+  height: 18px;
+  stroke: #d4af37;
+  stroke-width: 2;
+  transition: transform 0.25s ease, stroke 0.25s ease;
+}
+
+.lux-back-btn:hover {
+  background: rgba(212, 175, 55, 0.15);
+}
+
+.lux-back-btn:hover svg {
+  transform: translateX(-3px);
+  stroke: #f0d98a;
+}
+
+/* Mobile optimization */
+@media (max-width: 480px) {
+  .lux-back-btn {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+}
+</style>
+</head>
+<body>
+    <button class="lux-back-btn" onclick="goHome()" aria-label="Back to home">
+  <svg viewBox="0 0 24 24" fill="none">
+    <path d="M15 19l-7-7 7-7" />
+  </svg>
+  Back
+</button>
+
+    <div class="header">
+        <h1>VOUX Enterprise Delivery Tracking</h1>
+        <h1>Get a code when you make a purchase</h1>
+    </div>
+
+    <div id="auth-modal">
+        <div class="auth-container">
+            <div class="auth-logo">🚁</div>
+            <h2 style="color: var(--primary-gold); margin-bottom: 10px;">VOUX ENTERPRISE DELIVERY</h2>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">Get a code when you make a purchase and Enter your reference code to track delivery</p>
+            
+            <input type="text" class="auth-input" id="reference-code" placeholder="Enter REF-XXXX-XXXXXX" maxlength="20">
+            <div class="error-message" id="error-message">Invalid reference code. Please check and try again.</div>
+            
+            <button class="auth-btn" id="track-btn">
+                <i class="fas fa-satellite-dish"></i> TRACK ORDER
+            </button>
+            
+            <div class="spinner-container" id="spinner">
+                <div class="spinner"></div>
+                <div class="spinner-text" id="spinner-text">Authenticating Code...</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="driver-controls" class="control-panel">
+        <h3 style="color: var(--primary-gold); margin-bottom: 15px;"><i class="fas fa-network-wired"></i> FLEET CONTROL</h3>
+        <div id="active-drivers-count" style="margin-bottom: 15px; color: var(--text-muted);">0 active deliveries</div>
+        <button class="driver-control-btn" onclick="addRandomDriver()">
+            <i class="fas fa-plus"></i> Add Delivery Vehicle
+        </button>
+        <button class="driver-control-btn" onclick="removeRandomDriver()">
+            <i class="fas fa-minus"></i> Remove Vehicle
+        </button>
+        <button class="driver-control-btn" onclick="toggleAllMovement()">
+            <i class="fas fa-pause"></i> Pause All Movement
+        </button>
+    </div>
+
+    <div id="analytics-panel" class="control-panel">
+        <h3 style="color: var(--primary-gold); margin-bottom: 15px;"><i class="fas fa-chart-bar"></i> LIVE ANALYTICS</h3>
+        <div class="metric-card">
+            <div class="metric-value" id="total-vehicles">0</div>
+            <div class="metric-label">Active Vehicles</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value" id="deliveries-today">0</div>
+            <div class="metric-label">Deliveries Today</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value" id="success-rate">0%</div>
+            <div class="metric-label">Success Rate</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value" id="avg-eta">0min</div>
+            <div class="metric-label">Avg. Delivery Time</div>
+        </div>
+    </div>
+
+    <div id="customer-info" class="control-panel">
+        <div style="display: flex; align-items: center; margin-bottom: 15px;">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" class="customer-photo" alt="Customer">
+            <div class="customer-details">
+                <div class="customer-name" id="customer-name">Loading...</div>
+                <div class="customer-address" id="customer-address">Loading address...</div>
+            </div>
+        </div>
+        <div class="order-items">
+            <strong style="color: var(--primary-gold);">Order Items:</strong>
+            <div id="order-items-list">Loading items...</div>
+        </div>
+        <div style="margin-top: 15px; padding: 10px; background: rgba(212, 175, 55, 0.1); border-radius: 8px;">
+            <strong style="color: var(--primary-gold);">Your Driver:</strong>
+            <div id="assigned-driver-info">Searching for available driver...</div>
+        </div>
+    </div>
+
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+  function goHome() {
+    window.location.href = "entry.html";
+  }
+</script>
+
+    <script>
+        let map;
+        let drivers = [];
+        let isMovementPaused = false;
+        let userLocation = null;
+        let currentOrder = null;
+        let assignedDriver = null;
+        let vehicleCounts = { car: 0, bike: 0, helicopter: 0, plane: 0, boat: 0 };
+
+        const LEKKI_CENTER = [6.465422, 3.406448];
+        const LAGOS_BOUNDS = [
+            [6.3, 3.2],
+            [6.7, 3.6]
+        ];
+
+        const vouxFacilities = [
+            { name: "VOUX HQ", coords: [6.465422, 3.406448], type: "🏢 Headquarters" },
+            { name: "Distribution Center", coords: [6.475422, 3.416448], type: "📦 Warehouse" },
+            { name: "Lekki Depot", coords: [6.455422, 3.396448], type: "🚚 Depot" }
+        ];
+
+        const lekkiLandmarks = [
+            { name: "Shoprite Lekki", coords: [6.4654, 3.4064], type: "🛍️ Mall" },
+            { name: "Novare Mall", coords: [6.4678, 3.4089], type: "🏬 Shopping" },
+            { name: "Lekki Toll Gate", coords: [6.4512, 3.4245], type: "⛽ Landmark" },
+            { name: "Ikoyi Bridge", coords: [6.4521, 3.4367], type: "🌉 Bridge" },
+            { name: "Admiralty Way", coords: [6.4698, 3.4012], type: "🛣️ Main Road" },
+            { name: "Lekki-Epe Expressway", coords: [6.4601, 3.4156], type: "🚦 Highway" },
+            { name: "Chevron Drive", coords: [6.4712, 3.3954], type: "🏢 Business" },
+            { name: "Ajah Market", coords: [6.4723, 3.3891], type: "🏪 Market" }
+        ];
+
+        const driverDatabase = [
+            { id: 'VOUX-001', name: 'Chinedu Okoro', vehicle: 'car', type: '🚗 Toyota Camry', rating: 4.9, deliveries: 247, speed: 0.0001 },
+            { id: 'VOUX-002', name: 'Aisha Bello', vehicle: 'car', type: '🚙 Honda CR-V', rating: 4.8, deliveries: 189, speed: 0.00009 },
+            { id: 'VOUX-003', name: 'Emeka Nwosu', vehicle: 'car', type: '🏎️ Mercedes Benz', rating: 4.7, deliveries: 156, speed: 0.00012 },
+            { id: 'VOUX-101', name: 'Tunde Lawal', vehicle: 'bike', type: '🚲 Bajaj Boxer', rating: 4.6, deliveries: 312, speed: 0.00015 },
+            { id: 'VOUX-102', name: 'Funke Adeyemi', vehicle: 'bike', type: '🛵 Honda Zoomer', rating: 4.8, deliveries: 278, speed: 0.00013 },
+            { id: 'VOUX-201', name: 'Captain Ahmed', vehicle: 'helicopter', type: '🚁 Bell 206', rating: 4.9, deliveries: 89, speed: 0.0003 },
+            { id: 'VOUX-202', name: 'Pilot Grace', vehicle: 'helicopter', type: '🚁 Airbus H135', rating: 4.7, deliveries: 67, speed: 0.00025 },
+            { id: 'VOUX-301', name: 'Captain Mike', vehicle: 'plane', type: '✈️ Private Jet', rating: 4.9, deliveries: 45, speed: 0.0005 },
+            { id: 'VOUX-401', name: 'Skipper John', vehicle: 'boat', type: '🚤 Speedboat', rating: 4.8, deliveries: 78, speed: 0.0002 }
+        ];
+
+        const nigerianCustomers = [
+            { name: "Chukwuma Eze", address: "12 Admiralty Way, Lekki Phase 1", phone: "+234 801 234 5678" },
+            { name: "Fatima Bello", address: "45 Chevron Drive, Lekki", phone: "+234 802 345 6789" },
+            { name: "Adeola Johnson", address: "8 Novare Mall Road, Lekki", phone: "+234 803 456 7890" },
+            { name: "Emeka Nwankwo", address: "23 Lekki-Epe Expressway", phone: "+234 804 567 8901" },
+            { name: "Zainab Abdullahi", address: "56 Ikoyi Bridge Road", phone: "+234 805 678 9012" }
+        ];
+
+        function validateReferenceCode(code) {
+            const storageKeys = ['vouxOrders', 'orders', 'lustraOrders', 'voux_orders'];
+            let foundOrder = null;
+            
+            for (const key of storageKeys) {
+                try {
+                    const storedData = localStorage.getItem(key);
+                    if (storedData) {
+                        const orders = JSON.parse(storedData);
+                        if (Array.isArray(orders)) {
+                            for (const order of orders) {
+                                if (order.referenceCode === code || order.reference === code || order.ref === code) {
+                                    foundOrder = order;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if (foundOrder) break;
+                } catch (e) {
+                    console.log(`Error reading ${key}:`, e);
+                }
+            }
+            
+            return { isValid: !!foundOrder, order: foundOrder };
+        }
+
+        document.getElementById('track-btn').addEventListener('click', function() {
+            const code = document.getElementById('reference-code').value.trim().toUpperCase();
+            const errorMsg = document.getElementById('error-message');
+            const spinner = document.getElementById('spinner');
+            const spinnerText = document.getElementById('spinner-text');
+            
+            errorMsg.style.display = 'none';
+            
+            if (!code) {
+                errorMsg.textContent = 'Please enter a reference code';
+                errorMsg.style.display = 'block';
+                return;
+            }
+            
+            spinner.style.display = 'block';
+            document.getElementById('track-btn').style.display = 'none';
+            spinnerText.textContent = 'Authenticating Code...';
+            
+            setTimeout(() => {
+                const validation = validateReferenceCode(code);
+                
+                if (validation.isValid) {
+                    spinnerText.textContent = 'Searching for Available Driver...';
+                    
+                    setTimeout(() => {
+                        showMapWithOrder(validation.order, code);
+                    }, 5000);
+                    
+                } else {
+                    spinner.style.display = 'none';
+                    document.getElementById('track-btn').style.display = 'block';
+                    errorMsg.textContent = 'Invalid reference code. Please check and try again.';
+                    errorMsg.style.display = 'block';
+                }
+            }, 5000);
+        });
+
+        function createVehicleIcon(driver, isAssigned = false) {
+            const vehicleIcons = {
+                car: '🚗',
+                bike: '🚲', 
+                helicopter: '🚁',
+                plane: '✈️',
+                boat: '🚤'
+            };
+            
+            const animationClass = `moving-${driver.vehicle}`;
+            const goldClass = isAssigned ? 'gold-driver' : '';
+            
+            return L.divIcon({
+                html: `
+                    <div style="text-align: center;">
+                        <div style="font-size: 28px; transform: rotate(0deg);" class="${animationClass} ${goldClass}">
+                            ${vehicleIcons[driver.vehicle] || '🚗'}
+                        </div>
+                        <div style="font-size: 11px; color: ${isAssigned ? 'gold' : '#d4af37'}; font-weight: bold; background: rgba(0,0,0,0.8); padding: 3px 6px; border-radius: 12px; margin-top: 3px; border: 1px solid ${isAssigned ? 'gold' : '#d4af37'};">
+                            ${driver.id} ${isAssigned ? '👑' : ''}
+                        </div>
+                    </div>
+                `,
+                className: 'vehicle-marker',
+                iconSize: [45, 45]
+            });
+        }
+
+        function createDriver(isAssigned = false) {
+            const randomDriver = {...driverDatabase[Math.floor(Math.random() * driverDatabase.length)]};
+            const destination = lekkiLandmarks[Math.floor(Math.random() * lekkiLandmarks.length)];
+            
+            const startLat = LEKKI_CENTER[0] + (Math.random() - 0.5) * 0.1;
+            const startLng = LEKKI_CENTER[1] + (Math.random() - 0.5) * 0.1;
+            
+            const driver = {
+                ...randomDriver,
+                marker: null,
+                startPosition: [startLat, startLng],
+                currentPosition: [startLat, startLng],
+                destination: destination.coords,
+                destinationName: destination.name,
+                progress: Math.random() * 0.3,
+                isMoving: true,
+                route: generateRoute([startLat, startLng], destination.coords, 8),
+                isAssigned: isAssigned
+            };
+            
+            driver.marker = L.marker(driver.currentPosition, {
+                icon: createVehicleIcon(driver, isAssigned)
+            }).addTo(map);
+            
+            updateDriverPopup(driver);
+            drivers.push(driver);
+            vehicleCounts[driver.vehicle]++;
+            updateDriverCount();
+            updateAnalytics();
+            return driver;
+        }
+
+        function updateDriverPopup(driver) {
+            const popupContent = `
+                <div style="min-width: 220px; background: #1a1a1a; color: white; padding: 15px; border-radius: 10px; border: 2px solid ${driver.isAssigned ? 'gold' : '#d4af37'};">
+                    <h4 style="color: ${driver.isAssigned ? 'gold' : '#d4af37'}; margin-bottom: 10px; border-bottom: 1px solid ${driver.isAssigned ? 'gold' : '#d4af37'}; padding-bottom: 5px;">
+                        ${driver.type} ${driver.isAssigned ? '👑 YOUR DRIVER' : ''}
+                    </h4>
+                    <p><strong>🆔 Driver ID:</strong> ${driver.id}</p>
+                    <p><strong>👤 Name:</strong> ${driver.name}</p>
+                    <p><strong>⭐ Rating:</strong> ${'⭐'.repeat(5)} (${driver.rating})</p>
+                    <p><strong>📦 Deliveries:</strong> ${driver.deliveries} completed</p>
+                    <p><strong>🎯 Destination:</strong> ${driver.destinationName}</p>
+                    <p><strong>📊 Status:</strong> ${driver.isMoving ? '🚀 En Route' : '⏸️ Paused'}</p>
+                    <p><strong>⏱️ ETA:</strong> ${Math.floor((1 - driver.progress) * 25)} minutes</p>
+                    <p><strong>📈 Progress:</strong> ${Math.floor(driver.progress * 100)}% complete</p>
+                </div>
+            `;
+            
+            if (driver.marker.getPopup()) {
+                driver.marker.setPopupContent(popupContent);
+            } else {
+                driver.marker.bindPopup(popupContent);
+            }
+        }
+
+        function generateRoute(start, end, waypointsCount) {
+            const route = [start];
+            
+            for (let i = 1; i < waypointsCount; i++) {
+                const progress = i / waypointsCount;
+                const lat = start[0] + (end[0] - start[0]) * progress + (Math.random() - 0.5) * 0.003;
+                const lng = start[1] + (end[1] - start[1]) * progress + (Math.random() - 0.5) * 0.003;
+                route.push([lat, lng]);
+            }
+            
+            route.push(end);
+            return route;
+        }
+
+        function animateDrivers() {
+            if (isMovementPaused) return;
+            
+            drivers.forEach((driver) => {
+                if (!driver.isMoving) return;
+                
+                driver.progress += driver.speed;
+                
+                if (driver.progress >= 1) {
+                    const newDestination = lekkiLandmarks[Math.floor(Math.random() * lekkiLandmarks.length)];
+                    driver.destination = newDestination.coords;
+                    driver.destinationName = newDestination.name;
+                    driver.progress = 0;
+                    driver.route = generateRoute(driver.currentPosition, newDestination.coords, 8);
+                }
+                
+                const routeIndex = Math.floor(driver.progress * (driver.route.length - 1));
+                const segmentProgress = (driver.progress * (driver.route.length - 1)) - routeIndex;
+                
+                if (routeIndex < driver.route.length - 1) {
+                    const startPoint = driver.route[routeIndex];
+                    const endPoint = driver.route[routeIndex + 1];
+                    
+                    driver.currentPosition = [
+                        startPoint[0] + (endPoint[0] - startPoint[0]) * segmentProgress,
+                        startPoint[1] + (endPoint[1] - startPoint[1]) * segmentProgress
+                    ];
+                    
+                    driver.marker.setLatLng(driver.currentPosition);
+                    updateDriverPopup(driver);
+                }
+            });
+            
+            requestAnimationFrame(animateDrivers);
+        }
+
+        function addRandomDriver() {
+            createDriver();
+        }
+
+        function removeRandomDriver() {
+            if (drivers.length > 0) {
+                const driver = drivers.pop();
+                map.removeLayer(driver.marker);
+                vehicleCounts[driver.vehicle]--;
+                updateDriverCount();
+                updateAnalytics();
+            }
+        }
+
+        function toggleAllMovement() {
+            isMovementPaused = !isMovementPaused;
+            const btn = document.querySelector('#driver-controls button:nth-child(4)');
+            btn.innerHTML = isMovementPaused ? '<i class="fas fa-play"></i> Resume All Movement' : '<i class="fas fa-pause"></i> Pause All Movement';
+            
+            drivers.forEach(driver => {
+                driver.isMoving = !isMovementPaused;
+                updateDriverPopup(driver);
+            });
+            updateDriverCount();
+        }
+
+        function updateDriverCount() {
+            document.getElementById('active-drivers-count').textContent = 
+                `${drivers.length} active deliveries ${isMovementPaused ? '(PAUSED)' : ''}`;
+        }
+
+        function updateAnalytics() {
+            document.getElementById('total-vehicles').textContent = drivers.length;
+            document.getElementById('deliveries-today').textContent = Math.floor(drivers.length * 3.5);
+            document.getElementById('success-rate').textContent = '98.7%';
+            document.getElementById('avg-eta').textContent = '24min';
+        }
+
+        function updateCustomerInfo(order) {
+            const randomCustomer = nigerianCustomers[Math.floor(Math.random() * nigerianCustomers.length)];
+            
+            document.getElementById('customer-name').textContent = order.fullName || randomCustomer.name;
+            document.getElementById('customer-address').textContent = order.address || randomCustomer.address;
+            
+            const itemsList = order.items ? order.items.map(item => 
+                `<div style="margin: 5px 0; padding: 5px; background: rgba(255,255,255,0.05); border-radius: 5px;">
+                   ${item.name} - ${item.currency || '₦'}${(item.price * (item.qty || 1)).toLocaleString()}
+                 </div>`
+            ).join('') : '<div>Loading items...</div>';
+            
+            document.getElementById('order-items-list').innerHTML = itemsList;
+            document.getElementById('customer-info').style.display = 'block';
+        }
+
+        function assignDriverToOrder(order) {
+            if (assignedDriver) {
+                map.removeLayer(assignedDriver.marker);
+                drivers = drivers.filter(d => d.id !== assignedDriver.id);
+            }
+            
+            assignedDriver = createDriver(true);
+            assignedDriver.destination = [LEKKI_CENTER[0] + 0.005, LEKKI_CENTER[1] + 0.005];
+            assignedDriver.destinationName = "Customer Location";
+            assignedDriver.route = generateRoute(assignedDriver.currentPosition, assignedDriver.destination, 12);
+            
+            document.getElementById('assigned-driver-info').innerHTML = `
+                <strong>${assignedDriver.name}</strong><br>
+                ${assignedDriver.type}<br>
+                Rating: ${assignedDriver.rating} ⭐<br>
+                ETA: 15 minutes
+            `;
+            
+            return assignedDriver;
+        }
+
+        function showMapWithOrder(order, referenceCode) {
+            currentOrder = order;
+            
+            document.getElementById('auth-modal').style.display = 'none';
+            document.getElementById('map').style.display = 'block';
+            document.getElementById('driver-controls').style.display = 'block';
+            document.getElementById('analytics-panel').style.display = 'block';
+            
+            map = L.map('map').setView(LEKKI_CENTER, 13);
+
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                attribution: '© OpenStreetMap, © CartoDB',
+                maxZoom: 19,
+                subdomains: 'abcd'
+            }).addTo(map);
+
+            vouxFacilities.forEach(facility => {
+                L.marker(facility.coords)
+                    .addTo(map)
+                    .bindPopup(`
+                        <div style="text-align: center; color: #1a1a1a;">
+                            <strong style="color: #d4af37;">${facility.type}</strong><br>
+                            <strong>${facility.name}</strong>
+                        </div>
+                    `);
+            });
+
+            lekkiLandmarks.forEach(landmark => {
+                L.marker(landmark.coords)
+                    .addTo(map)
+                    .bindPopup(`
+                        <div style="text-align: center; color: #1a1a1a;">
+                            <strong style="color: #d4af37;">${landmark.type}</strong><br>
+                            <strong>${landmark.name}</strong>
+                        </div>
+                    `);
+            });
+
+            updateCustomerInfo(order);
+            assignDriverToOrder(order);
+
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => createDriver(), i * 100);
+            }
+            
+            setTimeout(() => {
+                animateDrivers();
+            }, 2000);
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const userLat = position.coords.latitude;
+                    const userLng = position.coords.longitude;
+                    
+                    L.marker([userLat, userLng])
+                        .addTo(map)
+                        .bindPopup('<strong>📍 Your Location</strong>')
+                        .openPopup();
+                });
+            }
+
+            map.fitBounds(LAGOS_BOUNDS);
+        }
+
+        function goBack() {
+            if (document.getElementById('map').style.display === 'block') {
+                document.getElementById('map').style.display = 'none';
+                document.getElementById('driver-controls').style.display = 'none';
+                document.getElementById('analytics-panel').style.display = 'none';
+                document.getElementById('customer-info').style.display = 'none';
+                document.getElementById('auth-modal').style.display = 'flex';
+                
+                drivers.forEach(driver => {
+                    if (driver.marker) map.removeLayer(driver.marker);
+                });
+                drivers = [];
+                vehicleCounts = { car: 0, bike: 0, helicopter: 0, plane: 0, boat: 0 };
+                assignedDriver = null;
+            }
+        }
+
+        document.getElementById('reference-code').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('track-btn').click();
+            }
+        });
+
+        function addSampleOrders() {
+            const sampleOrder = {
+                referenceCode: "REF-TEST-123456",
+                items: [
+                    { name: "Premium Leather Jacket", price: 45000, size: "L", qty: 1, currency: "₦" },
+                    { name: "Designer Sneakers", price: 28000, size: "42", qty: 1, currency: "₦" }
+                ],
+                fullName: "Chukwuma Eze",
+                address: "12 Admiralty Way, Lekki Phase 1, Lagos",
+                phone: "+234 801 234 5678",
+                total: 73000,
+                date: new Date().toISOString()
+            };
+            
+            const existingOrders = JSON.parse(localStorage.getItem('vouxOrders') || '[]');
+            if (!existingOrders.find(order => order.referenceCode === "REF-TEST-123456")) {
+                existingOrders.push(sampleOrder);
+                localStorage.setItem('vouxOrders', JSON.stringify(existingOrders));
+                console.log("💰 Sample order added. Use code: REF-TEST-123456");
+            }
+        }
+
+        addSampleOrders();
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const authInput = document.getElementById('reference-code');
+            authInput.addEventListener('focus', function() {
+                this.style.transform = 'scale(1.02)';
+            });
+            authInput.addEventListener('blur', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>

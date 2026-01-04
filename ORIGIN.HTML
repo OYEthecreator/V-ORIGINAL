@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>VOUX | ORIGIN — Artifact × Manuscript</title>
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+<style>
+/* =========================================================
+   ROOT, TOKENS & GLOBAL
+   ========================================================= */
+:root {
+  --bg: #000;
+  --fg: #fff;
+  --muted: #c9c9c9;
+
+  --gold-1: #caa86a;
+  --gold-2: #ffebbc;
+  --gold-3: #9e7b2f;
+
+  --stone-1: #0a0a0a;
+  --stone-2: #151515;
+  --stone-3: #1e1e1e;
+
+  --parchment: #f5ecd7;
+  --ink: #17130b;
+
+  --shadow: rgba(0, 0, 0, .6);
+  --ease: cubic-bezier(.2, .8, .2, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--fg);
+  background: var(--bg);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  scroll-snap-type: y mandatory;
+  overflow-x: hidden;
+}
+
+/* =========================================================
+   LAYOUT UTILITIES
+   ========================================================= */
+.scene {
+  position: relative;
+  height: 100vh;
+  scroll-snap-align: start;
+  isolation: isolate;
+}
+
+.panel {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: clamp(16px, 3vw, 48px);
+}
+
+.center {
+  display: grid;
+  place-items: center;
+}
+
+.stack {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.max {
+  max-width: min(1200px, 92vw);
+}
+
+.soft {
+  filter: drop-shadow(0 30px 80px rgba(0, 0, 0, .55));
+}
+
+.caption {
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  font-size: .8rem;
+  opacity: .7;
+}
+
+.vnotes {
+  position: absolute;
+  inset-block: 0;
+  left: 1.25rem;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-family: ui-serif, Georgia, "Times New Roman";
+  font-size: .8rem;
+  letter-spacing: .2em;
+  opacity: 1;
+  background:  linear-gradient(
+    120deg,
+    #caa86a,
+    #fff1c8,
+    #ffebbc,
+    #ffd700,
+    #caa86a,
+  )
+}
+
+.vnotes.right {
+  left: auto;
+  right: 1.25rem;
+}
+
+/* =========================================================
+   AESTHETIC EFFECTS
+   ========================================================= */
+/* Global film grain */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: -10%;
+  pointer-events: none;
+  z-index: 1000;
+  background:
+    radial-gradient(transparent 0 40%, rgba(255, 255, 255, 0.02) 60% 100%) 0 0/12px 12px,
+    radial-gradient(transparent 0 45%, rgba(0, 0, 0, .03) 70% 100%) 6px 6px/12px 12px;
+  mix-blend-mode: overlay;
+  opacity: .7;
+}
+
+/* Engraved headline */
+.engraved {
+  font-size: clamp(36px, 10vw, 140px);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: #bdbdbd;
+  text-shadow:
+    0.04em 0.04em 0 var(--stone-1),
+    -0.03em -0.03em 0 rgba(255, 255, 255, .08),
+    0 0 40px rgba(0, 0, 0, .5);
+  mix-blend-mode: luminosity;
+}
+/* Gold shimmer text */
+.gold {
+  background: linear-gradient(
+    120deg,
+    #caa86a,
+    #fff1c8,
+    #ffebbc,
+    #ffd700,
+    #caa86a
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  background-size: 200% 200%;
+  animation: shimmer 6s linear infinite;
+  text-shadow:
+    0 2px 6px rgba(255, 215, 130, 0.4),
+    0 0 20px rgba(255, 215, 130, 0.25),
+    0 10px 20px rgba(0,0,0,0.5);
+  mix-blend-mode: normal;
+}
+
+/* Make letters invisible initially for animation */
+#voux .letter {
+  display: inline-block;
+  opacity: 0;
+}
+
+/* shimmer animation */
+@keyframes shimmer {
+  to {
+    background-position: 200% 0;
+  }
+}
+
+/* subtle radial glow behind letters */
+.text-bg {
+  position: absolute;
+  width: 65%;
+  height: 60%;
+  top: 25%;
+  left: 20%;
+  background: radial-gradient(circle, rgba(255, 215, 130, 0.1), transparent 70%);
+  border-radius: 40%;
+  pointer-events: none;
+}
+
+
+/* Diagonal mask */
+.diag {
+  --cut: 8vmax;
+  -webkit-mask: linear-gradient(160deg, transparent 0 var(--cut), #000 var(--cut) calc(100% - var(--cut)), transparent calc(100% - var(--cut)));
+  mask: linear-gradient(160deg, transparent 0 var(--cut), #000 var(--cut) calc(100% - var(--cut)), transparent calc(100% - var(--cut)));
+}
+
+/* Burnt mask */
+.burnt {
+  -webkit-mask:
+    radial-gradient(120% 120% at -10% -10%, transparent 35%, #000 36%) top left,
+    radial-gradient(120% 120% at 110% -10%, transparent 35%, #000 36%) top right,
+    radial-gradient(120% 120% at -10% 110%, transparent 35%, #000 36%) bottom left,
+    radial-gradient(120% 120% at 110% 110%, transparent 35%, #000 36%) bottom right;
+  -webkit-mask-size: 51% 51%;
+  -webkit-mask-repeat: no-repeat;
+  mask:
+    radial-gradient(120% 120% at -10% -10%, transparent 35%, #000 36%) top left,
+    radial-gradient(120% 120% at 110% -10%, transparent 35%, #000 36%) top right,
+    radial-gradient(120% 120% at -10% 110%, transparent 35%, #000 36%) bottom left,
+    radial-gradient(120% 120% at 110% 110%, transparent 35%, #000 36%) bottom right;
+  mask-size: 51% 51%;
+  mask-repeat: no-repeat;
+}
+
+/* Torn divider */
+.torn {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 18vh;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .65) 70%, rgba(0, 0, 0, 1) 100%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, .06) 0 2px, rgba(255, 255, 255, 0) 2px 6px);
+  -webkit-mask: radial-gradient(120% 30% at 50% 5%, #000 60%, transparent 61%);
+  mask: radial-gradient(120% 30% at 50% 5%, #000 60%, transparent 61%);
+}
+
+/* Chronicle text */
+.chronicle {
+  columns: 3 22ch;
+  column-gap: 3vmax;
+  font-family: ui-serif, Georgia, "Times New Roman";
+  line-height: 1.55;
+  color: #e9e5db;
+}
+
+.chronicle b {
+  font-variant: small-caps;
+  letter-spacing: .06em;
+}
+
+.chronicle i {
+  opacity: .8;
+}
+
+/* Aspect-ratio wrappers for images */
+.box {
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
+
+.box img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ar-1-1 {
+  aspect-ratio: 1/1;
+}
+
+.ar-3-4 {
+  aspect-ratio: 3/4;
+}
+
+.ar-4-3 {
+  aspect-ratio: 4/3;
+}
+
+.ar-5-7 {
+  aspect-ratio: 5/7;
+}
+
+.ar-5-2 {
+  aspect-ratio: 5/2;
+}
+
+.rounded-10 {
+  border-radius: 10%;
+}
+
+.rounded-14 {
+  border-radius: 14%;
+}
+
+.rounded-18 {
+  border-radius: 18%;
+}
+
+.rounded-22 {
+  border-radius: 22%;
+}
+
+.rounded-xl {
+  border-radius: 2.5vmin;
+}
+
+.circle {
+  border-radius: 50%;
+}
+
+/* Frame treatments to mimic original gradients/shadows */
+.frame-metal {
+  background: linear-gradient(145deg, #222, #555);
+  box-shadow: inset 0 0 120px rgba(255, 255, 255, .08), 0 40px 120px rgba(0, 0, 0, .6);
+}
+
+.frame-coin {
+  background:
+    radial-gradient(60% 60% at 50% 45%, rgba(255, 255, 255, .08), transparent 60%),
+    conic-gradient(from 0deg, #1c1c1c, #2a2a2a, #1c1c1c);
+  box-shadow: inset 0 0 60px rgba(255, 255, 255, .05), 0 40px 120px rgba(0, 0, 0, .7);
+}
+
+.frame-dark-coin {
+  background: radial-gradient(55% 55% at 50% 45%, rgba(255, 255, 255, .06), transparent 60%), linear-gradient(145deg, #202020, #0f0f0f);
+  box-shadow: inset 0 0 120px rgba(255, 255, 255, .06), 0 30px 120px rgba(0, 0, 0, .65);
+}
+
+/* Orbit system */
+.orbit {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.fragment {
+  position: absolute;
+  width: 12vmax;
+  aspect-ratio: 1/1;
+  filter: blur(.25px) drop-shadow(0 20px 40px rgba(0, 0, 0, .45));
+  mix-blend-mode: screen;
+  opacity: .6;
+  transform-origin: 50% 50%;
+  animation: spin var(--t, 18s) linear infinite;
+  will-change: transform;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg) translateX(var(--rx, 22vmax)) rotate(-360deg);
+  }
+}
+
+.f1 {
+  --t: 22s;
+  --rx: 20vmax;
+}
+
+.f2 {
+  --t: 28s;
+  --rx: 28vmax;
+  opacity: .35;
+}
+
+.f3 {
+  --t: 16s;
+  --rx: 16vmax;
+  opacity: .25;
+}
+
+/* Floating relic motion */
+.float {
+  animation: float 7s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes float {
+  50% {
+    transform: translateY(-2.2vmax);
+  }
+}
+
+/* =========================================================
+   SECTION BACKGROUNDS
+   ========================================================= */
+
+/* -----------------------------
+   Section 1 Refined CSS
+   ----------------------------- */
+
+
+.S1 .vnotes {
+  position: absolute;
+  inset-block: 0;
+  left: 1.25rem;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-family: ui-serif, Georgia, "Times New Roman";
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  opacity: 0.5;
+}
+
+.S1 .vnotes.right {
+  left: auto;
+  right: 1.25rem;
+}
+
+.S1 .engraved {
+  font-size: clamp(36px, 10vw, 140px);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #bdbdbd;
+  text-shadow:
+    0.04em 0.04em 0 var(--stone-1),
+    -0.03em -0.03em 0 rgba(255, 255, 255, 0.08),
+    0 0 40px rgba(0, 0, 0, 0.5);
+  mix-blend-mode: luminosity;
+}
+
+.S1 .soft {
+  filter: drop-shadow(0 30px 80px rgba(0, 0, 0, 0.55));
+}
+
+.S1 .torn {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 18vh;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 70%, rgba(0, 0, 0, 1) 100%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.06) 0 2px, rgba(255, 255, 255, 0) 2px 6px);
+  -webkit-mask: radial-gradient(120% 30% at 50% 5%, #000 60%, transparent 61%);
+  mask: radial-gradient(120% 30% at 50% 5%, #000 60%, transparent 61%);
+}
+
+.S1 .reveal {
+  opacity: 0;
+  transform: translateY(24px) scale(0.98);
+  filter: blur(6px);
+  transition: all 0.9s var(--ease);
+}
+
+.S1 .reveal.is-in {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+.S1 .hover-tilt {
+  transition: transform 0.4s var(--ease);
+  transform-style: preserve-3d;
+}
+
+.S1 .hover-tilt:hover {
+  transform: perspective(1200px) rotateX(6deg) rotateY(-6deg);
+}
+
+.S1 .float {
+  animation: float 7s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* -----------------------------
+   Section 2 - 15 Backgrounds (kept from original)
+   ----------------------------- */
+.S2 {
+  background:
+    radial-gradient(10% 150% at 50% 50%, rgba(255, 255, 255, .08), transparent 70%),
+    conic-gradient(from 180deg at 50% 50%, #000 0 40%, #2b2b2b 41% 45%, #000 46% 100%);
+}
+
+.S3 {
+  background: radial-gradient(40% 40% at 50% 50%, #111 0 30%, #000 60%);
+}
+
+.S4 {
+  background: linear-gradient(180deg, #050505, #0e0e0e);
+}
+
+.S5 {
+  background: linear-gradient(140deg, #0b0b0b, #1a1a1a 60%, #0b0b0b);
+}
+
+.S6 {
+  background: radial-gradient(80% 60% at 50% 50%, #1a1208, #000 70%);
+}
+
+.S7 {
+  background: linear-gradient(180deg, #fff, #ddd, #fff);
+  color: #111;
+}
+
+.S8 {
+  background: #111;
+}
+
+.S9 {
+  background: radial-gradient(120% 70% at 50% 40%, #000 0 45%, #121212 60%, #000 100%);
+}
+
+.S10 {
+  background: radial-gradient(80% 80% at 50% 50%, #131313, #000);
+}
+
+.S11 {
+  background: linear-gradient(180deg, #0a0a0a, #000);
+}
+
+.S12 {
+  background: conic-gradient(from 90deg at 50% 50%, #0d0d0d, #1a1a1a, #0d0d0d);
+}
+
+.S13 {
+  background: linear-gradient(180deg, var(--parchment), #f0e7cd);
+  color: var(--ink);
+}
+
+.S14 {
+  background: linear-gradient(180deg, #000 0 50%, #111);
+}
+
+.S15 {
+  background: radial-gradient(60% 60% at 50% 50%, #fff 0 7%, #eaeaea 8% 9%, #000 10% 100%);
+  color: #000;
+}
+
+/* Drop cap block */
+.dropcap {
+  font-family: ui-serif, Georgia;
+  color: #e8e1cf;
+  line-height: 1.8;
+  font-size: clamp(16px, 1.35vw, 22px);
+}
+
+.dropcap p {
+  max-width: 62ch;
+  margin: auto;
+  position: relative;
+}
+
+.dropcap .cap {
+  float: left;
+  font-size: clamp(72px, 10vw, 140px);
+  line-height: .8;
+  padding-right: .2em;
+  font-weight: 700;
+}
+
+/* Image grids */
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2vmax;
+}
+
+.grid-6 {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1vmax;
+  width: min(90vw, 1200px);
+}
+
+/* Reveal on view */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px) scale(.98);
+  filter: blur(6px);
+  transition: all .9s var(--ease);
+}
+
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* Hover micro-3D */
+.hover-tilt {
+  transition: transform .4s var(--ease);
+  transform-style: preserve-3d;
+}
+
+.hover-tilt:hover {
+  transform: perspective(1200px) rotateX(6deg) rotateY(-6deg);
+}
+
+/* Custom cursor glow */
+.cursor {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  background: radial-gradient(120px 120px at var(--mx, -200px) var(--my, -200px), rgba(255, 235, 188, .15), transparent 60%);
+  mix-blend-mode: screen;
+}
+
+/* Responsive tweaks */
+@media (max-width: 800px) {
+  .engraved {
+    letter-spacing: .08em;
+  }
+
+  .chronicle {
+    columns: 2 22ch;
+  }
+
+  .vnotes {
+    display: none;
+  }
+
+  .grid-6 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+</style>
+
+
+</head>
+
+<body class="grain" data-aos="fade-up" data-aos-duration="5000">
+  <!-- 🔒 FIXED GOLD LUXURY BACK BUTTON -->
+<style>
+  .back-btn-fixed {
+    position: fixed;
+    top: 22px; /* adjust position */
+    left: 22px;
+    z-index: 9999;
+
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(212, 175, 55, 0.55);
+
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 9px 14px;
+    border-radius: 50px;
+    transition: 0.25s ease;
+    color: #d4af37;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .back-btn-fixed:hover {
+    background: rgba(212, 175, 55, 0.15);
+    transform: translateX(-2px);
+  }
+
+  .back-btn-fixed svg {
+    width: 17px;
+    height: 17px;
+    stroke: #d4af37;
+    transition: 0.25s ease;
+  }
+
+  .back-btn-fixed:hover svg {
+    stroke: #f0d98a;
+  }
+</style>
+
+<button class="back-btn-fixed" onclick="goBack()">
+  <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+  </svg>
+  Back
+</button>
+
+<script>
+  function goBack() {
+    if (document.referrer) {
+      window.history.back();
+    } else {
+      window.location.href = "/"; // fallback home
+    }
+  }
+</script>
+
+
+<!-- cursor glow layer -->
+<div class="cursor" aria-hidden="true"></div>
+
+<!-- ============= 1. THE CLOSED VAULT ============= -->
+<section class="scene S1" data-aos="fade-up" data-aos-duration="10000" data-aos-delay="20000">
+  <div class="panel center">
+    <div class="vnotes">ORIGIN • THE VAULT</div>
+    
+    <h1 class="engraved soft gold" id="voux">VOUX</h1>
+    
+    <div class="text-bg"></div>
+    <div class="torn" aria-hidden="true"></div>
+  </div>
+</section>
+<div class="cursor"></div>
+
+
+<!-- ============= 2. THE SEAL CRACKS ============= -->
+<section class="scene S2">
+  <div class="panel center">
+    <div class="vnotes right">SEAL • FRACTURE</div>
+    <div class="stack max">
+      <div class="box ar-4-3 reveal"><img src="images/ORIGIN SECTION 2 ITEM 1.png" alt="fracture glint line"></div>
+      <div class="box ar-4-3 reveal hover-tilt"><img src="images/ORIGIN SECTION 2 ITEM 2.png" alt="skewed fracture glint line"></div>
+      <div class="caption reveal">The silence breaks.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= 3. THE RELIC EMERGES ============= -->
+<section class="scene S3">
+  <div class="panel center">
+    <div class="orbit" aria-hidden="true">
+      <img class="fragment f1" src="images/ORIGIN SECTION 3 ORBIT1.png" alt="">
+      <img class="fragment f2" src="images/ORIGIN SECTION 3 ORBIT 2.png" alt="">
+      <img class="fragment f3" src="images/ORIGIN SECTION 3 ORBIT 3.png" alt="">
+    </div>
+    <div class="box ar-5-7 rounded-xl frame-metal soft float reveal hover-tilt" style="width:min(42vmax,78vw)">
+      <img src="images/Chronicles section 1.png " alt="floating monolith relic">
+    </div>
+  </div>
+</section>
+
+<!-- ============= 4. FRAGMENTS IN ORBIT (grid) ============= -->
+<section class="scene S4 diag">
+  <div class="panel center">
+    <div class="stack max">
+      <h2 class="caption reveal">Fragments become form</h2>
+      <div class="grid-4">
+        <figure class="box ar-1-1 rounded-14 reveal hover-tilt"><img src="images/ORIGIN SECTION 4 ITEM 1.png" alt="fragment 1"></figure>
+        <figure class="box ar-3-4 rounded-10 reveal hover-tilt"><img src="images/ORIGIN SECTION 4 ITEM 2.png" alt="fragment 2"></figure>
+        <figure class="box ar-4-3 rounded-18 reveal hover-tilt"><img src="images/ORIGIN SECTION 4 ITEM 3.png" alt="fragment 3"></figure>
+        <figure class="box ar-1-1 rounded-22 reveal hover-tilt"><img src="images/ORIGIN SECTION 4 ITEM 4.png" alt="fragment 4"></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= 5. THE HIDDEN MARK (crest) ============= -->
+<section class="scene S5">
+  <div class="panel center">
+    <div class="vnotes">THE SEAL</div>
+    <div class="box ar-1-1 circle frame-coin soft reveal hover-tilt" style="width:min(60vmin,86vw)">
+      <img src="images/SECTION 5 ORIGIN.png" alt="engraved crest">
+    </div>
+  </div>
+</section>
+
+<!-- ============= 6. BLACK FIRE ============= -->
+<section class="scene S6">
+  <div class="panel center burnt">
+    <div class="stack max" style="text-align:center">
+      <h2 class="gold reveal" style="font-size:clamp(28px,6vw,80px); text-transform:uppercase; letter-spacing:.2em;">Forged in Silence</h2>
+      <p class="reveal" style="opacity:.7">Heat without flame. Light without mercy.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============= 7. THE AWAKENING ============= -->
+<section class="scene S7">
+  <div class="panel center">
+    <div class="stack max" style="text-align:center">
+      <h2 class="reveal" style="font-family:ui-serif, Georgia; font-weight:700; letter-spacing:.15em; text-transform:uppercase;">It Begins</h2>
+      <p class="caption reveal" style="color:#333">Transition from void to voice.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============= 8. THE FIRST PAGE ============= -->
+<section class="scene S8">
+  <div class="panel" style="display:grid; align-content:center">
+    <div class="vnotes">Codex • Page I</div>
+    <article class="max dropcap">
+      <p class="reveal">
+        <span class="cap gold">V</span>
+        OUX did not arrive; it was unearthed. Between stone and scripture, the first mark refused to fade.
+      </p>
+    </article>
+  </div>
+</section>
+
+<!-- ============= 9. CALLIGRAPHER’S HAND ============= -->
+<section class="scene S9">
+  <div class="panel center">
+    <div class="box reveal" style="width:min(80vw,1100px); height:100%">
+      <img src="images/ORIGIN SECTION 9.png" alt="gold inscription line">
+    </div>
+    <div class="caption" style="position:absolute; bottom:8vh; opacity:.6">Lines became meaning.</div>
+  </div>
+</section>
+
+<!-- ============= 10. THE SEAL OF VOUX ============= -->
+<section class="scene S10">
+  <div class="panel center">
+    <div class="vnotes right">Wax • Stone • Oath</div>
+    <div class="box ar-1-1 circle frame-dark-coin soft reveal hover-tilt" style="width:min(64vmin,88vw)">
+      <img src="images/SECTION 10 ORIGIN.png" alt="seal of VOUX">
+    </div>
+  </div>
+</section>
+
+<!-- ============= 11. GOLD LEAF ENGRAVING ============= -->
+<section class="scene S11">
+  <div class="panel center">
+    <h2 class="gold soft reveal" style="font-size:clamp(28px,7vw,120px); text-transform:uppercase; letter-spacing:.25em; text-align:center">
+      Identity is engraved — not written
+    </h2>
+  </div>
+</section>
+
+<!-- ============= 12. THE CHRONICLE WALL ============= -->
+<section class="scene S12">
+  <div class="panel">
+    <div class="max chronicle soft reveal">
+      <p><b>Voux</b> is the refusal to be ordinary. <i>We archive the fracture.</i></p>
+      <p>Between <b>stone</b> and <b>scripture</b>, a language takes shape. Not to adorn — to define.</p>
+      <p><i>The witnesses</i> stood not before fashion, but before a mark that altered light.</p>
+      <p>Every draft stains the page. Every seal binds the oath. Every cut remembers.</p>
+      <p><b>VOUX</b> is not found. It is created — again, and again.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============= 13. THE TORN PAGE ============= -->
+<section class="scene S13">
+  <div class="panel" style="display:grid; align-content:center">
+    <div class="vnotes">Rift • Folio</div>
+    <div class="soft reveal" style="background:var(--parchment); color:var(--ink); padding:6vmin; border-radius:2vmin; position:relative; overflow:hidden">
+      <div class="box" style="position:absolute; inset:0; opacity:.08" aria-hidden="true">
+        <img src="images/ORIGIN SECTION 13.png" alt="">
+      </div>
+      <h3 style="margin:0 0 1rem 0; letter-spacing:.12em; text-transform:uppercase">No origin remains pure</h3>
+      <p style="max-width:60ch">Tears, stains, and edits — the document survives because it is marked.</p>
+      <div class="torn" aria-hidden="true"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= 14. THE COLLAPSE (grid -> logo) ============= -->
+<section class="scene S14">
+  <div class="panel center">
+    <div class="stack center">
+      <div class="grid-6">
+        <figure class="box ar-1-1 rounded-10 reveal hover-tilt"><img src="images/SECTION 14 ORIGIN ITEM 1.png" alt="fragment 1"></figure>
+        <figure class="box ar-3-4 rounded-10 reveal hover-tilt"><img src="images/SECTION 14 ORIGIN ITEM 2.png" alt="fragment 2"></figure>
+        <figure class="box ar-1-1 rounded-10 reveal hover-tilt"><img src="images/SECTION 14 ORIGIN ITEM 3.png" alt="fragment 3"></figure>
+        <figure class="box ar-4-3 rounded-10 reveal hover-tilt"><img src="images/SECTION 14 ORIGIN ITEM 4.png" alt="fragment 4"></figure>
+        <figure class="box ar-1-1 rounded-10 reveal hover-tilt"><img src="images/SECTION 14 ORIGIN ITEM 5.png" alt="fragment 5"></figure>
+        <figure class="box ar-3-4 rounded-10 reveal hover-tilt"><img src="images/SECTION 14 ORIGIN ITEM 6.png" alt="fragment 6"></figure>
+      </div>
+      <div class="caption reveal">Fragments release the present.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= 15. THE ETERNAL LOGO (finale) ============= -->
+<section class="scene S15">
+  <div class="panel center">
+    <div class="vnotes right">FIN • SEAL</div>
+    <div class="box ar-5-2 rounded-xl soft reveal hover-tilt" style="width:min(70vmin,88vw); background:#fff">
+      <img src="images/SECTION 15 ORIGIN .png" alt="VOUX final logo">
+    </div>
+    <div class="caption" style="position:absolute; bottom:5vh; color:white">This is the Origin.</div>
+  </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 1000, // animation duration
+    once: false,    // animate only once
+  });
+</script>
+
+
+<script>
+  
+
+
+
+/* ====================== Scroll Reveal ====================== */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('is-in'); }
+  });
+},{rootMargin:"-10% 0px -10% 0px", threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ====================== Cursor Glow ====================== */
+const cursor = document.querySelector('.cursor');
+window.addEventListener('pointermove', (e)=>{
+  cursor.style.setProperty('--mx', e.clientX + 'px');
+  cursor.style.setProperty('--my', e.clientY + 'px');
+});
+
+/* ====================== Parallax tilt on hover ====================== */
+document.querySelectorAll('.hover-tilt').forEach(el=>{
+  let rect;
+  function tilt(e){
+    rect = rect || el.getBoundingClientRect();
+    const x = (e.clientX - rect.left)/rect.width - 0.5;
+    const y = (e.clientY - rect.top)/rect.height - 0.5;
+    el.style.transform = `perspective(1200px) rotateX(${(-y*8).toFixed(2)}deg) rotateY(${(x*8).toFixed(2)}deg)`;
+  }
+  el.addEventListener('mousemove', tilt);
+  el.addEventListener('mouseleave', ()=>{ el.style.transform=''; rect=null; });
+});
+
+/* ====================== Gentle orbit parallax ====================== */
+const orbitImgs = document.querySelectorAll('.fragment');
+window.addEventListener('pointermove', (e)=>{
+  const cx = window.innerWidth/2, cy = window.innerHeight/2;
+  const dx = (e.clientX - cx)/cx, dy = (e.clientY - cy)/cy;
+  orbitImgs.forEach((img,i)=>{
+    img.style.transform += ` translate(${dx*(i+1)}px, ${dy*(i+1)}px)`;
+  });
+});
+</script>
+</body>
+</html>
+

@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MONOCHROME | Living Gallery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <style>
+        /* ===== ROOT VARIABLES ===== */
+        :root {
+            --pure-white: #ffffff;
+            --white-95: #f2f2f2;
+            --white-90: #e6e6e6;
+            --white-80: #cccccc;
+            --white-60: #999999;
+            --white-40: #666666;
+            --white-20: #333333;
+            --pure-black: #000000;
+            --shadow-soft: rgba(0, 0, 0, 0.05);
+            --shadow-medium: rgba(0, 0, 0, 0.1);
+            --shadow-strong: rgba(0, 0, 0, 0.2);
+            --transition-slow: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-medium: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-fast: 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* ===== RESET & BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--pure-white);
+            color: var(--white-20);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        /* ===== CUSTOM CURSOR ===== */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--white-20);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.2s, width 0.3s, height 0.3s;
+            mix-blend-mode: difference;
+        }
+
+        .cursor.hover {
+            transform: scale(1.5);
+            background: var(--white-20);
+        }
+
+        .cursor.click {
+            transform: scale(0.8);
+        }
+
+        /* ===== NAVIGATION ===== */
+        .main-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--white-90);
+            transition: var(--transition-medium);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 300;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            position: relative;
+            padding: 0.5rem 0;
+            cursor: pointer;
+            color: black;
+            text-decoration: none;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--white-20);
+            transition: var(--transition-medium);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-icon {
+            cursor: pointer;
+            transition: opacity 0.3s;
+            padding: 0.5rem;
+            border-radius: 50%;
+            background: var(--white-95);
+        }
+
+        .nav-icon:hover {
+            opacity: 0.7;
+        }
+
+        /* ===== ENHANCED HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 20% 30%, var(--white-95) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, var(--white-90) 0%, transparent 50%),
+                var(--pure-white);
+        }
+
+        /* Animated Background Shapes */
+        .hero-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            border: 1px solid var(--white-80);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 10%;
+            animation-delay: -2s;
+        }
+
+        .shape:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: -4s;
+        }
+
+        /* Animated Main Title */
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 8rem);
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+            animation: titleFloat 4s ease-in-out infinite;
+        }
+
+        .hero-title span {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-title:hover span {
+            transform: translateY(-10px) rotate(5deg);
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            color: var(--white-40);
+            line-height: 1.8;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-btn {
+            padding: 1.2rem 2.5rem;
+            border: 1px solid var(--white-80);
+            background: transparent;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: var(--transition-medium);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--white-95), transparent);
+            transition: var(--transition-medium);
+        }
+
+        .cta-btn:hover::before {
+            left: 100%;
+        }
+
+        .cta-primary {
+            background: var(--white-20);
+            color: var(--pure-white);
+            border-color: var(--white-20);
+        }
+
+        .cta-primary:hover {
+            background: transparent;
+            color: var(--white-20);
+        }
+
+        .cta-secondary {
+            color: var(--white-20);
+        }
+
+        .cta-secondary:hover {
+            background: var(--white-95);
+            border-color: var(--white-60);
+        }
+
+        /* Voice Command Button */
+        #voiceCommandBtn {
+            animation: pulseGlow 2s ease-in-out infinite;
+        }
+
+        /* ===== ENHANCED PRODUCTS GRID ===== */
+        .products-section {
+            padding: 8rem 2rem;
+            background: var(--white-95);
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 6rem;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--white-40);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Masonry Grid Layout */
+        /* ===== LUXURY PRODUCT GRID ENHANCEMENTS ===== */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: var(--pure-white);
+            padding: 2rem;
+            border: 0.5px solid var(--white-90);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(121, 117, 117, 0.4), transparent);
+            transition: all 0.6s ease;
+        }
+
+        .product-card:hover::before {
+            left: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--pure-black);
+            box-shadow: 0 12px 40px rgba(128, 7, 7, 0.15);
+            border: none;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            margin-bottom: 1.5rem;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.03);
+            filter: brightness(1.08) contrast(1.05);
+        }
+
+        .product-name {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            transition: all 0.4s ease;
+            letter-spacing: 0.01em;
+        }
+
+        .product-card:hover .product-name {
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            transform: translateX(2px);
+        }
+
+        .product-price {
+            font-size: 1rem;
+            color: var(--white-40);
+            font-weight: 400;
+            transition: all 0.4s ease;
+        }
+
+        .product-card:hover .product-price {
+            color: var(--white-20);
+            font-weight: 500;
+            transform: translateX(2px);
+        }
+
+        /* ===== ENHANCED LOOKBOOK SECTION ===== */
+        .lookbook {
+            padding: 8rem 2rem;
+            background: var(--pure-white);
+            position: relative;
+        }
+
+        .lookbook-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .lookbook-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .lookbook-item:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        .lookbook-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            /* Removed filter as requested */
+        }
+
+        .lookbook-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 3rem 2rem 2rem;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: var(--pure-white);
+            transform: translateY(100%);
+            transition: var(--transition-medium);
+        }
+
+        .lookbook-item:hover .lookbook-overlay {
+            transform: translateY(0);
+        }
+
+        .lookbook-title {
+            font-size: 1.4rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .lookbook-price {
+            font-size: 1.2rem;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        /* ===== FOOTER ===== */
+        .main-footer {
+            padding: 6rem 2rem 3rem;
+            background: var(--white-20);
+            color: var(--pure-white);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--white-80);
+            transition: var(--transition-medium);
+            font-size: 0.9rem;
+            cursor: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--pure-white);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 3rem;
+            border-top: 1px solid var(--white-40);
+            max-width: 1200px;
+            margin: 0 auto;
+            color: var(--white-60);
+            font-size: 0.9rem;
+        }
+
+        /* Orb */
+        #monoOrb {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #222, #555);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        #monoOrb:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Chat */
+        #monoChat {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 380px;
+            height: 550px;
+            background: rgba(26, 26, 26, 0.85);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            display: none;
+            flex-direction: column;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            z-index: 1001;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        #monoChat.active {
+            display: flex;
+        }
+
+        /* Messages */
+        #monoMessages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            color: #eee;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        /* User & AI messages */
+        .message.user-message {
+            text-align: right;
+            margin: 5px 0;
+            color: #fff;
+        }
+
+        .message.ai-message {
+            text-align: left;
+            margin: 5px 0;
+            color: #ccc;
+        }
+
+        /* Input */
+        #monoInput {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: none;
+            outline: none;
+            background: #2a2a2a;
+            color: #fff;
+            font-size: 14px;
+            border-top: 1px solid #333;
+        }
+
+        /* Scrollbar */
+        #monoMessages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #monoMessages::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 3px;
+        }
+
+        #monoMessages::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+
+        /* ===== ENHANCED ANIMATIONS ===== */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+
+        @keyframes titleFloat {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes pulseGlow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(255, 107, 107, 0.4);
+                transform: scale(1);
+            }
+
+            50% {
+                box-shadow: 0 0 30px rgba(255, 107, 107, 0.8);
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes orbPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 30px var(--shadow-soft);
+            }
+
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 40px var(--shadow-medium);
+            }
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 1024px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .lookbook-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            /* Hamburger Menu Styles */
+            .hamburger {
+                display: flex;
+                width: 28px;
+                height: 22px;
+                flex-direction: column;
+                justify-content: space-between;
+                cursor: pointer;
+                z-index: 1100;
+            }
+
+            .hamburger span {
+                height: 3px;
+                width: 100%;
+                background: #000;
+                border-radius: 3px;
+                transition: all 0.4s ease;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                right: 1rem;
+                background: rgba(0, 0, 0, 0.85);
+                display: flex !important;
+                flex-direction: column;
+                width: 240px;
+                padding: 2rem;
+                gap: 1.8rem;
+                border-radius: 12px;
+                opacity: 0;
+                pointer-events: none;
+                transform: translateY(-10px);
+                transition: all 0.4s ease;
+                z-index: 1000;
+            }
+
+            .nav-links a {
+                color: #fff;
+            }
+
+            .nav-links.open {
+                opacity: 1;
+                pointer-events: auto;
+                transform: translateY(0);
+            }
+
+            .hero {
+                padding: 6rem 1.5rem 3rem;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-btn {
+                width: 200px;
+            }
+
+            .section-header h2 {
+                font-size: 2.5rem;
+            }
+
+            .lookbook-grid,
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ai-chat {
+                width: 280px;
+                height: 350px;
+            }
+
+            /* Disable custom cursor on mobile */
+            body {
+                cursor: auto;
+            }
+
+            .cursor {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            #monoChat {
+                width: 90vw;
+                height: 70vh;
+                left: 5vw;
+                right: 5vw;
+                bottom: 80px;
+                border-radius: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body data-brand="monochrome">
+
+
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+
+    <!-- Navigation -->
+    <header>
+        <nav class="main-nav nav-container">
+            <div class="nav-actions">
+                <img src="./images/monochrome_official_logo-removebg-preview.png" width="130px" alt="">
+            </div>
+            <div class="nav-links" id="navbar">
+                <a href="entry.html">Home</a>
+                <a href="MONOCHROME.HTML">About</a>
+                <a href="#products">Collection</a>
+                <a href="#lookbook">Lookbook</a>
+            </div>
+            <div class="hamburger" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Enhanced Hero Section -->
+    <section class="hero">
+        <!-- Animated Background Shapes -->
+        <div class="hero-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+
+        <!-- Animated Title -->
+        <h1 class="hero-title" data-aos="fade-up" data-aos-once="false">
+            <span>P</span><span>U</span><span>R</span><span>E</span>
+            <span>c</span><span>O</span><span>n</span><span>t</span><span>r</span><span>a</span><span>s</span><span>t</span>
+        </h1>
+        <p data-aos="fade-up" data-aos-delay="200" data-aos-once="false">minimalism meets architectural precision in a
+            symphony of monochrome elegance</p>
+    </section>
+    <!-- Products Section (Now comes first as requested) -->
+    <section class="products-section" id="products">
+        <div class="section-header">
+            <h2 data-aos="fade-up" data-aos-once="false">The Collection</h2>
+            <p data-aos="fade-up" data-aos-delay="200" data-aos-once="false">25 essential pieces for the modern wardrobe
+            </p>
+        </div>
+        <div class="products-grid">
+            <!-- Products listed in HTML as requested -->
+            <div class="product-card" data-aos="fade-up" data-aos-once="false" onclick="viewProduct('monochrome1')">
+                <img src="./images/MNC INVERTED COCOON COAT.png" alt="Oversized Blazer" class="product-image">
+                <div class="product-name">INVERTED COCOON COAT</div>
+                <div class="product-price">$12,000</div>
+            </div>
+            <div class="product-card" data-aos="fade-up" data-aos-delay="100" data-aos-once="false"
+                onclick="viewProduct('monochrome2')">
+                <img src="./images/MNC PARABOLIC TROUSERS 2.png" alt="Tailored Trousers" class="product-image">
+                <div class="product-name">PARABOLIC TROUSERS</div>
+                <div class="product-price">$12,000</div>
+            </div>
+            <div class="product-card" data-aos="fade-up" data-aos-delay="200" data-aos-once="false"
+                onclick="viewProduct('monochrome3')">
+                <img src="./images/MNC FLOATING-LINE-DRESS.png" alt="Minimalist Sneakers" class="product-image">
+                <div class="product-name">FLOATING A-LINE DRESS</div>
+                <div class="product-price">$14,000</div>
+            </div>
+            <div class="product-card" data-aos="fade-up" data-aos-delay="300" data-aos-once="false"
+                onclick="viewProduct('monochrome4')">
+                <img src="./images/MNC INFLATED BLAZER.png" alt="Structured Handbag" class="product-image">
+                <div class="product-name">INFLATED BLAZER</div>
+                <div class="product-price">$9000</div>
+            </div>
+            <div class="product-card" data-aos="fade-up" data-aos-delay="400" data-aos-once="false"
+                onclick="viewProduct('monochrome5')">
+                <img src="./images/MNC RUFFLE SHIFT.png " alt="Wool Blend Scarf" class="product-image">
+                <div class="product-name">CASCADING RUFFLE SHIFT</div>
+                <div class="product-price">$18,000</div>
+            </div>
+            <div class="product-card" data-aos="fade-up" data-aos-delay="500" data-aos-once="false"
+                onclick="viewProduct('monochrome6')">
+                <img src="./images/MNC SPHERE SLEEVE TUNIC.png" alt="Leather Boots" class="product-image">
+                <div class="product-name">SPHERE SLEEVE TUNIC</div>
+                <div class="product-price">$18,000</div>
+            </div>
+            <div class="product-card" data-aos="fade-up" data-aos-delay="500" data-aos-once="false"
+                onclick="viewProduct('monochrome7')">
+                <img src="./images/MNC STRATIFIED MIDI DRESS.png" alt="Leather Boots" class="product-image">
+                <div class="product-name">STRATIFIED MIDI DRESS</div>
+                <div class="product-price">$15,700</div>
+            </div>
+            <div class="product-card" data-aos="fade-up" data-aos-delay="500" data-aos-once="false"
+                onclick="viewProduct('monochrome8')">
+                <img src="./images/MNC VEILDED ASSYMETRIC TOP.png" alt="Leather Boots" class="product-image">
+                <div class="product-name">VEILED ASSYMETRIC TOP</div>
+                <div class="product-price">$10,000</div>
+            </div>
+            <div class="product-card" data-aos="fade-up" data-aos-delay="500" data-aos-once="false"
+                onclick="viewProduct('monochrome9')">
+                <img src="images/MNC GLASS PANE TROUSERS.png" alt="Leather Boots" class="product-image">
+                <div class="product-name">LAYERED GLASS-PANE TROUSERS</div>
+                <div class="product-price">$18,000</div>
+            </div>
+            <div class="product-card" data-aos="fade-up" data-aos-delay="500" data-aos-once="false"
+                onclick="viewProduct('monochrome10')">
+                <img src="./images/MNC HALO CAGE DRESS.png" alt="Leather Boots" class="product-image">
+                <div class="product-name">HALO CAGE DRESS</div>
+                <div class="product-price">$14,000</div>
+            </div>
+            <div class="product-card" data-aos="fade-up" data-aos-delay="500" data-aos-once="false"
+                onclick="viewProduct('monochrome11')">
+                <img src="./images/MNC KINETIC SPINE CORSET.png" alt="Leather Boots" class="product-image">
+                <div class="product-name">KINETIC SPINE CORSET</div>
+                <div class="product-price">$17,000</div>
+            </div>
+            <div class="product-card" data-aos="fade-up" data-aos-delay="500" data-aos-once="false"
+                onclick="viewProduct('monochrome12')">
+                <img src="./images/FLOATING ARMATURE HARNESS.png" alt="Leather Boots" class="product-image">
+                <div class="product-name">FLOATING ARNATURE HARNESS</div>
+                <div class="product-price">$12,300</div>
+            </div>
+            <div class="product-card" data-aos="fade-up" data-aos-delay="500" data-aos-once="false"
+                onclick="viewProduct('monochrome13')">
+                <img src="./images/MNC METAL GOWN.png" alt="Leather Boots" class="product-image">
+                <div class="product-name">L.M.C GOWN</div>
+                <div class="product-price">$20,000</div>
+            </div>
+            <div class="product-card" data-aos="fade-up" data-aos-delay="500" data-aos-once="false"
+                onclick="viewProduct('monochrome14')">
+                <img src="./images/MNC PETRIFIED TROUSERS.png" alt="Leather Boots" class="product-image">
+                <div class="product-name">PETRIFIED WAVE TROUSERS</div>
+                <div class="product-price">$7000</div>
+            </div>
+            <div class="product-card" data-aos="fade-up" data-aos-delay="500" data-aos-once="false"
+                onclick="viewProduct('monochrome15')">
+                <img src="./images/MNC CRATER TEXTURE COAT.png" alt="Leather Boots" class="product-image">
+                <div class="product-name">CRATER-TEXTURED COAT</div>
+                <div class="product-price">$13,000</div>
+            </div>
+            <div class="product-card" data-aos="fade-up" data-aos-delay="500" data-aos-once="false"
+                onclick="viewProduct('monochrome16')">
+                <img src="./images/MNC DC SHIRT DRESS.png" alt="Leather Boots" class="product-image">
+                <div class="product-name">DC SHIRT DRESS</div>
+                <div class="product-price">$6000</div>
+            </div>
+            <div class="product-card" data-aos="fade-up" data-aos-delay="500" data-aos-once="false"
+                onclick="viewProduct('monochrome17')">
+                <img src="./images/MNC ATI DRAPED JUMPSUIT.png" alt="Leather Boots" class="product-image">
+                <div class="product-name">ASSYMETRIC DRAPED JUMPSUIT</div>
+                <div class="product-price">$9000</div>
+            </div>
+            <div class="product-card" data-aos="fade-up" data-aos-delay="500" data-aos-once="false"
+                onclick="viewProduct('monochrome18')">
+                <img src="./images/MNC CRYSTALLINE G BODICE.png" alt="Leather Boots" class="product-image">
+                <div class="product-name">CRYSTALLINE G BODICE</div>
+                <div class="product-price">$14,000</div>
+            </div>
+            <div class="product-card" data-aos="fade-up" data-aos-delay="500" data-aos-once="false"
+                onclick="viewProduct('monochrome19')">
+                <img src="./images/MNC STACKED DISK SHOULDER DRESS.png" alt="Leather Boots" class="product-image">
+                <div class="product-name">STACKED DISC SHOULDER DRESS</div>
+                <div class="product-price">$12,000</div>
+            </div>
+            <div class="product-card" data-aos="fade-up" data-aos-delay="500" data-aos-once="false"
+                onclick="viewProduct('monochrome20')">
+                <img src="./images/MNC KNOTTED TOWER NECKPIECE.png" alt="Leather Boots" class="product-image">
+                <div class="product-name">KNOTTED TOWER NECKPIECE</div>
+                <div class="product-price">$11,200</div>
+            </div>
+            <div class="product-card" data-aos="fade-up" data-aos-delay="500" data-aos-once="false"
+                onclick="viewProduct('monochrome21')">
+                <img src="./images/MNC FOLDED POWER CORSET.png" alt="Leather Boots" class="product-image">
+                <div class="product-name">FOLDED PAPER CORSET</div>
+                <div class="product-price">$7000</div>
+            </div>
+            <div class="product-card" data-aos="fade-up" data-aos-delay="500" data-aos-once="false"
+                onclick="viewProduct('monochrome22')">
+                <img src="./images/MNC IVORY RIB HARNESS.png" alt="Leather Boots" class="product-image">
+                <div class="product-name">IVORY RIB CAGE HARNESS</div>
+                <div class="product-price">$18,000</div>
+            </div>
+            <div class="product-card" data-aos="fade-up" data-aos-delay="500" data-aos-once="false"
+                onclick="viewProduct('monochrome23')">
+                <img src="./images/MNC POD CLOAK.png" alt="Leather Boots" class="product-image">
+                <div class="product-name">ORIGAMI POD CLOAK</div>
+                <div class="product-price">$8000</div>
+            </div>
+            <div class="product-card" data-aos="fade-up" data-aos-delay="500" data-aos-once="false"
+                onclick="viewProduct('monochrome24')">
+                <img src="./images/MNC WINGED BACKPIECE.png" alt="Leather Boots" class="product-image">
+                <div class="product-name">WINGED CONTRACTION BACKPIECE</div>
+                <div class="product-price">$18,000</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lookbook Section (Now comes after products as requested) -->
+    <section class="lookbook" id="lookbook">
+        <div class="section-header">
+            <h2 data-aos="fade-up" data-aos-once="false">The Lookbook</h2>
+            <p data-aos="fade-up" data-aos-delay="200" data-aos-once="false">Curated ensembles showcasing architectural
+                fashion in motion</p>
+        </div>
+        <div class="lookbook-grid">
+            <!-- Lookbook items listed in HTML as requested -->
+            <div class="lookbook-item" data-aos="fade-up" data-aos-once="false" onclick="viewProduct('monochrome25')">
+                <img src="./images/MNC ICON LUMINARY VEIL.png" alt="Architectural Coat" class="lookbook-image">
+                <div class="lookbook-overlay">
+                    <div class="lookbook-title">THE LUMINARY VEIL</div>
+                    <div class="lookbook-price">$18,000</div>
+                </div>
+            </div>
+            <div class="lookbook-item" data-aos="fade-up" data-aos-delay="100" data-aos-once="false"
+                onclick="viewProduct('monochrome26')">
+                <img src="./images/MNC MYCELLIUM GOWN.png" alt="Structural Dress" class="lookbook-image">
+                <div class="lookbook-overlay">
+                    <div class="lookbook-title">THE MYCELLIUM </div>
+                    <div class="lookbook-price">$25,000</div>
+                </div>
+            </div>
+            <div class="lookbook-item" data-aos="fade-up" data-aos-delay="200" data-aos-once="false"
+                onclick="viewProduct('monochrome27')">
+                <img src="./images/MNC CALCITE MONNOLITH.png" alt="Minimalist Suit" class="lookbook-image">
+                <div class="lookbook-overlay">
+                    <div class="lookbook-title">CALCITE MONOLITH</div>
+                    <div class="lookbook-price">$19,000</div>
+                </div>
+            </div>
+            <div class="lookbook-item" data-aos="fade-up" data-aos-delay="300" data-aos-once="false"
+                onclick="viewProduct('monochrome28')">
+                <img src="./images/MNC AERO-GEL COCOON.png" alt="Deconstructed Shirt" class="lookbook-image">
+                <div class="lookbook-overlay">
+                    <div class="lookbook-title">AERO-GEL</div>
+                    <div class="lookbook-price">$22,000</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Collections</h3>
+                <div class="footer-links">
+                    <a href="#">Architectural Series</a>
+                    <a href="#">Minimalist Edition</a>
+                    <a href="#">Structural Forms</a>
+                    <a href="#">Future Heritage</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Information</h3>
+                <div class="footer-links">
+                    <a href="#">Shipping & Returns</a>
+                    <a href="#">Size Guide</a>
+                    <a href="#">Care Instructions</a>
+                    <a href="#">Store Locations</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Company</h3>
+                <div class="footer-links">
+                    <a href="#">Our Philosophy</a>
+                    <a href="#">Sustainability</a>
+                    <a href="#">Press</a>
+                    <a href="#">Careers</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Connect</h3>
+                <div class="footer-links">
+                    <a href="#">Instagram</a>
+                    <a href="#">Journal</a>
+                    <a href="#">Newsletter</a>
+                    <a href="#">Contact</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            MONOCHROME © 2025 — ARCHITECTURAL FASHION HOUSE
+        </div>
+    </footer>
+
+    <!-- MONOCHROME AI ASSISTANT -->
+    <div class="monochrome-orb" id="monoOrb">💁‍♀️</div>
+    <div class="monochrome-chat" id="monoChat">
+        <div class="chat-messages" id="monoMessages">
+            <div class="message ai-message">
+                Hello, I'm your Monochrome stylist. Ask me anything about style or collections!
+            </div>
+        </div>
+        <input type="text" id="monoInput" placeholder="Ask about our collection..." />
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="product.js"></script>
+    <script src="stylist.js"></script>
+    <script>
+        // ===== INITIALIZE AOS =====
+        AOS.init({
+            duration: 1000,
+            once: false,
+            offset: 100,
+            easing: 'ease-out-cubic'
+        });
+        function viewProduct(productId) {
+            // Find product by id from the array
+            const product = monochromeProducts.find(p => p.id === productId);
+            if (product) {
+                // ✅ Save full product details into localStorage
+                localStorage.setItem("selectedProduct", JSON.stringify(product));
+                // ✅ Redirect to the product page
+                window.location.href = "monochromeproduct.html";
+            }
+        }
+    </script>
+    <script>
+        // Scroll arrow functionality with error handling
+        const scrollArrow = document.getElementById('scrollArrow');
+        if (scrollArrow) {
+            scrollArrow.addEventListener('click', function () {
+                const shopCollection = document.getElementById('shop-collection');
+                if (shopCollection) {
+                    window.scrollTo({
+                        top: shopCollection.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        }
+
+        // ===== CUSTOM CURSOR =====
+        document.addEventListener('DOMContentLoaded', function () {
+            const cursor = document.querySelector('.cursor');
+
+            // Move cursor
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+
+            // Cursor hover effects
+            const hoverElements = document.querySelectorAll('a, button, .nav-icon, .product-card, .lookbook-item, .ai-orb');
+
+            hoverElements.forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    cursor.classList.add('hover');
+                });
+                element.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('hover');
+                });
+            });
+
+            // Cursor click effect
+            document.addEventListener('mousedown', () => {
+                cursor.classList.add('click');
+            });
+            document.addEventListener('mouseup', () => {
+                cursor.classList.remove('click');
+            });
+
+            // Initialize AI features
+            initAIChat();
+            initVoiceCommands();
+
+            // Standardized Hamburger Toggle from drops.html
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+
+            if (hamburger && navLinks) {
+                hamburger.addEventListener('click', () => {
+                    hamburger.classList.toggle('active');
+                    navLinks.classList.toggle('open');
+                });
+            }
+        });
+
+
+    </script>
+    <script>
+        // ===== Monochrome AI Chat =====
+        document.addEventListener("DOMContentLoaded", function () {
+
+            // --- Elements ---
+            const monoOrb = document.getElementById('monoOrb');
+            const monoChat = document.getElementById('monoChat');
+            const monoMessages = document.getElementById('monoMessages');
+            const monoInput = document.getElementById('monoInput');
+
+            // --- Orb click to toggle chat ---
+            monoOrb.addEventListener('click', () => {
+                monoChat.classList.toggle('active');
+                if (monoChat.classList.contains('active')) {
+                    setTimeout(() => monoInput.focus(), 200);
+                }
+            });
+
+            // --- Send message on Enter key ---
+            monoInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendMonoMessage();
+            });
+
+            function sendMonoMessage() {
+                const text = monoInput.value.trim();
+                if (!text) return;
+
+                // Add user message
+                addMessage(text, 'user');
+                monoInput.value = '';
+
+                // Thinking indicator
+                const thinkingDiv = document.createElement('div');
+                thinkingDiv.className = 'message ai-message';
+                thinkingDiv.innerHTML = '💁‍♀️ Let me think...';
+                monoMessages.appendChild(thinkingDiv);
+                monoMessages.scrollTop = monoMessages.scrollHeight;
+
+                // Simulate thinking 3-5 seconds
+                const delay = 3000 + Math.random() * 2000;
+                setTimeout(() => {
+                    thinkingDiv.remove();
+
+                    // Find matching response from your existing array
+                    let response = "Hmm, I don't have an answer for that yet.";
+                    for (let item of monochromeStylistAnswers) {
+                        for (let kw of item.keywords) {
+                            if (text.toLowerCase().includes(kw.toLowerCase())) {
+                                response = item.answer;
+                                break;
+                            }
+                        }
+                    }
+
+                    // Type reply letter by letter
+                    typeMessage(response, 'ai');
+                }, delay);
+            }
+
+            // --- Add message instantly ---
+            function addMessage(text, sender) {
+                const msgDiv = document.createElement('div');
+                msgDiv.className = `message ${sender}-message`;
+                msgDiv.textContent = text;
+                monoMessages.appendChild(msgDiv);
+                monoMessages.scrollTop = monoMessages.scrollHeight;
+            }
+
+            // --- Type message letter by letter ---
+            function typeMessage(text, sender) {
+                const msgDiv = document.createElement('div');
+                msgDiv.className = `message ${sender}-message`;
+                monoMessages.appendChild(msgDiv);
+
+                let i = 0;
+                const interval = setInterval(() => {
+                    msgDiv.textContent += text[i];
+                    monoMessages.scrollTop = monoMessages.scrollHeight;
+                    i++;
+                    if (i >= text.length) clearInterval(interval);
+                }, 25); // typing speed
+            }
+
+        });
+
+
+        // Hamburger Menu Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('open');
+            });
+        }
+
+    </script>
+</body>
+
+</html>

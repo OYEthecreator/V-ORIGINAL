@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #000;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .main-contact {
+      display: grid;
+    }
+
+    /* =====================
+       CATEGORY CARDS
+    ====================== */
+    .contact-categories {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(220px, 1fr));
+      gap: 24px;
+      padding: 60px 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .category-card {
+      background-color: #111;
+      border-radius: 12px;
+      padding: 20px 24px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 500;
+      color: #ddd;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .category-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
+    }
+
+    /* =====================
+       FORM SECTION
+    ====================== */
+    .contact-form-section {
+      max-width: 900px;
+      width: 100%;
+      padding: 40px;
+      background-color: #111;
+      border-radius: 16px;
+      box-shadow: 0 6px 28px rgba(0, 0, 0, 0.4);
+      position: relative;
+      overflow: hidden;
+      margin: 0;
+    }
+
+    .contact-form-section h2 {
+      font-size: 28px;
+      margin-bottom: 30px;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #fff;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Logo watermark inside form */
+    .voux-contact-logo {
+      position: absolute;
+      top: 20%;
+      left: 5%;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      opacity: 1;
+      /* Bold visibility as requested */
+      pointer-events: none;
+      width: 100%;
+      /* Container width */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0.8;
+    }
+
+    .voux-contact-logo img {
+      max-width: 400px;
+      width: 100%;
+      opacity: 0.8;
+      /* Adjust image width relative to container */
+    }
+
+
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .form-row input,
+    .form-row select {
+      flex: 1;
+      min-width: 220px;
+      padding: 14px 18px;
+      border: 1px solid #333;
+      border-radius: 8px;
+      font-size: 16px;
+      background: transparent;
+      color: #fff;
+    }
+
+    textarea {
+      padding: 14px 18px;
+      min-height: 140px;
+      border: 1px solid #333;
+      border-radius: 8px;
+      font-size: 16px;
+      background: transparent;
+      color: #fff;
+      resize: vertical;
+    }
+
+    /* --- CUSTOM DROPDOWN STYLING --- */
+    .form-row select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%20viewBox%3D%220%200%20292.4%20292.4%22%3E%3Cpath%20fill%3D%22%23d4af37%22%20d%3D%22M287%2069.4L146.2%20210.2%205.4%2069.4c-7.2-7.2-18.9-7.2-26.1%200-7.2%207.2-7.2%2018.9%200%2026.1l153.3%20153.2c3.6%203.6%208.3%205.4%2013%205.4s9.5-1.8%2013-5.4L299.7%2095.5c7.2-7.2%207.2-18.9%200-26.1-7.2-7.2-18.9-7.2-26.1%200z%22%2F%3E%3C%2Fsvg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 12px;
+      padding-right: 40px;
+      /* Space for arrow */
+      cursor: pointer;
+    }
+
+    .form-row select option {
+      background-color: #000;
+      color: #fff;
+      padding: 12px;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #d4af37;
+      box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.1);
+    }
+
+    button {
+      align-self: flex-start;
+      background-color: #d4af37;
+      color: #000;
+      border: none;
+      padding: 14px 28px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #b38e2f;
+    }
+
+    /* Button base */
+    #submitBtn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      background: #d4af37;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    #submitBtn:disabled {
+      background: #999;
+      cursor: not-allowed;
+    }
+
+    /* Text inside button */
+    .btn-text {
+      display: inline-block;
+    }
+
+    /* Spinner */
+    .btn-spinner {
+      display: none;
+      width: 16px;
+      height: 16px;
+      border: 2px solid white;
+      border-top: 2px solid transparent;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    .chat-container {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .chat-bubble {
+      padding: 12px 16px;
+      border-radius: 18px;
+      max-width: 70%;
+      font-size: 15px;
+      line-height: 1.4;
+      word-wrap: break-word;
+    }
+
+    .chat-bubble.user {
+      background-color: #d4af37;
+      color: #000;
+      align-self: flex-end;
+    }
+
+    .chat-bubble.agent {
+      background-color: #222;
+      color: #fff;
+      align-self: flex-start;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* --- RESPONSIVE DESIGN (Mobile & Tablet) --- */
+    @media screen and (max-width: 1024px) {
+      .contact-categories {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 cols on tablet */
+        gap: 20px;
+        padding: 40px 20px;
+      }
+
+      .contact-form-section {
+        padding: 30px;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      body {
+        padding: 10px;
+        display: block;
+        /* Allow normal scrolling flow */
+      }
+
+      /* Tighter Back Button on Mobile */
+      .back-btn-fixed {
+        top: 15px;
+        left: 15px;
+      }
+
+      .main-contact {
+        padding-top: 60px;
+        /* Space for back button */
+      }
+
+      /* Categories Stack */
+      .contact-categories {
+        grid-template-columns: 1fr;
+        /* 1 col on mobile */
+        padding: 20px 0;
+        gap: 16px;
+      }
+
+      .category-card {
+        padding: 16px;
+        font-size: 15px;
+      }
+
+      /* Form Stack */
+      .contact-form-section {
+        padding: 25px 20px;
+        border-radius: 20px;
+      }
+
+      .contact-form-section h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+
+      .form-row {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .form-row input,
+      .form-row select,
+      textarea {
+        width: 100%;
+        min-width: 100%;
+        /* Force full width */
+      }
+
+      /* Logo Watermark adjustment */
+      .voux-contact-logo {
+        width: 80%;
+        margin: 0 auto;
+      }
+
+      button {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 🔒 FIXED GOLD LUXURY BACK BUTTON -->
+  <style>
+    .back-btn-fixed {
+      position: fixed;
+      top: 22px;
+      /* adjust position */
+      left: 22px;
+      z-index: 9999;
+
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(212, 175, 55, 0.55);
+
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 9px 14px;
+      border-radius: 50px;
+      transition: 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      border-radius: 50%;
+      gap: 0;
+    }
+
+    .back-btn-fixed:hover {
+      background: rgba(212, 175, 55, 0.15);
+      transform: translateX(-2px);
+    }
+
+    .back-btn-fixed svg {
+      width: 17px;
+      height: 17px;
+      stroke: #d4af37;
+      transition: 0.25s ease;
+    }
+
+    .back-btn-fixed:hover svg {
+      stroke: #f0d98a;
+    }
+  </style>
+
+  <button class="back-btn-fixed" onclick="goBack()">
+    <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+    </svg>
+  </button>
+
+  <script>
+    function goBack() {
+      if (document.referrer) {
+        window.history.back();
+      } else {
+        window.location.href = "/"; // fallback home
+      }
+    }
+  </script>
+
+  <main class="main-contact">
+    <!-- CATEGORIES -->
+    <section class="contact-categories" data-aos="fade-up" data-aos-duration="500">
+      <div class="category-card" data-aos="zoom-in" data-aos-delay="2200">📦 Orders & Shipping</div>
+      <div class="category-card" data-aos="zoom-in" data-aos-delay="4000">🤝 Partnerships</div>
+      <div class="category-card" data-aos="zoom-in" data-aos-delay="3500">🎥 Press & Media</div>
+      <div class="category-card" data-aos="zoom-in" data-aos-delay="6000">🛠 Product Support</div>
+      <div class="category-card" data-aos="zoom-in" data-aos-delay="5000">📬 General Inquiry</div>
+    </section>
+
+    <!-- FORM -->
+    <section class="contact-form-section" data-aos="fade-up" data-aos-duration="5000" data-aos-delay="300">
+      <div class="voux-contact-logo" data-aos="zoom-in" data-aos-delay="5000">
+        <img src="./images/voux_main_logo_5-removebg-preview.png" alt="VOUX Logo">
+      </div>
+      <h2 data-aos="fade-down" data-aos-delay="400">Reach Out</h2>
+      <form class="contact-form">
+        <div class="form-row">
+          <input type="text" id="fullName" placeholder="Full Name" data-aos="fade-right" data-aos-delay="500">
+          <input type="email" id="email" placeholder="Email Address" data-aos="fade-left" data-aos-delay="600">
+        </div>
+        <div class="form-row">
+          <select id="inquiry" data-aos="fade-up" data-aos-delay="700">
+            <option value="">Select Inquiry Type</option>
+            <option>Orders</option>
+            <option>Partnerships</option>
+            <option>Press</option>
+            <option>Support</option>
+            <option>General</option>
+          </select>
+        </div>
+        <textarea id="message" placeholder="Your Message" data-aos="fade-up" data-aos-delay="800"></textarea>
+        <button type="submit" id="submitBtn" data-aos="zoom-in" data-aos-delay="900">
+          <span class="btn-text">Send Message</span>
+          <span class="btn-spinner"></span>
+        </button>
+        <div id="chatContainer" class="chat-container" data-aos="fade-up" data-aos-delay="1000">
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      once: true,
+      easing: 'ease-out-cubic'
+    });
+  </script>
+
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Golden Showcase</title>
+  <style>
+    /* ----------------------------
+       Global Styles
+    ---------------------------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #111;
+      color: #fff;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      position: relative;
+    }
+    h1 {
+      text-align: center;
+      padding: 60px 20px 40px;
+      font-size: 3.5rem;
+      color: gold;
+      text-shadow: 0 0 15px rgba(255,215,0,0.8);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ----------------------------
+       Hero/Background Particles
+    ---------------------------- */
+    .particles {
+      position: fixed;
+      top: 0;
+       left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .particle {
+      position: absolute;
+      background: rgba(255, 215, 0, 0.15);
+      border-radius: 50%;
+      animation: floatParticles linear infinite;
+    }
+
+    @keyframes floatParticles {
+      0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.2; }
+      50% { transform: translateY(-100vh) translateX(50px) scale(1.2); opacity: 0.4; }
+      100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.2; }
+    }
+
+    /* ----------------------------
+       Section Styling
+    ---------------------------- */
+    .item-section {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 120px 5%;
+      gap: 80px;
+      min-height: 100vh;
+      opacity: 0;
+      transform: translateY(60px);
+      transition: all 1s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Alternate layout */
+    .item-section:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+
+    .item-section.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ----------------------------
+       Image Styling
+    ---------------------------- */
+    .item-image {
+      flex: 1 1 45%;
+      max-width: 600px;
+      animation: breathe 6s ease-in-out infinite;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 15px 40px rgba(255, 215, 0, 0.6);
+      transition: transform 0.5s, box-shadow 0.5s;
+    }
+    .item-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+    }
+    .item-image:hover {
+      transform: scale(1.03);
+      box-shadow: 0 25px 60px rgba(255, 215, 0, 0.8);
+    }
+    @keyframes breathe {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+
+    /* ----------------------------
+       Text Styling
+    ---------------------------- */
+    .item-text {
+      flex: 1 1 45%;
+      max-width: 600px;
+      color: gold;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1s ease;
+    }
+    .item-section.show .item-text {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .item-text h2 {
+      font-size: 2.5rem;
+      text-shadow: 0 0 15px rgba(255,215,0,0.5);
+      position: relative;
+      overflow: hidden;
+    }
+    /* Glimmer shine effect on headings */
+    .item-text h2::after {
+      content: "";
+      position: absolute;
+      width: 50px;
+      height: 100%;
+      top: 0;
+      left: -50px;
+      background: linear-gradient(120deg, transparent, rgba(255,215,0,0.6), transparent);
+      transform: skewX(-25deg);
+      transition: all 0.8s ease;
+    }
+    .item-section.show .item-text h2::after {
+      left: 100%;
+    }
+    .item-text p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: #fff;
+    }
+
+    /* ----------------------------
+       View Collection Button
+    ---------------------------- */
+    .shop-button {
+      display: inline-block;
+      padding: 15px 40px;
+      text-align: center;
+      margin-top: 20px;
+      border: 2px solid gold;
+      border-radius: 50px;
+      color: gold;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      background: rgba(0,0,0,0.3);
+    }
+    .shop-button:hover {
+      background: gold;
+      color: #111;
+      box-shadow: 0 0 20px gold;
+      transform: scale(1.05);
+    }
+.join-drop {
+  background: #1c1c1c;
+  padding: 100px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.join-drop h2 {
+  font-size: 3rem;
+  color: gold;
+  text-shadow: 0 0 15px rgba(255,215,0,0.7);
+}
+
+.join-drop p {
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.join-input-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.join-input-container input {
+  padding: 18px 25px;
+  font-size: 1.2rem;
+  border-radius: 50px;
+  border: 2px solid gold;
+  outline: none;
+  background: transparent;
+  color: #fff;
+  min-width: 300px;
+  transition: all 0.3s;
+}
+
+.join-input-container input::placeholder {
+  color: rgba(255, 215, 0, 0.6);
+}
+
+.join-input-container input:focus {
+  box-shadow: 0 0 20px gold;
+  border-color: gold;
+}
+
+.notify-button {
+  padding: 18px 40px;
+  border-radius: 50px;
+  border: 2px solid gold;
+  background: rgba(0,0,0,0.3);
+  color: gold;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.notify-button:hover {
+  background: gold;
+  color: #111;
+  box-shadow: 0 0 20px gold;
+  transform: scale(1.05);
+}
+
+.confirmation-text {
+  font-size: 1rem;
+  color: rgba(255,215,0,0.7);
+}
+.notify-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  backdrop-filter: blur(2px);
+}
+
+.notify-popup-content {
+  background: #fff;
+  padding: 22px 30px;
+  border-radius: 8px;
+  text-align: center;
+  width: 90%;
+  max-width: 350px;
+  font-family: inherit;
+  animation: fadePop 0.25s ease-out;
+}
+
+.notify-popup-content p {
+  margin-bottom: 15px;
+  font-size: 15px;
+  color: #222;
+}
+
+.notify-popup-content button {
+  padding: 8px 18px;
+  background: #111;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+@keyframes fadePop {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+
+  </style>
+</head>
+<body>
+<!-- 🔒 FIXED GOLD LUXURY BACK BUTTON -->
+<style>
+  .back-btn-fixed {
+    position: fixed;
+    top: 22px; /* adjust position */
+    left: 22px;
+    z-index: 9999;
+
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(212, 175, 55, 0.55);
+
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 9px 14px;
+    border-radius: 50px;
+    transition: 0.25s ease;
+    color: #d4af37;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .back-btn-fixed:hover {
+    background: rgba(212, 175, 55, 0.15);
+    transform: translateX(-2px);
+  }
+
+  .back-btn-fixed svg {
+    width: 17px;
+    height: 17px;
+    stroke: #d4af37;
+    transition: 0.25s ease;
+  }
+
+  .back-btn-fixed:hover svg {
+    stroke: #f0d98a;
+  }
+</style>
+
+<button class="back-btn-fixed" onclick="goBack()">
+  <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+  </svg>
+  Back
+</button>
+
+<script>
+  function goBack() {
+    if (document.referrer) {
+      window.history.back();
+    } else {
+      window.location.href = "/"; // fallback home
+    }
+  }
+</script>
+
+  <!-- ----------------------------
+       Floating Particle Layer
+  ---------------------------- -->
+  <div class="particles"></div>
+
+  <h1>New Collections & Latest Arrivals</h1>
+
+  <!-- ----------------------------
+       Item Sections
+  ---------------------------- -->
+<section class="item-section">
+  <div class="item-image">
+    <img src="./images/monoclith coat front.png" alt="Monoclith Coat">
+  </div>
+  <div class="item-text">
+    <h2>Monoclith Coat</h2>
+    <p>Crafted in Milan, Italy. A statement piece made from handwoven Italian wool. The Monoclith Coat blends sharp tailoring with fluid movement, designed for urban elegance. Subtle golden stitching highlights the seams, reflecting light like a city skyline at dusk.</p>
+    <a href="collection1.html" class="shop-button">Buy Now</a>
+  </div>
+</section>
+
+<section class="item-section">
+  <div class="item-image">
+    <img src="./images/echo trousers.png" alt="Echo Trousers">
+  </div>
+  <div class="item-text">
+    <h2>Echo Trousers</h2>
+      <p>
+        Designed in Paris, these trousers are made from premium French cotton. 
+        Their tailored silhouette ensures a clean line while maintaining comfort for daily wear. 
+        Subtle reflective stitching adds a modern twist. 
+        Every seam is reinforced to ensure longevity, reflecting Parisian attention to detail.
+      </p>
+    <a href="collection2.html" class="shop-button">Buy Now</a>
+  </div>
+</section>
+
+<section class="item-section">
+  <div class="item-image">
+    <img src="./images/obsidian hoodie frontt.png" alt="Obsidian Hoodie">
+  </div>
+  <div class="item-text">
+    <h2>OBS</h2>
+    <p>Crafted in Los Angeles, USA. Constructed from ultra-soft French terry fabric, OBS offers a luxurious drape. Its deep black hue absorbs light, while metallic thread accents add subtle shimmer — perfect for both streetwear and high-fashion layering.</p>
+    <a href="collection3.html" class="shop-button">Buy Now</a>
+  </div>
+</section>
+
+<section class="item-section">
+  <div class="item-image">
+    <img src="./images/strata vest front.png" alt="Strata Vest">
+  </div>
+  <div class="item-text">
+    <h2>Halo Jacket</h2>
+    <p>Crafted in London, UK. The Halo Jacket is hand-stitched from lightweight, ripstop silk, layered to create depth and texture. Its modular pockets are inspired by architectural forms, merging utility with avant-garde aesthetics.</p>
+    <a href="collection4.html" class="shop-button">Buy Now</a>
+  </div>
+</section>
+
+<section class="item-section">
+  <div class="item-image">
+    <img src="./images/halo jacket front.png" alt="Halo Jacket">
+  </div>
+  <div class="item-text">
+    <h2>Strata Vest</h2>
+          <p>
+        Created in Berlin, Germany. Strata Vest is a fusion of urban comfort and premium craftsmanship. 
+        Made from organic cotton blended with fine merino wool, the hoodie is soft, breathable, and luxuriously textured. 
+        Golden stitch accents and custom embossed drawstrings highlight its artisan finish. 
+        Perfect for streetwear enthusiasts seeking sophistication in casual attire.
+      </p>
+    <a href="collection5.html" class="shop-button">Buy Now</a>
+  </div>
+</section>
+
+<section class="item-section">
+  <div class="item-image">
+    <img src="./images/fracture jacket front.png" alt="Fracture Jacket">
+  </div>
+  <div class="item-text">
+    <h2>Fracture Jacket</h2>
+    <p>Crafted in Berlin, Germany. Constructed from premium bonded leather with laser-cut detailing, the Fracture Jacket embodies rebellious precision. Each piece is slightly asymmetrical, ensuring every jacket is unique — a true avant-garde statement.</p>
+    <a href="collection 6.html" class="shop-button">Buy Now</a>
+  </div>
+</section>
+
+<section class="item-section">
+  <div class="item-image">
+    <img src="./images/axis pants front.png" alt="Axis Pants">
+  </div>
+  <div class="item-text">
+    <h2>Axis Pants</h2>
+    <p>Crafted in Seoul, South Korea. Engineered for movement and style, Axis Pants use breathable technical fabric with reflective trims. Inspired by kinetic architecture, these pants move with the body while maintaining a sharp, urban edge.</p>
+    <a href="collection7.html" class="shop-button">Buy Now</a>
+  </div>
+</section>
+
+<section class="item-section">
+  <div class="item-image">
+    <img src="./images/vector hoodie front.png" alt="Vector Hoodie">
+  </div>
+  <div class="item-text">
+    <h2>Vector Hoodie</h2>
+    <p>Crafted in New York, USA. Vector Hoodie is a fusion of heritage cotton fleece and high-performance mesh. Geometric paneling evokes urban street grids, while metallic gold drawstrings and trims add a hint of luxury.</p>
+    <a href="collection8.html" class="shop-button">Buy Now</a>
+  </div>
+</section>
+
+<section class="item-section">
+  <div class="item-image">
+    <img src="./images/oracle front.png" alt="Oracle Jacket">
+  </div>
+  <div class="item-text">
+    <h2>Oracle</h2>
+    <p>Crafted in Milan, Italy. Oracle  is tailored from Italian mohair with a satin lining, designed for layering over sleek evening wear. Its luminous finish subtly shifts under light, reminiscent of a city skyline at twilight.</p>
+    <a href="collection9.html" class="shop-button">Buy Now</a>
+  </div>
+</section>
+
+<section class="item-section">
+  <div class="item-image">
+    <img src="./images/eclipse vest front.png" alt="Eclipse Vest">
+  </div>
+  <div class="item-text">
+    <h2>E-Vest</h2>
+        <p>Crafted in Tokyo, Japan. E-Vest combines technical nylon with metallic coated threads for a futuristic aesthetic. Lightweight yet structured, it’s designed to shimmer like an eclipse when catching the sun, merging urban and avant-garde inspirations.</p>
+    <a href="collection10.html" class="shop-button">Buy Now</a>
+  </div>
+</section>
+
+<!-- Join the Drop List Section -->
+<section class="join-drop">
+  <h2>Never Miss a Drop</h2>
+  <p>Enter your email below to be the first to know about our new collections.</p>
+  
+  <div class="join-input-container">
+    <input type="email" placeholder="Your email address">
+    <button class="notify-button">Notify Me</button>
+  </div>
+
+  <p class="confirmation-text">We’ll keep you updated with every new release and exclusive collection.</p>
+  <div id="notifyPopup" class="notify-popup" style="display: none;">
+  <div class="notify-popup-content">
+    <p id="notifyMessage"></p>
+    <button id="closeNotifyPopup">OKAY</button>
+  </div>
+</div>
+
+</section>
+
+
+
+  <script>
+    // ----------------------------
+    // Scroll animation for sections
+    // ----------------------------
+    const sections = document.querySelectorAll('.item-section');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, { threshold: 0.3 });
+
+    sections.forEach(section => observer.observe(section));
+
+    // ----------------------------
+    // Generate floating particles
+    // ----------------------------
+    const particlesContainer = document.querySelector('.particles');
+    const numParticles = 40; // adjust for density
+
+    for(let i = 0; i < numParticles; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      particle.style.width = `${Math.random()*6 + 2}px`;
+      particle.style.height = particle.style.width;
+      particle.style.top = `${Math.random()*100}%`;
+      particle.style.left = `${Math.random()*100}%`;
+      particle.style.animationDuration = `${Math.random()*20 + 10}s`;
+      particle.style.animationDelay = `${Math.random()*5}s`;
+      particlesContainer.appendChild(particle);
+    }
+// === NOTIFY POPUP FUNCTION ===
+function notifyPopup(message) {
+    const popup = document.getElementById('notifyPopup');
+    const msg = document.getElementById('notifyMessage');
+
+    msg.textContent = message;
+    popup.style.display = 'flex';
+
+    document.getElementById('closeNotifyPopup').onclick = () => {
+        popup.style.display = 'none';
+    };
+}
+
+// === STRICT EMAIL VALIDATOR ===
+/**
+ * Strict email validator
+ * Returns true if valid, false otherwise.
+ */
+function isValidEmail(email) {
+    if (typeof email !== 'string') return false;
+
+    // overall length limit
+    if (email.length > 254) return false;
+
+    // split local@domain
+    const parts = email.split('@');
+    if (parts.length !== 2) return false;
+
+    const [local, domain] = parts;
+
+    // local-part length limit
+    if (local.length === 0 || local.length > 64) return false;
+
+    // Domain must be ascii labels separated by dots, TLD at least 2 chars
+    // and no label longer than 63 chars.
+    const domainLabels = domain.split('.');
+    if (domainLabels.some(lbl => lbl.length === 0 || lbl.length > 63)) return false;
+    if (domainLabels.length < 2) return false; // require at least one dot
+
+    // Strict regex for allowed characters:
+    const localRegex = /^(?!\.)(?!.*\.\.)([A-Za-z0-9!#$%&'*+/=?^_`{|}~.-]+)(?<!\.)$/;
+    const domainRegex = /^(?!-)([A-Za-z0-9-]+)(?<!-)$/;
+    const tldRegex = /^[A-Za-z]{2,}$/;
+
+    if (!localRegex.test(local)) return false;
+
+    // each domain label must match domainRegex, last label must match tldRegex
+    for (let i = 0; i < domainLabels.length; i++) {
+        const lbl = domainLabels[i];
+        if (i === domainLabels.length - 1) {
+            if (!tldRegex.test(lbl)) return false;
+        } else {
+            if (!domainRegex.test(lbl)) return false;
+        }
+    }
+
+    return true;
+}
+
+// === NOTIFY BUTTON CLICK HANDLER ===
+document.querySelector('.notify-button').addEventListener('click', () => {
+    const emailInput = document.querySelector('.join-input-container input');
+    const email = emailInput.value.trim();
+
+    if (!email) {
+        notifyPopup("Please enter your email address.");
+        return;
+    }
+
+    if (!isValidEmail(email)) {
+        notifyPopup("Please enter a valid email address.");
+        return;
+    }
+
+    notifyPopup("You’re all set! We’ll notify you when the collection drops.");
+    emailInput.value = "";
+});
+
+
+  </script>
+</body>
+</html>
+

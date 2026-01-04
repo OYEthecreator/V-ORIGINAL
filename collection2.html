@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monoclith Coat - Golden Showcase</title>
+  <style>
+    /* Reset and global styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top left, #222, #000);
+      color: #fff;
+      scroll-behavior: smooth;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    /* Product Page Container */
+    .product-page {
+      padding: 100px 5%;
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+    }
+
+    /* Main Product Section */
+    .product-main {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 50px;
+    }
+
+    /* Product Images */
+    .product-images {
+      flex: 1 1 45%;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      position: relative;
+    }
+
+    /* Background glow behind images */
+    .product-images::before {
+      content: "";
+      position: absolute;
+      inset: -20px;
+      background: radial-gradient(circle, rgba(255,215,0,0.15), transparent 70%);
+      z-index: -1;
+      border-radius: 20px;
+    }
+
+    .main-image {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 20px 50px rgba(255, 215, 0, 0.6);
+      transition: transform 0.5s;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+    }
+
+    .main-image:hover {
+      transform: rotateY(8deg) rotateX(5deg) scale(1.03);
+    }
+    .side-view{
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 20px 50px rgba(255, 215, 0, 0.6);
+      transition: transform 0.5s;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+    
+    }
+        .side-view:hover{
+transform: rotateY(8deg) rotateX(5deg) scale(1.03);
+    }
+
+    .product-images img {
+      display: none;
+    }
+
+    /* Product Details */
+    .product-details {
+      flex: 1 1 45%;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .product-details h1 {
+      font-size: 3rem;
+      color: gold;
+      text-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+      background: linear-gradient(90deg, gold, #ffefb0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 4s infinite linear;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    .product-details p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: #fff;
+    }
+
+    /* Product Information List */
+    .product-info {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      color: rgba(255, 215, 0, 0.8);
+      font-size: 1.1rem;
+    }
+
+    .product-info li {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .price {
+      font-size: 2rem;
+      color: gold;
+      font-weight: bold;
+    }
+
+    /* Interactive Panels */
+    .product-interactive {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .actions-panel {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
+
+    .actions-panel button,
+    .actions-panel input {
+      padding: 15px 30px;
+      border-radius: 50px;
+      font-weight: bold;
+      border: 2px solid gold;
+      background: rgba(0,0,0,0.3);
+      color: gold;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Button hover glow pulse */
+    .actions-panel button::after {
+      content: "";
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: rgba(255, 215, 0, 0.4);
+      transform: skewX(-20deg);
+      transition: left 0.5s;
+    }
+
+    .actions-panel button:hover::after {
+      left: 100%;
+    }
+
+    .actions-panel button:hover,
+    .actions-panel input:hover {
+      background: gold;
+      color: #111;
+      transform: scale(1.05);
+    }
+
+    .quantity:focus {
+      outline: none;
+      border-color: gold;
+      box-shadow: 0 0 12px gold;
+    }
+
+    .options-panel {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .option-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      width: calc(50% - 10px);
+    }
+
+    .option-group select,
+    .option-group input {
+      padding: 10px 15px;
+      border-radius: 12px;
+      border: 2px solid gold;
+      background: transparent;
+      color: #fff;
+    }
+
+    .story-panels {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .story-card {
+      padding: 15px 20px;
+      border: 2px solid gold;
+      border-radius: 15px;
+      background: rgba(255,215,0,0.05);
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeUp 1s forwards;
+    }
+
+    .story-card:nth-child(1) { animation-delay: 0.2s; }
+    .story-card:nth-child(2) { animation-delay: 0.4s; }
+    .story-card:nth-child(3) { animation-delay: 0.6s; }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .story-card h3 {
+      margin-bottom: 5px;
+      color: gold;
+      font-size: 1.4rem;
+    }
+
+    .story-card p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #fff;
+    }
+
+    .engagement-panel {
+      display: flex;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .engagement-panel button {
+      padding: 10px 25px;
+      border-radius: 50px;
+      border: 2px solid gold;
+      background: rgba(0,0,0,0.3);
+      color: gold;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .engagement-panel button:hover {
+      background: gold;
+      color: #111;
+      transform: scale(1.05);
+    }
+
+    /* Related Products */
+    .related {
+      padding: 50px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+    }
+
+    .related-item {
+      flex: 1 1 200px;
+      max-width: 250px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .related-item:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 20px 40px rgba(255,215,0,0.3);
+    }
+
+    .related-item img {
+      width: 100%;
+      border-radius: 12px;
+      transition: all 0.3s;
+    }
+
+    .related-item img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 40px rgba(255, 215, 0, 0.5);
+    }
+
+    .related-item h3 {
+      color: gold;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+
+    .rotate-btn {
+      background: linear-gradient(90deg, gold, #ffefb0);
+      border: none;
+      padding: 12px 20px;
+      font-weight: bold;
+      color:black;
+      cursor: pointer;
+      margin: 5px;
+      border-radius: 8px;
+      transition: transform 0.2s ease;
+      margin-left: 110%;
+      position: absolute;
+      bottom: 53%;
+    }
+
+    .rotate-btn:hover {
+      transform: scale(1.1);
+    }
+  /* ========== Your existing styles are untouched (you can keep using your main CSS) ========== */
+
+  /* --- Inserted styles for cart icon + luxury popups --- */
+  #voux-cart-icon {
+    position: fixed;
+    top: 22px;
+    right: 26px;
+    font-size: 26px;
+    cursor: pointer;
+    z-index: 99999;
+    width:44px;
+    height:44px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: rgba(255,255,255,0.03);
+    border-radius: 10px;
+    backdrop-filter: blur(6px) saturate(120%);
+    -webkit-backdrop-filter: blur(6px) saturate(120%);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+    color: #e6f7ff;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  #voux-cart-icon .v-count {
+    position:absolute;
+    top: -6px;
+    right: -6px;
+    background: gold;
+    color:#000;
+    font-weight:700;
+    font-size:12px;
+    padding:3px 6px;
+    border-radius:999px;
+    box-shadow:0 6px 14px rgba(0,0,0,0.4);
+  }
+
+  /* Luxury popup backdrop & card */
+  .v-popup-backdrop {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(2,6,12,0.65);
+    z-index: 100000;
+    -webkit-backdrop-filter: blur(6px) saturate(120%);
+    backdrop-filter: blur(6px) saturate(120%);
+  }
+  .v-popup-card {
+    width: 92%;
+    max-width: 720px;
+    background: linear-gradient(180deg, rgba(5,10,20,0.95), rgba(0,0,0,0.92));
+    border: 1px solid rgba(212,175,55,0.08);
+    border-radius: 12px;
+    padding: 20px;
+    color: #e6d49f;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+    font-family: "Poppins", sans-serif;
+  }
+  .v-popup-card h3 { margin: 6px 0 12px 0; color: #fff; font-size:1.2rem; }
+  .v-popup-close { position:absolute; top:12px; right:16px; cursor:pointer; color:gold; font-size:20px; }
+
+  /* Cart items inside popup */
+  .v-cart-items { max-height: 48vh; overflow:auto; margin-bottom:12px; }
+  .v-cart-item { display:flex; gap:12px; align-items:center; padding:10px; border-radius:8px; background:rgba(255,255,255,0.02); margin-bottom:10px; }
+  .v-cart-item img { width:70px; height:70px; object-fit:cover; border-radius:6px; border:1px solid rgba(212,175,55,0.08); }
+  .v-cart-item .meta { color:#fff; font-size:14px; }
+  .v-cart-item .meta small { color:#d4af37; display:block; margin-top:4px; }
+
+  .v-btn {
+    display:inline-block;
+    background: linear-gradient(90deg,#e6d49f,#d4af37);
+    color:#000;
+    padding:10px 14px;
+    border-radius:8px;
+    font-weight:700;
+    border:none;
+    cursor:pointer;
+    box-shadow:0 8px 18px rgba(212,175,55,0.12);
+  }
+  .v-ghost {
+    background: transparent;
+    border:1px solid rgba(255,255,255,0.06);
+    color:#fff;
+    padding:10px 14px;
+    border-radius:8px;
+    cursor:pointer;
+  }
+
+  /* small responsive tweaks */
+  @media(max-width:600px){
+    .v-popup-card{ padding:14px; }
+    .v-cart-item img{ width:56px;height:56px; }
+  }
+  </style>
+</head>
+<body>
+  <!-- 🔒 FIXED GOLD LUXURY BACK BUTTON -->
+<style>
+  .back-btn-fixed {
+    position: fixed;
+    top: 22px; /* adjust position */
+    left: 22px;
+    z-index: 9999;
+
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(212, 175, 55, 0.55);
+
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 9px 14px;
+    border-radius: 50px;
+    transition: 0.25s ease;
+    color: #d4af37;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .back-btn-fixed:hover {
+    background: rgba(212, 175, 55, 0.15);
+    transform: translateX(-2px);
+  }
+
+  .back-btn-fixed svg {
+    width: 17px;
+    height: 17px;
+    stroke: #d4af37;
+    transition: 0.25s ease;
+  }
+
+  .back-btn-fixed:hover svg {
+    stroke: #f0d98a;
+  }
+</style>
+
+<button class="back-btn-fixed" onclick="goBack()">
+  <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+  </svg>
+  Back
+</button>
+
+<script>
+  function goBack() {
+    if (document.referrer) {
+      window.history.back();
+    } else {
+      window.location.href = "/"; // fallback home
+    }
+  }
+</script>
+
+  <div id="voux-cart-icon" title="View cart">
+  🛒
+  <span class="v-count" id="v-cart-count" style="display:none">0</span>
+</div>
+  <section class="product-page">
+  <div class="product-main">
+    <div class="product-images">
+      <img src="./images/ECHO TROUSERS FRONT.png" alt="Echo Trousers" class="main-image active">
+      <div class="thumbnails">
+        <img src="./images/ECHO TROUSERS SIDE.png" alt="Side View" class="side-view">
+        <img src="./images/ECHO TROUSERS BACK.png" alt="Back View" class="side-view">
+      </div>
+        <div>
+            <button class="rotate-btn" id="rotate-right">&#10095;</button>
+        </div>
+    </div>
+    <div class="product-details">
+      <h1>Echo Trousers</h1>
+      <p>
+        Designed in Paris, these trousers are made from premium French cotton. 
+        Their tailored silhouette ensures a clean line while maintaining comfort for daily wear. 
+        Subtle reflective stitching adds a modern twist. 
+        Every seam is reinforced to ensure longevity, reflecting Parisian attention to detail.
+      </p>
+      <ul class="product-info">
+        <li>Material: <span>Premium French Cotton</span></li>
+        <li>Origin: <span>Paris, France</span></li>
+        <li>Care: <span>Machine Wash Cold</span></li>
+        <li>Available In: <span>28, 30, 32, 34, 36</span></li>
+        <li>Colors: <span>Black, Navy, Charcoal</span></li>
+        <li class="price">Price: <span>$2,500</span></li>
+      </ul>
+
+      <div class="product-interactive">
+        <div class="actions-panel">
+          <input type="number" class="quantity" value="1" min="1">
+          <button class="buy-button">Buy Now</button>
+          <button class="cart-button">Add to Cart</button>
+          <button class="wishlist-button">Add to Wishlist</button>
+        </div>
+
+        <div class="options-panel">
+          <div class="option-group">
+            <label>Size:</label>
+            <select><option>28</option><option>30</option><option>32</option><option>34</option><option>36</option></select>
+          </div>
+          <div class="option-group">
+            <label>Color:</label>
+            <select><option>Black</option><option>Navy</option><option>Charcoal</option></select>
+          </div>
+          <div class="option-group">
+            <label>Fit:</label>
+            <select><option>Slim</option><option>Regular</option><option>Relaxed</option></select>
+          </div>
+          <div class="option-group">
+            <label>Shipping Options:</label>
+            <select><option>Standard</option><option>Express</option><option>Gift Wrap</option></select>
+          </div>
+        </div>
+
+        <div class="story-panels">
+          <div class="story-card"><h3>Craftsmanship</h3><p>French cotton tailored with precision. Reinforced seams for durability and comfort.</p></div>
+          <div class="story-card"><h3>Origin Story</h3><p>Designed in Paris to blend luxury and everyday functionality seamlessly.</p></div>
+          <div class="story-card"><h3>Style Suggestions</h3><p>Pair with a crisp shirt and loafers for office style, or sneakers for casual outings.</p></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="related">
+  <div class="related-item"><img src="./images/monoclith coat front.png" alt="Monoclith Coat"><h3>Monoclith Coat</h3></div>
+  <div class="related-item"><img src="./images/obsidian hoodie front.png" alt="Obsidian Hoodie"><h3>Obsidian Hoodie</h3></div>
+  <div class="related-item"><img src="./images/halo jacket front.png" alt="Halo Jacket"><h3>Halo Jacket</h3></div>
+</section>
+
+<!-- ========== INSERTED LUXURY POPUPS (cart, checkout, wishlist) - added at the end ========== -->
+<!-- Cart Popup Backdrop -->
+<div id="v-cart-backdrop" class="v-popup-backdrop" aria-hidden="true">
+  <div class="v-popup-card" role="dialog" aria-modal="true" aria-labelledby="v-cart-title">
+    <span class="v-popup-close" id="v-cart-close">&times;</span>
+    <h3 id="v-cart-title">Your Cart</h3>
+    <div class="v-cart-items" id="v-cart-items"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">
+      <div id="v-cart-total" style="color:#fff;font-weight:700;">Total: ₦0</div>
+      <div>
+        <button class="v-ghost" id="v-continue-shopping">Continue</button>
+        <button class="v-btn" id="v-checkout">Checkout</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Checkout / Buy Now Popup Backdrop -->
+<div id="v-buy-backdrop" class="v-popup-backdrop" aria-hidden="true">
+  <div class="v-popup-card" role="dialog" aria-modal="true" aria-labelledby="v-buy-title">
+    <span class="v-popup-close" id="v-buy-close">&times;</span>
+    <h3 id="v-buy-title">Checkout</h3>
+    <div id="v-buy-summary" style="color:#fff;margin-bottom:10px;"></div>
+
+    <form id="v-buy-form" style="display:flex;flex-direction:column;gap:10px;">
+      <input id="v-fullname" placeholder="Full name" style="padding:10px;border-radius:8px;border:none;background:rgba(255,255,255,0.02);color:#fff;">
+      <input id="v-address" placeholder="Address" style="padding:10px;border-radius:8px;border:none;background:rgba(255,255,255,0.02);color:#fff;">
+      <div style="display:flex;gap:8px;">
+        <input id="v-city" placeholder="City" style="flex:1;padding:10px;border-radius:8px;border:none;background:rgba(255,255,255,0.02);color:#fff;">
+        <input id="v-phone" placeholder="Phone" style="flex:1;padding:10px;border-radius:8px;border:none;background:rgba(255,255,255,0.02);color:#fff;">
+      </div>
+      <label style="color:#d4af37;">Shipping</label>
+      <select id="v-ship" style="padding:10px;border-radius:8px;border:none;background:rgba(255,255,255,0.02);color:#fff;">
+        <option value="2000">Standard (₦2,000)</option>
+        <option value="5000">Express (₦5,000)</option>
+        <option value="8000">Next-Day (₦8,000)</option>
+      </select>
+
+      <label style="color:#d4af37;">Payment</label>
+      <select id="v-pay" style="padding:10px;border-radius:8px;border:none;background:rgba(255,255,255,0.02);color:#fff;">
+        <option value="card">Card</option>
+        <option value="bank">Bank Transfer</option>
+        <option value="pod">Pay on Delivery</option>
+      </select>
+
+      <div id="v-card-fields" style="display:block;">
+        <input id="v-card" placeholder="Card number" style="padding:10px;border-radius:8px;border:none;background:rgba(255,255,255,0.02);color:#fff;">
+        <div style="display:flex;gap:8px;">
+          <input id="v-exp" placeholder="MM/YY" style="flex:1;padding:10px;border-radius:8px;border:none;background:rgba(255,255,255,0.02);color:#fff;">
+          <input id="v-cvv" placeholder="CVV" style="width:120px;padding:10px;border-radius:8px;border:none;background:rgba(255,255,255,0.02);color:#fff;">
+        </div>
+      </div>
+
+      <div id="v-bank-fields" style="display:none;color:#d4af37;">
+        <p>Transfer to Account: 0123456789 (Zenith Bank)</p>
+        <p>Reference: <strong id="v-bank-ref"></strong></p>
+      </div>
+
+      <div id="v-pod-note" style="display:none;color:#d4af37;">
+        <p>COD may charge extra ₦1,000 on delivery.</p>
+      </div>
+
+      <div id="v-order-summary" style="color:#fff;font-weight:700;"></div>
+
+      <button type="submit" class="v-btn" id="v-confirm-buy">Confirm & Pay</button>
+    </form>
+  </div>
+</div>
+
+<!-- Wishlist confirmation popup -->
+<div id="v-wish-backdrop" class="v-popup-backdrop" aria-hidden="true">
+  <div class="v-popup-card" role="dialog" aria-modal="true">
+    <span class="v-popup-close" id="v-wish-close">&times;</span>
+    <h3>Added to Wishlist</h3>
+    <p style="color:#fff;" id="v-wish-msg">This item was saved to your wishlist.</p>
+    <div style="text-align:right;margin-top:10px;"><button class="v-btn v-wish-ok">OK</button></div>
+  </div>
+</div>
+
+
+  <!-- JS -->
+  <script>
+    const images = document.querySelectorAll('.product-images img');
+    let currentIndex = 0;
+
+    // Show first image
+    images.forEach(img => img.style.display = 'none');
+    images[currentIndex].style.display = 'block';
+
+    const nextBtn = document.getElementById('rotate-right');
+
+    nextBtn.addEventListener('click', () => {
+      images[currentIndex].style.display = 'none';
+      currentIndex = (currentIndex + 1) % images.length;
+      images[currentIndex].style.display = 'block';
+    });
+  </script>
+ <script>
+(function(){
+
+  function generateReferenceCode() {
+    const now = Date.now().toString(36).toUpperCase();
+    const rand = Math.floor(Math.random()*900000 + 100000).toString();
+    return `REF-${now}-${rand}`;
+  }
+
+  function parsePrice(text){
+    if(!text) return 0;
+    const num = String(text).replace(/[^\d.,-]/g,'').replace(/,/g,'');
+    return parseFloat(num) || 0;
+  }
+
+  // Cart storage
+  let cart = JSON.parse(localStorage.getItem('voux_cart')) || [];
+  let wishlist = JSON.parse(localStorage.getItem('voux_wishlist')) || [];
+
+  // Elements (the ones we added)
+  const cartIcon = document.getElementById('voux-cart-icon');
+  const cartCountEl = document.getElementById('v-cart-count');
+  const cartBackdrop = document.getElementById('v-cart-backdrop');
+  const cartItemsContainer = document.getElementById('v-cart-items');
+  const cartTotalEl = document.getElementById('v-cart-total');
+  const cartClose = document.getElementById('v-cart-close');
+  const continueBtn = document.getElementById('v-continue-shopping');
+  const checkoutBtn = document.getElementById('v-checkout');
+
+  const buyBackdrop = document.getElementById('v-buy-backdrop');
+  const buyClose = document.getElementById('v-buy-close');
+  const buyForm = document.getElementById('v-buy-form');
+  const buySummary = document.getElementById('v-buy-summary');
+  const buyConfirm = document.getElementById('v-confirm-buy');
+  const bankRefEl = document.getElementById('v-bank-ref');
+  const orderSummaryEl = document.getElementById('v-order-summary');
+
+  const wishBackdrop = document.getElementById('v-wish-backdrop');
+  const wishClose = document.getElementById('v-wish-close');
+  const wishMsg = document.getElementById('v-wish-msg');
+  const wishOkBtn = document.querySelector('.v-wish-ok');
+
+  // Update cart count UI
+  function updateCartCount(){
+    const totalQty = cart.reduce((s,i)=>s+(i.qty||0),0);
+    if(totalQty>0){
+      cartCountEl.style.display='inline-block';
+      cartCountEl.textContent = totalQty;
+    } else {
+      cartCountEl.style.display='none';
+    }
+  }
+
+  // Render cart items inside popup
+  function renderCart(){
+    if(!cartItemsContainer) return;
+    if(cart.length===0){
+      cartItemsContainer.innerHTML = '<p style="color:#fff;text-align:center;padding:10px;">Your cart is empty.</p>';
+      cartTotalEl.textContent = 'Total: ₦0';
+      return;
+    }
+    let total=0;
+    cartItemsContainer.innerHTML = cart.map(it=>{
+      total += it.price * it.qty;
+      return `<div class="v-cart-item" data-id="${it.id}">
+        <img src="${it.image||'./images/monoclith coat front.png'}" alt="${it.name}">
+        <div style="flex:1;">
+          <div style="color:#fff;font-weight:700;">${it.name}</div>
+          <small style="color:#d4af37">Size: ${it.size || 'N/A'}</small>
+        </div>
+        <div style="min-width:80px;color:#fff;text-align:center;">Qty: ${it.qty}</div>
+        <div style="min-width:110px;color:#fff;text-align:right;">${it.currency||'₦'}${(it.price*it.qty).toLocaleString()}</div>
+        <div><button class="v-ghost v-remove" data-id="${it.id}">Remove</button></div>
+      </div>`;
+    }).join('');
+    cartTotalEl.textContent = `Total: ${cart[0]?.currency || '₦'}${total.toLocaleString()}`;
+
+    // attach remove handlers
+    cartItemsContainer.querySelectorAll('.v-remove').forEach(btn=>{
+      btn.addEventListener('click', (e)=>{
+        const id = btn.dataset.id;
+        cart = cart.filter(c => c.id !== id);
+        saveCart();
+        renderCart();
+        updateCartCount();
+      });
+      btn.addEventListener('mouseover', ()=>{ btn.style.background='gold'; btn.style.color='#000'; });
+      btn.addEventListener('mouseout', ()=>{ btn.style.background='transparent'; btn.style.color=''; });
+    });
+  }
+
+  function saveCart(){
+    localStorage.setItem('voux_cart', JSON.stringify(cart));
+  }
+  function saveWishlist(){
+    localStorage.setItem('voux_wishlist', JSON.stringify(wishlist));
+  }
+
+  // Open/close handlers
+  cartIcon && cartIcon.addEventListener('click', ()=>{
+    renderCart();
+    cartBackdrop.style.display='flex';
+  });
+  cartClose && cartClose.addEventListener('click', ()=>{ cartBackdrop.style.display='none'; });
+  continueBtn && continueBtn.addEventListener('click', ()=>{ cartBackdrop.style.display='none'; });
+
+  // Checkout open from cart
+  checkoutBtn && checkoutBtn.addEventListener('click', ()=>{
+    const itemsCopy = cart.map(i=>({ ...i }));
+    openBuyNow(itemsCopy, { clearCartOnComplete: true });
+    cartBackdrop.style.display='none';
+  });
+
+  // Wire product page Add to Cart / Buy Now / Wishlist buttons (defensive)
+  // DO NOT change any selectors or class names outside adding these handlers
+  (function attachProductButtons(){
+    const addBtn = document.querySelector('.cart-button');
+    const buyBtn = document.querySelector('.buy-button');
+    const wishBtn = document.querySelector('.wishlist-button');
+    // product data extraction (non-destructive)
+    function readProductData(){
+      const name = document.querySelector('.product-details h1')?.textContent.trim() || 'Product';
+      const priceText = document.querySelector('.product-info .price span')?.textContent.trim()
+                       || document.querySelector('.product-info li.price span')?.textContent?.trim()
+                       || '$0';
+      const currency = priceText.match(/[^\d,.\s]/)?.[0] || '₦';
+      const price = parsePrice(priceText);
+      const image = document.querySelector('.product-images .main-image')?.src
+                    || document.querySelector('.product-images img')?.src
+                    || './images/monoclith coat front.png';
+      const qty = parseInt(document.querySelector('.quantity')?.value) || 1;
+      // choose first select inside options-panel for size if exists
+      const sizeSel = document.querySelector('.options-panel select');
+      const size = sizeSel ? sizeSel.value : (document.querySelector('.options-panel .size')?.textContent || 'M');
+      // generate id from name if no explicit hidden id present
+      const hiddenId = document.getElementById('productId')?.value;
+      const id = hiddenId || (name.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9\-]/g,'') + '-' + (Math.floor(Math.random()*900)+100));
+      return { id, name, price, currency, image, qty, size };
+    }
+
+    if(addBtn){
+      addBtn.addEventListener('click', ()=>{
+        const p = readProductData();
+        // merge if same product & size
+        let found = cart.find(i=>i.name===p.name && i.size===p.size);
+        if(found){
+          found.qty = (found.qty||0) + p.qty;
+        } else {
+          cart.push({
+            id: p.id,
+            name: p.name,
+            price: p.price,
+            currency: p.currency,
+            qty: p.qty,
+            size: p.size,
+            image: p.image
+          });
+        }
+        saveCart();
+        updateCartCount();
+        // success toast-like popup (temporary)
+        showTinyToast(`Added ${p.qty} x "${p.name}" to cart`);
+      });
+    }
+
+    if(buyBtn){
+      buyBtn.addEventListener('click', ()=>{
+        const p = readProductData();
+        openBuyNow([{ name:p.name, price:p.price, currency:p.currency, qty:p.qty, size:p.size, image:p.image }], { clearCartOnComplete:false });
+      });
+    }
+
+    if(wishBtn){
+      wishBtn.addEventListener('click', ()=>{
+        const p = readProductData();
+        // simple wishlist item structure
+        const exists = wishlist.find(w=>w.name===p.name && w.size===p.size);
+        if(!exists){
+          wishlist.push({ id:p.id, name:p.name, price:p.price, currency:p.currency, size:p.size, image:p.image });
+          saveWishlist();
+        }
+        // show wishlist popup
+        wishMsg.textContent = `${p.name} saved to wishlist`;
+        wishBackdrop.style.display='flex';
+      });
+    }
+  })();
+
+  // tiny toast creator (non-blocking)
+  function showTinyToast(msg){
+    const t = document.createElement('div');
+    t.textContent = msg;
+    t.style.position='fixed';
+    t.style.bottom='28px';
+    t.style.left='50%';
+    t.style.transform='translateX(-50%)';
+    t.style.background='linear-gradient(90deg,#e6d49f,#d4af37)';
+    t.style.color='#000';
+    t.style.padding='10px 16px';
+    t.style.borderRadius='10px';
+    t.style.fontWeight='700';
+    t.style.zIndex='100001';
+    t.style.boxShadow='0 10px 30px rgba(0,0,0,0.5)';
+    document.body.appendChild(t);
+    setTimeout(()=>{ t.style.opacity='0'; t.addEventListener('transitionend', ()=>t.remove()); }, 2200);
+  }
+
+  // Buy Now flow (checkout popup, summary, save order)
+  function openBuyNow(items, options = { clearCartOnComplete:false }){
+    if(!buyBackdrop) return;
+    // fill summary
+    buySummary.innerHTML = items.map(it=>`<div style="color:#fff;margin-bottom:6px;">${it.name} x ${it.qty} → ${it.currency}${(it.price*it.qty).toLocaleString()}</div>`).join('');
+    // bank reference
+    bankRefEl.textContent = generateReferenceCode();
+    // order summary compute
+    function updateOrderSummary(){
+      const shipFee = parseInt(document.getElementById('v-ship')?.value || 2000,10);
+      const podExtra = document.getElementById('v-pay')?.value === 'pod' ? 1000 : 0;
+      const subtotal = items.reduce((s,it)=>s + it.price * it.qty, 0);
+      const total = subtotal + shipFee + podExtra;
+      orderSummaryEl.innerHTML = `Total: ${items[0]?.currency || '₦'}${total.toLocaleString()}`;
+    }
+    updateOrderSummary();
+    // show/hide payment fields
+    document.getElementById('v-pay').addEventListener('change', (e)=>{
+      document.getElementById('v-card-fields').style.display = e.target.value==='card' ? 'block' : 'none';
+      document.getElementById('v-bank-fields').style.display = e.target.value==='bank' ? 'block' : 'none';
+      document.getElementById('v-pod-note').style.display = e.target.value==='pod' ? 'block' : 'none';
+      updateOrderSummary();
+    });
+    document.getElementById('v-ship').addEventListener('change', updateOrderSummary);
+
+    buyBackdrop.style.display='flex';
+
+    // handle submit once
+    buyForm.onsubmit = function(ev){
+      ev.preventDefault();
+      const fullName = document.getElementById('v-fullname').value.trim();
+      const address = document.getElementById('v-address').value.trim();
+      const city = document.getElementById('v-city').value.trim();
+      const phone = document.getElementById('v-phone').value.trim();
+      const payMethod = document.getElementById('v-pay').value;
+      if(!fullName||!address||!city||!phone){ alert('Please fill all fields'); return; }
+      if(payMethod==='card'){
+        const card = document.getElementById('v-card').value.trim();
+        const exp = document.getElementById('v-exp').value.trim();
+        const cvv = document.getElementById('v-cvv').value.trim();
+        if(!card||!exp||!cvv){ alert('Please fill card details'); return; }
+      }
+
+      const shipFee = parseInt(document.getElementById('v-ship').value,10)||2000;
+      const podExtra = payMethod==='pod'?1000:0;
+      const subtotal = items.reduce((s,it)=>s+it.price*it.qty,0);
+      const finalTotal = subtotal + shipFee + podExtra;
+      const ref = generateReferenceCode();
+
+      // save order into localStorage orders
+      const storedOrders = JSON.parse(localStorage.getItem('voux_orders')) || [];
+      storedOrders.push({
+        reference: ref,
+        items,
+        fullname: fullName,
+        address, city, phone,
+        payment: payMethod,
+        total: finalTotal,
+        shipping: shipFee,
+        date: new Date().toISOString()
+      });
+      localStorage.setItem('voux_orders', JSON.stringify(storedOrders));
+
+      // optional: clear cart if requested
+      if(options.clearCartOnComplete){
+        cart = [];
+        saveCart();
+      }
+
+      buyBackdrop.style.display='none';
+      // show confirmation (simple)
+      showConfirmation(`Order placed • ${items.length} item(s)`, `Ref: ${ref}`, finalTotal, items[0]?.currency || '₦');
+    };
+  }
+
+  // show confirmation popup (simple ephemeral)
+  function showConfirmation(title, refText, total, currency){
+    const conf = document.createElement('div');
+    conf.style.position='fixed';
+    conf.style.top='50%';
+    conf.style.left='50%';
+    conf.style.transform='translate(-50%,-50%)';
+    conf.style.background='linear-gradient(180deg, rgba(0,0,0,0.98), rgba(5,5,10,0.95))';
+    conf.style.border='1px solid rgba(212,175,55,0.12)';
+    conf.style.color='#fff';
+    conf.style.padding='24px';
+    conf.style.borderRadius='12px';
+    conf.style.zIndex='100002';
+    conf.style.textAlign='center';
+    conf.innerHTML = `
+      <div style="font-size:34px;line-height:1;">✨</div>
+      <h3 style="margin:8px 0 6px 0;color:#e6d49f;">${title}</h3>
+      <p style="margin:6px 0;">${refText}</p>
+      <p style="margin:6px 0;">Total: ${currency}${(total||0).toLocaleString()}</p>
+      <div style="margin-top:12px;"><button class="v-btn" id="v-conf-close">OK</button></div>
+    `;
+    document.body.appendChild(conf);
+    document.getElementById('v-conf-close').addEventListener('click', ()=> conf.remove());
+  }
+
+  // buyBackdrop close
+  buyClose && buyClose.addEventListener('click', ()=>{ buyBackdrop.style.display='none'; });
+  cartBackdrop && cartBackdrop.addEventListener('click', (e)=>{ if(e.target===cartBackdrop) cartBackdrop.style.display='none'; });
+  buyBackdrop && buyBackdrop.addEventListener('click', (e)=>{ if(e.target===buyBackdrop) buyBackdrop.style.display='none'; });
+  wishClose && wishClose.addEventListener('click', ()=>{ wishBackdrop.style.display='none'; });
+  wishOkBtn && wishOkBtn.addEventListener('click', ()=>{ wishBackdrop.style.display='none'; });
+
+  // initialize counts/UI on load
+  updateCartCount();
+  renderCart();
+
+  // expose simple methods in window for debugging (non-destructive)
+  window.vouxCart = {
+    getCart: ()=>cart,
+    getWishlist: ()=>wishlist,
+    addToCart: function(item){ cart.push(item); saveCart(); updateCartCount(); renderCart(); },
+    clearCart: function(){ cart=[]; saveCart(); updateCartCount(); renderCart(); }
+  };
+
+})();
+</script>
+</body>
+</html>
+
+

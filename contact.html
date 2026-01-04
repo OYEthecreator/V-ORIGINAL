@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | VOUX</title>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', sans-serif;
+      background: #0a0a0a;
+      color: #ddd;
+    }
+
+    /* =====================
+       HEADER + NAVBAR (MATCHING DROPS.HTML)
+    ====================== */
+    header {
+      background: transparent;
+      padding: 0;
+      position: relative;
+      z-index: 100;
+    }
+
+    /* --- DROPS NAVBAR STYLES --- */
+    .nav-container {
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding: 10px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 1000;
+    }
+
+    .logo {
+      width: 100px;
+      /* Adjust if needed, drops.html uses specific logo styles but contact.html has img tag. 
+         Let's keep it simple. */
+    }
+
+    .nav-links {
+      list-style: none;
+    }
+
+    .nav-links ul {
+      display: flex;
+      gap: 40px;
+      margin: 0;
+      padding: 0;
+    }
+
+
+    .nav-links li {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-links li a {
+      text-decoration: none;
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.952);
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      padding: 8px 12px;
+      border-radius: 20px;
+      font-weight: 500;
+      display: flex;
+    }
+
+    .nav-links li a:hover,
+    .nav-links li a.active {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* =====================
+       HERO
+    ====================== */
+    .contact-hero {
+      text-align: center;
+      padding: 100px 20px 60px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .contact-hero h1 {
+      font-size: 48px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .contact-hero p {
+      font-size: 18px;
+      color: #aaa;
+      line-height: 1.6;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+
+
+
+
+    /* =====================
+       INFO + CONTACT SECTIONS
+    ====================== */
+    .office-info,
+    .direct-contact,
+    .care-help,
+    .newsletter-optin,
+    .map-section {
+      max-width: 1100px;
+      margin: 60px auto;
+      background-color: #111;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+      color: #ddd;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .office-info:hover,
+    .direct-contact:hover,
+    .care-help:hover,
+    .newsletter-optin:hover,
+    .map-section:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    #inquiry option {
+      color: #b38e2f;
+      background-color: #000;
+      transition: 2s ease-in-out;
+    }
+
+    #inquiry option:hover {
+      background-color: #b38e2f;
+      color: #000;
+    }
+
+    /* Golden glow overlay */
+    .office-info::before,
+    .direct-contact::before,
+    .care-help::before,
+    .newsletter-optin::before,
+    .map-section::before {
+      content: "";
+      position: absolute;
+      top: -30%;
+      left: -30%;
+      width: 160%;
+      height: 160%;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+      z-index: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .office-info:hover::before,
+    .direct-contact:hover::before,
+    .care-help:hover::before,
+    .newsletter-optin:hover::before,
+    .map-section:hover::before {
+      opacity: 0.15;
+    }
+
+    /* LINKS INSIDE CONTACT SECTIONS */
+    .office-info a,
+    .direct-contact a,
+    .care-help a {
+      color: #d4af37;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease, transform 0.3s ease;
+      position: relative;
+      z-index: 2;
+    }
+
+    .office-info a:hover,
+    .direct-contact a:hover,
+    .care-help a:hover {
+      color: #fff;
+      transform: translateX(4px);
+    }
+
+    /* NEWSLETTER FORM */
+    .newsletter-form {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .newsletter-form input[type="email"] {
+      flex: 1;
+      padding: 14px 18px;
+      border-radius: 8px;
+      border: 1px solid #333;
+      background: transparent;
+      color: #fff;
+      font-size: 16px;
+    }
+
+    .newsletter-form input[type="email"]:focus {
+      border-color: #d4af37;
+    }
+
+    /* MAP STYLING */
+    .map-section iframe {
+      width: 100%;
+      height: 400px;
+      border: none;
+      border-radius: 16px;
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.5);
+      z-index: 2;
+      position: relative;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .map-section iframe:hover {
+      transform: scale(1.01);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
+    }
+
+    /* CONTACT FORM BUTTON */
+    .contact-form button {
+      background-color: #d4af37;
+      color: #000;
+      font-weight: 600;
+      padding: 16px 32px;
+      border-radius: 10px;
+      font-size: 17px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .contact-form button:hover {
+      background-color: #b38e2f;
+      transform: translateY(-2px);
+    }
+
+    body {
+      background: #000;
+      color: #d4af37;
+      font-family: "Inter", sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Office Info */
+    .office-info {
+      text-align: center;
+      padding: 1rem 1rem;
+    }
+
+    .office-info h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 2.2rem;
+      color: #f5d97b;
+    }
+
+    .office-info a {
+      color: #d4af37;
+      text-decoration: none;
+      border-bottom: 1px solid #d4af37;
+      transition: all 0.3s ease;
+    }
+
+    .office-info a:hover {
+      color: #fff;
+      border-color: #fff;
+    }
+
+    /* Overlay */
+    .booking-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.95);
+      display: none;
+      justify-content: center;
+      align-items: flex-start;
+      overflow-y: auto;
+      z-index: 2000;
+      backdrop-filter: blur(15px);
+      padding: 4rem 1rem;
+    }
+
+    .booking-container {
+      max-width: 900px;
+      background: rgba(0, 0, 0, 0.8);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      border-radius: 28px;
+      padding: 3rem 3rem 5rem;
+      box-shadow: 0 0 40px rgba(212, 175, 55, 0.15);
+    }
+
+    .booking-close {
+      position: absolute;
+      top: 25px;
+      right: 35px;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #d4af37;
+    }
+
+    .booking-close:hover {
+      color: #fff;
+      transform: rotate(90deg);
+    }
+
+    /* Progress Bar */
+    .booking-progress {
+      height: 5px;
+      background: rgba(255, 215, 0, 0.15);
+      border-radius: 3px;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 33%;
+      background: linear-gradient(90deg, #b7932f, #f5d97b);
+      transition: width 0.6s ease;
+    }
+
+    .steps {
+      display: flex;
+      justify-content: space-between;
+      position: absolute;
+      top: -18px;
+      width: 100%;
+    }
+
+    .step {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      background: rgba(255, 215, 0, 0.15);
+      color: rgba(255, 215, 0, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+    }
+
+    .step.active {
+      background: linear-gradient(90deg, #b7932f, #f5d97b);
+      color: #000;
+      transform: scale(1.1);
+    }
+
+    /* Form */
+    .form-step {
+      display: none;
+    }
+
+    .form-step.active {
+      display: block;
+      animation: fadeUp 0.8s ease;
+    }
+
+    .form-step h1 {
+      font-family: "Playfair Display", serif;
+      font-size: 2rem;
+      color: #f5d97b;
+      margin-bottom: 0.8rem;
+    }
+
+    .form-step p {
+      color: rgba(255, 215, 0, 0.7);
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    input,
+    select,
+    textarea {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 10px;
+      color: #f5d97b;
+      padding: 0.9rem 1rem;
+      font-size: 1rem;
+    }
+
+    textarea {
+      width: 100%;
+      height: 120px;
+      resize: none;
+    }
+
+    button {
+      background: linear-gradient(90deg, #b7932f, #f5d97b);
+      border: none;
+      color: #000;
+      font-weight: 600;
+      padding: 0.9rem 1.6rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.03);
+    }
+
+    /* Spinner */
+    .booking-spinner {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 4000;
+      color: #d4af37;
+    }
+
+    .spinner-ring {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      border: 3px solid rgba(212, 175, 55, 0.2);
+      border-top: 3px solid #d4af37;
+      animation: spin 1.5s linear infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .spinner-core {
+      width: 18px;
+      height: 18px;
+      background: radial-gradient(circle, #f5d97b 0%, #b7932f 80%);
+      border-radius: 50%;
+      box-shadow: 0 0 12px #f5d97b;
+    }
+
+    .spinner-text {
+      margin-top: 1.8rem;
+      font-size: 1.1rem;
+      color: #f5d97b;
+    }
+
+    /* Success Popup */
+    .booking-success {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.96);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 5000;
+      backdrop-filter: blur(15px);
+    }
+
+    .success-box {
+      background: rgba(0, 0, 0, 0.85);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      border-radius: 24px;
+      padding: 3rem;
+      max-width: 600px;
+      text-align: center;
+      color: #f5d97b;
+      animation: fadeUp 1s ease;
+    }
+
+    .close-success {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #d4af37;
+    }
+
+    .close-success:hover {
+      color: #fff;
+      transform: rotate(90deg);
+    }
+
+    #closeSuccessBtn {
+      margin-top: 1.5rem;
+    }
+
+    /* =====================
+   NEW CONTACT SECTIONS
+====================== */
+    .response-time,
+    .department-contacts,
+    .social-media-contacts {
+      max-width: 1100px;
+      margin: 60px auto;
+      background-color: #111;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+      color: #ddd;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .response-time:hover,
+    .department-contacts:hover,
+    .social-media-contacts:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Golden glow overlay */
+    .response-time::before,
+    .department-contacts::before,
+    .social-media-contacts::before {
+      content: "";
+      position: absolute;
+      top: -30%;
+      left: -30%;
+      width: 160%;
+      height: 160%;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+      z-index: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .response-time:hover::before,
+    .department-contacts:hover::before,
+    .social-media-contacts:hover::before {
+      opacity: 0.15;
+    }
+
+    /* Section headers */
+    .response-time h3,
+    .department-contacts h3,
+    .social-media-contacts h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 2.2rem;
+      color: #f5d97b;
+      text-align: center;
+      margin-bottom: 30px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Content styling */
+    .response-time p,
+    .department-contacts p,
+    .social-media-contacts p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 15px;
+      padding-left: 10px;
+      position: relative;
+      z-index: 2;
+      color: #ddd;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .response-time p:hover,
+    .department-contacts p:hover,
+    .social-media-contacts p:hover {
+      color: #f5d97b;
+      transform: translateX(8px);
+    }
+
+    /* Emoji spacing */
+    .response-time p::before,
+    .department-contacts p::before,
+    .social-media-contacts p::before {
+      margin-right: 12px;
+    }
+
+    /* Links styling */
+    .department-contacts p,
+    .social-media-contacts p {
+      cursor: pointer;
+    }
+
+    .department-contacts p:hover,
+    .social-media-contacts p:hover {
+      color: #d4af37;
+    }
+
+    /* Animations */
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+
+
+    /* =====================
+       FOOTER
+    ====================== */
+    .voux-footer {
+      background: #0a0a0a;
+      color: #ddd;
+      padding: 80px 40px 40px;
+      border-top: 1px solid rgba(212, 175, 55, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .voux-footer::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+      z-index: 0;
+    }
+
+    .voux-footer-content {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      position: relative;
+      z-index: 2;
+    }
+
+    .voux-footer-logo img {
+      width: 180px;
+      opacity: 0.9;
+      transition: transform 0.3s ease;
+    }
+
+    .voux-footer-logo img:hover {
+      transform: scale(1.05);
+    }
+
+    .voux-footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 80px;
+    }
+
+    .voux-footer-column h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #d4af37;
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+    }
+
+    .voux-footer-column ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .voux-footer-column ul li {
+      margin-bottom: 12px;
+    }
+
+    .voux-footer-column ul li a {
+      text-decoration: none;
+      color: #aaa;
+      font-size: 0.95rem;
+      transition: color 0.3s ease, transform 0.3s ease;
+      display: inline-block;
+    }
+
+    .voux-footer-column ul li a:hover {
+      color: #d4af37;
+      transform: translateX(4px);
+    }
+
+    .voux-footer-bottom {
+      text-align: center;
+      margin-top: 60px;
+      font-size: 0.9rem;
+      color: #777;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* =====================
+       BACK TO TOP BUTTON
+    ====================== */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #d4af37;
+      color: #000;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 22px;
+      cursor: pointer;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: opacity 0.3s ease;
+      z-index: 1000;
+    }
+
+    .back-to-top:hover {
+      background: #b38e2f;
+    }
+
+    #storyText {
+      opacity: 0;
+      transition: opacity 1s ease;
+      font-style: italic;
+      margin-top: 1rem;
+    }
+
+    #storyText.show {
+      opacity: 1;
+    }
+
+    @media screen and (max-width: 900px) {
+
+      /* Hamburger Icon */
+      .hamburger {
+        display: flex;
+        width: 28px;
+        height: 20px;
+        flex-direction: column;
+        justify-content: space-between;
+        cursor: pointer;
+        z-index: 1100;
+        margin-right: 15%;
+      }
+
+      .hamburger span {
+        display: block;
+        height: 3px;
+        width: 100%;
+        background-color: #fff;
+        border-radius: 3px;
+        transition: all 0.4s ease;
+      }
+
+      /* Hamburger Animation */
+      .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+
+      @media screen and (max-width: 900px) {
+
+        .nav-links {
+          position: absolute;
+          top: 100%;
+          right: 0;
+          width: 100%;
+          opacity: 0;
+          pointer-events: none;
+          transform: translateY(-20px);
+          transition: all 0.4s ease;
+        }
+
+        .nav-links.open {
+          opacity: 1;
+          pointer-events: auto;
+          transform: translateY(0);
+        }
+
+        .nav-links ul {
+          flex-direction: column;
+          align-items: center;
+          gap: 30px;
+        }
+      }
+
+
+      .nav-links li {
+        width: 100%;
+        text-align: center;
+      }
+
+      .nav-links li a {
+        font-size: 1.2rem;
+        display: block;
+        width: 100%;
+      }
+    }
+
+    /* --- RESPONSIVE POPUPS (Mobile Optimizations) --- */
+    @media screen and (max-width: 768px) {
+
+      /* Booking Overlay */
+      .booking-overlay {
+        padding: 2rem 1rem;
+        align-items: flex-start;
+        /* Ensure top start for scrolling */
+      }
+
+      .booking-container {
+        width: 100%;
+        max-width: 100%;
+        padding: 2rem 1.5rem 3rem;
+        border-radius: 20px;
+        margin-top: 20px;
+        /* Space from top */
+        margin-bottom: 20px;
+      }
+
+      .booking-close {
+        top: 15px;
+        right: 15px;
+        font-size: 1.8rem;
+      }
+
+      /* Steps & Progress */
+      .booking-progress {
+        margin-bottom: 2rem;
+      }
+
+      .steps {
+        top: -14px;
+      }
+
+      .step {
+        width: 30px;
+        height: 30px;
+        font-size: 0.9rem;
+      }
+
+      /* Form Elements */
+      .form-step h1 {
+        font-size: 1.6rem;
+      }
+
+      .form-step p {
+        font-size: 0.95rem;
+      }
+
+      .form-group {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      input,
+      select,
+      textarea {
+        padding: 12px;
+        font-size: 1rem;
+      }
+
+      button {
+        width: 100%;
+        padding: 14px;
+      }
+
+      /* Spinner */
+      .spinner-ring {
+        width: 70px;
+        height: 70px;
+        border-width: 3px;
+      }
+
+      /* Success Popup */
+      .success-box {
+        width: 90%;
+        padding: 2rem 1.5rem;
+        border-radius: 16px;
+      }
+
+      .close-success {
+        top: 10px;
+        right: 15px;
+        font-size: 1.5rem;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .booking-container {
+        padding: 1.5rem 1rem 2.5rem;
+      }
+
+      .form-step h1 {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <!-- HEADER -->
+  <header>
+    <div class="nav-container">
+      <img src="./images/voux_main_logo_5-removebg-preview.png" alt="VOUX Logo" class="logo">
+      <nav class="nav-links" id="navbar">
+        <ul>
+          <li><a href="entry.html">Home</a></li>
+          <li><a href="drops.html">Drops</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+      <div class="hamburger" aria-label="Toggle Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="contact-hero" data-aos="fade-up">
+      <h1>Let's Connect.</h1>
+      <p>For press, support, partnerships or anything in between — we’re here.</p>
+    </section>
+    <!-- FULLSCREEN BOOKING FORM -->
+    <div class="booking-overlay" id="bookingOverlay">
+      <div class="booking-container">
+        <span class="booking-close" id="closeBooking">&times;</span>
+
+        <div class="booking-progress">
+          <div class="progress-fill" id="progressFill"></div>
+          <div class="steps">
+            <span class="step active">1</span>
+            <span class="step">2</span>
+            <span class="step">3</span>
+          </div>
+        </div>
+
+        <form id="bookingForm">
+          <!-- Step 1 -->
+          <div class="form-step active" data-step="1">
+            <h1>Guest Details</h1>
+            <p>Tell us about yourself to begin your visit request.</p>
+            <div class="form-group">
+              <input type="text" id="guestName" placeholder="Full Name" required>
+              <input type="email" id="guestEmail" placeholder="Email Address" required>
+            </div>
+            <div class="form-group">
+              <input type="tel" id="guestPhone" placeholder="Phone Number" required>
+              <input type="text" id="guestCity" placeholder="City / Country" required>
+            </div>
+            <button type="button" class="next-btn">Next →</button>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="form-step" data-step="2">
+            <h1>Visit Details</h1>
+            <p>Choose your preferred date, time, and purpose.</p>
+            <div class="form-group">
+              <input type="date" id="visitDate" required>
+              <input type="time" id="visitTime" required>
+            </div>
+            <select id="visitPurpose" required>
+              <option value="">Select Appointment Type</option>
+              <option>Private Collection Viewing</option>
+              <option>Bespoke Tailoring Consultation</option>
+              <option>Editorial Collaboration</option>
+              <option>Press & Media Meeting</option>
+            </select>
+            <div class="btn-group">
+              <button type="button" class="back-btn">← Back</button>
+              <button type="button" class="next-btn">Next →</button>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="form-step" data-step="3">
+            <h1>Preferences & Notes</h1>
+            <p>Is there anything specific you’d like us to prepare?</p>
+            <textarea id="guestNotes"
+              placeholder="Tell us about your vision, interests, or styling goals..."></textarea>
+
+            <div class="summary-preview" id="summaryPreview"></div>
+
+            <div class="btn-group">
+              <button type="button" class="back-btn">← Back</button>
+              <button type="submit" class="submit-btn">Confirm Booking →</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Spinner Overlay -->
+    <div class="booking-spinner" id="bookingSpinner">
+      <div class="spinner-ring">
+        <div class="spinner-core"></div>
+      </div>
+      <p class="spinner-text">Confirming your appointment...</p>
+    </div>
+
+    <!-- Success Popup -->
+    <div class="booking-success" id="bookingSuccess">
+      <div class="success-box">
+        <span class="close-success" id="closeSuccess">&times;</span>
+        <h1>Booking Confirmed</h1>
+        <p>Thank you for reserving your visit at <strong>VOUX Studio</strong>.<br>
+          Our concierge will reach out shortly with confirmation details via email. <br>THANK YOU.</p>
+        <button id="closeSuccessBtn">Close</button>
+      </div>
+    </div>
+
+
+
+    <!-- OFFICE INFO -->
+    <section class="office-info" data-aos="fade-up">
+      <h3>VOUX Studio</h3>
+      <p>23 Victoria Island, Lagos</p>
+      <p>Mon–Fri: 10am – 6pm</p>
+      <p><a href="#" id="openBooking">Book a Visit →</a></p>
+    </section>
+    <!-- RESPONSE TIME -->
+    <section class="response-time" data-aos="fade-up">
+      <h3>Response Time</h3>
+      <p>📧 Email: Within 24 hours</p>
+      <p>💬 Live Chat: Instant during business hours</p>
+      <p>📞 Phone: Immediate during studio hours</p>
+      <p>🕒 Emergency Support: Available 24/7 for order issues</p>
+    </section>
+
+    <!-- DEPARTMENT CONTACTS -->
+    <section class="department-contacts" data-aos="fade-up">
+      <h3>Department Contacts</h3>
+      <p>🛍️ Orders & Returns: orders@voux.co</p>
+      <p>🤝 Partnerships: collab@voux.co</p>
+      <p>📰 Press & Media: press@voux.co</p>
+      <p>🎨 Creative Inquiries: creative@voux.co</p>
+      <p>💼 Careers: careers@voux.co</p>
+    </section>
+
+    <!-- SOCIAL MEDIA -->
+    <section class="social-media-contacts" data-aos="fade-up">
+      <h3>Connect With Us</h3>
+      <p>📸 Instagram: @voux_fashion</p>
+      <p>🐦 Twitter: @voux_worldwide</p>
+      <p>📱 TikTok: @voux_official</p>
+      <p>💼 LinkedIn: VOUX Fashion House</p>
+      <p>📌 Pinterest: VOUX Style Inspirations</p>
+    </section>
+    <!-- DIRECT CONTACT -->
+    <section class="direct-contact" data-aos="fade-up">
+      <h3>Direct Contacts</h3>
+      <p>Email: <a href="mailto:hello@voux.co">www.vouxworldwide@gmail.com</a></p>
+      <p>Press: <a href="mailto:press@voux.co">www.vouxmedia@gmail.com</a></p>
+      <p>Instagram: <a href="#">VOUX_fashion worldwide</a></p>
+    </section>
+
+    <!-- CARE HELP -->
+    <section class="care-help" data-aos="fade-up">
+      <h3>Need more help?</h3>
+      <a href="contact2.html">Visit Customer Care Portal</a>
+    </section>
+
+
+
+    <!-- MAP -->
+    <section class="map-section" data-aos="fade-up">
+      <h3>Find Us</h3>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.6122494081516!2d3.4215!3d6.4281!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf50f25f1e23%3A0x9f4e3b6db2ad7a!2sVictoria%20Island%2C%20Lagos!5e0!3m2!1sen!2sng!4v1615187635441!5m2!1sen!2sng"
+        allowfullscreen="" loading="lazy"></iframe>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="voux-footer">
+    <div class="voux-footer-content">
+      <div class="voux-footer-logo">
+        <img src="./images/voux_main_logo_5-removebg-preview.png" alt="VOUX Logo">
+      </div>
+      <div class="voux-footer-links">
+        <div class="voux-footer-column">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="#">Collections</a></li>
+            <li><a href="#">Editorials</a></li>
+            <li><a href="#">Drops</a></li>
+          </ul>
+        </div>
+        <div class="voux-footer-column">
+          <h4>About</h4>
+          <ul>
+            <li><a href="#">Our Story</a></li>
+            <li><a href="#">Vision</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="voux-footer-column">
+          <h4>Social</h4>
+          <ul>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">TikTok</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="voux-footer-bottom">
+      © 2025 VOUX. All Rights Reserved.
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" class="back-to-top">↑</button>
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+
+    // Select hamburger and nav-links
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    // Toggle classes on click
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active'); // animates the hamburger
+      navLinks.classList.toggle('open');    // shows/hides the mobile nav
+    });
+
+    const openBooking = document.getElementById("openBooking");
+    const bookingOverlay = document.getElementById("bookingOverlay");
+    const closeBooking = document.getElementById("closeBooking");
+    const steps = document.querySelectorAll(".form-step");
+    const nextBtns = document.querySelectorAll(".next-btn");
+    const backBtns = document.querySelectorAll(".back-btn");
+    const progressFill = document.getElementById("progressFill");
+
+    const spinner = document.getElementById("bookingSpinner");
+    const successPopup = document.getElementById("bookingSuccess");
+    const closeSuccess = document.getElementById("closeSuccess");
+    const closeSuccessBtn = document.getElementById("closeSuccessBtn");
+
+    let currentStep = 0;
+
+    openBooking.addEventListener("click", e => {
+      e.preventDefault();
+      bookingOverlay.style.display = "flex";
+    });
+
+    closeBooking.addEventListener("click", () => {
+      bookingOverlay.style.display = "none";
+      currentStep = 0;
+      updateSteps();
+    });
+
+    nextBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        if (currentStep < steps.length - 1) {
+          currentStep++;
+          updateSteps();
+        }
+      });
+    });
+
+    backBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        if (currentStep > 0) {
+          currentStep--;
+          updateSteps();
+        }
+      });
+    });
+
+    function updateSteps() {
+      steps.forEach((step, index) => {
+        step.classList.toggle("active", index === currentStep);
+      });
+      document.querySelectorAll(".step").forEach((el, i) => {
+        el.classList.toggle("active", i <= currentStep);
+      });
+      progressFill.style.width = `${((currentStep + 1) / steps.length) * 100}%`;
+    }
+
+    // Handle submit
+    document.getElementById("bookingForm").addEventListener("submit", e => {
+      e.preventDefault();
+      bookingOverlay.style.display = "none";
+      spinner.style.display = "flex";
+
+      // Simulate sending for 5s
+      setTimeout(() => {
+        spinner.style.display = "none";
+        successPopup.style.display = "flex";
+      }, 5000);
+    });
+
+    [closeSuccess, closeSuccessBtn].forEach(btn => {
+      btn.addEventListener("click", () => {
+        successPopup.style.display = "none";
+      });
+    });
+
+  </script>
+  <script>
+    // =====================
+    // INIT AOS
+    // =====================
+    AOS.init({
+      duration: 800,
+      once: true
+    });
+
+    // =====================
+    // BACK TO TOP BUTTON
+    // =====================
+    const backToTopBtn = document.getElementById('backToTop');
+
+    window.addEventListener('scroll', () => {
+      backToTopBtn.style.display = window.scrollY > 400 ? 'flex' : 'none';
+    });
+
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+  <script src="./script.js"></script>
+
+
+</body>
+
+</html>

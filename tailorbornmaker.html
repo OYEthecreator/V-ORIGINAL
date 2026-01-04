@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tailor Born / Volume 1 — Story</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Open+Sans&display=swap" rel="stylesheet">
+
+<style>
+/* ================== CSS ================== */
+/* ===== BODY & BASE ===== */
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #0a0a0a;
+  color: #f5d27a;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  position: relative;
+}
+
+/* ===== PARTICLES BACKGROUND ===== */
+#particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ===== CONTAINER ===== */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== CHAPTER ===== */
+.chapter {
+  background: linear-gradient(145deg, #0a0a0a 0%, #1a1a1a 100%);
+  padding: 4rem 2rem;
+  margin: 4rem 0;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+}
+
+/* ===== HEADINGS ===== */
+h1, h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 1s ease-out;
+}
+
+h1 {
+  font-size: 3rem;
+  text-align: center;
+  color: #ffd700;
+  margin-bottom: 3rem;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+}
+
+h2 {
+  font-size: 2rem;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #ffd700;
+  padding-bottom: 0.5rem;
+  text-shadow: 0 0 2px rgba(0,0,0,0.5);
+}
+
+/* ===== PARAGRAPHS ===== */
+p {
+  font-size: 1.1rem;
+  line-height: 1.9;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1s ease-out;
+  text-shadow: 0 0 1px rgba(0,0,0,0.7);
+}
+
+/* ===== MAKER NOTE ===== */
+.maker-note {
+  font-style: italic;
+  border-left: 4px solid #ffd700;
+  padding-left: 1rem;
+  margin: 2rem 0;
+  color: #fff5e6;
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: all 1s ease-out;
+  font-size: 1.1rem;
+  white-space: pre-wrap; /* typewriter effect */
+}
+
+/* ===== DIVIDER ===== */
+.divider {
+  width: 60px;
+  height: 2px;
+  background: #ffd700;
+  margin: 3rem auto;
+  box-shadow: 0 0 6px rgba(255, 215, 0, 0.5);
+  opacity: 0;
+  transform: scaleX(0);
+  transition: all 1s ease-out;
+}
+
+/* ===== EMPHASIS ===== */
+em {
+  color: #ffd700;
+  font-weight: bold;
+}
+
+/* ===== SCROLL ANIMATION ===== */
+.scroll-animate {
+  opacity: 1 !important;
+  transform: translateY(0) translateX(0) scaleX(1) !important;
+  animation: subtle-gold-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes subtle-gold-glow {
+  0% { text-shadow: 0 0 1px #ffd700, 0 0 2px #ffd700, 0 0 3px #ffdf7a; }
+  50% { text-shadow: 0 0 2px #ffd700, 0 0 4px #ffd700, 0 0 6px #ffdf7a; }
+  100% { text-shadow: 0 0 1px #ffd700, 0 0 2px #ffd700, 0 0 3px #ffdf7a; }
+}
+
+/* ===== MEDIA ===== */
+@media (max-width: 600px) {
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.5rem; }
+  p, .maker-note { font-size: 1rem; }
+}
+
+</style>
+</head>
+
+<body>
+  <!-- 🔒 FIXED GOLD LUXURY BACK BUTTON -->
+<style>
+  .back-btn-fixed {
+    position: fixed;
+    top: 1rem; /* adjust position */
+    left: 22px;
+    z-index: 9999;
+
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(212, 175, 55, 0.55);
+
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 9px 14px;
+    border-radius: 50px;
+    transition: 0.25s ease;
+    color: #d4af37;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .back-btn-fixed:hover {
+    background: rgba(212, 175, 55, 0.15);
+    transform: translateX(-2px);
+  }
+
+  .back-btn-fixed svg {
+    width: 17px;
+    height: 17px;
+    stroke: #d4af37;
+    transition: 0.25s ease;
+  }
+
+  .back-btn-fixed:hover svg {
+    stroke: #f0d98a;
+  }
+</style>
+
+<button class="back-btn-fixed" onclick="goBack()">
+  <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+  </svg>
+  Back
+</button>
+
+<script>
+  function goBack() {
+    if (document.referrer) {
+      window.history.back();
+    } else {
+      window.location.href = "/"; // fallback home
+    }
+  }
+</script>
+
+<canvas id="particles"></canvas>
+  <div class="container">
+    <h1>Tailor Born / Volume 1</h1>
+
+    <h2>The Beginning</h2>
+    <p>It began with a whisper. A quiet pulse inside the heart of VOUX, a brand that had conquered runways across the world, yet always felt the pull of something deeper, something ancestral, something unspoken. The corridors of power, the flashes of cameras, the applause—they were intoxicating, but hollow without meaning. Somewhere between the glittering cityscapes and the quiet of the studio, a question emerged: <em>How do we honor the origins of craft? How do we carry the soul of Africa into the language of modern couture?</em></p>
+
+    <p>From this question, Tailor Born was conceived. Not merely a collection, but a calling. A calling to bridge continents, to marry heritage with innovation, to celebrate the hands that have woven stories into fabric for generations. Tailor Born would be a voice for Africa on the global stage, yet it would speak with the subtlety, precision, and elegance of VOUX.</p>
+
+    <h2>The Maker</h2>
+    <p>The maker behind Tailor Born was both student and pioneer. They had studied in ateliers across the world, absorbed techniques that demanded exacting precision and visionary imagination. Yet always, in the quiet corners of memory, Africa remained a song, a rhythm, a pulse that dictated every creative decision. It was a reminder that luxury without soul is hollow, and that true elegance is inseparable from authenticity.</p>
+
+    <p>Volume 1 is the culmination of that awareness. Every stitch, every fold, every silhouette is a story, a bridge between continents, a dialogue between heritage and innovation. It begins in the vibrant textures of African markets, the flowing fabrics dyed in ancestral colors, the geometric patterns that have survived centuries, and the rhythms of daily life that inspire the beat of creation.</p>
+
+    <h2>Fabrics & Craft</h2>
+    <p>The fabrics themselves tell tales. Some are dyed with pigments extracted from earth and plants, each color a note in the song of the land. Others are sleek, smooth, almost futuristic, as if to whisper that tradition and modernity need not oppose each other—they can coexist, complement, elevate.</p>
+
+    <p>But it is not only materials that carry meaning. It is the rhythm of the hands that shape them. Artisans, skilled in crafts passed down through time, work with patience and reverence. Each garment is a conversation between maker and maker’s maker, a dialogue that transcends language. The hems, the seams, the folds—they speak of identity, of resilience, of pride.</p>
+
+    <div class="maker-note">
+      <p>“I wanted a collection that feels alive, that honors those who came before us, and invites those who wear it to carry that story forward. Tailor Born is a dialogue—a meeting of history, innovation, and soul.”</p>
+    </div>
+
+    <h2>The Story Continues</h2>
+    <p>Volume 1 does not shy away from emotion. There is triumph, the triumph of African creativity claiming its place on the global stage. There is tenderness, in the respect shown to those whose hands craft the pieces. There is reverence, for the colors of sunset, the textures of soil, the patterns of life that existed long before fashion became a word whispered in ateliers.</p>
+
+    <p>Every garment is a character. A coat might speak of resilience, shaped in heavy, textured fabrics that carry the weight of history yet remain fluid and commanding. A flowing dress sings of celebration, the kind of joy that dances even when the world seems still. Accessories, sculpted and deliberate, remind the wearer of identity and agency. Each piece is not merely worn—it is inhabited, lived in, and carried forward with pride.</p>
+
+    <p>The story of Tailor Born is inseparable from VOUX. VOUX provides the platform, the global lens, the opportunity to elevate African heritage without compromise. Yet Tailor Born is more than a branch—it is an assertion that luxury need not forget origin, that power need not erase history, that beauty is most profound when it remembers itself.</p>
+
+    <h2>The Atelier & Artisans</h2>
+    <p>As the first silhouettes emerged, the atelier buzzed with anticipation. Fabrics were draped, folded, cut, and sewn with meticulous care. Sketches evolved into reality, guided by intuition and deep knowledge of body and form. Each prototype was examined, critiqued, refined—not for trend, but for truth.</p>
+
+    <p>Africa, in all its diversity, informs every decision. Colors echo the ochres of the desert, the blues of lakes, the greens of fertile plains. Patterns reflect the geometry of ancient symbols, the curves of life, the dance of shadow and light. Volume 1 is a map, a memoir, a celebration; it is a reflection of a continent’s soul refracted through the lens of one maker’s vision.</p>
+
+    <p>The journey was not easy. There were nights of doubt, moments when the magnitude of the task seemed overwhelming. How does one translate centuries of culture into garments that speak to the world? How does one honor the hands of artisans without diminishing their value? How does one ensure that every piece, every fold, every stitch carries the weight of authenticity without compromising the language of modern luxury?</p>
+
+    <p>It is in these challenges that Tailor Born finds its strength. Each obstacle is transformed into inspiration, each limitation into innovation. The atelier becomes a sanctuary, a laboratory, a theater of creation. Here, patterns are not just cut—they are choreographed. Fabrics are not sewn—they are composed. Tailor Born is alive.</p>
+
+    <h2>Volume 1 — The Collection</h2>
+    <p>The maker’s philosophy is clear: Fashion is memory. Fashion is culture. Fashion is expression. Each garment must tell a story that can be read by those who wear it, those who observe it, and those who create it. Tailor Born is not passive; it demands engagement, attention, reflection. It is a conversation, not a declaration.</p>
+
+    <p>Volume 1 honors the artisans. In the northern regions, hands that have woven intricate beadwork for generations contribute their knowledge. In the coastal cities, dye masters bring the brilliance of ocean-inspired pigments to life. Across savannahs and valleys, textile innovators merge age-old techniques with contemporary silhouettes. Every garment carries these hands, these histories, these hearts.</p>
+
+    <p>The maker wrote letters to these artisans, thanking them for their patience, their dedication, their willingness to let tradition meet innovation. They knew that without these hands, Tailor Born would be impossible. Volume 1 was as much theirs as it was the maker’s.</p>
+
+    <p>In the sketches, one could see the dialogue between continents. Lines were sharp yet flowing, structured yet organic. Color palettes were vibrant, yet restrained. The collection was a symphony, each piece a note, each ensemble a movement. The atelier was filled with quiet excitement, punctuated by laughter, debate, experimentation, and sometimes silence.</p>
+
+    <p>The inspiration for Volume 1 came from many sources: the ochres and reds of desert landscapes, the blues and greens of rivers and lakes, the muted tones of clay and sand, the glimmers of gold in sunlight and jewelry. Geometric patterns borrowed from ancient symbols merged with modern cuts. Flowing fabrics met structured tailoring. There was poetry in the contrasts, a rhythm in the juxtaposition, a story in the balance.</p>
+
+    <div class="maker-note">
+      <p>“Fashion is memory. Fashion is culture. Fashion is expression. Tailor Born does not impose—it invites. It does not dictate—it converses. Each piece asks a question, tells a story, honors a legacy.”</p>
+    </div>
+
+    <p>Preparation for the premiere was intense. The maker envisioned a runway not just as a display, but as a stage for storytelling. The setting would evoke Africa—textures, colors, rhythms—yet remain unmistakably VOUX. Lighting would sculpt the garments, casting shadows that revealed hidden details, highlighting textures, and emphasizing silhouettes. Music would echo footsteps, market sounds, river flows, and ancestral songs, immersing the audience fully into the narrative.</p>
+
+    <p>Models were chosen not only for poise, but for their ability to carry stories. Every movement, every step, every gesture had to convey confidence, pride, and connection. Volume 1 was performance, art, and heritage rolled into one.</p>
+
+    <p>Behind the scenes, artisans continued to refine pieces until the final hours. Beading, embroidery, folding, pressing—no detail too small. Even the smallest stitch mattered, because each stitch carried significance. Every garment became a vessel, a carrier of history and intention.</p>
+
+    <p>The anticipation grew. Press, celebrities, influencers, and fashion enthusiasts all awaited the premiere. Yet the maker remained grounded. This was not about spectacle alone; it was about respect, authenticity, and celebration. Volume 1 would premiere not as a show of wealth or power, but as a homage, a dialogue, a living archive.</p>
+
+    <p>The collection itself was divided into acts. The first act celebrated heritage—ancient patterns, traditional dyes, flowing silhouettes that honored generations of artistry. The second act celebrated innovation—structured tailoring, modern textures, unexpected combinations that elevated tradition without erasing it. The third act celebrated identity—individual expression, cultural pride, and the ability of fashion to narrate personal and collective stories.</p>
+
+    <p>Each act told a story of resilience, creativity, and dialogue. Audiences would not merely see garments—they would feel histories, encounter narratives, and witness the embodiment of culture.</p>
+
+    <p>And thus, Tailor Born / Volume 1 arrived in the world: a collection, a conversation, a testament. From the ateliers to the runways, from the hands of artisans to the shoulders of those who wore it, the story had become living, breathing, eternal. VOUX had not only created fashion—it had captured a continent, a history, and a soul in every fold, stitch, and silhouette.</p>
+  </div>
+<script>
+  // ================== JS ==================
+
+// ===== SCROLL ANIMATION =====
+const scrollElements = document.querySelectorAll('h1, h2, p, .maker-note, .divider');
+
+const elementInView = (el, offset = 100) => {
+  return el.getBoundingClientRect().top <= (window.innerHeight || document.documentElement.clientHeight) - offset;
+};
+
+const handleScrollAnimation = () => {
+  scrollElements.forEach(el => {
+    if (elementInView(el, 50)) el.classList.add('scroll-animate');
+  });
+};
+
+window.addEventListener('scroll', handleScrollAnimation);
+window.addEventListener('load', handleScrollAnimation);
+
+// ===== PARTICLES EFFECT =====
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particlesArray = [];
+const numberOfParticles = 80;
+
+class Particle {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 2 + 1;
+    this.speedY = Math.random() * 0.5 + 0.2;
+  }
+  update() {
+    this.y -= this.speedY;
+    if (this.y < 0) this.y = canvas.height;
+  }
+  draw() {
+    ctx.fillStyle = "rgba(255,215,0,0.4)";
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function initParticles() {
+  particlesArray = [];
+  for (let i = 0; i < numberOfParticles; i++) {
+    particlesArray.push(new Particle());
+  }
+}
+
+initParticles();
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particlesArray.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animateParticles);
+}
+
+animateParticles();
+
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  initParticles();
+});
+
+// ===== TYPEWRITER EFFECT =====
+function typeWriter(el, text, i = 0) {
+  if (i < text.length) {
+    el.innerHTML += text.charAt(i);
+    setTimeout(() => typeWriter(el, text, i + 1), 15);
+  }
+}
+
+document.querySelectorAll('.maker-note').forEach(note => {
+  const text = note.dataset.text;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && note.innerHTML === '') {
+        typeWriter(note, text);
+        observer.unobserve(note);
+      }
+    });
+  }, { threshold: 0.1 });
+  observer.observe(note);
+});
+
+</script>
+</body>
+</html>
+

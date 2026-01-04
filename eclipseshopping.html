@@ -1,0 +1,2122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECLIPSE | Time Apocalypse Fashion</title>
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+    <style>
+        /* === ECLIPSE APOCALYPSE COLOR SYSTEM === */
+        :root {
+            --singularity-black: #000000;
+            --solar-flare-orange: #FF6B35;
+            --time-ember: #ff9900;
+            --eclipse-core: #ff6600, ;
+            --cosmic-void: #0A0A0A;
+            --quantum-blue: #00D9FF;
+            --reality-tear: #ff3300;
+            --supernova-white: #FFFFFF;
+            --singularity-black: #000000;
+            --solar-flare-orange: #FF6B35;
+            --time-ember: #FF8E53;
+            --eclipse-core: #FF4D1A;
+            --cosmic-void: #0A0A0A;
+            --quantum-blue: #00D9FF;
+            --reality-tear: #FF1A6B;
+            --supernova-white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--singularity-black);
+            color: var(--solar-flare-orange);
+            font-family: 'Courier New', monospace;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* === NAVIGATION - TEMPORAL ANOMALY === */
+        .temporal-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.2rem 5%;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 69, 0, 0.2);
+            z-index: 2000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color:var(--reality-tear);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff4500, #ff6600);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ff4500;
+            text-shadow: 0 0 10px rgba(255, 69, 0, 0.5);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+        }
+
+        .eclipse-logo {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.5em;
+            text-shadow: 0 0 30px var(--solar-flare-orange);
+            animation: timeGlitch 3s infinite;
+        }
+
+        .time-portals {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .portal {
+            padding: 1rem 2rem;
+            border: 1px solid var(--solar-flare-orange);
+            background: rgba(255, 107, 53, 0.1);
+            border-radius: 25px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            cursor: none;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portal a {
+            color: var(--solar-flare-orange);
+            list-style: none;
+            text-decoration: none;
+
+        }
+
+        .portal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--solar-flare-orange), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .portal:hover::before {
+            left: 100%;
+        }
+
+        .portal:hover {
+            background: rgba(255, 107, 53, 0.3);
+            box-shadow: 0 0 30px var(--solar-flare-orange);
+            transform: translateY(-3px);
+        }
+
+        /* === HERO - SINGULARITY REVEAL === */
+        @media screen and (max-width: 900px) {
+            .time-portals {
+                display: none;
+            }
+
+            /* Standardized Hamburger Menu Styles from drops.html */
+            .hamburger {
+                display: flex;
+                width: 28px;
+                height: 22px;
+                flex-direction: column;
+                justify-content: space-between;
+                cursor: pointer;
+                z-index: 1100;
+            }
+
+            .hamburger span {
+                height: 3px;
+                width: 100%;
+                background: #FF6B35;
+                /* Orange for Eclipse */
+                border-radius: 3px;
+                transition: all 0.4s ease;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                right: 1rem;
+                background: rgba(0, 0, 0, 0.85);
+                display: flex !important;
+                flex-direction: column;
+                width: 240px;
+                padding: 2rem;
+                gap: 1.8rem;
+                border-radius: 12px;
+                opacity: 0;
+                pointer-events: none;
+                transform: translateY(-10px);
+                transition: all 0.4s ease;
+                z-index: 1000;
+                box-shadow: 0 0 20px rgba(255, 107, 53, 0.2);
+            }
+
+            .nav-links a {
+                color: var(--reality-tear);
+            }
+
+            .nav-links.open {
+                opacity: 1;
+                pointer-events: auto;
+                transform: translateY(0);
+            }
+        }
+
+        .singularity-hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-title {
+            font-size: clamp(4rem, 10vw, 12rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 50px var(--solar-flare-orange);
+            animation: bigBang 2s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            text-shadow: 0 0 20px var(--time-ember);
+            animation: timeReveal 3s ease-out 1s both;
+        }
+
+        /* === PRODUCTS - BLACK HOLE GRID === */
+        body {
+            background: var(--singularity-black);
+            color: var(--solar-flare-orange);
+            font-family: 'Courier New', monospace;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* === BLACK HOLE PRODUCT GRID === */
+        .black-hole-grid {
+            padding: 8rem 2rem;
+            background: var(--cosmic-void);
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            margin-bottom: 4rem;
+            text-shadow: 0 0 30px var(--solar-flare-orange);
+        }
+
+        .gravity-products {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* === TIME APOCALYPSE PRODUCT CARD - FINAL === */
+        .time-garment {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(20, 20, 20, 0.9));
+            border: 2px solid var(--solar-flare-orange);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+
+        .garment-image-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .garment-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+            transition: all 0.8s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* COMBINED TIME EFFECTS ON HOVER */
+        .time-garment:hover .garment-image {
+            animation:
+                timeLapseCycle 4s ease-in-out infinite,
+                chronalMorph 6s ease-in-out infinite,
+                temporalPulse 3s ease-in-out infinite;
+        }
+
+        /* 1. TIME-LAPSE FILTER CYCLING */
+        @keyframes timeLapseCycle {
+            0% {
+                filter: sepia(0.8) brightness(0.8) contrast(1.1);
+                /* Ancient */
+            }
+
+            25% {
+                filter: grayscale(0.4) hue-rotate(60deg) brightness(0.9);
+                /* Past */
+            }
+
+            50% {
+                filter: none;
+                /* Present */
+                box-shadow: 0 0 30px var(--solar-flare-orange);
+            }
+
+            75% {
+                filter: hue-rotate(120deg) brightness(1.2) saturate(1.3);
+                /* Future */
+            }
+
+            100% {
+                filter: contrast(1.5) brightness(1.3) hue-rotate(240deg);
+                /* Far Future */
+            }
+        }
+
+        /* 2. CHRONAL MORPHING */
+        @keyframes chronalMorph {
+
+            0%,
+            100% {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+                transform: scale(1) rotate(0deg);
+            }
+
+            33% {
+                clip-path: polygon(5% 0, 95% 0, 100% 100%, 0 100%);
+                transform: scale(1.02) rotate(-1deg);
+            }
+
+            66% {
+                clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%);
+                transform: scale(1.02) rotate(1deg);
+            }
+        }
+
+        /* 3. TEMPORAL PULSE GLOW */
+        @keyframes temporalPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px var(--solar-flare-orange);
+            }
+
+            50% {
+                box-shadow: 0 0 40px var(--reality-tear), 0 0 60px var(--quantum-blue);
+            }
+        }
+
+        /* 4. REALITY SHIMMER OVERLAY */
+        .garment-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, var(--solar-flare-orange), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            mix-blend-mode: overlay;
+            border-radius: 15px;
+        }
+
+        .time-garment:hover .garment-image::after {
+            animation: realityShimmer 2s ease-in-out infinite;
+        }
+
+        @keyframes realityShimmer {
+
+            0%,
+            100% {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+
+            50% {
+                opacity: 0.3;
+                transform: translateX(100%);
+            }
+        }
+
+        /* 5. TIME STREAM ORBITS */
+        .time-garment:hover .garment-image-container::before,
+        .time-garment:hover .garment-image-container::after {
+            content: '';
+            position: absolute;
+            width: 120%;
+            height: 120%;
+            border: 2px solid var(--solar-flare-orange);
+            border-radius: 20px;
+            top: -10%;
+            left: -10%;
+            animation: timeOrbit 3s linear infinite;
+            opacity: 0;
+        }
+
+        .time-garment:hover .garment-image-container::before {
+            animation-delay: 0s;
+            border-color: var(--time-ember);
+        }
+
+        .time-garment:hover .garment-image-container::after {
+            animation-delay: -1.5s;
+            border-color: var(--quantum-blue);
+        }
+
+        @keyframes timeOrbit {
+            0% {
+                opacity: 0.3;
+                transform: scale(1) rotate(0deg);
+            }
+
+            50% {
+                opacity: 0.6;
+                transform: scale(1.1) rotate(180deg);
+            }
+
+            100% {
+                opacity: 0.3;
+                transform: scale(1) rotate(360deg);
+            }
+        }
+
+        /* CARD GLOW EFFECT */
+        .time-garment:hover {
+            transform: translateY(-10px);
+            box-shadow:
+                0 20px 40px rgba(255, 107, 53, 0.3),
+                0 0 80px rgba(255, 107, 53, 0.1),
+                inset 0 0 30px rgba(255, 107, 53, 0.05);
+        }
+
+        /* TEXT GLOW */
+        .time-garment:hover .garment-name {
+            text-shadow: 0 0 20px var(--solar-flare-orange);
+            animation: textFlicker 2s ease-in-out infinite;
+        }
+
+        @keyframes textFlicker {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        .time-price {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--supernova-white);
+            text-shadow: 0 0 10px var(--solar-flare-orange);
+        }
+
+        /* Back Face Content */
+        .time-details {
+            color: var(--supernova-white);
+            text-align: center;
+        }
+
+        .detail-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .time-specs {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .time-specs li {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .chronal-button {
+            padding: 1rem 2rem;
+            background: var(--solar-flare-orange);
+            border: none;
+            border-radius: 25px;
+            color: var(--singularity-black);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chronal-button:hover {
+            background: var(--time-ember);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.4);
+        }
+
+        /* Reality Tear Effect */
+        .reality-tear {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1000;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg,
+                    var(--solar-flare-orange),
+                    var(--reality-tear),
+                    var(--quantum-blue),
+                    var(--solar-flare-orange));
+            animation: realityTear 1.5s ease-out forwards;
+        }
+
+        @keyframes realityTear {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 1;
+                filter: blur(0px);
+            }
+
+            50% {
+                transform: scale(1) rotate(180deg);
+                opacity: 0.8;
+                filter: blur(2px);
+            }
+
+            100% {
+                transform: scale(1.5) rotate(360deg);
+                opacity: 0;
+                filter: blur(10px);
+            }
+        }
+
+        /* Extreme Detail Mode */
+        .time-garment.extreme-detail {
+            transform: scale(3) !important;
+            z-index: 1001 !important;
+            filter: brightness(2) contrast(1.5) !important;
+            position: fixed !important;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) scale(3) !important;
+            animation: detailPulse 2s ease-in-out infinite !important;
+        }
+
+        @keyframes detailPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 80px var(--solar-flare-orange);
+            }
+
+            50% {
+                box-shadow: 0 0 120px var(--reality-tear);
+            }
+        }
+
+        /* Gravity Cursor */
+        .gravity-cursor {
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle,
+                    transparent 30%,
+                    var(--solar-flare-orange) 70%);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10001;
+            mix-blend-mode: screen;
+            filter: blur(15px);
+            transition: transform 0.1s ease;
+            animation: gravityPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes gravityPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+
+            50% {
+                transform: scale(1.3);
+                opacity: 1;
+            }
+        }
+
+        /* Close Button for Extreme Detail */
+        .detail-close {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--solar-flare-orange);
+            border: none;
+            border-radius: 50%;
+            color: var(--singularity-black);
+            font-size: 1.5rem;
+            font-weight: 900;
+            cursor: pointer;
+            z-index: 1002;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .detail-close:hover {
+            background: var(--reality-tear);
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        .detail-close.visible {
+            display: flex;
+        }
+
+        /* === TIMELINE - CHRONAL EVOLUTION === */
+        .chronal-timeline {
+            padding: 10rem 2rem;
+            background: radial-gradient(ellipse at center, rgba(255, 107, 53, 0.1) 0%, var(--singularity-black) 70%);
+        }
+
+        .timeline-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .time-marker {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--solar-flare-orange), transparent);
+            margin: 4rem 0;
+            position: relative;
+        }
+
+        .time-marker::before {
+            content: 'NOW';
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--solar-flare-orange);
+            color: var(--singularity-black);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        .era-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .time-era {
+            background: rgba(255, 107, 53, 0.05);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            cursor: none;
+        }
+
+        .time-era:hover {
+            background: rgba(255, 107, 53, 0.1);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(255, 107, 53, 0.2);
+        }
+
+        .era-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* === SOLAR SINGULARITY ORB === */
+        /* === TIME FRACTURE CHATBOT STYLES === */
+
+        /* Chat Overlay - Reality Distortion */
+        .chat-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(15px);
+            z-index: 10002;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .chat-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Reality Chat Container */
+        .reality-chat {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            width: 420px;
+            height: 650px;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--solar-flare-orange);
+            border-radius: 24px;
+            z-index: 10003;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow:
+                0 0 50px var(--solar-flare-orange),
+                0 0 100px rgba(255, 107, 53, 0.4),
+                inset 0 0 20px rgba(255, 107, 53, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .reality-chat.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* Time Chat Header */
+        .time-chat-header {
+            padding: 1.5rem 2rem;
+            background: rgba(255, 107, 53, 0.1);
+            border-bottom: 1px solid var(--solar-flare-orange);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+        }
+
+        .chronal-avatar {
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, var(--solar-flare-orange), var(--eclipse-core));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            animation: timeSpin 4s linear infinite;
+        }
+
+        .time-spinner {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: conic-gradient(transparent, var(--time-ember), transparent);
+            border-radius: 50%;
+        }
+
+        .chronal-avatar span {
+            font-size: 0.7rem;
+            font-weight: 900;
+            color: var(--singularity-black);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            z-index: 1;
+        }
+
+        .chat-title h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 0.2rem;
+        }
+
+        .chat-title p {
+            font-size: 0.8rem;
+            color: var(--time-ember);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .time-status {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .paradox-indicator {
+            width: 12px;
+            height: 12px;
+            background: #00FF88;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00FF88;
+            animation: paradoxPulse 2s ease-in-out infinite;
+        }
+
+        .time-status span {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--time-ember);
+        }
+
+        .time-close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 107, 53, 0.2);
+            border: 1px solid var(--solar-flare-orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .time-close:hover {
+            background: rgba(255, 107, 53, 0.4);
+            transform: rotate(90deg);
+        }
+
+        /* Chronal Messages */
+        .chronal-messages {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-height: 400px;
+        }
+
+        .time-message {
+            max-width: 85%;
+            animation: messageTimeSlide 0.5s ease-out;
+        }
+
+        .ai-message {
+            align-self: flex-start;
+        }
+
+        .user-message {
+            align-self: flex-end;
+        }
+
+        .message-bubble {
+            padding: 1.2rem 1.5rem;
+            border-radius: 20px;
+            position: relative;
+            line-height: 1.4;
+            font-size: 0.9rem;
+        }
+
+        .ai-message .message-bubble {
+            background: rgba(255, 107, 53, 0.1);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-bottom-left-radius: 5px;
+        }
+
+        .user-message .message-bubble {
+            background: linear-gradient(135deg, var(--solar-flare-orange), var(--eclipse-core));
+            border-bottom-right-radius: 5px;
+            color: var(--singularity-black);
+            font-weight: 600;
+        }
+
+        .time-stamp {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 0.5rem;
+            opacity: 0.7;
+            font-weight: 700;
+        }
+
+        /* Time Fracture Effect */
+        .time-fracture {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1rem 0;
+            opacity: 0.6;
+        }
+
+        .fracture-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--solar-flare-orange), transparent);
+        }
+
+        .fracture-text {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--time-ember);
+            white-space: nowrap;
+        }
+
+        /* Time Input Container */
+        .time-input-container {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid rgba(255, 107, 53, 0.3);
+            background: rgba(10, 10, 15, 0.8);
+        }
+
+        .time-stream {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .stream-marker {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 107, 53, 0.1);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-radius: 15px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .stream-marker:hover,
+        .stream-marker.active {
+            background: rgba(255, 107, 53, 0.3);
+            box-shadow: 0 0 15px var(--solar-flare-orange);
+        }
+
+        .chronal-input {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .time-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 107, 53, 0.1);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-radius: 25px;
+            color: var(--supernova-white);
+            font-size: 0.9rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .time-input:focus {
+            background: rgba(255, 107, 53, 0.2);
+            border-color: var(--solar-flare-orange);
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+        }
+
+        .time-input::placeholder {
+            color: var(--time-ember);
+        }
+
+        .time-send {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--solar-flare-orange), var(--eclipse-core));
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: var(--singularity-black);
+            font-weight: 900;
+        }
+
+        .time-send:hover {
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: 0 0 25px var(--solar-flare-orange);
+        }
+
+        .time-quick {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .time-option {
+            padding: 0.7rem 1rem;
+            background: rgba(255, 107, 53, 0.05);
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            border-radius: 15px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .time-option:hover {
+            background: rgba(255, 107, 53, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Animations */
+        @keyframes timeSpin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes paradoxPulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                box-shadow: 0 0 10px #00FF88;
+            }
+
+            50% {
+                opacity: 0.7;
+                box-shadow: 0 0 15px #00FF88;
+            }
+        }
+
+        @keyframes messageTimeSlide {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            .temporal-nav {
+                padding: 1rem 1.5rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .eclipse-logo {
+                font-size: 1.8rem;
+            }
+
+            .time-portals {
+                gap: 1rem;
+            }
+
+            .portal {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.8rem;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .gravity-products {
+                grid-template-columns: 1fr;
+            }
+
+            .solar-singularity {
+                right: 1.5rem;
+                bottom: 1.5rem;
+            }
+
+            .apocalypse-orb {
+                width: 80px;
+                height: 80px;
+            }
+
+            .reality-chat {
+                width: 90vw;
+                height: 75vh;
+                border-radius: 20px;
+            }
+        }
+
+        /* === ECLIPSE APOCALYPSE COLOR SYSTEM === */
+        :root {
+            --singularity-black: #000000;
+            --solar-flare-orange: #FF6B35;
+            --time-ember: #FF8E53;
+            --eclipse-core: #FF4D1A;
+            --cosmic-void: #0A0A0A;
+            --quantum-blue: #00D9FF;
+            --reality-tear: #FF1A6B;
+        }
+
+        /* === SOLAR SINGULARITY ORB === */
+        .solar-singularity {
+            position: fixed;
+            right: 3rem;
+            bottom: 3rem;
+            z-index: 10000;
+        }
+
+        .apocalypse-orb {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%,
+                    var(--time-ember) 0%,
+                    var(--solar-flare-orange) 20%,
+                    var(--eclipse-core) 40%,
+                    var(--singularity-black) 70%);
+            display: grid;
+            place-items: center;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            color: transparent;
+            text-shadow: 0 0 10px var(--solar-flare-orange);
+            box-shadow:
+                0 0 80px var(--solar-flare-orange),
+                0 0 160px rgba(255, 107, 53, 0.6),
+                0 0 240px rgba(255, 77, 26, 0.3),
+                inset 0 0 40px rgba(255, 255, 255, 0.2);
+            animation: singularityPulse 4s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .apocalypse-orb::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: conic-gradient(from 0deg,
+                    var(--solar-flare-orange),
+                    var(--time-ember),
+                    var(--eclipse-core),
+                    var(--solar-flare-orange));
+            border-radius: 50%;
+            z-index: -1;
+            animation: realitySpin 3s linear infinite;
+            filter: blur(20px);
+            opacity: 0.7;
+        }
+
+        .apocalypse-orb::after {
+            content: 'TIME';
+            position: absolute;
+            color: var(--singularity-black);
+            font-size: 0.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            animation: timeGlitch 2s infinite;
+        }
+
+        .apocalypse-orb:hover {
+            transform: scale(1.5) rotate(180deg);
+            box-shadow:
+                0 0 120px var(--reality-tear),
+                0 0 200px rgba(255, 107, 53, 0.8),
+                0 0 300px rgba(255, 26, 107, 0.5);
+            animation: realityBreak 0.5s ease-in-out infinite;
+        }
+
+        /* === APOCALYPSE ANIMATIONS === */
+        @keyframes singularityPulse {
+
+            0%,
+            100% {
+                transform: scale(1) rotate(0deg);
+                box-shadow:
+                    0 0 80px var(--solar-flare-orange),
+                    0 0 160px rgba(255, 107, 53, 0.6);
+            }
+
+            50% {
+                transform: scale(1.2) rotate(10deg);
+                box-shadow:
+                    0 0 120px var(--time-ember),
+                    0 0 200px rgba(255, 142, 83, 0.8),
+                    0 0 280px rgba(255, 77, 26, 0.4);
+            }
+        }
+
+        @keyframes realitySpin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes timeGlitch {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: translate(0, 0);
+            }
+
+            25% {
+                opacity: 0.8;
+                transform: translate(2px, -2px);
+            }
+
+            50% {
+                opacity: 0.6;
+                transform: translate(-1px, 1px);
+            }
+
+            75% {
+                opacity: 0.9;
+                transform: translate(1px, 2px);
+            }
+        }
+
+        @keyframes realityBreak {
+
+            0%,
+            100% {
+                filter: hue-rotate(0deg) blur(0px);
+                transform: scale(1.5) rotate(180deg);
+            }
+
+            50% {
+                filter: hue-rotate(180deg) blur(2px);
+                transform: scale(1.6) rotate(185deg);
+            }
+        }
+
+        /* === GRAVITY WELL CURSOR === */
+        .gravity-cursor {
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle,
+                    transparent 30%,
+                    var(--solar-flare-orange) 70%);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10001;
+            mix-blend-mode: screen;
+            filter: blur(15px);
+            transition: transform 0.1s ease;
+            animation: gravityPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes gravityPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+
+            50% {
+                transform: scale(1.3);
+                opacity: 1;
+            }
+        }
+
+        /* === REALITY DISTORTION FIELD === */
+        .reality-distortion {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            background: radial-gradient(circle at 50% 50%,
+                    transparent 30%,
+                    rgba(255, 107, 53, 0.1) 70%);
+            animation: spaceTimeWarp 10s linear infinite;
+        }
+
+        @keyframes spaceTimeWarp {
+            from {
+                transform: rotate(0deg) scale(1);
+            }
+
+            to {
+                transform: rotate(360deg) scale(1.1);
+            }
+        }
+        
+    </style>
+</head>
+
+<body data-brand="eclipse">
+
+    <!-- Gravity Cursor -->
+    <div class="gravity-cursor"></div>
+
+    <!-- Temporal Navigation -->
+    <header>
+        <nav class="temporal-nav nav-container" data-aos="fade-down" data-aos-duration="1200">
+
+            <div data-aos="fade-in" data-aos-delay="400">
+                <img src="images/eclipse official logo 2.png" width="100px" alt="ECLIPSE Logo">
+            </div>
+
+            <div class="nav-links" id="navbar">
+                <div class="portal"><a href="entry.html">Home</a></div>
+                <div class="portal"><a href="Eclipse.html">About</a></div>
+                <div class="portal" data-aos="slide-up" data-aos-delay="600">Past</div>
+                <div class="portal" data-aos="slide-up" data-aos-delay="800">Present</div>
+                <div class="portal" data-aos="slide-up" data-aos-delay="1000">Future</div>
+            </div>
+
+            <div class="hamburger" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+    <!-- Singularity Hero -->
+    <section class="singularity-hero">
+        <h1 class="hero-title">TIME APOCALYPSE</h1>
+        <p class="hero-subtitle">Where garments fold through dimensions and fashion transcends time itself</p>
+    </section>
+    <!-- Chronal Collection Section -->
+    <section class="black-hole-grid" data-aos="fade-in">
+        <h2 class="section-title" data-aos="fade-down">Chronal Collection</h2>
+        <div class="gravity-products">
+            <!-- Product 1 -->
+            <div class="time-garment" data-aos="zoom-in" data-aos-delay="100">
+                <div class="garment-front" data-aos="fade-up" onclick="viewProduct('eclipse1')">
+                    <a href="#"><img src="./images/ECL TIME FOLD BLAZER PRESENT.png" alt="Chronal Item 1"
+                            class="garment-image"></a>
+                    <h3 class="garment-name">THE TIME-FOLD BLAZER</h3>
+                    <div class="time-price">$14,000</div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="time-garment" data-aos="flip-up" data-aos-delay="200">
+                <div class="garment-front" data-aos="fade-right" onclick="viewProduct('eclipse2')">
+                    <a href="#"><img src="./images/ECL ENTROPY GOWN PRESENT.png" alt="Chronal Item 2"
+                            class="garment-image"></a>
+                    <h3 class="garment-name">THE ENTROPY GOWN</h3>
+                    <div class="time-price">$22,000</div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="time-garment" data-aos="zoom-in-up" data-aos-delay="300">
+                <div class="garment-front" data-aos="fade-left" onclick="viewProduct('eclipse3')">
+                    <a href="#"><img src="./images/ECL SINGULARITY HARNESS PRESENT.png" alt="Chronal Item 3"
+                            class="garment-image"></a>
+                    <h3 class="garment-name">THE SINGULARITY HARNESS</h3>
+                    <div class="time-price">$23,000</div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="time-garment" data-aos="fade-up" data-aos-delay="400">
+                <div class="garment-front" data-aos="fade-down" onclick="viewProduct('eclipse4')">
+                    <a href="#"><img src="./images/ECL CHRONAL CASCADE PRESENT.png" alt="Chronal Item 4"
+                            class="garment-image"></a>
+                    <h3 class="garment-name">THE CHRONAL CASCADE</h3>
+                    <div class="time-price">$28,000</div>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="time-garment" data-aos="zoom-in" data-aos-delay="500">
+                <div class="garment-front" data-aos="fade-up" onclick="viewProduct('eclipse5')">
+                    <a href="#"><img src="./images/ECL SOLAR FLARE CORSET PRESENT.png" alt="Chronal Item 5"
+                            class="garment-image"></a>
+                    <h3 class="garment-name">THE SOLAR FLARE CORSET</h3>
+                    <div class="time-price">$19,000</div>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="time-garment" data-aos="fade-up" data-aos-delay="600">
+                <div class="garment-front" data-aos="fade-up" onclick="viewProduct('eclipse6')">
+                    <a href="#"><img src="./images/ECL PARADOX TROUSERS PRESENT.png" alt="Chronal Item 6"
+                            class="garment-image"></a>
+                    <h3 class="garment-name">THE PARADOX TROUSERS</h3>
+                    <div class="time-price">$14,000</div>
+                </div>
+            </div>
+
+            <!-- Product 7 -->
+            <div class="time-garment" data-aos="zoom-in" data-aos-delay="700">
+                <div class="garment-front" data-aos="fade-up" onclick="viewProduct('eclipse7')">
+                    <a href="#"><img src="./images/ECL TEMPORAL COAT PRESENT.png" alt="Chronal Item 7"
+                            class="garment-image"></a>
+                    <h3 class="garment-name">THE TEMPORAL ECHO</h3>
+                    <div class="time-price">$17,000</div>
+                </div>
+            </div>
+
+            <!-- Product 8 -->
+            <div class="time-garment" data-aos="fade-up" data-aos-delay="800">
+                <div class="garment-front" data-aos="fade-up" onclick="viewProduct('eclipse8')">
+                    <a href="#"><img src="./images/ECL IGNITION POINT  BODYSUIT PRESENT.png" alt="Chronal Item 8"
+                            class="garment-image"></a>
+                    <h3 class="garment-name">THE IGNITION POINT BODYSUIT</h3>
+                    <div class="time-price">$12,000</div>
+                </div>
+            </div>
+
+            <!-- Product 9 -->
+            <div class="time-garment" data-aos="zoom-in" data-aos-delay="900">
+                <div class="garment-front" data-aos="fade-up" onclick="viewProduct('eclipse9')">
+                    <a href="#"><img src="./images/ECL EVENT HORIZON SKIRT PRESENT.png" alt="Chronal Item 9"
+                            class="garment-image"></a>
+                    <h3 class="garment-name">THE EVENT HORIZON</h3>
+                    <div class="time-price">$14,000</div>
+                </div>
+            </div>
+
+            <!-- Product 10 -->
+            <div class="time-garment" data-aos="fade-up" data-aos-delay="1000">
+                <div class="garment-front" data-aos="fade-up" onclick="viewProduct('eclipse10')">
+                    <a href="#"><img src="./images/ECL FOSSILIZED FLAME DRESS PRESENT - Copy.png" alt="Chronal Item 10"
+                            class="garment-image"></a>
+                    <h3 class="garment-name">THE FOSSILIZED FLAME</h3>
+                    <div class="time-price">$18,000</div>
+                </div>
+            </div>
+
+            <!-- Product 11 -->
+            <div class="time-garment" data-aos="zoom-in" data-aos-delay="1100">
+                <div class="garment-front" data-aos="fade-up" onclick="viewProduct('eclipse11')">
+                    <a href="#"><img src="./images/ECL TIME LAG JUMPSUIT PRESENT.png" alt="Chronal Item 11"
+                            class="garment-image"></a>
+                    <h3 class="garment-name">THE TIME-LAG JUMPSUIT</h3>
+                    <div class="time-price">$20,000</div>
+                </div>
+            </div>
+
+            <!-- Product 12 -->
+            <div class="time-garment" data-aos="fade-up" data-aos-delay="1200">
+                <div class="garment-front" data-aos="fade-up" onclick="viewProduct('eclipse12')">
+                    <a href="#"><img src="./images/ECL CASUAL NECPIECE PRESENT.png" alt="Chronal Item 12"
+                            class="garment-image"></a>
+                    <h3 class="garment-name">THE CASUAL-LOOP NECKPIECE</h3>
+                    <div class="time-price">$25,000</div>
+                </div>
+            </div>
+
+            <!-- Product 13 -->
+            <div class="time-garment" data-aos="zoom-in" data-aos-delay="1300">
+                <div class="garment-front" data-aos="fade-up" onclick="viewProduct('eclipse13')">
+                    <a href="#"><img src="./images/ECL SUPERNOVA SHROUD PRESENT.png" alt="Chronal Item 13"
+                            class="garment-image"></a>
+                    <h3 class="garment-name">THE SUPERNOVA SHROUD</h3>
+                    <div class="time-price">$14,000</div>
+                </div>
+            </div>
+
+            <!-- Product 14 -->
+            <div class="time-garment" data-aos="fade-up" data-aos-delay="1400">
+                <div class="garment-front" data-aos="fade-up" onclick="viewProduct('eclipse14')">
+                    <a href="#"><img src="./images/ECL TUNIC WEAVE PRESENT.png" alt="Chronal Item 14"
+                            class="garment-image"></a>
+                    <h3 class="garment-name">THE REWIND WEAVER TUNIC</h3>
+                    <div class="time-price">$14,000</div>
+                </div>
+            </div>
+
+            <!-- Product 15 -->
+            <div class="time-garment" data-aos="zoom-in" data-aos-delay="1500">
+                <div class="garment-front" data-aos="fade-up" onclick="viewProduct('eclipse15')">
+                    <a href="#"><img src="./images/ECL ASHEN COAT PRESENT.png" alt="Chronal Item 15"
+                            class="garment-image"></a>
+                    <h3 class="garment-name">THE ASHEN PHOENIX COAT</h3>
+                    <div class="time-price">$15,000</div>
+                </div>
+            </div>
+
+            <!-- Product 16 -->
+            <div class="time-garment" data-aos="fade-up" data-aos-delay="1600">
+                <div class="garment-front" data-aos="fade-up" onclick="viewProduct('eclipse16')">
+                    <a href="#"><img src="images/ECL SPACETIME DRAPE PRESENT.png" alt="Chronal Item 16"
+                            class="garment-image"></a>
+                    <h3 class="garment-name">THE SPACETIME DRAPE</h3>
+                    <div class="time-price">$18,000</div>
+                </div>
+            </div>
+
+            <!-- Product 17 -->
+            <div class="time-garment" data-aos="zoom-in" data-aos-delay="1700">
+                <div class="garment-front" data-aos="fade-up" onclick="viewProduct('eclipse17')">
+                    <a href="#"><img src="./images/ECL DILATION SUIT PRESENT.png" alt="Chronal Item 17"
+                            class="garment-image"></a>
+                    <h3 class="garment-name">THE DILATION SUIT</h3>
+                    <div class="time-price">$22,000</div>
+                </div>
+            </div>
+
+            <!-- Product 18 -->
+            <div class="time-garment" data-aos="fade-up" data-aos-delay="1800">
+                <div class="garment-front" data-aos="fade-up" onclick="viewProduct('eclipse18')">
+                    <a href="#"><img src="./images/ECL EMBER GLOVES PRESENT.png" alt="Chronal Item 18"
+                            class="garment-image"></a>
+                    <h3 class="garment-name">THE EMBER-KEEPER GLOVES</h3>
+                    <div class="time-price">$30,000</div>
+                </div>
+            </div>
+
+            <!-- Product 19 -->
+            <div class="time-garment" data-aos="zoom-in" data-aos-delay="1900">
+                <div class="garment-front" data-aos="fade-up" onclick="viewProduct('eclipse19')">
+                    <a href="#"><img src="./images/ECL GRANDFATHER PRESENT.png" alt="Chronal Item 19"
+                            class="garment-image"></a>
+                    <h3 class="garment-name">THE GRANDFATHER PARADOX</h3>
+                    <div class="time-price">$24,000</div>
+                </div>
+            </div>
+
+            <!-- Product 20 -->
+            <div class="time-garment" data-aos="fade-up" data-aos-delay="2000">
+                <div class="garment-front" data-aos="fade-up" onclick="viewProduct('eclipse20')">
+                    <a href="#"><img src="./images/ECL HOURGLASS LEV PREENT.png" alt="Chronal Item 20"
+                            class="garment-image"></a>
+                    <h3 class="garment-name">THE HOURGLASS LEVIATHAN</h3>
+                    <div class="time-price">$18,000</div>
+                </div>
+            </div>
+
+            <!-- Product 21 -->
+            <div class="time-garment" data-aos="zoom-in" data-aos-delay="2100">
+                <div class="garment-front" data-aos="fade-up" onclick="viewProduct('eclipse21')">
+                    <a href="#"><img src="./images/ECL IGINITION TUXEDO PRESENT.png" alt="Chronal Item 21"
+                            class="garment-image"></a>
+                    <h3 class="garment-name">The Ignition Tuxedo</h3>
+                    <div class="time-price">$15,000</div>
+                </div>
+            </div>
+
+            <!-- Product 22 -->
+            <div class="time-garment" data-aos="fade-up" data-aos-delay="2200">
+                <div class="garment-front" data-aos="fade-up" onclick="viewProduct('eclipse22')">
+                    <a href="#"><img src="./images/ECL FOLDED MOMENT PRESENT.png" alt="Chronal Item 22"
+                            class="garment-image"></a>
+                    <h3 class="garment-name">The Folded Moment</h3>
+                    <div class="time-price">$10,000</div>
+                </div>
+            </div>
+
+            <!-- Product 23 -->
+            <div class="time-garment" data-aos="zoom-in" data-aos-delay="2300">
+                <div class="garment-front" data-aos="fade-up" onclick="viewProduct('eclipse23')">
+                    <a href="#"><img src="./images/ECL LAST EMBER PRESENT.png" alt="Chronal Item 23"
+                            class="garment-image"></a>
+                    <h3 class="garment-name">The Last Ember</h3>
+                    <div class="time-price">$18,000</div>
+                </div>
+            </div>
+
+            <!-- Product 24 -->
+            <div class="time-garment" data-aos="fade-up" data-aos-delay="2400">
+                <div class="garment-front" data-aos="fade-up" onclick="viewProduct('eclipse24')">
+                    <a href="#"><img src="./images/ECL CHRONOS CROWN PRESENT.png" alt="Chronal Item 24"
+                            class="garment-image"></a>
+                    <h3 class="garment-name">The Chronos Crown</h3>
+                    <div class="time-price">$30,000</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Chronal Timeline -->
+    <section class="chronal-timeline" data-aos="fade-in">
+        <h2 class="section-title" data-aos="fade-right">Time Evolution</h2>
+        <div class="timeline-container" data-aos="fade-up">
+            <div class="time-marker" data-aos="zoom-in"></div>
+            <div class="era-grid">
+                <div class="time-era" data-aos="zoom-in" data-aos-delay="100">
+                    <h3 class="era-title">Past Echo</h3>
+                    <p>Garments that remember every moment worn</p>
+                </div>
+                <div class="time-era" data-aos="zoom-in" data-aos-delay="200">
+                    <h3 class="era-title">Present Flux</h3>
+                    <p>Clothing that adapts to current reality streams</p>
+                </div>
+                <div class="time-era" data-aos="zoom-in" data-aos-delay="300">
+                    <h3 class="era-title">Future Ghost</h3>
+                    <p>Fashion from timelines yet to be written</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Add this to your HTML after the orb but before closing body -->
+    <!-- Solar Singularity Orb -->
+    <div class="solar-singularity">
+        <div class="apocalypse-orb"></div>
+    </div>
+    <!-- Time Fracture Chatbot -->
+    <div class="chat-overlay"></div>
+    <div class="reality-chat">
+        <!-- Chat Header - Time Anomaly -->
+        <div class="time-chat-header">
+            <div class="chronal-avatar">
+                <div class="time-spinner"></div>
+                <span>TIME</span>
+            </div>
+            <div class="chat-title">
+                <h3>TEMPORAL ASSISTANT</h3>
+                <p>Exists across all time streams</p>
+            </div>
+            <div class="time-status">
+                <div class="paradox-indicator"></div>
+                <span>CAUSALITY STABLE</span>
+            </div>
+            <div class="time-close">×</div>
+        </div>
+
+        <!-- Chat Messages - Time Fractured -->
+        <div class="chronal-messages">
+            <div class="message time-message ai-message">
+                <div class="message-bubble">
+                    <div class="time-stamp">PAST-FUTURE-PRESENT</div>
+                    I exist in all time states simultaneously. Ask me about garments from any era, past, present, or
+                    future.
+                </div>
+            </div>
+
+            <div class="message time-message user-message">
+                <div class="message-bubble">
+                    <div class="time-stamp">NOW</div>
+                    Show me time-folding jackets
+                </div>
+            </div>
+
+            <div class="message time-message ai-message">
+                <div class="message-bubble">
+                    <div class="time-stamp">FUTURE-PAST</div>
+                    The Quantum Fold Jacket exists in 7 time dimensions. It folds into a singularity when not observed.
+                </div>
+            </div>
+
+            <!-- Time Fracture Effect -->
+            <div class="time-fracture">
+                <div class="fracture-line"></div>
+                <div class="fracture-text">TIME STREAM INTERRUPTION</div>
+                <div class="fracture-line"></div>
+            </div>
+
+            <div class="message time-message ai-message">
+                <div class="message-bubble">
+                    <div class="time-stamp">PRESENT-ALTERNATE</div>
+                    In timeline Beta-7, this jacket won the Temporal Fashion Awards 3024.
+                </div>
+            </div>
+        </div>
+
+        <!-- Time Input - Chronal Interface -->
+        <div class="time-input-container">
+            <div class="time-stream">
+                <div class="stream-marker past">PAST</div>
+                <div class="stream-marker present">NOW</div>
+                <div class="stream-marker future">FUTURE</div>
+            </div>
+            <div class="chronal-input">
+                <input type="text" placeholder="Ask across time streams..." class="time-input">
+                <button class="time-send">
+                    <div class="time-arrow">↗</div>
+                </button>
+            </div>
+            <div class="time-quick">
+                <div class="time-option" data-time="past">Ancient Styles</div>
+                <div class="time-option" data-time="present">Current Collection</div>
+                <div class="time-option" data-time="future">Future Fashion</div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- AOS Library Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            easing: 'ease-out-cubic',
+            once: true
+        });
+    </script>
+</body>
+
+</html>
+</script>
+<script src="product.js"></script>
+<script src="stylist.js"></script>
+<script>
+    function viewProduct(productId) {
+        // Find product by id from the array
+        const product = eclipseProducts.find(p => p.id === productId);
+        if (product) {
+            // ✅ Save full product details into localStorage
+            localStorage.setItem("selectedProduct", JSON.stringify(product));
+            // ✅ Redirect to the product page
+            window.location.href = "eclipseproduct.html";
+        }
+    }
+</script>
+<script>
+    // Scroll arrow functionality with error handling
+    const scrollArrow = document.getElementById('scrollArrow');
+    if (scrollArrow) {
+        scrollArrow.addEventListener('click', function () {
+            const shopCollection = document.getElementById('shop-collection');
+            if (shopCollection) {
+                window.scrollTo({
+                    top: shopCollection.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    }
+    const gravityCursor = document.querySelector('.gravity-cursor');
+
+    document.addEventListener('mousemove', (e) => {
+        gravityCursor.style.left = e.clientX - 30 + 'px';
+        gravityCursor.style.top = e.clientY - 30 + 'px';
+    });
+
+    // Reality Distortion on Orb Hover
+    const apocalypseOrb = document.querySelector('.apocalypse-orb');
+    const realityField = document.querySelector('.reality-distortion');
+
+    apocalypseOrb.addEventListener('mouseenter', () => {
+        realityField.style.animation = 'spaceTimeWarp 1s linear infinite';
+        document.body.style.filter = 'hue-rotate(90deg)';
+    });
+
+    apocalypseOrb.addEventListener('mouseleave', () => {
+        realityField.style.animation = 'spaceTimeWarp 10s linear infinite';
+        document.body.style.filter = 'hue-rotate(0deg)';
+    });
+
+    // Orb Click - Reality Break
+    apocalypseOrb.addEventListener('click', () => {
+        // Temporary reality break effect
+        document.body.style.animation = 'realityBreak 2s ease-in-out';
+        setTimeout(() => {
+            document.body.style.animation = '';
+        }, 5000);
+
+        // Chat interface will go here (reality-tearing popup)
+        console.log('REALITY BREACH: Chat interface tearing through space-time...');
+    });
+
+    // Chatbot functionality
+    function openTimeChat() {
+        document.querySelector('.chat-overlay').classList.add('active');
+        document.querySelector('.reality-chat').classList.add('active');
+
+        // Time fracture effect
+        document.body.style.animation = 'realityBreak 0.5s ease-in-out';
+        setTimeout(() => {
+            document.body.style.animation = '';
+        }, 500);
+    }
+
+    function closeTimeChat() {
+        document.querySelector('.chat-overlay').classList.remove('active');
+        document.querySelector('.reality-chat').classList.remove('active');
+    }
+
+    // Update orb click event
+    apocalypseOrb.addEventListener('click', openTimeChat);
+
+    // Close events
+    document.querySelector('.chat-overlay').addEventListener('click', closeTimeChat);
+    document.querySelector('.time-close').addEventListener('click', closeTimeChat);
+
+    // Time stream selection
+    const streamMarkers = document.querySelectorAll('.stream-marker');
+    streamMarkers.forEach(marker => {
+        marker.addEventListener('click', function () {
+            streamMarkers.forEach(m => m.classList.remove('active'));
+            this.classList.add('active');
+
+            // Time shift effect
+            document.querySelector('.reality-chat').style.filter = 'hue-rotate(90deg)';
+            setTimeout(() => {
+                document.querySelector('.reality-chat').style.filter = '';
+            }, 300);
+        });
+    });
+
+    // Quick time options
+    const timeOptions = document.querySelectorAll('.time-option');
+    timeOptions.forEach(option => {
+        option.addEventListener('click', function () {
+            const timePeriod = this.getAttribute('data-time');
+            const timeInput = document.querySelector('.time-input');
+
+            const questions = {
+                past: "Show me ancient temporal garments",
+                present: "What's available in the current timeline?",
+                future: "Show me future fashion from 3024"
+            };
+
+            timeInput.value = questions[timePeriod];
+            timeInput.focus();
+        });
+    });
+
+    // Portal Time Travel
+    const portals = document.querySelectorAll('.portal');
+
+    portals.forEach(portal => {
+        portal.addEventListener('click', () => {
+            document.body.style.filter = 'hue-rotate(120deg)';
+            setTimeout(() => {
+                document.body.style.filter = '';
+            }, 5000);
+        });
+    });
+
+    // 4. REALITY TEAR ON DOUBLE-CLICK
+    timeGarments.forEach(garment => {
+        let clickTimer;
+
+        garment.addEventListener('click', (e) => {
+            if (e.detail === 2) { // Double-click
+                e.preventDefault();
+                // Create reality tear effect
+                const tear = document.createElement('div');
+                tear.className = 'reality-tear';
+                tear.style.cssText = `
+                        top: ${e.clientY - 150}px;
+                        left: ${e.clientX - 150}px;
+                        width: 300px;
+                        height: 300px;
+                    `;
+
+                document.body.appendChild(tear);
+
+                // Enter extreme detail mode
+                garment.classList.add('extreme-detail');
+                detailClose.classList.add('visible');
+
+                // Remove tear after animation
+                setTimeout(() => tear.remove(), 1500);
+            }
+        });
+    });
+
+    // Close extreme detail mode
+    detailClose.addEventListener('click', () => {
+        timeGarments.forEach(garment => {
+            garment.classList.remove('extreme-detail');
+        });
+        detailClose.classList.remove('visible');
+    });
+
+    // 5. QUANTUM ENTANGLEMENT BETWEEN CARDS
+    timeGarments.forEach(garment => {
+        garment.addEventListener('mouseenter', () => {
+            // Find nearby garments and affect them
+            timeGarments.forEach(otherGarment => {
+                if (otherGarment !== garment && !otherGarment.classList.contains('extreme-detail')) {
+                    const rect1 = garment.getBoundingClientRect();
+                    const rect2 = otherGarment.getBoundingClientRect();
+
+                    const distance = Math.sqrt(
+                        Math.pow(rect1.left - rect2.left, 2) +
+                        Math.pow(rect1.top - rect2.top, 2)
+                    );
+
+                    if (distance < 600) { // Only affect nearby cards
+                        const intensity = 1 - (distance / 600);
+                        otherGarment.style.transform = `
+                                translateY(${Math.sin(intensity * Math.PI) * -15}px)
+                                rotate(${Math.cos(intensity * Math.PI) * 8}deg)
+                                scale(${1 + intensity * 0.1})
+                            `;
+                        otherGarment.style.filter = `
+                                hue-rotate(${intensity * 120}deg)
+                                brightness(${1 + intensity * 0.3})
+                            `;
+                    }
+                }
+            });
+        });
+
+        garment.addEventListener('mouseleave', () => {
+            // Reset all other garments (unless they're flipped or in detail mode)
+            timeGarments.forEach(otherGarment => {
+                if (otherGarment !== garment &&
+                    !otherGarment.classList.contains('active') &&
+                    !otherGarment.classList.contains('extreme-detail')) {
+                    otherGarment.style.transform = '';
+                    otherGarment.style.filter = '';
+                }
+            });
+        });
+    });
+
+    // Close flip when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.time-garment')) {
+            timeGarments.forEach(garment => {
+                if (garment.classList.contains('active') && !garment.classList.contains('extreme-detail')) {
+                    garment.classList.remove('active');
+                }
+            });
+        }
+    });
+</script>
+<script>
+    // ===== Eclipse Temporal Assistant Chat =====
+    document.addEventListener("DOMContentLoaded", function () {
+
+        // --- Elements ---
+        const apocalypseOrb = document.querySelector('.apocalypse-orb');
+        const chatOverlay = document.querySelector('.chat-overlay');
+        const realityChat = document.querySelector('.reality-chat');
+        const chatMessages = realityChat.querySelector('.chronal-messages');
+        const chatInput = realityChat.querySelector('.time-input');
+        const sendButton = realityChat.querySelector('.time-send');
+        const quickOptions = realityChat.querySelectorAll('.time-option');
+
+        // --- Open/Close Chat ---
+        function openChat() {
+            chatOverlay.classList.add('active');
+            realityChat.classList.add('active');
+            chatInput.focus();
+        }
+
+        function closeChat() {
+            chatOverlay.classList.remove('active');
+            realityChat.classList.remove('active');
+        }
+
+        apocalypseOrb.addEventListener('click', openChat);
+        chatOverlay.addEventListener('click', closeChat);
+        realityChat.querySelector('.time-close').addEventListener('click', closeChat);
+
+        // --- Add Message ---
+        function addMessage(text, sender) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message time-message ${sender}-message`;
+            const bubble = document.createElement('div');
+            bubble.className = 'message-bubble';
+            msgDiv.appendChild(bubble);
+
+            const timeDiv = document.createElement('div');
+            timeDiv.className = 'time-stamp';
+            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            timeDiv.textContent = time;
+            bubble.appendChild(timeDiv);
+
+            chatMessages.appendChild(msgDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Type letter by letter if AI
+            if (sender === 'ai') {
+                let i = 0;
+                const textSpan = document.createElement('span');
+                bubble.appendChild(textSpan);
+                const interval = setInterval(() => {
+                    textSpan.textContent += text[i];
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                    i++;
+                    if (i >= text.length) clearInterval(interval);
+                }, 25);
+            } else {
+                const textSpan = document.createElement('span');
+                textSpan.textContent = text;
+                bubble.appendChild(textSpan);
+            }
+        }
+
+        // --- Get AI Response ---
+        function getResponse(input) {
+            input = input.toLowerCase();
+            for (let item of eclipseStylistAnswers) {
+                for (let kw of item.keywords) {
+                    if (input.includes(kw.toLowerCase())) {
+                        return item.answer;
+                    }
+                }
+            }
+            return "Temporal anomaly detected… I cannot find an answer across this timeline.";
+        }
+
+        // --- Send Message ---
+        function sendMessage() {
+            const text = chatInput.value.trim();
+            if (!text) return;
+            addMessage(text, 'user');
+            chatInput.value = '';
+
+            // AI thinking simulation
+            const thinkingDiv = document.createElement('div');
+            thinkingDiv.className = 'message time-message ai-message';
+            const bubble = document.createElement('div');
+            bubble.className = 'message-bubble';
+            bubble.textContent = '⏳ Folding through time...';
+            thinkingDiv.appendChild(bubble);
+            chatMessages.appendChild(thinkingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            setTimeout(() => {
+                thinkingDiv.remove();
+                const response = getResponse(text);
+                addMessage(response, 'ai');
+            }, 1000 + Math.random() * 1500);
+        }
+
+        // --- Event Listeners ---
+        sendButton.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        // Standardized Hamburger Toggle from drops.html
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('open');
+            });
+        }
+
+        quickOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                const period = option.getAttribute('data-time');
+                const questions = {
+                    past: "Show me ancient temporal garments",
+                    present: "What's available in the current timeline?",
+                    future: "Show me future fashion from 3024"
+                };
+                chatInput.value = questions[period];
+                sendMessage();
+            });
+        });
+
+        // Optional: welcome message
+        setTimeout(() => {
+            addMessage("I exist across all time streams. Ask me about garments from any era, past, present, or future.", 'ai');
+        }, 500);
+
+    });
+
+</script>
+</body>
+
+</html>
